@@ -1,0 +1,23 @@
+/*font-family: 'Caveat',
+cursive;
+font-family: 'Fira Sans',
+sans-serif;
+font-family: 'Scada',
+sans-serif;*/
+*,
+body {
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+  box-sizing: border-box; }
+
+.logo-text {
+  padding: 20px 10px 10px 15px;
+  font-family: "font-family: 'Barlow',\a  sans-serif";
+  font-size: 35px;
+  line-height: 1.25rem; }
+  .logo-text__color_black {
+    color: black; }
+  .logo-text__color_blue {
+    color: #4C91F8; }
+  .logo-text__color_white {
+    color: white; }

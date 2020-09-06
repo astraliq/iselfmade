@@ -1,0 +1,23 @@
+@import '_param';
+*,
+body {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    box-sizing: border-box;
+}
+
+.logo-text {
+    padding: 20px 10px 10px 15px;
+    font-family: $font-logo;
+    font-size: 35px;
+    line-height: 1.25rem;
+    &__color_black {
+        color: black;
+    }
+    &__color_blue {
+        color: $color-blue;
+    }
+    &__color_white {
+        color: white;
+    }
+}
