@@ -21,3 +21,7 @@ body {
     color: #4C91F8; }
   .logo-text__color_white {
     color: white; }
+
+.container__width_100 {
+  width: 100%;
+  border: 2px sollid red; }

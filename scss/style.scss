@@ -21,3 +21,10 @@ body {
         color: white;
     }
 }
+
+.container {
+    &__width_100 {
+        width: 100%;
+        border: 2px sollid red;
+    }
+}
