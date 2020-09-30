@@ -102,11 +102,18 @@ body {
     font-size: 20px;
     line-height: 25px;
     color: #4C91F8; }
-    .main__data_title:hover {
-      cursor: pointer; }
   .main__data_line {
     padding-bottom: 1px;
-    border-bottom: 2px dashed #4C91F8; }
+    border-bottom: 1px dashed #000; }
+    .main__data_line:hover {
+      cursor: pointer; }
+
+.vshow {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 15px;
+  color: #000; }
 
 .goals {
   width: 100%;

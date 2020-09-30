@@ -12,7 +12,7 @@
 
 <body>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <div class="container">
+    <div class="container" id="app">
         <div class="custom_light">
             <div class="">
                 <img class="user_img" src="../img/user_img.jpg" width="60" height="60">
@@ -40,8 +40,8 @@
         </div>
         <div class="main__data">
             <div class="goals">
-                <a class="main__data_title main__data_line">Цели на год:</a>
-                <ol class="text__list_items">
+                <span class="main__data_title">Цели на год:</span> (<a class="vshow main__data_line" v-on:click="visible=!visible">{{visible?'свернуть':'показать'}}</a>)
+                <ol class="text__list_items" v-show="visible">
                     <li class="text__list_item">Самое главное, чего хочу достичь в этом году.</li>
                     <li class="text__list_item">Ещё одна цель, которую хочу достичь в этом году.</li>
                     <li class="text__list_item">А это не так важно, но тоже хочется сделать в этом году.</li>
@@ -50,8 +50,8 @@
             </div>
             <div class="aims">
                 <div class="aims__text">
-                    <a class="main__data_title main__data_line">Задачи на сентябрь:</a>
-                    <ol class="text__list_items">
+                    <span class="main__data_title">Задачи на сентябрь:</span> (<a class="vshow main__data_line" v-on:click="visiblee=!visiblee">{{visiblee?'свернуть':'показать'}}</a>)
+                    <ol class="text__list_items" v-show="visiblee">
                         <li class="text__list_item text__strike">Самая простая задача в сентябре.</li>
                         <li class="text__list_item text__strike">Ещё одна задача этого списка.</li>
                         <li class="text__list_item">Эту не хочу, но нужно.</li>
@@ -62,7 +62,7 @@
                         <li class="text__list_item">Сложная задача, которую потом решу.</li>
                     </ol>
                 </div>
-                <div class="aims__footnotes">
+                <div class="aims__footnotes" v-show="visiblee">
                     <div class="footnotes__text">Коэффециент выполнения</div>
                     <div class="footnotes__numbers footnotes__numbers_color-red">62,5%</div>
                 </div>
