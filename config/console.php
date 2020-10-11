@@ -21,6 +21,7 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'dao' => ['class' => \app\Components\DAOComponent::class],
+        'encrypt' => ['class' => \app\Components\EncryptComponent::class],
         'log' => [
             'targets' => [
                 [
