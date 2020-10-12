@@ -93,6 +93,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+<<<<<<< HEAD
     <orderEntry type="module" module-name="app" />
+=======
+>>>>>>> d686c17589b574f26de7e17aa0f26928fc2a588b
   </component>
 </module>

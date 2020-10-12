@@ -3,7 +3,10 @@
 
 class Tasks {
     constructor() {
+<<<<<<< HEAD
         this.init();
+=======
+>>>>>>> d686c17589b574f26de7e17aa0f26928fc2a588b
         this.task = '';
         this.private_id = null;
         this.type_id = 1;
@@ -20,6 +23,7 @@ class Tasks {
         this.inputSettingsClass = '.task__settings';
     }
 
+<<<<<<< HEAD
     //	_getJson(url, data) {
     //		return fetch(url, {
     //			method: 'POST',
@@ -31,11 +35,28 @@ class Tasks {
     //			.then ( result => result.json())
     //			.catch( error => console.log('Ошибка запроса: ' + error.message + error))
     //	}
+=======
+//	_getJson(url, data) {
+//		return fetch(url, {
+//			method: 'POST',
+//			headers: {
+//				'Content-Type': 'application/json',
+//			},
+//			body: JSON.stringify(data)
+//		})
+//			.then ( result => result.json())
+//			.catch( error => console.log('Ошибка запроса: ' + error.message + error))
+//	}
+>>>>>>> d686c17589b574f26de7e17aa0f26928fc2a588b
     _getJson(url, data) {
         return $.post({
             url: url,
             data: data,
+<<<<<<< HEAD
             success: function(data) {
+=======
+            success: function (data) {
+>>>>>>> d686c17589b574f26de7e17aa0f26928fc2a588b
                 //data приходят те данные, который прислал на сервер
                 if (data.result !== "OK") {
                     console.log('ERROR_GET_DATA_');
@@ -62,7 +83,11 @@ class Tasks {
             console.log('ошибка валидации');
             return false;
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> d686c17589b574f26de7e17aa0f26928fc2a588b
         let sendData = {
             'Tasks': {
                 'task': this.task,
@@ -87,7 +112,11 @@ class Tasks {
                 this.addTaskToHTML(tasksBlock, data.task)
             })
             .catch(error => {
+<<<<<<< HEAD
                 console.log(error);
+=======
+			    console.log(error);
+>>>>>>> d686c17589b574f26de7e17aa0f26928fc2a588b
             });
     }
 
@@ -122,7 +151,11 @@ class Tasks {
             el.addEventListener('focus', (e) => {
                 settings.show();
                 // закрытие окна при клике вне окна
+<<<<<<< HEAD
                 $(document).mousedown(function(e) { // событие клика по веб-документу
+=======
+                $(document).mousedown(function (e) { // событие клика по веб-документу
+>>>>>>> d686c17589b574f26de7e17aa0f26928fc2a588b
                     if (!$(el).is(e.target) && !settings.is(e.target) && settings.has(e.target).length === 0) { // если клик был не по нашему блоку и не по его дочерним элементам
                         settings.fadeOut(1); // скрываем его
                     }
@@ -130,6 +163,7 @@ class Tasks {
 
             });
             el.addEventListener('keypress', (e) => {
+<<<<<<< HEAD
                     if (e.which == 13 || e.keyCode == 13) {
                         e.preventDefault();
                         this._initCreateTask(el, settings);
@@ -145,6 +179,23 @@ class Tasks {
                 // });
         });
 
+=======
+                if (e.which == 13 || e.keyCode == 13) {
+                    e.preventDefault();
+                    this._initCreateTask(el, settings);
+                }
+            })
+            // el.parentElement.parentElement.parentElement.querySelector(this.inputSettingsClass).addEventListener('blur', (e) => {
+            //     el.parentElement.parentElement.parentElement.querySelector(this.inputSettingsClass).style.display = 'none';
+            //
+            // });
+            // el.addEventListener('blur', (e) => {
+            //     console.log(e);
+            //
+            // });
+        });
+        
+>>>>>>> d686c17589b574f26de7e17aa0f26928fc2a588b
     }
 
     _initCreateTask(elementInput, elemetSettings) {
@@ -158,4 +209,11 @@ class Tasks {
     }
 }
 let tasks = new Tasks();
+<<<<<<< HEAD
 // tasks.init();
+=======
+tasks.init();
+
+
+
+>>>>>>> d686c17589b574f26de7e17aa0f26928fc2a588b
