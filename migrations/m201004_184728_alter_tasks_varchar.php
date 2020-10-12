@@ -12,7 +12,7 @@ class m201004_184728_alter_tasks_varchar extends Migration
      */
     public function safeUp()
     {
-        $this->alterColumn('mission_tasks', 'task')
+        $this->alterColumn('mission_tasks', 'task');
         $this->addColumn('mission_tasks', 'date_start', $this->timestamp()->comment('Дата старта')->defaultExpression('now()')->notNull()->after('date_create'));
     }
 

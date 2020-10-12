@@ -24,9 +24,8 @@ class Tasks extends TasksBase {
 
     public function afterFind() {
         parent::afterFind();
-        $this->date_create_view = Yii::$app->formatter->asDateTime($this->date_create, 'php:d F Y, H:i:s');
-        $this->date_calculate_view = Yii::$app->formatter->asDateTime($this->date_calculate, 'php:d F Y, H:i:s');
-        $this->date_calculate = Yii::$app->formatter->asDate($this->date_calculate,'dd.MM.Y');
+        $this->date_create_view = \Yii::$app->formatter->asDateTime($this->date_create, 'php:d F Y, H:i:s');
+        $this->date_calculate_view = \Yii::$app->formatter->asDateTime($this->date_calculate, 'php:d F Y, H:i:s');
 //        echo $this->date_calculate;
 //        echo '<br>';
 //        exit();
