@@ -8,6 +8,11 @@ use yii\helpers\Html;
 
 <div class="tasks__list row">
     <a class="main__data_title main__data_line"><?= Html::encode($title) ?></a>
+    <?php
+        if (!$nextPeriod) {
+            echo '<button class="task_transfer" data-type="<?=$type_id?>">TR</button>';
+        }
+    ?>
     <ol class="text__list_items">
         <?php
         if ($tasks) {

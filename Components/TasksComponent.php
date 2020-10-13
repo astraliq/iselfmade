@@ -48,7 +48,7 @@ class TasksComponent extends BaseComponent {
                 ['<=', 'date_calculate', (new \DateTime(date('d.m.Y') . ' 23:59:59'))->format('Y-m-d H:i:s')]
             ])
             ->andWhere(['AND',
-                ['>=', 'date_start', (new \DateTime(date('d.m.Y')  . ' 00:00:00'))->format('Y-m-d H:i:s')],
+//                ['>=', 'date_start', (new \DateTime(date('d.m.Y')  . ' 00:00:00'))->format('Y-m-d H:i:s')],
                 ['<=', 'date_start', (new \DateTime(date('d.M.Y') . ' 23:59:59'))->format('Y-m-d H:i:s')]
             ])
             ->orderBy(['date_start' => SORT_DESC])
@@ -70,7 +70,7 @@ class TasksComponent extends BaseComponent {
                 ['<=', 'date_calculate', (new \DateTime(date('d.m.Y', $nextDay) . ' 23:59:59'))->format('Y-m-d H:i:s')]
             ])
             ->andWhere(['AND',
-                ['>=', 'date_start', (new \DateTime(date('d.m.Y', $nextDay)  . ' 00:00:00'))->format('Y-m-d H:i:s')],
+//                ['>=', 'date_start', (new \DateTime(date('d.m.Y', $nextDay)  . ' 00:00:00'))->format('Y-m-d H:i:s')],
                 ['<=', 'date_start', (new \DateTime(date('d.M.Y', $nextDay) . ' 23:59:59'))->format('Y-m-d H:i:s')]
             ])
             ->orderBy(['date_start' => SORT_DESC])
@@ -89,11 +89,11 @@ class TasksComponent extends BaseComponent {
             ])
             ->andWhere(['AND',
                 ['>=', 'date_calculate', (new \DateTime(date('01.'.date('m.Y'))))->format('Y-m-d H:i:s')],
-                ['<=', 'date_calculate', (new \DateTime(date('t', time()).'.'.date('m.Y') . ' 23:59:59'))->format('Y-m-d H:i:s')]
+                ['<=', 'date_calculate', (new \DateTime(date('t', time()).date('.m.Y') . ' 23:59:59'))->format('Y-m-d H:i:s')]
             ])
             ->andWhere(['AND',
-                ['>=', 'date_start', (new \DateTime(date('01.'.date('m.Y'))))->format('Y-m-d H:i:s')],
-                ['<=', 'date_start', (new \DateTime(date('t', time()).'.'.date('m.Y') . ' 23:59:59'))->format('Y-m-d H:i:s')]
+//                ['>=', 'date_start', (new \DateTime(date('01.'.date('m.Y'))))->format('Y-m-d H:i:s')],
+                ['<=', 'date_start', (new \DateTime(date('t', time()).date('.m.Y') . ' 23:59:59'))->format('Y-m-d H:i:s')]
             ])
             ->orderBy(['date_start' => SORT_DESC])
             ->all();
@@ -114,7 +114,7 @@ class TasksComponent extends BaseComponent {
                 ['<=', 'date_calculate', (new \DateTime(date('31.12.'.date('Y')) . ' 23:59:59'))->format('Y-m-d H:i:s')]
             ])
             ->andWhere(['AND',
-                ['>=', 'date_start', (new \DateTime(date('01.01.'.date('Y'))))->format('Y-m-d H:i:s')],
+//                ['>=', 'date_start', (new \DateTime(date('01.01.'.date('Y'))))->format('Y-m-d H:i:s')],
                 ['<=', 'date_start', (new \DateTime(date('31.12.'.date('Y')) . ' 23:59:59'))->format('Y-m-d H:i:s')]
             ])
             ->orderBy(['date_start' => SORT_DESC])
@@ -332,5 +332,46 @@ class TasksComponent extends BaseComponent {
             ->andWhere('deleted = 0')
             ->andWhere('dateStart>=:date',[':date'=>date('Y-m-d')])
             ->andWhere('dateStart<=:date2',[':date2'=>date('Y-m-d'. ' 23:59:59')])->all();
+    }
+
+    public function renewLastUnfinishedTasks($type_id) {
+        $prev = '';
+        switch ($type_id) {
+            case 1:
+                $prev = strtotime("-1 day");
+                $dateFrom = (new \DateTime(date('d.m.Y', $prev)  . ' 00:00:00'))->format('Y-m-d H:i:s');
+                $dateTo = (new \DateTime(date('d.m.Y', $prev) . ' 23:59:59'))->format('Y-m-d H:i:s');
+                break;
+            case 2:
+                $prev = strtotime("-1 month");
+                $dateFrom = (new \DateTime(date('01.m.Y', $prev)  . ' 00:00:00'))->format('Y-m-d H:i:s');
+                $dateTo = (new \DateTime(date('t', $prev).date('.m.Y', $prev) . ' 23:59:59'))->format('Y-m-d H:i:s');
+                break;
+            case 3:
+                $prev = strtotime("-1 year");
+                $dateFrom = (new \DateTime(date('01.01.'.date('Y',$prev))))->format('Y-m-d H:i:s');
+                $dateTo = (new \DateTime(date('31.12.'.date('Y',$prev)) . ' 23:59:59'))->format('Y-m-d H:i:s');
+                break;
+        }
+        $newDate = (new \DateTime(date('d.m.Y') . ' 23:59:59'))->format('Y-m-d H:i:s');
+//        echo $newDate;
+//        exit();
+        $update = Tasks::updateAll(
+            ['date_calculate' => $newDate],
+                ['and',
+                    ['user_id' => \Yii::$app->user->getId()],
+                    ['type_id' => $type_id,],
+                    ['deleted' => 0,],
+                    ['finished' => 0,],
+                    ['>=', 'date_calculate', $dateFrom],
+                    ['<=', 'date_calculate', $dateTo],
+//                    ['>=', 'date_start', (new \DateTime(date('d.m.Y', $prev)  . ' 00:00:00'))->format('Y-m-d H:i:s')],
+//                    ['<=', 'date_start', (new \DateTime(date('d.M.Y', $prev) . ' 23:59:59'))->format('Y-m-d H:i:s')],
+                ]
+        );
+        if ($update) {
+            return true;
+        }
+        return false;
     }
 }

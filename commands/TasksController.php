@@ -23,6 +23,9 @@ class TasksController extends BaseConsoleController {
         return ExitCode::OK;
     }
 
+    /**
+     * запускает скрипт перемещения в архивную таблицу всех заверешенных задач за предыдущий год
+     */
     public function actionArchive() {
         $comp = \Yii::createObject(['class' => ArchiveTasksComponent::class,'modelClass' => ArchiveTasks::class]);
         $model = $comp->getModel();

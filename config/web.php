@@ -74,6 +74,7 @@ $config = [
                 'task/view/<user_id:\d+>/<id:\d+>'=>'task/view',
                 'task/change/<id:\d+>'=>'task/change',
                 'task/change/<user_id:\d+>/<id:\d+>'=>'task/change',
+                'task/transfer/<type:\d+>'=>'task/transfer',
                 'task/del/<id:\d+>'=>'task/del',
                 'task/del/<user_id:\d+>/<id:\d+>'=>'task/del',
                 'task/restore/<id:\d+>'=>'task/restore',
