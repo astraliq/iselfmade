@@ -17,9 +17,10 @@ class Tasks {
         this.nextPeriod = 0;
         this.inputTaskClass = '.task__input';
         this.inputSettingsClass = '.task__settings';
+        this.transferBtn = '.task_transfer_btn';
     }
 
-//	_getJson(url, data) {
+//	_post(url, data) {
 //		return fetch(url, {
 //			method: 'POST',
 //			headers: {
@@ -30,13 +31,13 @@ class Tasks {
 //			.then ( result => result.json())
 //			.catch( error => console.log('Ошибка запроса: ' + error.message + error))
 //	}
-    _getJson(url, data) {
+    _post(url, data) {
         return $.post({
             url: url,
             data: data,
             success: function (data) {
                 //data приходят те данные, который прислал на сервер
-                if (data.result !== "OK") {
+                if (data.result !== true) {
                     console.log('ERROR_GET_DATA_');
                 }
             }
@@ -53,6 +54,10 @@ class Tasks {
 
     _deleteEmptyBlock(emptyBlock) {
         emptyBlock.remove();
+    }
+
+    renderAllTasks(tasksBlock, html) {
+        $(tasksBlock).replaceWith(html);
     }
 
     _createTask(inputBlock, settingsBlock) {
@@ -78,7 +83,7 @@ class Tasks {
                 'nextPeriod': this.nextPeriod,
             }
         };
-        this._getJson('/task/create', sendData)
+        this._post('/task/create', sendData)
             .then(data => {
                 this._clearCurrentInput(inputBlock);
                 let tasksBlock = $(inputBlock).parent().parent().parent();
@@ -87,6 +92,20 @@ class Tasks {
             })
             .catch(error => {
 			    console.log(error);
+            });
+    }
+    
+    _tranferTasks(elementTasks, type) {
+        let sendData = {
+                'type': type,
+        };
+        this._post('/task/transfer', sendData)
+            .then(data => {
+                console.log(data);
+                this.renderAllTasks(elementTasks.parentNode, data.tasks)
+            })
+            .catch(error => {
+                console.log(error);
             });
     }
 
@@ -133,7 +152,7 @@ class Tasks {
                     e.preventDefault();
                     this._initCreateTask(el, settings);
                 }
-            })
+            });
             // el.parentElement.parentElement.parentElement.querySelector(this.inputSettingsClass).addEventListener('blur', (e) => {
             //     el.parentElement.parentElement.parentElement.querySelector(this.inputSettingsClass).style.display = 'none';
             //
@@ -143,7 +162,13 @@ class Tasks {
             //
             // });
         });
-        
+
+        let tranferBtns = document.querySelectorAll(this.transferBtn);
+        tranferBtns.forEach((btn) => {
+            btn.addEventListener('click', (e) => {
+                this._tranferTasks(btn, btn.dataset.type);
+            })
+        })
     }
 
     _initCreateTask(elementInput, elemetSettings) {

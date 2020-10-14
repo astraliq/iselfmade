@@ -72,7 +72,8 @@ class CreateAction extends Action {
 //                return $this->controller->redirect(['/task/view/' . $task->id]);
                 if (\Yii::$app->request->isAjax) {
                     $newTask = $model->findOne(['id' => $task->id, 'user_id' => \Yii::$app->user->getId()]);
-                    return ['result' => 'OK', 'task' => $this->controller->renderAjax('viewTaskAjax', [
+
+                    return ['result' => true, 'task' => $this->controller->renderAjax('viewTaskAjax', [
                         'task' => $newTask,
                     ])];
                 } else {

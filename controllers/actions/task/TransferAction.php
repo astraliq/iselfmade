@@ -11,7 +11,7 @@ use yii\web\HttpException;
 use yii\web\Response;
 
 class TransferAction extends Action {
-    public function run($type) {
+    public function run() {
         if (!\Yii::$app->rbac->canCreateTask()) {
             throw new HttpException(403,'Нет доступа');
         }
@@ -22,11 +22,21 @@ class TransferAction extends Action {
             if (\Yii::$app->request->isAjax) {
                 \Yii::$app->response->format = Response::FORMAT_JSON;
             }
+            $type_id = \Yii::$app->request->post()['type'];
+            $res = $comp->renewLastUnfinishedTasks($type_id);
 
+            $widgetData = $comp->getWidgetData($type_id);
+
+            return ['result' => $res, 'tasks' => \app\widgets\tasks\TasksViewWidget::widget([
+                'title' => $widgetData['title'],
+                'tasks' => $widgetData['tasks'],
+                'del' => false,
+                'type_id' => $type_id,
+                'model' => $model,
+                'nextPeriod' => 0,
+            ])];
         }
-        $res = $comp->renewLastUnfinishedTasks($type);
-        echo $res;
-        exit();
+
 //        echo '<pre>';
 //        print_r($model);
 //        echo '</pre>';

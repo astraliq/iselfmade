@@ -28,7 +28,7 @@ class ViewAllTasks extends Action {
         // задачи на год
         $goals = $comp->getTodayUserGoals();
         // удаленные задачи
-        $deleted = $comp->getDeletedTasks();
+//        $deleted = $comp->getDeletedTasks();
 
         if (\Yii::$app->request->isAjax) {
             \Yii::$app->response->format=Response::FORMAT_JSON;
@@ -40,7 +40,7 @@ class ViewAllTasks extends Action {
             'tasksTomorrow' => $tasksTomorrow,
             'aims' => $aims,
             'goals' => $goals,
-            'deleted' => $deleted,
+//            'deleted' => $deleted,
             'model' => $model,
 //            'provider' => $provider,
             'admin'=>$admin,
