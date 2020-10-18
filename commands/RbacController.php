@@ -15,7 +15,7 @@ class RbacController extends Controller {
     }
 
     public function actionSetAllRolesToUser() {
-        if (\Yii::$app->rbac->setAllRolesToUser()) {
+        if (!\Yii::$app->rbac->setAllRolesToUser()) {
             $this->stdout("Произошла ошибка!\n", Console::BG_RED);
             return ExitCode::UNSPECIFIED_ERROR;
         }
@@ -32,6 +32,20 @@ class RbacController extends Controller {
 
     public function actionSetUserRole($id) {
         if (\Yii::$app->rbac->setUserRole($id)) {
+            $this->stdout("Done!\n", Console::BOLD);
+            return ExitCode::OK;
+        }
+    }
+
+    public function actionSetCuratorRole($id) {
+        if (\Yii::$app->rbac->setCuratorRole($id)) {
+            $this->stdout("Done!\n", Console::BOLD);
+            return ExitCode::OK;
+        }
+    }
+
+    public function actionSetBuddyRole($id) {
+        if (\Yii::$app->rbac->setBuddyRole($id)) {
             $this->stdout("Done!\n", Console::BOLD);
             return ExitCode::OK;
         }

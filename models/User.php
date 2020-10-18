@@ -18,6 +18,7 @@ class User extends UserBase implements IdentityInterface
 
     private const SCENARIO_SIGN_UP = 'signUp';
     private const SCENARIO_SIGN_IN = 'signIn';
+    private const SCENARIO_UPD_PSW = 'updateWithPassword';
 
     public function scenarioSignUp(){
         $this->scenario = self::SCENARIO_SIGN_UP;
@@ -27,10 +28,16 @@ class User extends UserBase implements IdentityInterface
         $this->scenario = self::SCENARIO_SIGN_IN;
     }
 
+    public function scenarioUpdateWithPass(){
+        $this->scenario = self::SCENARIO_UPD_PSW;
+    }
+
     public function scenarios() {
         return [
             self::SCENARIO_SIGN_UP => ['email', 'password', 'repeat_password'],
             self::SCENARIO_SIGN_IN => ['email', 'password'],
+            self::SCENARIO_UPD_PSW => ['email', 'password', 'repeat_password', 'name', 'surname', 'phone_number', 'timezone', 'avaReal'],
+            'default' => ['email', 'name', 'surname', 'phone_number', 'timezone', 'avaReal']
         ];
     }
 
@@ -44,9 +51,9 @@ class User extends UserBase implements IdentityInterface
     }
 
 
-    public function rules()
-    {
+    public function rules() {
         return array_merge([
+            [['avaReal'], 'safe'],
             ['avaReal','file', 'extensions' => ['jpg', 'png', 'jpeg'], 'maxFiles' => 1],
             ['password', 'required','when'=> function ($model) {return !\Yii::$app->request->isAjax;}],
             ['repeat_password', 'compare', 'compareAttribute' => 'password','on'=> self::SCENARIO_SIGN_UP, 'message' => 'Пароли должны совпадать'],
@@ -152,9 +159,15 @@ class User extends UserBase implements IdentityInterface
      * {@inheritdoc}
      */
     public function attributeLabels() {
-        return array_merge([
+        return array_merge(parent::attributeLabels(), [
+            'name' => Yii::t('app', 'Имя'),
+            'surname' => Yii::t('app', 'Фамилия'),
+            'phone_number' => Yii::t('app', 'Номер телефона'),
+            'email' => Yii::t('app', 'Электронная почта'),
+            'avaReal' => Yii::t('app', 'Аватар'),
+            'timezone' => Yii::t('app', 'Часовой пояс'),
             'password' => Yii::t('app', 'Пароль'),
             'repeat_password' => Yii::t('app', 'Повтор пароля'),
-        ], parent::attributeLabels());
+        ]);
     }
 }

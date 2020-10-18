@@ -26,15 +26,20 @@ class UserComponent extends BaseComponent {
         }
 
         if ($user->validate()) {
-            $file = $fileSaver->saveAvatar($file);
-            if (!$file) {
-                return false;
+            if ($user->avaReal) {
+                $file = $fileSaver->saveAvatar($user->avaReal);
             }
+
+//            if (!$file) {
+//                return false;
+//            }
+
             $user->avatar = $user->avaReal;
             // валидация + сохранение активности
             if ($user->save(false)) {
                 return true;
             }
+
             \Yii::error($user->getErrors());
             return false;
         }
