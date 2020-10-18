@@ -14,6 +14,7 @@ class User extends UserBase implements IdentityInterface
     public $password;
     public $repeat_password;
     public $token;
+    public $avaReal;
 
     private const SCENARIO_SIGN_UP = 'signUp';
     private const SCENARIO_SIGN_IN = 'signIn';
@@ -46,6 +47,7 @@ class User extends UserBase implements IdentityInterface
     public function rules()
     {
         return array_merge([
+            ['avaReal','file', 'extensions' => ['jpg', 'png', 'jpeg'], 'maxFiles' => 1],
             ['password', 'required','when'=> function ($model) {return !\Yii::$app->request->isAjax;}],
             ['repeat_password', 'compare', 'compareAttribute' => 'password','on'=> self::SCENARIO_SIGN_UP, 'message' => 'Пароли должны совпадать'],
             ['repeat_password', 'required', 'message' => 'Необходимо повторить пароль'],

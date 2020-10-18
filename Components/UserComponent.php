@@ -5,6 +5,8 @@ namespace app\Components;
 
 
 use app\base\BaseComponent;
+use app\models\User;
+use yii\web\UploadedFile;
 
 class UserComponent extends BaseComponent {
     public $modelClass;
@@ -17,5 +19,28 @@ class UserComponent extends BaseComponent {
         return new $this->modelClass;
     }
 
-    
+    public function updateUser(User $user):bool {
+        if ($user->avaReal) {
+            $user->avaReal = UploadedFile::getInstances($user, 'avaReal');
+            $fileSaver = \Yii::createObject(['class' => FileSaverComponent::class]);
+        }
+
+        if ($user->validate()) {
+            $file = $fileSaver->saveAvatar($file);
+            if (!$file) {
+                return false;
+            }
+            $user->avatar = $user->avaReal;
+            // валидация + сохранение активности
+            if ($user->save(false)) {
+                return true;
+            }
+            \Yii::error($user->getErrors());
+            return false;
+        }
+        //валидация файлов не прошла
+        return false;
+    }
+
+
 }
