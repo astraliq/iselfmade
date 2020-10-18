@@ -71,10 +71,16 @@ class CreateAction extends Action {
 //                return $this->controller->redirect($lastPage);
 //                return $this->controller->redirect(['/task/view/' . $task->id]);
                 if (\Yii::$app->request->isAjax) {
-                    $newTask = $model->findOne(['id' => $task->id, 'user_id' => \Yii::$app->user->getId()]);
+                    $widgetData = $comp->getWidgetData($task->type_id, $task->nextPeriod);
 
-                    return ['result' => true, 'task' => $this->controller->renderAjax('viewTaskAjax', [
-                        'task' => $newTask,
+                    return ['result' => true, 'tasks' => \app\widgets\tasks\TasksViewWidget::widget([
+                        'title' => $widgetData['title'],
+                        'tasks' => $widgetData['tasks'],
+                        'del' => false,
+                        'type_id' => $task->type_id,
+                        'model' => $model,
+                        'nextPeriod' => $widgetData['nextPeriod'],
+                        'renewLast' => $comp->checkDataToRenew($task->type_id),
                     ])];
                 } else {
                     return $this->controller->redirect(['/report']);

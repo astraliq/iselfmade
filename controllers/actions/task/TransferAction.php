@@ -24,17 +24,20 @@ class TransferAction extends Action {
             }
             $type_id = \Yii::$app->request->post()['type'];
             $res = $comp->renewLastUnfinishedTasks($type_id);
+            if ($res) {
+                $widgetData = $comp->getWidgetData($type_id, 0);
 
-            $widgetData = $comp->getWidgetData($type_id);
-
-            return ['result' => $res, 'tasks' => \app\widgets\tasks\TasksViewWidget::widget([
-                'title' => $widgetData['title'],
-                'tasks' => $widgetData['tasks'],
-                'del' => false,
-                'type_id' => $type_id,
-                'model' => $model,
-                'nextPeriod' => 0,
-            ])];
+                return ['result' => true, 'tasks' => \app\widgets\tasks\TasksViewWidget::widget([
+                    'title' => $widgetData['title'],
+                    'tasks' => $widgetData['tasks'],
+                    'del' => false,
+                    'type_id' => $type_id,
+                    'model' => $model,
+                    'nextPeriod' => 0,
+                ])];
+            } else {
+                return ['result' => false];
+            }
         }
 
 //        echo '<pre>';

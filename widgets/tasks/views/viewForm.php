@@ -20,8 +20,9 @@ use yii\helpers\Html;
                 $btnName = 'Перенести незавершенные задачи за вчера';
                 break;
         }
+        $active = $renewLast ? '' : 'disabled';
         if (!$nextPeriod) {
-            echo '<button class="task_transfer_btn icon-arrow-curved" data-type="' . $type_id . '" title="' . $btnName . '"></button>';
+            echo '<button class="task_transfer_btn icon-arrow-curved" ' . $active .' data-type="' . $type_id . '" title="' . $btnName . '"></button>';
         }
     ?>
     <ol class="text__list_items">

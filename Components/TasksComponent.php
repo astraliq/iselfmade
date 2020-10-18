@@ -334,7 +334,7 @@ class TasksComponent extends BaseComponent {
             ->andWhere('dateStart<=:date2',[':date2'=>date('Y-m-d'. ' 23:59:59')])->all();
     }
 
-    public function renewLastUnfinishedTasks($type_id):bool {
+    private function getDataToRenewTasks($type_id) {
         $prev = '';
         switch ($type_id) {
             case 1:
@@ -354,17 +354,45 @@ class TasksComponent extends BaseComponent {
                 break;
         }
         $newDate = (new \DateTime(date('d.m.Y') . ' 23:59:59'))->format('Y-m-d H:i:s');
-//        echo $newDate;
-//        exit();
+        return [
+            'newDate' => $newDate,
+            'dateFrom' => $dateFrom,
+            'dateTo' => $dateTo,
+        ];
+    }
+
+    public function checkDataToRenew($type_id):bool {
+        $renewData = $this->getDataToRenewTasks($type_id);
+        $check = Tasks::find()
+            ->where([
+                'user_id' => \Yii::$app->user->getId(),
+                'type_id' => $type_id,
+                'deleted' => 0,
+                'finished' => 0,
+            ])->andWhere(['AND',
+                ['>=', 'date_calculate', $renewData['dateFrom']],
+                ['<=', 'date_calculate', $renewData['dateTo']],
+            ])
+            ->orderBy(['date_create' => SORT_DESC])
+            ->all();
+        if ($check) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function renewLastUnfinishedTasks($type_id):bool {
+        $renewData = $this->getDataToRenewTasks($type_id);
         $update = Tasks::updateAll(
-            ['date_calculate' => $newDate],
+            ['date_calculate' => $renewData['newDate']],
                 ['and',
                     ['user_id' => \Yii::$app->user->getId()],
-                    ['type_id' => $type_id,],
-                    ['deleted' => 0,],
-                    ['finished' => 0,],
-                    ['>=', 'date_calculate', $dateFrom],
-                    ['<=', 'date_calculate', $dateTo],
+                    ['type_id' => $type_id],
+                    ['deleted' => 0],
+                    ['finished' => 0],
+                    ['>=', 'date_calculate', $renewData['dateFrom']],
+                    ['<=', 'date_calculate', $renewData['dateTo']],
 //                    ['>=', 'date_start', (new \DateTime(date('d.m.Y', $prev)  . ' 00:00:00'))->format('Y-m-d H:i:s')],
 //                    ['<=', 'date_start', (new \DateTime(date('d.M.Y', $prev) . ' 23:59:59'))->format('Y-m-d H:i:s')],
                 ]
@@ -375,25 +403,32 @@ class TasksComponent extends BaseComponent {
         return false;
     }
 
-    public function getWidgetData($type_id) {
-        switch ($type_id) {
-            case 3:
-                $title = 'Цели на год';
-                $tasks = $this->getTodayUserGoals();
-                break;
-            case 2:
-                $month = \Yii::$app->params['monthsImenit'][\Yii::$app->formatter->asDate(date('Y-m-d'), 'M')];
-                $title = 'Задачи на '. $month;
-                $tasks = $this->getTodayUserAims();
-                break;
-            case 1:
-                $title = 'Что я сделал сегодня';
-                $tasks = $this->getTodayUserTasks();
-                break;
+    public function getWidgetData($type_id, $nextPeriod) {
+        if ($nextPeriod == 0) {
+            switch ($type_id) {
+                case 3:
+                    $title = 'Цели на год';
+                    $tasks = $this->getTodayUserGoals();
+                    break;
+                case 2:
+                    $month = \Yii::$app->params['monthsImenit'][\Yii::$app->formatter->asDate(date('Y-m-d'), 'M')];
+                    $title = 'Задачи на '. $month;
+                    $tasks = $this->getTodayUserAims();
+                    break;
+                case 1:
+                    $title = 'Что я сделал сегодня';
+                    $tasks = $this->getTodayUserTasks();
+                    break;
+            }
+        } else {
+            $title = 'Что я сделаю завтра';
+            $tasks = $this->getTomorrowUserTasks();
         }
+
         return [
             'title' => $title,
-            'tasks' => $tasks
+            'tasks' => $tasks,
+            'nextPeriod' => $nextPeriod,
         ];
     }
 }

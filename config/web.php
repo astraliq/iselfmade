@@ -64,6 +64,7 @@ $config = [
         'db' => $db,
         'rbac' => ['class' => \app\Components\RbacComponent::class],
         'task' => ['class' => \app\Components\TasksComponent::class],
+        'userComp' => ['class' => \app\Components\UserComponent::class],
         'encrypt' => ['class' => \app\Components\EncryptComponent::class],
         'urlManager' => [
             'enablePrettyUrl' => true,

@@ -240,3 +240,7 @@ body {
 
 .task_transfer_btn:active {
   transform: scale(0.95); }
+
+.task_transfer_btn:disabled {
+  background-color: #f7f5f7;
+  color: grey; }

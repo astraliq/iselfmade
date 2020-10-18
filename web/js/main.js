@@ -44,10 +44,6 @@ class Tasks {
         })
     }
 
-    addTaskToHTML(tasksBlock, htmlTask) {
-        tasksBlock.prepend(htmlTask);
-    }
-
     _clearCurrentInput(inputBlock) {
         $(inputBlock).val('');
     }
@@ -85,10 +81,12 @@ class Tasks {
         };
         this._post('/task/create', sendData)
             .then(data => {
-                this._clearCurrentInput(inputBlock);
-                let tasksBlock = $(inputBlock).parent().parent().parent();
-                this._deleteEmptyBlock(tasksBlock.children('.text__list_empty'));
-                this.addTaskToHTML(tasksBlock, data.task)
+                if (data.result) {
+                    this._clearCurrentInput(inputBlock);
+                    let tasksBlock = $(inputBlock).parents('.tasks__list');
+                    this._deleteEmptyBlock(tasksBlock.children('.text__list_empty'));
+                    this.renderAllTasks(tasksBlock, data.tasks)
+                }
             })
             .catch(error => {
 			    console.log(error);
@@ -101,8 +99,9 @@ class Tasks {
         };
         this._post('/task/transfer', sendData)
             .then(data => {
-                console.log(data);
-                this.renderAllTasks(elementTasks.parentNode, data.tasks)
+                if (data.result) {
+                    this.renderAllTasks(elementTasks.parentNode, data.tasks)
+                }
             })
             .catch(error => {
                 console.log(error);

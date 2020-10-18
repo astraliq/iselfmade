@@ -291,3 +291,9 @@ body {
     //box-shadow: 0 0 0;
     transform: scale(0.95);
 }
+
+.task_transfer_btn:disabled {
+    background-color: $color-disable;
+    color: $color-disable2;
+
+}
