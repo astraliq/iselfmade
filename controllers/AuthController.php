@@ -46,7 +46,6 @@ class AuthController extends Controller
         $model = new User([
             'scenario' => 'signIn'
         ]);
-
         if (!empty(\Yii::$app->session->getFlash('user_email'))) {
             $model->email = \Yii::$app->session->getFlash('user_email')[0];
         }

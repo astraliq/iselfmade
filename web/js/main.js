@@ -3,6 +3,7 @@
 
 class Tasks {
     constructor() {
+        this.init();
         this.task = '';
         this.private_id = null;
         this.type_id = 1;
@@ -21,6 +22,20 @@ class Tasks {
     }
 
 //	_post(url, data) {
+    //	_getJson(url, data) {
+    //		return fetch(url, {
+    //			method: 'POST',
+    //			headers: {
+    //				'Content-Type': 'application/json',
+    //			},
+    //			body: JSON.stringify(data)
+    //		})
+    //			.then ( result => result.json())
+    //			.catch( error => console.log('Ошибка запроса: ' + error.message + error))
+    //	}
+
+//	_getJson(url, data) {
+
 //		return fetch(url, {
 //			method: 'POST',
 //			headers: {
@@ -32,10 +47,13 @@ class Tasks {
 //			.catch( error => console.log('Ошибка запроса: ' + error.message + error))
 //	}
     _post(url, data) {
+    _getJson(url, data) {
         return $.post({
             url: url,
             data: data,
+            success: function(data) {
             success: function (data) {
+
                 //data приходят те данные, который прислал на сервер
                 if (data.result !== true) {
                     console.log('ERROR_GET_DATA_');
@@ -62,7 +80,6 @@ class Tasks {
             console.log('ошибка валидации');
             return false;
         }
-        
         let sendData = {
             'Tasks': {
                 'task': this.task,
@@ -91,7 +108,6 @@ class Tasks {
                 }
             })
             .catch(error => {
-			    console.log(error);
             });
     }
     
@@ -154,7 +170,35 @@ class Tasks {
         // let settingsAll = $(this.inputSettingsClass);
         elems.forEach((el) => {
             this._addSettingsEvents(el);
+            let settings = $(el).parent().children(this.inputSettingsClass);
+            el.addEventListener('focus', (e) => {
+                settings.show();
+                // закрытие окна при клике вне окна
+
+                $(document).mousedown(function (e) { // событие клика по веб-документу
+                    if (!$(el).is(e.target) && !settings.is(e.target) && settings.has(e.target).length === 0) { // если клик был не по нашему блоку и не по его дочерним элементам
+                        settings.fadeOut(1); // скрываем его
+                    }
+                });
+
+            });
             el.addEventListener('keypress', (e) => {
+                    if (e.which == 13 || e.keyCode == 13) {
+                        e.preventDefault();
+                        this._initCreateTask(el, settings);
+                    }
+                })
+                // el.parentElement.parentElement.parentElement.querySelector(this.inputSettingsClass).addEventListener('blur', (e) => {
+                //     el.parentElement.parentElement.parentElement.querySelector(this.inputSettingsClass).style.display = 'none';
+                //
+                // });
+                // el.addEventListener('blur', (e) => {
+                //     console.log(e);
+                //
+                // });
+        });
+
+=======
                 if (e.which == 13 || e.keyCode == 13) {
                     e.preventDefault();
                     this._initCreateTask(el);
@@ -169,13 +213,12 @@ class Tasks {
             //
             // });
         });
-
         let tranferBtns = document.querySelectorAll(this.transferBtn);
         tranferBtns.forEach((btn) => {
             btn.addEventListener('click', (e) => {
                 this._tranferTasks(btn, btn.dataset.type);
             })
-        })
+        })       
     }
 
     _initCreateTask(elementInput) {
@@ -189,7 +232,5 @@ class Tasks {
     }
 }
 let tasks = new Tasks();
+// tasks.init();
 tasks.init();
-
-
-

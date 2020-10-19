@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@200;300;400;500;600&family=Caveat:wght@400;700&family=Fira+Sans:wght@300;400;500;600;700;800&family=Scada:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,600;1,600;1,700&family=Source+Sans+Pro:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../web/css/style.css">
+    <title>Отчёт</title>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <div class="container" id="app">
+        <div class="custom_light">
+            <div class="">
+                <img class="user_img" src="../web/img/user_img.jpg" width="60" height="60">
+            </div>
+        </div>
+        <div class="menu">
+            <div class="date">
+                <span class="date__day">28</span>
+                <span class="date__month">.09</span>
+                <p class="date__weekday">понедельник</p>
+            </div>
+            <div class="menu__list">
+                <ul class="menu__items">
+                    <li class="menu__item menu__item_select">Отчёт</li>
+                    <li class="menu__item">Мои обещания</li>
+                    <li class="menu__item">Группа поддержки</li>
+                    <li class="menu__item">Бадди</li>
+                    <li class="menu__item">Мои челленджи</li>
+                    <li class="menu__item">Статистика</li>
+                    <li class="menu__item">Категории</li>
+                    <li class="menu__item">Повторяющиеся задачи</li>
+                    <li class="menu__item">Архив отчётов</li>
+                </ul>
+            </div>
+        </div>
+        <div class="main__data">
+            <div class="goals">
+                <span class="main__data_title">Цели на год:</span> (<a class="vshow main__data_line" v-on:click="visible=!visible">{{visible?'свернуть':'показать'}}</a>)
+                <ol class="text__list_items" v-show="visible">
+                    <li class="text__list_item">Самое главное, чего хочу достичь в этом году.</li>
+                    <li class="text__list_item">Ещё одна цель, которую хочу достичь в этом году.</li>
+                    <li class="text__list_item">А это не так важно, но тоже хочется сделать в этом году.</li>
+                    <li class="text__list_item">Ещё одна цель: амбициозный год.</li>
+                </ol>
+            </div>
+            <div class="aims">
+                <div class="aims__text">
+                    <span class="main__data_title">Задачи на сентябрь:</span> (<a class="vshow main__data_line" v-on:click="visiblee=!visiblee">{{visiblee?'свернуть':'показать'}}</a>)
+                    <ol class="text__list_items" v-show="visiblee">
+                        <li class="text__list_item text__strike">Самая простая задача в сентябре.</li>
+                        <li class="text__list_item text__strike">Ещё одна задача этого списка.</li>
+                        <li class="text__list_item">Эту не хочу, но нужно.</li>
+                        <li class="text__list_item text__strike">Самая крутая задача, на которую нужно время.</li>
+                        <li class="text__list_item text__strike">Задача, которую решил достаточно быстро.</li>
+                        <li class="text__list_item">Вообще непонятная для меня задача.</li>
+                        <li class="text__list_item text__strike">Седьмая задача в этом небольшом списке.</li>
+                        <li class="text__list_item">Сложная задача, которую потом решу.</li>
+                    </ol>
+                </div>
+                <div class="aims__footnotes" v-show="visiblee">
+                    <div class="footnotes__text">Коэффециент выполнения</div>
+                    <div class="footnotes__numbers footnotes__numbers_color-red">62,5%</div>
+                </div>
+            </div>
+            <div class="aims">
+                <div class="aims__text">
+                    <a class="main__data_title">Что я сделал сегодня</a>
+                    <ol class="text__list_items">
+                        <li class="text__list_item">Составить список дел на завтра.</li>
+                        <li class="text__list_item">Написать отчёт.</li>
+                        <li class="text__list_item">Позвонить туда, куда не хочу.</li>
+                        <li class="text__list_item">Проснуться утром.</li>
+                        <li class="text__list_item">Выпить 2 чашки кофе.</li>
+                        <li class="text__list_item">Сходить на обед.</li>
+                        <li class="text__list_item">Получить зарплату в бухгалтерии.</li>
+                        <li class="text__list_item">Забрать ребёнка из детского сада.</li>
+                        <li class="text__list_item"><input class="item-input" type="text"></li>
+                    </ol>
+                </div>
+                <div class="aims__footnotes">
+                    <div class="footnotes__text">Коэффециент выполнения</div>
+                    <div class="footnotes__numbers footnotes__numbers_color-red">0%</div>
+                </div>
+            </div>
+            <div class="goals">
+                <a class="main__data_title">Что я сделаю завтра</a>
+                <ol class="text__list_items">
+                    <li class="text__list_item">Сходить в зал.</li>
+                    <li class="text__list_item">Позвонить самому важному клиенту.</li>
+                    <li class="text__list_item"><input class="item-input" type="text"></li>
+
+                </ol>
+            </div>
+        </div>
+    </div>
+    <script src="../js/script.js"></script>
+</body>
+
+</html>
