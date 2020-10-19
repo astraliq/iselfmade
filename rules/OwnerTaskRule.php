@@ -9,7 +9,7 @@ use yii\rbac\Rule;
 
 class OwnerTaskRule extends Rule
 {
-    public $name='ownerTaskRule';
+    public $name = 'ownerTaskRule';
     /**
      * Executes the rule.
      *

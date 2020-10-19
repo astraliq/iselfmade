@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2e38572c-436e-49d4-8317-261599b6a7b6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../calend/config/console.php" beforeDir="false" afterPath="$PROJECT_DIR$/../calend/config/console.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../calend/config/db.php" beforeDir="false" afterPath="$PROJECT_DIR$/../calend/config/db.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../calend/config/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/../calend/config/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../calend/controllers/ActivityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../calend/controllers/ActivityController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../calend/controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../calend/controllers/AuthController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../calend/views/auth/signup.php" beforeDir="false" afterPath="$PROJECT_DIR$/../calend/views/auth/signup.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/main.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -45,6 +40,12 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -145,7 +146,7 @@
     <property name="TODO_SCOPE" value="All Places" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="ignore.virus.scanning.warn.message" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/web/js" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../calend" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -154,7 +155,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
-    <property name="settings.editor.selected.configurable" value="editing.templates" />
+    <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -182,6 +183,9 @@
       <PhpTestRunnerSettings scope="ConfigurationFile" />
       <method v="2" />
     </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="showServicesTree" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -235,6 +239,12 @@
       <workItem from="1601916059939" duration="854000" />
       <workItem from="1602008005160" duration="1196000" />
       <workItem from="1602087403358" duration="1097000" />
+      <workItem from="1602613740115" duration="524000" />
+      <workItem from="1602614292875" duration="1541000" />
+      <workItem from="1602692551128" duration="10882000" />
+      <workItem from="1603002809819" duration="8783000" />
+      <workItem from="1603039279235" duration="9734000" />
+      <workItem from="1603122811112" duration="8109000" />
     </task>
     <servers />
   </component>

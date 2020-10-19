@@ -18,6 +18,7 @@ use yii\helpers\Html;
             'type_id' => 3,
             'model' => $model,
             'nextPeriod' => 0,
+            'renewLast' => $renewGoals,
         ]); ?>
         <?= \app\widgets\tasks\TasksViewWidget::widget([
             'title' => 'Задачи на '. $month ,
@@ -26,6 +27,7 @@ use yii\helpers\Html;
             'type_id' => 2,
             'model' => $model,
             'nextPeriod' => 0,
+            'renewLast' => $renewAims,
         ]); ?>
         <?= \app\widgets\tasks\TasksViewWidget::widget([
             'title' => 'Что я сделал сегодня',
@@ -34,6 +36,7 @@ use yii\helpers\Html;
             'type_id' => 1,
             'model' => $model,
             'nextPeriod' => 0,
+            'renewLast' => $renewTasks,
         ]); ?>
         <?= \app\widgets\tasks\TasksViewWidget::widget([
             'title' => 'Что я сделаю завтра',
@@ -42,6 +45,7 @@ use yii\helpers\Html;
             'type_id' => 1,
             'model' => $model,
             'nextPeriod' => 1,
+            'renewLast' => false,
         ]); ?>
     </div>
 <!--    <div class="tasks-deleted"  style="width: 50%">-->

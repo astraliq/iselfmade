@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\Components\DAOComponent;
+use app\Components\TimeZoneComponent;
 use app\models\RegistrationForm;
 use app\models\User;
 use Yii;

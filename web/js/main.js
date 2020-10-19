@@ -3,10 +3,7 @@
 
 class Tasks {
     constructor() {
-<<<<<<< HEAD
         this.init();
-=======
->>>>>>> d686c17589b574f26de7e17aa0f26928fc2a588b
         this.task = '';
         this.private_id = null;
         this.type_id = 1;
@@ -21,9 +18,10 @@ class Tasks {
         this.nextPeriod = 0;
         this.inputTaskClass = '.task__input';
         this.inputSettingsClass = '.task__settings';
+        this.transferBtn = '.task_transfer_btn';
     }
 
-<<<<<<< HEAD
+//	_post(url, data) {
     //	_getJson(url, data) {
     //		return fetch(url, {
     //			method: 'POST',
@@ -35,8 +33,9 @@ class Tasks {
     //			.then ( result => result.json())
     //			.catch( error => console.log('Ошибка запроса: ' + error.message + error))
     //	}
-=======
+
 //	_getJson(url, data) {
+
 //		return fetch(url, {
 //			method: 'POST',
 //			headers: {
@@ -47,26 +46,20 @@ class Tasks {
 //			.then ( result => result.json())
 //			.catch( error => console.log('Ошибка запроса: ' + error.message + error))
 //	}
->>>>>>> d686c17589b574f26de7e17aa0f26928fc2a588b
+    _post(url, data) {
     _getJson(url, data) {
         return $.post({
             url: url,
             data: data,
-<<<<<<< HEAD
             success: function(data) {
-=======
             success: function (data) {
->>>>>>> d686c17589b574f26de7e17aa0f26928fc2a588b
+
                 //data приходят те данные, который прислал на сервер
-                if (data.result !== "OK") {
+                if (data.result !== true) {
                     console.log('ERROR_GET_DATA_');
                 }
             }
         })
-    }
-
-    addTaskToHTML(tasksBlock, htmlTask) {
-        tasksBlock.prepend(htmlTask);
     }
 
     _clearCurrentInput(inputBlock) {
@@ -77,17 +70,16 @@ class Tasks {
         emptyBlock.remove();
     }
 
-    _createTask(inputBlock, settingsBlock) {
+    renderAllTasks(tasksBlock, html) {
+        return $(tasksBlock).replaceWith(html);
+    }
+
+    _createTask(inputBlock) {
 
         if (!this._validateTask()) {
             console.log('ошибка валидации');
             return false;
         }
-<<<<<<< HEAD
-
-=======
-        
->>>>>>> d686c17589b574f26de7e17aa0f26928fc2a588b
         let sendData = {
             'Tasks': {
                 'task': this.task,
@@ -104,19 +96,33 @@ class Tasks {
                 'nextPeriod': this.nextPeriod,
             }
         };
-        this._getJson('/task/create', sendData)
+        this._post('/task/create', sendData)
             .then(data => {
-                this._clearCurrentInput(inputBlock);
-                let tasksBlock = $(inputBlock).parent().parent().parent();
-                this._deleteEmptyBlock(tasksBlock.children('.text__list_empty'));
-                this.addTaskToHTML(tasksBlock, data.task)
+                if (data.result) {
+                    this._clearCurrentInput(inputBlock);
+                    let tasksBlock = $(inputBlock).parents('.tasks__list');
+                    this._deleteEmptyBlock(tasksBlock.children('.text__list_empty'));
+                    let newBlock = this.renderAllTasks(tasksBlock, data.tasks);
+                    this._addSettingsEvents(document.querySelector(this.inputTaskClass + `[data-type="${this.type_id}"][data-next_period="${this.nextPeriod}"]`));
+
+                }
             })
             .catch(error => {
-<<<<<<< HEAD
+            });
+    }
+    
+    _tranferTasks(elementTasks, type) {
+        let sendData = {
+                'type': type,
+        };
+        this._post('/task/transfer', sendData)
+            .then(data => {
+                if (data.result) {
+                    this.renderAllTasks(elementTasks.parentNode, data.tasks)
+                }
+            })
+            .catch(error => {
                 console.log(error);
-=======
-			    console.log(error);
->>>>>>> d686c17589b574f26de7e17aa0f26928fc2a588b
             });
     }
 
@@ -132,12 +138,28 @@ class Tasks {
         return true;
     }
 
-    getFormData(form, settings) {
+    getFormData(form) {
+        let settings = $(form).parent().children(this.inputSettingsClass);
         this.task = form.value;
         this.private_id = settings.children('select').val();
         this.type_id = $(form).data('type');
         this.nextPeriod = $(form).data('next_period');
         return true;
+    }
+
+    _addSettingsEvents(el) {
+        console.log(el);
+        let settings = $(el).parent().children(this.inputSettingsClass);
+        el.addEventListener('focus', (e) => {
+            settings.show();
+            // закрытие окна при клике вне окна
+            $(document).mousedown(function (e) { // событие клика по веб-документу
+                if (!$(el).is(e.target) && !settings.is(e.target) && settings.has(e.target).length === 0) { // если клик был не по нашему блоку и не по его дочерним элементам
+                    settings.fadeOut(1); // скрываем его
+                }
+            });
+
+        });
     }
 
     init() {
@@ -147,15 +169,13 @@ class Tasks {
         }
         // let settingsAll = $(this.inputSettingsClass);
         elems.forEach((el) => {
+            this._addSettingsEvents(el);
             let settings = $(el).parent().children(this.inputSettingsClass);
             el.addEventListener('focus', (e) => {
                 settings.show();
                 // закрытие окна при клике вне окна
-<<<<<<< HEAD
-                $(document).mousedown(function(e) { // событие клика по веб-документу
-=======
+
                 $(document).mousedown(function (e) { // событие клика по веб-документу
->>>>>>> d686c17589b574f26de7e17aa0f26928fc2a588b
                     if (!$(el).is(e.target) && !settings.is(e.target) && settings.has(e.target).length === 0) { // если клик был не по нашему блоку и не по его дочерним элементам
                         settings.fadeOut(1); // скрываем его
                     }
@@ -163,7 +183,6 @@ class Tasks {
 
             });
             el.addEventListener('keypress', (e) => {
-<<<<<<< HEAD
                     if (e.which == 13 || e.keyCode == 13) {
                         e.preventDefault();
                         this._initCreateTask(el, settings);
@@ -182,9 +201,9 @@ class Tasks {
 =======
                 if (e.which == 13 || e.keyCode == 13) {
                     e.preventDefault();
-                    this._initCreateTask(el, settings);
+                    this._initCreateTask(el);
                 }
-            })
+            });
             // el.parentElement.parentElement.parentElement.querySelector(this.inputSettingsClass).addEventListener('blur', (e) => {
             //     el.parentElement.parentElement.parentElement.querySelector(this.inputSettingsClass).style.display = 'none';
             //
@@ -194,13 +213,17 @@ class Tasks {
             //
             // });
         });
-        
->>>>>>> d686c17589b574f26de7e17aa0f26928fc2a588b
+        let tranferBtns = document.querySelectorAll(this.transferBtn);
+        tranferBtns.forEach((btn) => {
+            btn.addEventListener('click', (e) => {
+                this._tranferTasks(btn, btn.dataset.type);
+            })
+        })       
     }
 
-    _initCreateTask(elementInput, elemetSettings) {
-        this.getFormData(elementInput, elemetSettings);
-        this._createTask(elementInput, elemetSettings);
+    _initCreateTask(elementInput) {
+        this.getFormData(elementInput);
+        this._createTask(elementInput);
     }
 
 
@@ -209,11 +232,5 @@ class Tasks {
     }
 }
 let tasks = new Tasks();
-<<<<<<< HEAD
 // tasks.init();
-=======
 tasks.init();
-
-
-
->>>>>>> d686c17589b574f26de7e17aa0f26928fc2a588b

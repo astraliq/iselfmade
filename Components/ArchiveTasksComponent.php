@@ -36,18 +36,19 @@ class ArchiveTasksComponent extends BaseComponent {
         $trans = $this->getConnection()->beginTransaction();
 
         try{
-            $copy = $this->getConnection()
+            $insert = $this->getConnection()
                 ->createCommand('INSERT INTO '. $model->tableName() . ' SELECT * FROM ' . Tasks::tableName() . ' WHERE (`finished`=1) AND (`date_start` < :dtStart) AND (`date_finish` < :dtFinish) ORDER BY `date_start` DESC', [
                     ':dtStart' => $dayX,
                     ':dtFinish' => $dayX,
                 ])->execute();
-            $delete = $this->getConnection()
-                ->createCommand('DELETE FROM '. Tasks::tableName() . ' WHERE (`finished`=1) AND (`date_start` < :dtStart) AND (`date_finish` < :dtFinish) ORDER BY `date_start` DESC', [
-                    ':dtStart' => $dayX,
-                    ':dtFinish' => $dayX,
-                ])->execute();
+            if ($insert) {
+                $this->getConnection()
+                    ->createCommand('DELETE FROM '. Tasks::tableName() . ' WHERE (`finished`=1) AND (`date_start` < :dtStart) AND (`date_finish` < :dtFinish) ORDER BY `date_start` DESC', [
+                        ':dtStart' => $dayX,
+                        ':dtFinish' => $dayX,
+                    ])->execute();
+            }
 //                        throw new Exception('err');
-
             $trans->commit();
         } catch (\Exception $e){
             $trans->rollBack();

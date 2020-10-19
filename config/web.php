@@ -64,6 +64,7 @@ $config = [
         'db' => $db,
         'rbac' => ['class' => \app\Components\RbacComponent::class],
         'task' => ['class' => \app\Components\TasksComponent::class],
+        'userComp' => ['class' => \app\Components\UserComponent::class],
         'encrypt' => ['class' => \app\Components\EncryptComponent::class],
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -74,6 +75,7 @@ $config = [
                 'task/view/<user_id:\d+>/<id:\d+>'=>'task/view',
                 'task/change/<id:\d+>'=>'task/change',
                 'task/change/<user_id:\d+>/<id:\d+>'=>'task/change',
+                'task/transfer/<type:\d+>'=>'task/transfer',
                 'task/del/<id:\d+>'=>'task/del',
                 'task/del/<user_id:\d+>/<id:\d+>'=>'task/del',
                 'task/restore/<id:\d+>'=>'task/restore',
@@ -84,6 +86,9 @@ $config = [
                 'task/finish/<user_id:\d+>/<id:\d+>'=>'task/finish',
                 'report'=>'task/report',
                 'task/img/'=>'img/',
+                'profile'=>'user/view/',
+                'profile/<id:\d+>'=>'user/view/',
+                'user/update/<id:\d+>'=>'user/update/',
                 [
                     'class'=>yii\rest\UrlRule::class,
                     'controller'=>'user-rest-api',

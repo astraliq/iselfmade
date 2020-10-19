@@ -15,6 +15,7 @@ class TasksViewWidget extends Widget {
     public $model;
     public $type_id;
     public $nextPeriod;
+    public $renewLast;
 
 
     public function run() {
@@ -28,6 +29,7 @@ class TasksViewWidget extends Widget {
             'del' => $this->del,
             'type_id' => $this->type_id,
             'nextPeriod' => $this->nextPeriod,
+            'renewLast' => $this->renewLast,
             'model' => $this->model,
             ]);
     }

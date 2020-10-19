@@ -8,7 +8,8 @@ sans-serif;*/
 body {
   margin: 0 0 0 0;
   padding: 0 0 0 0;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  outline: none; }
 
 .logo-text {
   padding: 20px 10px 10px 15px;
@@ -91,7 +92,7 @@ body {
   color: #000; }
 
 .main__data {
-  margin: 0 0 0 0;
+  margin: 0 0 80px 0;
   padding: 35px 0 0 20px;
   min-width: 65%;
   display: flex;
@@ -229,4 +230,24 @@ body {
 .tasks__list_create {
   font-size: 12px;
   display: block;
+  color: grey; }
+
+.task_transfer_btn {
+  border: none;
+  background-color: #88c9ff;
+  margin: 0 0 0 20px;
+  border-radius: 7px;
+  width: 34px;
+  height: 29px;
+  font-size: 23px; }
+
+.disable_icon {
+  background-color: #f7f5f7;
+  color: #b1b1b1; }
+
+.task_transfer_btn:active {
+  transform: scale(0.95); }
+
+.task_transfer_btn:disabled {
+  background-color: #f7f5f7;
   color: grey; }

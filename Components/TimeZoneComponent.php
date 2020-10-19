@@ -13,24 +13,29 @@ class TimeZoneComponent {
      * @return array
      */
     public function getRuTimezones() {
-        $arr = [];
-        foreach (\DateTimeZone::listIdentifiers(\DateTimeZone::PER_COUNTRY, 'RU') as $string) {
-            $tz = Carbon::now($string)->getTimezone();
-            $arr[$tz->toOffsetName()][] = $tz->toRegionName();
+        $timezonesArr = [];
+        $dt = new \DateTime('now', new \DateTimeZone('UTC'));
+        foreach(\DateTimeZone::listIdentifiers(\DateTimeZone::PER_COUNTRY, 'RU') as $tz) {
+            $timezonesArr[] = [
+                'timeZone' => $tz,
+                'localTime' => $dt->setTimeZone(new \DateTimeZone($tz))->format('H:i'),
+                'offset' => $dt->setTimeZone(new \DateTimeZone($tz))->getOffset() / 3600,
+            ];
+//            echo $tz, ': ', $dt->format('Y.m.d H:i:s'), "\n";
         }
-        ksort($arr);
-        return $arr;
+        return $timezonesArr;
     }
 
     public function getAllTimezones() {
         $timezonesArr = [];
         $dt = new \DateTime('now', new \DateTimeZone('UTC'));
         foreach(\DateTimeZone::listIdentifiers() as $tz) {
-            $timezoneArr[] = [
-                $tz,
-                $dt->setTimeZone(new \DateTimeZone($tz))->format('H:i'),
+            $timezonesArr[] = [
+                'timeZone' => $tz,
+                'localTime' => $dt->setTimeZone(new \DateTimeZone($tz))->format('H:i'),
+                'offset' => $dt->setTimeZone(new \DateTimeZone($tz))->getOffset() / 3600,
             ];
-//            echo $tz, ': ', $dt->format('Ymd H:i:s'), "\n";
+//            echo $tz, ': ', $dt->format('Y.m.d H:i:s'), "\n";
         }
         return $timezonesArr;
     }

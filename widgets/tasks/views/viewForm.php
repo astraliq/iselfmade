@@ -8,6 +8,23 @@ use yii\helpers\Html;
 
 <div class="tasks__list row">
     <a class="main__data_title main__data_line"><?= Html::encode($title) ?></a>
+    <?php
+        switch ($type_id) {
+            case 3:
+                $btnName = 'Перенести незавершенные задачи с прошлого года';
+                break;
+            case 2:
+                $btnName = 'Перенести незавершенные задачи с прошлого месяца';
+                break;
+            case 1:
+                $btnName = 'Перенести незавершенные задачи за вчера';
+                break;
+        }
+        $active = $renewLast ? '' : 'disabled';
+        if (!$nextPeriod) {
+            echo '<button class="task_transfer_btn icon-arrow-curved" ' . $active .' data-type="' . $type_id . '" title="' . $btnName . '"></button>';
+        }
+    ?>
     <ol class="text__list_items">
         <?php
         if ($tasks) {

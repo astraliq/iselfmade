@@ -4,7 +4,9 @@ body {
     margin: 0 0 0 0;
     padding: 0 0 0 0;
     box-sizing: border-box;
+    outline: none;
 }
+
 
 .logo-text {
     padding: 20px 10px 10px 15px;
@@ -106,7 +108,7 @@ body {
 }
 
 .main__data {
-    margin: 0 0 0 0;
+    margin: 0 0 80px 0;
     padding: 35px 0 0 20px;
     min-width: 65%;
     display: flex;
@@ -270,10 +272,36 @@ body {
 
 .tasks__list {
 
-
     &_create {
         font-size: 12px;
         display: block;
         color: grey;
     }
+}
+
+.task_transfer_btn {
+    border: none;
+    background-color: $color-icons;
+    margin: 0 0 0 20px;
+    border-radius: 7px;
+    width: 34px;
+    height: 29px;
+    font-size: 23px;
+    //box-shadow: 1px 1px 3px;;
+ }
+
+.disable_icon {
+    background-color: $color-disable;
+    color: $color-gray;
+}
+
+.task_transfer_btn:active {
+    //box-shadow: 0 0 0;
+    transform: scale(0.95);
+}
+
+.task_transfer_btn:disabled {
+    background-color: $color-disable;
+    color: $color-disable2;
+
 }
