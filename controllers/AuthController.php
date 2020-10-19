@@ -47,7 +47,10 @@ class AuthController extends Controller
             'scenario' => 'signIn'
         ]);
 
-        $model->email = \Yii::$app->session->getFlash('user_email')[0];
+        // $model->email = \Yii::$app->session->getFlash('user_email')[0];
+        if (!empty(\Yii::$app->session->getFlash('user_email'))) {
+            $model->email = \Yii::$app->session->getFlash('user_email')[0];
+        }
 
         if (\Yii::$app->request->isPost){
             $model->load(\Yii::$app->request->post());
