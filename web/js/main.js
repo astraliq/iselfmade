@@ -53,10 +53,10 @@ class Tasks {
     }
 
     renderAllTasks(tasksBlock, html) {
-        $(tasksBlock).replaceWith(html);
+        return $(tasksBlock).replaceWith(html);
     }
 
-    _createTask(inputBlock, settingsBlock) {
+    _createTask(inputBlock) {
 
         if (!this._validateTask()) {
             console.log('ошибка валидации');
@@ -85,7 +85,9 @@ class Tasks {
                     this._clearCurrentInput(inputBlock);
                     let tasksBlock = $(inputBlock).parents('.tasks__list');
                     this._deleteEmptyBlock(tasksBlock.children('.text__list_empty'));
-                    this.renderAllTasks(tasksBlock, data.tasks)
+                    let newBlock = this.renderAllTasks(tasksBlock, data.tasks);
+                    this._addSettingsEvents(document.querySelector(this.inputTaskClass + `[data-type="${this.type_id}"][data-next_period="${this.nextPeriod}"]`));
+
                 }
             })
             .catch(error => {
@@ -120,12 +122,28 @@ class Tasks {
         return true;
     }
 
-    getFormData(form, settings) {
+    getFormData(form) {
+        let settings = $(form).parent().children(this.inputSettingsClass);
         this.task = form.value;
         this.private_id = settings.children('select').val();
         this.type_id = $(form).data('type');
         this.nextPeriod = $(form).data('next_period');
         return true;
+    }
+
+    _addSettingsEvents(el) {
+        console.log(el);
+        let settings = $(el).parent().children(this.inputSettingsClass);
+        el.addEventListener('focus', (e) => {
+            settings.show();
+            // закрытие окна при клике вне окна
+            $(document).mousedown(function (e) { // событие клика по веб-документу
+                if (!$(el).is(e.target) && !settings.is(e.target) && settings.has(e.target).length === 0) { // если клик был не по нашему блоку и не по его дочерним элементам
+                    settings.fadeOut(1); // скрываем его
+                }
+            });
+
+        });
     }
 
     init() {
@@ -135,21 +153,11 @@ class Tasks {
         }
         // let settingsAll = $(this.inputSettingsClass);
         elems.forEach((el) => {
-            let settings = $(el).parent().children(this.inputSettingsClass);
-            el.addEventListener('focus', (e) => {
-                settings.show();
-                // закрытие окна при клике вне окна
-                $(document).mousedown(function (e) { // событие клика по веб-документу
-                    if (!$(el).is(e.target) && !settings.is(e.target) && settings.has(e.target).length === 0) { // если клик был не по нашему блоку и не по его дочерним элементам
-                        settings.fadeOut(1); // скрываем его
-                    }
-                });
-
-            });
+            this._addSettingsEvents(el);
             el.addEventListener('keypress', (e) => {
                 if (e.which == 13 || e.keyCode == 13) {
                     e.preventDefault();
-                    this._initCreateTask(el, settings);
+                    this._initCreateTask(el);
                 }
             });
             // el.parentElement.parentElement.parentElement.querySelector(this.inputSettingsClass).addEventListener('blur', (e) => {
@@ -170,9 +178,9 @@ class Tasks {
         })
     }
 
-    _initCreateTask(elementInput, elemetSettings) {
-        this.getFormData(elementInput, elemetSettings);
-        this._createTask(elementInput, elemetSettings);
+    _initCreateTask(elementInput) {
+        this.getFormData(elementInput);
+        this._createTask(elementInput);
     }
 
 
