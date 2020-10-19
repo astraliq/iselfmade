@@ -2,18 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2e38572c-436e-49d4-8317-261599b6a7b6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/controllers/UserController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controllers/actions/user/UpdateAction.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controllers/actions/user/ViewAction.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rules/ViewUserProfileRule.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/user/view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Components/RbacComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/Components/RbacComponent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Components/UserComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/Components/UserComponent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/RbacController.php" beforeDir="false" afterPath="$PROJECT_DIR$/commands/RbacController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rules/OwnerTaskRule.php" beforeDir="false" afterPath="$PROJECT_DIR$/rules/OwnerTaskRule.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/AuthController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -194,6 +186,9 @@
       <method v="2" />
     </configuration>
   </component>
+  <component name="ServiceViewManager">
+    <option name="showServicesTree" value="false" />
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -251,6 +246,7 @@
       <workItem from="1602692551128" duration="10882000" />
       <workItem from="1603002809819" duration="8783000" />
       <workItem from="1603039279235" duration="9734000" />
+      <workItem from="1603122811112" duration="2683000" />
     </task>
     <servers />
   </component>
