@@ -120,15 +120,23 @@ body {
         font-weight: 500;
         font-size: 20px;
         line-height: 25px;
-        color: #4C91F8;
+        color: $color-blue;
+    }
+    &_line {
+        padding-bottom: 1px;
+        border-bottom: 1px dashed $color-black;
         &:hover {
             cursor: pointer;
         }
     }
-    &_line {
-        padding-bottom: 1px;
-        border-bottom: 2px dashed $color-blue;
-    }
+}
+
+.vshow {
+    font-family: $font_main-text;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 15px;
+    color: $color-black;
 }
 
 .goals {
