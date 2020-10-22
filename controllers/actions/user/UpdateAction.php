@@ -17,7 +17,7 @@ class UpdateAction extends Action {
             throw new HttpException(403,'Нет доступа');
         }
 
-        if (!\Yii::$app->rbac->canUpdateOwnProfile()) {
+        if (!\Yii::$app->rbac->canUpdateOwnProfile() || !\Yii::$app->rbac->canViewOwnProfile()) {
             throw new HttpException(403,'Нет доступа');
         }
 
@@ -29,6 +29,10 @@ class UpdateAction extends Action {
 
         if (!$user) {
             throw new HttpException(404, 'Страница не найдена');
+        }
+
+        if (!\Yii::$app->rbac->canViewUserProfile($user) && $id) {
+            throw new HttpException(403,'Нет доступа');
         }
 
         if (\Yii::$app->request->isPost) {
@@ -67,8 +71,7 @@ class UpdateAction extends Action {
                 if (\Yii::$app->request->isAjax) {
                     return ['result' => 'false'];
                 } else {
-                    print_r($user->getErrors());
-//                    return $this->controller->redirect(['/profile']);
+                    goto render;
                 }
 //                echo '<pre>';
 //                print_r($user->getErrors());
@@ -76,7 +79,11 @@ class UpdateAction extends Action {
             }
         }
 
-        return $this->controller->redirect(['/profile']);
+        render:
+        return $this->controller->render('view',[
+            'user' => $user,
+            'admin' => $admin,
+        ]);
     }
 
 

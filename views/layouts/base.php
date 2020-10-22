@@ -17,6 +17,13 @@ use app\assets\AppAsset;
 //];
 AppAsset::register($this);
 
+$avatarImage = \Yii::$app->user->getIdentity()->getAvatarName();
+if (!$avatarImage) {
+    $avatarImage = '/img/user_img.jpg';
+} else {
+    $avatarImage = '/users/ava/' . $avatarImage;
+}
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -35,7 +42,7 @@ AppAsset::register($this);
 <div class="container">
     <div class="custom_light">
         <div class="">
-            <img class="user_img" src="/img/user_img.jpg" width="60" height="60">
+            <img class="user_img" src="<?= $avatarImage ?>" width="60" height="60">
         </div>
     </div>
     <div class="menu">

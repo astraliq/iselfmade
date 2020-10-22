@@ -20,21 +20,19 @@ class UserComponent extends BaseComponent {
     }
 
     public function updateUser(User $user):bool {
-        if ($user->avaReal) {
-            $user->avaReal = UploadedFile::getInstances($user, 'avaReal');
-            $fileSaver = \Yii::createObject(['class' => FileSaverComponent::class]);
-        }
+        $user->avaReal = UploadedFile::getInstance($user, 'avaReal');
+        $fileSaver = \Yii::createObject(['class' => FileSaverComponent::class]);
 
         if ($user->validate()) {
             if ($user->avaReal) {
                 $file = $fileSaver->saveAvatar($user->avaReal);
             }
 
-//            if (!$file) {
-//                return false;
-//            }
+            if (!$file) {
+                return false;
+            }
 
-            $user->avatar = $user->avaReal;
+            $user->avatar = $file;
             // валидация + сохранение активности
             if ($user->save(false)) {
                 return true;
@@ -43,6 +41,7 @@ class UserComponent extends BaseComponent {
             \Yii::error($user->getErrors());
             return false;
         }
+
         //валидация файлов не прошла
         return false;
     }
