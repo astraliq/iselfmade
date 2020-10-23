@@ -202,11 +202,6 @@ class Tasks {
         this._createTask(elementInput);
     }
 
-
-    _render(task) {
-
-    }
 }
 let tasks = new Tasks();
-// tasks.init();
 tasks.init();
