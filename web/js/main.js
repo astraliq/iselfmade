@@ -100,8 +100,10 @@ class Tasks {
                     this._clearCurrentInput(inputBlock);
                     let tasksBlock = $(inputBlock).parents('.tasks__list');
                     this._deleteEmptyBlock(tasksBlock.children('.text__list_empty'));
-                    let newBlock = this.renderAllTasks(tasksBlock, data.tasks);
-                    this._addSettingsEvents(document.querySelector(this.inputTaskClass + `[data-type="${this.type_id}"][data-next_period="${this.nextPeriod}"]`));
+                    this.renderAllTasks(tasksBlock, data.tasks);
+                    let newInput = document.querySelector(this.inputTaskClass + `[data-type="${this.type_id}"][data-next_period="${this.nextPeriod}"]`);
+                    this._addSettingsEvents(newInput);
+                    newInput.focus();
 
                 }
             })
@@ -157,6 +159,12 @@ class Tasks {
             });
 
         });
+        el.addEventListener('keypress', (e) => {
+            if (e.which == 13 || e.keyCode == 13) {
+                e.preventDefault();
+                this._initCreateTask(el, settings);
+            }
+        })
     }
 
     init() {
@@ -172,22 +180,14 @@ class Tasks {
                 settings.show();
                 // закрытие окна при клике вне окна
                 $(document).mousedown(function (e) { // событие клика по веб-документу
-                    if (!$(el).is(e.target) && !settings.is(e.target) && settings.has(e.target).length === 0) { // если клик был не по нашему блоку и не по его дочерним элементам
+                    // если клик был не по нашему блоку и не по его дочерним элементам
+                    if (!$(el).is(e.target) && !settings.is(e.target) && settings.has(e.target).length === 0) {
                         settings.fadeOut(1); // скрываем его
                     }
                 });
 
             });
-            el.addEventListener('keypress', (e) => {
-                    if (e.which == 13 || e.keyCode == 13) {
-                        e.preventDefault();
-                        this._initCreateTask(el, settings);
-                    }
-                    if (e.which == 13 || e.keyCode == 13) {
-                        e.preventDefault();
-                        this._initCreateTask(el);
-                    }
-                })
+
         });
         let tranferBtns = document.querySelectorAll(this.transferBtn);
         tranferBtns.forEach((btn) => {

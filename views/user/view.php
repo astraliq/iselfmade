@@ -14,9 +14,9 @@ use yii\helpers\Html;
         <?=$form->field($user,'name');?>
         <?=$form->field($user,'surname');?>
         <?=$form->field($user,'birthday')->input('date');?>
-        <?=$form->field($user,'sex')->dropDownList($user::SEX, ['options' =>[ '1' => ['Selected' => true]]]);?>
+        <?=$form->field($user,'sex')->dropDownList($user::SEX, ['options' => [ '1' => ['Selected' => true]]]);?>
         <?=$form->field($user,'phone_number')->input('phone');?>
-        <?=$form->field($user,'timezone');?>
+        <?=$form->field($user,'timezone')->dropDownList($timezones, ['options' => [ $user->timezoneKeyNumber => ['Selected' => true]]]);?>
         <?=$form->field($user,'avaReal')->fileInput(['multiple' => false,]);?>
         <div class="user_profile-psw">
             <?=$form->field($user,'password',['enableClientValidation'=>false])->passwordInput();?>

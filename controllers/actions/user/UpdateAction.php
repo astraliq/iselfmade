@@ -4,6 +4,7 @@
 namespace app\controllers\actions\user;
 
 
+use app\Components\TimeZoneComponent;
 use app\Components\UserComponent;
 use app\models\User;
 use yii\base\Action;
@@ -73,15 +74,20 @@ class UpdateAction extends Action {
                 } else {
                     goto render;
                 }
-//                echo '<pre>';
-//                print_r($user->getErrors());
-//                echo '</pre>';
+
             }
         }
 
         render:
+        $timezones = \Yii::$app->timezones->getRuTimezones('short_gmt');
+//                echo '<pre>';
+//                print_r($timezones);
+//                echo '</pre>';
+//                exit();
+
         return $this->controller->render('view',[
             'user' => $user,
+            'timezones' => $timezones,
             'admin' => $admin,
         ]);
     }

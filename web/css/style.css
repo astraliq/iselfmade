@@ -77,11 +77,13 @@ body {
   font-size: 50px;
   line-height: 50px;
   color: #4C91F8; }
+
 .date__month {
   font-family: "Barlow", sans-serif;
   font-weight: 200;
   font-size: 35px;
   color: #000; }
+
 .date__weekday {
   font-family: "Barlow", sans-serif;
   font-weight: 200;

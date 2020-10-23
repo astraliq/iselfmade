@@ -16,6 +16,7 @@ body {
   display: flex;
   justify-content: space-between;
   position: relative; }
+
 .header__logo {
   font-family: "Barlow", sans-serif;
   font-weight: 600;
@@ -33,13 +34,16 @@ body {
     text-decoration: none; }
     .header__logo-link:hover {
       text-decoration: none; }
+
 .header__items {
   padding-right: 30px;
   display: flex;
   justify-content: flex-start;
   align-items: center; }
+
 .header__item {
   padding: 0 10px; }
+
 .header__menu {
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
@@ -55,6 +59,7 @@ body {
       color: #4C91F8;
       text-decoration: none;
       cursor: pointer; }
+
 .header__btn {
   height: 40px;
   width: 190px;
@@ -84,12 +89,14 @@ body {
   top: 65px;
   right: 40px;
   padding: 40px 40px 0 40px; }
+
 .modal__title {
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
   font-size: 2.5rem;
   line-height: 3.1rem;
   color: #000; }
+
 .modal__form {
   width: 100%;
   height: 265px;
@@ -97,6 +104,7 @@ body {
   display: flex;
   flex-direction: column;
   align-content: space-between; }
+
 .modal__input {
   height: 40px;
   width: 332px;
@@ -109,10 +117,12 @@ body {
   line-height: 1.9rem;
   color: #b1b1b1;
   padding: 10px 0 10px 15px; }
+
 .modal__sub {
   display: flex;
   justify-content: space-between;
   align-items: center; }
+
 .modal__btn {
   width: 150px;
   height: 50px;
@@ -127,6 +137,7 @@ body {
   border: 0px; }
   .modal__btn:hover {
     background-color: #609df8; }
+
 .modal__link {
   display: block;
   font-family: "Source Sans Pro", sans-serif;
@@ -139,6 +150,7 @@ body {
     text-decoration: none;
     color: #609df8;
     cursor: pointer; }
+
 .modal__reg {
   width: 200px;
   height: 50px;
@@ -169,6 +181,7 @@ body {
 .main__style {
   width: 1000px;
   padding: 40px 0 0 0; }
+
 .main__title {
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
@@ -176,6 +189,7 @@ body {
   line-height: 6.3rem;
   color: #000;
   padding-bottom: 20px; }
+
 .main__text {
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;

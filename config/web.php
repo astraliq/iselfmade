@@ -95,6 +95,7 @@ $config = [
                 ],
             ],
         ],
+        'timezones' => ['class' => \app\Components\TimeZoneComponent::class],
 
     ],
     'params' => array_merge($params, ['monthsImenit' => [
