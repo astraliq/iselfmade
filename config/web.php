@@ -86,9 +86,8 @@ $config = [
                 'task/finish/<user_id:\d+>/<id:\d+>'=>'task/finish',
                 'report'=>'task/report',
                 'task/img/'=>'img/',
-                'profile'=>'user/view/',
-                'profile/<id:\d+>'=>'user/view/',
-                'user/update/<id:\d+>'=>'user/update/',
+                'profile'=>'user/update/',
+                'profile/<id:\d+>'=>'user/update/',
                 [
                     'class'=>yii\rest\UrlRule::class,
                     'controller'=>'user-rest-api',
