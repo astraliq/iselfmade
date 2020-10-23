@@ -47,11 +47,9 @@ class Tasks {
 //			.catch( error => console.log('Ошибка запроса: ' + error.message + error))
 //	}
     _post(url, data) {
-    _getJson(url, data) {
         return $.post({
             url: url,
             data: data,
-            success: function(data) {
             success: function (data) {
 
                 //data приходят те данные, который прислал на сервер
@@ -148,7 +146,6 @@ class Tasks {
     }
 
     _addSettingsEvents(el) {
-        console.log(el);
         let settings = $(el).parent().children(this.inputSettingsClass);
         el.addEventListener('focus', (e) => {
             settings.show();
@@ -174,7 +171,6 @@ class Tasks {
             el.addEventListener('focus', (e) => {
                 settings.show();
                 // закрытие окна при клике вне окна
-
                 $(document).mousedown(function (e) { // событие клика по веб-документу
                     if (!$(el).is(e.target) && !settings.is(e.target) && settings.has(e.target).length === 0) { // если клик был не по нашему блоку и не по его дочерним элементам
                         settings.fadeOut(1); // скрываем его
@@ -187,31 +183,11 @@ class Tasks {
                         e.preventDefault();
                         this._initCreateTask(el, settings);
                     }
+                    if (e.which == 13 || e.keyCode == 13) {
+                        e.preventDefault();
+                        this._initCreateTask(el);
+                    }
                 })
-                // el.parentElement.parentElement.parentElement.querySelector(this.inputSettingsClass).addEventListener('blur', (e) => {
-                //     el.parentElement.parentElement.parentElement.querySelector(this.inputSettingsClass).style.display = 'none';
-                //
-                // });
-                // el.addEventListener('blur', (e) => {
-                //     console.log(e);
-                //
-                // });
-        });
-
-=======
-                if (e.which == 13 || e.keyCode == 13) {
-                    e.preventDefault();
-                    this._initCreateTask(el);
-                }
-            });
-            // el.parentElement.parentElement.parentElement.querySelector(this.inputSettingsClass).addEventListener('blur', (e) => {
-            //     el.parentElement.parentElement.parentElement.querySelector(this.inputSettingsClass).style.display = 'none';
-            //
-            // });
-            // el.addEventListener('blur', (e) => {
-            //     console.log(e);
-            //
-            // });
         });
         let tranferBtns = document.querySelectorAll(this.transferBtn);
         tranferBtns.forEach((btn) => {
