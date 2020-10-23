@@ -1,16 +1,22 @@
 class MainPage {
     constructor() {
         this._init();
+        this.strModal;
+        this.strModalLogin;
+        this.strModalRemind;
+        this.strModalReg;
     }
 
     _init() {
         let login = document.getElementById('login');
-        login.addEventListener('click', this.renderModal);
+        login.addEventListener('click', () => {
+            this.renderModal(1);
+        });
     }
 
-    renderModal() {
-        this.strModal = `
-        <div class="modal" id="modal">
+    renderModal(type) {
+        this.strModal = '';
+        this.strModalLogin = `
         <div class="modal__close" id="close">&times;</div>
         <div class="modal__style" id="mwindow">
             <p class="modal__title">Вход в систему</p>
@@ -23,26 +29,75 @@ class MainPage {
                 </div>
             </form>
             <div class="div_center">
-                <button class="modal__reg modal__reg_white">Зарегистрироваться</button>
+                <button class="modal__reg modal__reg_white" id="regbtn">Зарегистрироваться</button>
             </div>
+        </div>`;
+
+        this.strModalRemind = `
+        <div class="modal__close" id="close">&times;</div>
+        <div class="modal__style" id="mwindow">
+        <p class="modal__title">Напомнить пароль</p>
+        <form class="modal__form-remind">
+            <input class="modal__input" type="text" placeholder="Email" id="inputEmail">
+            <div class="modal__sub">
+                <button class="modal__btn">Напомнить</button>
+            </div>
+        </form>
+        <div class="div_center">
+            <button class="modal__reg modal__reg_white" id="regbtn">Зарегистрироваться</button>
         </div>
         </div>`;
-        let preModal = document.getElementById('premodal');
-        preModal.insertAdjacentHTML('afterend', this.strModal);
+
+        this.strModalReg = `
+        <div class="modal__close" id="close">&times;</div>
+        <div class="modal__style" id="mwindow">
+        <p class="modal__title">Регистрация</p>
+        <form class="modal__form-sign">
+            <input class="modal__input" type="text" placeholder="Email" id="inputEmail">
+            <input class="modal__input" type="password" placeholder="Пароль" id="inputPass">
+            <input class="modal__input" type="password" placeholder="Повтор" id="inputPass2">
+            <p class="modal__sign-text">Нажимая на кнопку, вы соглашаетесь с <a class="modal__sign-text_link" href="#">нашими правилами</a>
+            и <a class="modal__sign-text_link" href="#">политикой конфиденциальности</a></p>
+        </form>
+        <div class="div_center">
+            <button class="modal__btn modal__btn-sign" id="regbtn">Зарегистрироваться</button>
+        </div>
+        </div>`;
+
+        if (type == 1) {
+            document.getElementById('modal').innerHTML = '';
+            this.strModal = this.strModalLogin;
+        } else if (type == 2) {
+            document.getElementById('modal').innerHTML = '';
+            this.strModal = this.strModalRemind;
+        } else if (type == 3) {
+            document.getElementById('modal').innerHTML = '';
+            this.strModal = this.strModalReg;
+        };
 
         let modal = document.getElementById('modal');
-        modal.addEventListener('click', (e) => {
-            let target = e.target;
-            if (!target.closest(".modal__style")) {
-                mainPageStart.closeModal();
-            }
+        modal.classList.remove('invisible');
+        modal.insertAdjacentHTML('beforeend', this.strModal);
+
+        if (type == 1) {
+            let remind = document.getElementById('remind');
+            remind.addEventListener('click', () => {
+                document.getElementById('modal').innerHTML = '';
+                this.renderModal(2);
+            });
+        }
+
+        let regbtn = document.getElementById('regbtn');
+        regbtn.addEventListener('click', () => {
+            document.getElementById('modal').innerHTML = '';
+            this.renderModal(3);
         });
 
         let checkEmail = false
         let emailFocus = false;
-        let passFocus = false;
+        // let passFocus = false;
         let inputEmail = document.getElementById('inputEmail');
-        let inputPass = document.getElementById('inputPass');
+        // let inputPass = document.getElementById('inputPass');
 
         inputEmail.addEventListener('focus', () => {
             inputEmail.placeholder = '';
@@ -60,55 +115,30 @@ class MainPage {
             }
         });
 
-        inputPass.addEventListener('focus', () => {
-            inputPass.placeholder = '';
-            passFocus = true;
-        });
+        // inputPass.addEventListener('focus', () => {
+        //     inputPass.placeholder = '';
+        //     passFocus = true;
+        // });
 
-        inputPass.addEventListener('mouseout', () => {
-            (inputPass.value != '') ? inputPass.placeholder = inputPass.value: inputPass.placeholder = "Пароль";
-        });
+        // inputPass.addEventListener('mouseout', () => {
+        //     (inputPass.value != '') ? inputPass.placeholder = inputPass.value: inputPass.placeholder = "Пароль";
+        // });
 
-        let remind = document.getElementById('remind');
-        remind.addEventListener('click', mainPageStart.remind);
-    }
-
-    closeModal() {
-        document.getElementById('modal').classList.add('invisible')
-    }
-
-    checkEmailMask(value) {
-        return (/^[\w]{1}[\w-\.]*@[\w-]+\.[a-z]{2,4}$/i.test(value))
-    }
-
-    remind() {
-        console.log('r1');
-        let modal = document.getElementById('modal');
-        let strRemind = `
-        <div class="modal__close" id="close">&times;</div>
-        <div class="modal__style" id="mwindow">
-        <p class="modal__title">Напомнить пароль</p>
-        <form class="modal__form">
-            <input class="modal__input" type="text" placeholder="Email" id="inputEmail">
-            <div class="modal__sub">
-                <button class="modal__btn">Напомнить</button>
-            </div>
-        </form>
-        <div class="div_center">
-            <button class="modal__reg modal__reg_white">Зарегистрироваться</button>
-        </div>
-        </div>`;
-
-        modal.innerHTML = '';
-        // let preModal = document.getElementById('premodal');
-        modal.insertAdjacentHTML('beforeend', strRemind);
-
-        modal.addEventListener('click', (e) => {
+        document.getElementById('modal').addEventListener('click', (e) => {
             let target = e.target;
             if (!target.closest(".modal__style")) {
                 mainPageStart.closeModal();
             }
         });
+    }
+
+    closeModal() {
+        document.getElementById('modal').classList.add('invisible')
+        document.getElementById('modal').innerHTML = '';
+    }
+
+    checkEmailMask(value) {
+        return (/^[\w]{1}[\w-\.]*@[\w-]+\.[a-z]{2,4}$/i.test(value))
     }
 }
 
