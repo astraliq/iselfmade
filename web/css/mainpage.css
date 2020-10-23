@@ -15,7 +15,8 @@ body {
   padding: 20px 0 0 35px;
   display: flex;
   justify-content: space-between;
-  position: relative; }
+  position: relative;
+  z-index: 1; }
 .header__logo {
   font-family: "Barlow", sans-serif;
   font-weight: 600;
@@ -74,86 +75,121 @@ body {
 .invisible {
   display: none; }
 
-.modal__style {
-  position: absolute;
-  width: 400px;
-  height: 500px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: -6px 4px 10px 1px #f7f5f7;
-  top: 65px;
-  right: 40px;
-  padding: 40px 40px 0 40px; }
-.modal__title {
-  font-family: "Source Sans Pro", sans-serif;
-  font-weight: 400;
-  font-size: 2.5rem;
-  line-height: 3.1rem;
-  color: #000; }
-.modal__form {
+.modal {
   width: 100%;
-  height: 265px;
-  padding: 20px 0 75px 0;
-  display: flex;
-  flex-direction: column;
-  align-content: space-between; }
-.modal__input {
-  height: 40px;
-  width: 332px;
-  border-radius: 10px;
-  outline: none;
-  border: 1px solid #b1b1b1;
-  font-family: "Source Sans Pro", sans-serif;
-  font-weight: 400;
-  font-size: 1.5rem;
-  line-height: 1.9rem;
-  color: #b1b1b1;
-  padding: 10px 0 10px 15px; }
-.modal__sub {
-  display: flex;
-  justify-content: space-between;
-  align-items: center; }
-.modal__btn {
-  width: 150px;
-  height: 50px;
-  background: #4C91F8;
-  border-radius: 10px;
-  color: #fff;
-  font-family: "Source Sans Pro", sans-serif;
-  font-weight: 400;
-  font-size: 2.2rem;
-  line-height: 2.8rem;
-  outline: none;
-  border: 0px; }
-  .modal__btn:hover {
-    background-color: #609df8; }
-.modal__link {
-  display: block;
-  font-family: "Source Sans Pro", sans-serif;
-  font-weight: 400;
-  font-size: 1.6rem;
-  line-height: 2rem;
-  text-decoration-line: underline;
-  color: #4C91F8; }
-  .modal__link:hover {
-    text-decoration: none;
-    color: #609df8;
-    cursor: pointer; }
-.modal__reg {
-  width: 200px;
-  height: 50px;
-  border: 1px solid #4C91F8;
-  border-radius: 10px;
-  padding: 13px 0 13px 0;
-  text-align: center;
-  font-family: "Source Sans Pro", sans-serif;
-  font-weight: 400;
-  font-size: 1.8rem;
-  line-height: 2.3rem;
-  color: #000;
-  background-color: #fff; }
-  .modal__reg:hover {
-    background-color: #f7f5f7; }
+  height: 100vh;
+  background-color: transparent;
+  position: absolute;
+  z-index: 2;
+  top: 0px;
+  left: 0px; }
+  .modal__style {
+    position: absolute;
+    width: 400px;
+    height: 500px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: -6px 4px 10px 1px #f7f5f7;
+    top: 65px;
+    right: 40px;
+    padding: 40px 40px 0 40px;
+    z-index: 3; }
+  .modal__title {
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight: 400;
+    font-size: 2.5rem;
+    line-height: 3.1rem;
+    color: #000; }
+  .modal__form {
+    width: 100%;
+    height: 290px;
+    padding: 20px 0 75px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; }
+  .modal__input {
+    height: 40px;
+    width: 320px;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid #b1b1b1;
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight: 400;
+    font-size: 1.5rem;
+    line-height: 1.9rem;
+    color: #b1b1b1;
+    padding: 10px 0 10px 15px; }
+  .modal__sub {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 40px; }
+  .modal__btn {
+    width: 150px;
+    height: 50px;
+    background: #4C91F8;
+    border-radius: 10px;
+    color: #fff;
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight: 400;
+    font-size: 2.2rem;
+    line-height: 2.8rem;
+    outline: none;
+    border: 0px; }
+    .modal__btn:hover {
+      background-color: #609df8; }
+  .modal__link {
+    display: block;
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    text-decoration-line: underline;
+    color: #4C91F8; }
+    .modal__link:hover {
+      text-decoration: none;
+      color: #609df8;
+      cursor: pointer; }
+  .modal__reg {
+    width: 200px;
+    height: 50px;
+    border-radius: 10px;
+    padding: 13px 0 13px 0;
+    text-align: center;
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight: 400;
+    font-size: 1.8rem;
+    line-height: 2.3rem; }
+    .modal__reg:hover {
+      background-color: #f7f5f7; }
+    .modal__reg_white {
+      border: 1px solid #4C91F8;
+      color: #000;
+      background-color: #fff; }
+    .modal__reg_blue {
+      color: #fff;
+      background-color: #4C91F8; }
+  .modal__close {
+    width: 40px;
+    height: 40px;
+    background-color: #4C91F8;
+    position: absolute;
+    top: 85px;
+    right: 440px;
+    z-index: 4;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+    font-weight: 200;
+    font-family: "Source Sans Pro", sans-serif; }
+    .modal__close:hover {
+      cursor: pointer;
+      background-color: #609df8; }
+
+.input_error {
+  border: 1px solid red; }
 
 .div_center {
   width: 100%;
