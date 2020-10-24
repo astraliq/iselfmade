@@ -2,17 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2e38572c-436e-49d4-8317-261599b6a7b6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/iselfmade.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/iselfmade.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/webResources.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Components/TimeZoneComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/Components/TimeZoneComponent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Components/UserComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/Components/UserComponent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/actions/user/UpdateAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/actions/user/UpdateAction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/user/view.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/user/view.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/css/mainpage.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/css/mainpage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/users/ava/1-1603392076-1527348309162470143.jpg" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,7 +13,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="DONT_SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution>
       <phar pharPath="$PROJECT_DIR$/composer.phar" interpreterId="e1243a74-41f5-4f23-8e88-cac8af6492af" />
@@ -155,7 +148,7 @@
     <property name="TODO_SCOPE" value="All Places" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="ignore.virus.scanning.warn.message" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../calend" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -164,7 +157,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
-    <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
+    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php.composer" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -256,6 +249,12 @@
       <workItem from="1603122811112" duration="8703000" />
       <workItem from="1603382743068" duration="8814000" />
       <workItem from="1603474344467" duration="1387000" />
+      <workItem from="1603557975014" duration="103000" />
+      <workItem from="1603558121458" duration="85000" />
+      <workItem from="1603558209811" duration="447000" />
+      <workItem from="1603558662080" duration="361000" />
+      <workItem from="1603559045840" duration="45000" />
+      <workItem from="1603559109875" duration="41000" />
     </task>
     <servers />
   </component>
