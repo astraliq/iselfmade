@@ -43,11 +43,6 @@ class UpdateAction extends Action {
             }
             $user->load($postData);
 
-//                    echo '<pre>';
-//        print_r(\Yii::$app->request->post());
-//        print_r($user);
-//        echo '</pre>';
-//        exit();
 //            $data = \Yii::$app->request->post();
 //            \Yii::$app->response->format = Response::FORMAT_JSON;
 //            return $data;

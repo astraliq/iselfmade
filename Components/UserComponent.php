@@ -22,10 +22,11 @@ class UserComponent extends BaseComponent {
     public function updateUser(User $user):bool {
         $user->avaReal = UploadedFile::getInstance($user, 'avaReal');
         $fileSaver = \Yii::createObject(['class' => FileSaverComponent::class]);
-        if ($user->timezone) {
-            $user->timezone = \Yii::$app->timezones->getRuTimezones('short')[$user->timezone];
-        }
 
+//                echo '<pre>';
+//                print_r($user);
+//                echo '</pre>';
+//                exit();
         if ($user->validate()) {
             if ($user->avaReal) {
                 $file = $fileSaver->saveAvatar($user->avaReal);
