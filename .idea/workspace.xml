@@ -3,9 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="2e38572c-436e-49d4-8317-261599b6a7b6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/iselfmade.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/iselfmade.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/webResources.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/actions/user/UpdateAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/actions/user/UpdateAction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/layouts/base.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/layouts/base.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/scss/mainpage.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/scss/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/scss/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/web/scss/style.scss" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -254,7 +258,7 @@
       <workItem from="1603558209811" duration="447000" />
       <workItem from="1603558662080" duration="361000" />
       <workItem from="1603559045840" duration="45000" />
-      <workItem from="1603559109875" duration="41000" />
+      <workItem from="1603559109875" duration="1735000" />
     </task>
     <servers />
   </component>

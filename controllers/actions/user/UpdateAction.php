@@ -84,7 +84,6 @@ class UpdateAction extends Action {
 //                print_r($timezones);
 //                echo '</pre>';
 //                exit();
-
         return $this->controller->render('view',[
             'user' => $user,
             'timezones' => $timezones,

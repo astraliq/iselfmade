@@ -303,5 +303,9 @@ body {
 .task_transfer_btn:disabled {
     background-color: $color-disable;
     color: $color-disable2;
+}
 
+.main_menu-selected a{
+    font-weight: 700;
+    color: $color-blue;
 }

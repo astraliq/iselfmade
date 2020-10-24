@@ -251,3 +251,7 @@ body {
 .task_transfer_btn:disabled {
   background-color: #f7f5f7;
   color: grey; }
+
+.main_menu-selected a {
+  font-weight: 700;
+  color: #4C91F8; }
