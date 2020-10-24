@@ -6,3 +6,4 @@ themes/classic/views/
 config/db_real.php
 /.idea/
 
+.idea/workspace.xml
