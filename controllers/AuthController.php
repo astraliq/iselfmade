@@ -5,6 +5,8 @@ namespace app\controllers;
 
 use app\models\User;
 use yii\web\Controller;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 
 class AuthController extends Controller
 {
@@ -19,7 +21,7 @@ class AuthController extends Controller
     public function actionSignUp(){
 
         if (!\Yii::$app->user->isGuest) {
-            return $this->redirect(['/auth/sign-in']);
+            return $this->redirect(['/report']);
         }
 
         $model = new User([
@@ -34,13 +36,22 @@ class AuthController extends Controller
             }
         }
 
-        return $this->render('signup',['model'=>$model]);
+        if (\Yii::$app->request->isAjax) {
+            \Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+
+
+        $this->view->params['model'] = $model;
+        return $this->redirect(['/']);
+//        return ActiveForm::validate($model);
+//        return $this->render('signup',['model'=>$model]);
     }
 
     public function actionSignIn(){
 
         if (!\Yii::$app->user->isGuest) {
-            return $this->redirect(['/task/create']);
+            return $this->redirect(['/report']);
         }
 
         $model = new User([
@@ -54,9 +65,23 @@ class AuthController extends Controller
             $model->load(\Yii::$app->request->post());
             if ($this->auth->signIn($model)) {
                 return $this->redirect(['/report']);
+            } else {
+                \Yii::$app->session->addFlash('user_errors',$model->errors);
             }
         }
 
-        return $this->render('signin',['model'=>$model]);
+        if (\Yii::$app->request->isAjax) {
+            \Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+
+        $this->view->params['model'] = $model;
+
+        return $this->redirect(['/']);
+
+
+//        return ActiveForm::validate($model);
+//        $this->render('//site/index');
+//        return $this->render('signin',['model'=>$model]);
     }
 }

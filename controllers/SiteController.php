@@ -63,8 +63,16 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
+        $model = new User([
+            'scenario' => 'signUp'
+        ]);
+        $this->view->params['model'] = $model;
+
+        if (!empty(\Yii::$app->session->getFlash('user_errors'))) {
+            $model->errors = \Yii::$app->session->getFlash('user_errors')[0];
+        }
+
         return $this->render('index');
     }
 
@@ -73,8 +81,7 @@ class SiteController extends Controller
      *
      * @return Response
      */
-    public function actionLogout()
-    {
+    public function actionLogout() {
         Yii::$app->user->logout();
 
         return $this->goHome();
@@ -85,8 +92,7 @@ class SiteController extends Controller
      *
      * @return Response|string
      */
-    public function actionTasks()
-    {
+    public function actionTasks() {
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
             Yii::$app->session->setFlash('contactFormSubmitted');

@@ -14,7 +14,7 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
         '@filesWeb'=>'/files/',
     ],
-    'name' => 'iSelfMade',
+    'name' => 'iselfmade.ru',
     'language' => 'ru_RU',
     'components' => [
         'auth' => ['class' => \app\components\AuthComponent::class],

@@ -2,20 +2,19 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
 ?>
-<div class="site-index">
-
-    <div class="jumbotron">
-        <h1>Создай себя!</h1>
-
-        <p class="lead">Нажми кнопку и твоя жизнь изменится!</p>
-
-        <p><a class="btn btn-lg btn-success" href="/auth/sign-up">Начать!</a></p>
-    </div>
-
-    <div class="body-content">
-
-
-    </div>
-</div>
+<main class="main__style">
+    <h1 class="main__title">iselfmade.ru — сервис для достижения личных целей и выполнения задач</h1>
+    <p class="main__text">
+        Никакой магии или «секретной» методики. Большинство инструментов и способов вам известно уже давно. К&nbsp;сожалению, просто знания никак не продвигают нас к своим целям, только действия и ничего больше. Мы создали этот сервис, чтобы вы оказались в ситуации,
+        когда проще сделать, чем не сделать.
+    </p>
+    <p class="main__text">
+        Делая каждый день, то что нужно, вы постепенно приближаетесь к своим целям.
+    </p>
+    <section class="about">
+        <h2 class="h2__title">Что такое iselfmade.ru</h2>
+        <img class="about__img">
+        <p class="about__img-text">Раздел «Отчёт». Самый важный раздел</p>
+    </section>
+</main>

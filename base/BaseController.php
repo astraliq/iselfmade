@@ -12,13 +12,14 @@ class BaseController extends Controller
 
     public function beforeAction($action)
     {
+        if (\Yii::$app->user->isGuest) {
+            return $this->redirect(['/']);
+        }
         \Yii::$app->setTimeZone(\Yii::$app->user->getIdentity()->getTimezone());
 //        if (!\Yii::$app->request->isPost) {
 //            \Yii::$app->session->addFlash('lastPage',\Yii::$app->request->referrer);
 //        }
-        if (\Yii::$app->user->isGuest){
-            return $this->redirect(['/auth/sign-in']);
-        }
+
         return parent::beforeAction($action);
     }
     public function afterAction($action, $result)

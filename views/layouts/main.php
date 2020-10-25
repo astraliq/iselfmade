@@ -3,6 +3,8 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+$this->title = 'iselfmade.ru';
+
 use app\widgets\Alert;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
@@ -19,62 +21,103 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Source+Sans+Pro:wght@200;300;400;600;700&display=swap" rel="stylesheet">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
 <body>
 <?php $this->beginBody() ?>
-
-<div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            Yii::$app->user->isGuest ? (
-            ['label' => 'Главная', 'url' => ['/']]
-            ) : (''),
-            !Yii::$app->user->isGuest ? (
-            ['label' => 'Задачи', 'url' => ['/report']]
-            ) : (''),
-            !Yii::$app->user->isGuest ? (
-            ['label' => 'Личный кабинет', 'url' => ['/profile']]
-            ) : (''),
-            Yii::$app->user->isGuest ? (
-                    ['label' => 'Вход', 'url' => ['/auth/sign-in']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Выход (' . Yii::$app->user->identity->email . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            ),
-            Yii::$app->user->isGuest ? (
-            ['label' => 'Регистрация', 'url' => ['/auth/sign-up']]
-            ) : (''),
-
-        ],
-    ]);
-    NavBar::end();
-    ?>
-
-    <div class="container">
-        <?/*= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) */?>
-        <?/*= Alert::widget() */?>
-        <?= $content ?>
+<header class="header__style">
+    <a href="/" class="header__logo-link">
+        <p class="header__logo header__logo_black">i<span class="header__logo header__logo_blue">self</span>made.ru</p>
+    </a>
+    <div class="header__items">
+        <div class="header__item">
+            <a href="/" class="header__menu header__menu-active">О системе</a>
+        </div>
+        <div class="header__item">
+            <a href="/" class="header__menu header__menu-link">Частые вопросы</a>
+        </div>
+        <div class="header__item">
+            <a href="/" class="header__menu header__menu-link">Тарифы</a>
+        </div>
+        <div class="header__item" id="premodal">
+            <button class="header__btn" id="login">Вход/Регистрация</button>
+        </div>
     </div>
+</header>
+
+<div class="container">
+    <div class="modal invisible" id="modal">
+        <div class="modal__close" id="close">×</div>
+
+        <div class="modal__style" id="mwindow-login">
+            <p class="modal__title">Вход в систему</p>
+
+            <?php $form=\yii\bootstrap\ActiveForm::begin([
+                    'enableAjaxValidation' => true,
+                    'enableClientValidation' => true,
+                    'action' => '/auth/sign-in',
+                    'options' => [
+                            'class' => 'modal__form'
+                    ]
+            ]); ?>
+            <?=$form->field($this->params['model'],'email')->textInput(['class' => 'modal__input'])?>
+            <?=$form->field($this->params['model'],'password')->passwordInput(['class' => 'modal__input'])?>
+            <?= $form->errorSummary($this->params['model'],['header' => '', 'class' => 'has-error']); ?>
+            <div class="modal__sub">
+                <button type="submit" class="modal__btn">Войти</button>
+                <a class="modal__link" id="remind">Напомнить пароль</a>
+            </div>
+            <?php \yii\bootstrap\ActiveForm::end();?>
+
+            <div class="div_center">
+                <button class="modal__reg modal__reg_white" id="regbtn">Зарегистрироваться</button>
+            </div>
+        </div>
+
+        <div class="modal__style invisible" id="mwindow-remind">
+            <p class="modal__title">Напомнить пароль</p>
+            <form class="modal__form-remind">
+                <input class="modal__input" name="User[email]" type="text" placeholder="Email" aria-required="true">
+                <div class="modal__sub">
+                    <button class="modal__btn">Напомнить</button>
+                </div>
+            </form>
+            <div class="div_center">
+                <button class="modal__reg modal__reg_white loginbtn">Войти</button>
+            </div>
+        </div>
+
+        <div class="modal__style invisible" id="mwindow-reg">
+            <p class="modal__title">Регистрация</p>
+
+            <?php $form=\yii\bootstrap\ActiveForm::begin([
+                'enableAjaxValidation' => true,
+                'enableClientValidation' => true,
+                'action' => '/auth/sign-up',
+                'options' => [
+                    'class' => 'modal__form-sign'
+                ]
+            ]); ?>
+            <?=$form->field($this->params['model'],'email')->textInput(['class' => 'modal__input']);?>
+            <?=$form->field($this->params['model'],'password')->passwordInput(['class' => 'modal__input']);?>
+            <?=$form->field($this->params['model'],'repeat_password')->passwordInput(['class' => 'modal__input']);?>
+            <?= $form->errorSummary($this->params['model'],['header' => '', 'class' => 'has-error']); ?>
+            <p class="modal__sign-text">Нажимая на кнопку, вы соглашаетесь с <a class="modal__sign-text_link" href="#">нашими правилами</a>
+                и <a class="modal__sign-text_link" href="#">политикой конфиденциальности</a></p>
+            <div class="div_center">
+                <button type="submit" class="modal__btn modal__btn-sign">Зарегистрироваться</button>
+            </div>
+            <?php \yii\bootstrap\ActiveForm::end();?>
+
+            <div class="div_center">
+                <button class="modal__reg modal__reg_white loginbtn">Войти</button>
+            </div>
+        </div>
+    </div>
+    <?= $content ?>
 </div>
 
 <footer class="footer">
