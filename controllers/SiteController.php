@@ -64,14 +64,18 @@ class SiteController extends Controller
      * @return string
      */
     public function actionIndex() {
+        if (!\Yii::$app->user->isGuest) {
+            $this->redirect('/report');
+        }
+
         $model = new User([
             'scenario' => 'signUp'
         ]);
         $this->view->params['model'] = $model;
 
-        if (!empty(\Yii::$app->session->getFlash('user_errors'))) {
-            $model->errors = \Yii::$app->session->getFlash('user_errors')[0];
-        }
+//        if (!empty(\Yii::$app->session->getFlash('user_errors'))) {
+//            $model->errors = \Yii::$app->session->getFlash('user_errors')[0];
+//        }
 
         return $this->render('index');
     }

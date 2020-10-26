@@ -12,9 +12,11 @@ use yii\web\Response;
 
 class TransferAction extends Action {
     public function run() {
-        if (!\Yii::$app->rbac->canCreateTask()) {
-            throw new HttpException(403,'Нет доступа');
+
+        if (\Yii::$app->user->isGuest || !\Yii::$app->rbac->canCreateTask()) {
+            throw new HttpException(403, 'Нет доступа');
         }
+
         $comp = \Yii::createObject(['class' => TasksComponent::class,'modelClass' => Tasks::class]);
         $model = $comp->getModel();
 

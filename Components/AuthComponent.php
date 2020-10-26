@@ -20,7 +20,7 @@ class AuthComponent extends Component
         $user=$this->getUserByEmail($model->email);
 
         if (!$this->validatePassword($model->password,$user->pass_hash)){
-            $model->addError('email', 'Неверная электронная почта или пароль');
+//            $model->addError('email', 'Неверная электронная почта или пароль');
             $model->addError('password', 'Неверная электронная почта или пароль');
             return false;
         };

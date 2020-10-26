@@ -13,7 +13,7 @@ class BaseController extends Controller
     public function beforeAction($action)
     {
         if (\Yii::$app->user->isGuest) {
-            return $this->redirect(['/']);
+            return $this->redirect(['/'])->send();
         }
         \Yii::$app->setTimeZone(\Yii::$app->user->getIdentity()->getTimezone());
 //        if (!\Yii::$app->request->isPost) {

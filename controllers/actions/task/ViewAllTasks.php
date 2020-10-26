@@ -15,12 +15,17 @@ class ViewAllTasks extends Action {
     public function run() {
         $admin = false;
 
+        if (\Yii::$app->user->isGuest || !\Yii::$app->rbac->canViewOwnTask()) {
+//            throw new HttpException(404, 'Нет доступа');
+        }
+
         $comp = \Yii::createObject(['class' => TasksComponent::class,'modelClass' => Tasks::class]);
         $model = $comp->getModel();
         $action = $this->id;
 
         // задачи на сегодня
         $tasks = $comp->getTodayUserTasks();
+
         // задачи на завтра
         $tasksTomorrow = $comp->getTomorrowUserTasks();
         // задачи на месяц

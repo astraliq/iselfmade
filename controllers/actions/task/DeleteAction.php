@@ -13,6 +13,10 @@ use yii\web\Response;
 class DeleteAction extends Action {
     public function run($id, $user_id=null) {
 
+        if (\Yii::$app->user->isGuest) {
+            throw new HttpException(403, 'Нет доступа');
+        }
+
         $comp = \Yii::createObject(['class' => TasksComponent::class,'modelClass' => Tasks::class]);
         $model = $comp->getModel();
         $task = $model->findOne(['id' => $id, 'user_id' => \Yii::$app->user->getId()]);

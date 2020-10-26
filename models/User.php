@@ -22,7 +22,9 @@ class User extends UserBase implements IdentityInterface
     CONST SEX = [self::MALE => 'Мужской', self::FEMALE => 'Женский'];
 
     private const SCENARIO_SIGN_UP = 'signUp';
+    private const SCENARIO_VALIDATE_SIGN_UP = 'validateSignUp';
     private const SCENARIO_SIGN_IN = 'signIn';
+    private const SCENARIO_VALIDATE_SIGN_IN = 'validateSignIn';
     private const SCENARIO_UPD_PSW = 'updateWithPassword';
 
     public function scenarioSignUp(){
@@ -40,7 +42,9 @@ class User extends UserBase implements IdentityInterface
     public function scenarios() {
         return [
             self::SCENARIO_SIGN_UP => ['email', 'password', 'repeat_password'],
+            self::SCENARIO_VALIDATE_SIGN_UP => ['email', 'password', 'repeat_password'],
             self::SCENARIO_SIGN_IN => ['email', 'password'],
+            self::SCENARIO_VALIDATE_SIGN_IN => ['email', 'password'],
             self::SCENARIO_UPD_PSW => ['password', 'repeat_password', 'name', 'surname', 'phone_number', 'timezone', 'avaReal', 'sex', 'birthday', 'offset_UTC'],
             'default' => ['name', 'surname', 'phone_number', 'timezone', 'avaReal', 'sex', 'birthday', 'offset_UTC']
         ];
@@ -74,13 +78,18 @@ class User extends UserBase implements IdentityInterface
         return array_merge([
             ['birthday', 'date', 'format' => 'php:Y-m-d'],
             ['avaReal','file', 'skipOnEmpty' => true, 'extensions' => ['jpg', 'png', 'jpeg'], 'maxSize'=>1024 * 1024 * 2, 'tooBig'=> 'Максимальный размер картинки 2MB'],
-            ['password', 'required','message' => 'Необходимо заполнить пароль'],
-//            ['password', 'match','pattern' => '/^.*(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/', 'message'        => 'Пароль должен содержать латинские буквы минимум 1 строчную и 1 заглавную и 1 цифру'],
+            ['password', 'required', 'when'  => function () {
+                return $this->email != '';
+            },'message' => 'Необходимо заполнить пароль'],
+            [['email','password'], 'required','message' => 'Необходимо заполнить электронную почту и пароль'],
+//            ['password', 'string','on'=> self::SCENARIO_SIGN_UP, 'min' => 8, 'max' => 250, 'message' => 'Пароль должен содержать минимум 8 символов'],
+//            ['password', 'match','pattern' => '/^.*(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/', 'message'        => 'Пароль должен содержать латинские буквы минимум 1 строчную и 1 заглавную и 1 цифру', 'on'=> self::SCENARIO_SIGN_UP],
             ['repeat_password', 'compare', 'compareAttribute' => 'password','on'=> [self::SCENARIO_SIGN_UP, self::SCENARIO_UPD_PSW], 'message' => 'Пароли должны совпадать'],
             ['repeat_password', 'required', 'message' => 'Необходимо повторить пароль'],
-            ['email', 'required','message' => 'Необходимо заполнить электронную почту'],
+
             [['email'], 'unique','on'=> self::SCENARIO_SIGN_UP, 'message' => 'Такой адрес уже зарегистрирован'],
-            [['email'], 'validateEmail','on'=> self::SCENARIO_SIGN_IN, 'message' => 'Неверный адрес или пароль'],
+            [['email'], 'validateEmail','on'=> self::SCENARIO_SIGN_IN],
+            [['password'], 'validateEmailByPass','on'=> self::SCENARIO_SIGN_IN],
             ['sex', 'in', 'range' => array_keys(self::SEX)],
             ['timezone', 'validateTimezone', 'message' => 'Неверное имя часового пояса'],
         ], parent::rules());
@@ -97,6 +106,12 @@ class User extends UserBase implements IdentityInterface
         if (!$user) {
             $this->addError('email', 'Неверная электронная почта или пароль');
             $this->addError('password', 'Неверная электронная почта или пароль');
+        }
+    }
+
+    public function validateEmailByPass() {
+        if (!$this->email) {
+            $this->addError('password', 'Необходимо заполнить электронную почту');
         }
     }
 

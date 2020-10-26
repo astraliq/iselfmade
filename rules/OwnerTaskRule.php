@@ -19,8 +19,7 @@ class OwnerTaskRule extends Rule
      * @param array $params parameters passed to [[CheckAccessInterface::checkAccess()]].
      * @return bool a value indicating whether the rule permits the auth item it is associated with.
      */
-    public function execute($user, $item, $params)
-    {
+    public function execute($user, $item, $params) {
         $task = $params['task'];
 //        echo '<pre>';
 //        echo '$user - ' . $user;
@@ -30,8 +29,9 @@ class OwnerTaskRule extends Rule
 //        echo '<br>';
 //        echo '</pre>';
 //        exit();
-
-
-        return $task->user_id == $user;
+        if ($task) {
+            return $task->user_id == $user;
+        }
+        return true;
     }
 }

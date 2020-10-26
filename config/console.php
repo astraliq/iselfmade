@@ -32,8 +32,10 @@ $config = [
         ],
         'rbac' => ['class' => \app\Components\RbacComponent::class],
         'db' => $db,
+        'timezones' => ['class' => \app\Components\TimeZoneComponent::class],
     ],
     'params' => $params,
+
     /*
     'controllerMap' => [
         'fixture' => [ // Fixture generation command line.

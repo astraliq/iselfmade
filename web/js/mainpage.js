@@ -2,11 +2,38 @@
 class MainPage {
     constructor() {
         this._init();
-        this.loginForm = document.getElementById('mwindow-login');
-        this.remindForm = document.getElementById('mwindow-remind');
-        this.regForm = document.getElementById('mwindow-reg');
+        this.loginWindow = document.getElementById('mwindow-login');
+        this.remindWindow = document.getElementById('mwindow-remind');
+        this.regWindow = document.getElementById('mwindow-reg');
+        this.loginForm = document.getElementById('form-login');
+        this.remindForm = document.getElementById('form-remind');
+        this.regForm = document.getElementById('form-reg');
 
     }
+
+    _formHandler(e) {
+        let $yiiform = $(this);
+        // отправляем данные на сервер
+        $.ajax({
+                type: $yiiform.attr('method'),
+                url: $yiiform.attr('action'),
+                data: $yiiform.serializeArray()
+            }
+        )
+            .done(function(data) {
+                if(data.success) {
+                    // данные сохранены
+                } else {
+                    // сервер вернул ошибку и не сохранил наши данные
+                }
+            })
+            .fail(function () {
+                // не удалось выполнить запрос к серверу
+            });
+
+        return false; // отменяем отправку данных формы
+    }
+
 
     _init() {
         let login = document.getElementById('login');
@@ -14,37 +41,12 @@ class MainPage {
             this.renderModal();
         });
         let modal = document.getElementById('modal');
-        modal.addEventListener('click', (e) => {
+        modal.addEventListener('mousedown', (e) => {
             let target = e.target;
             if (!target.closest(".modal__style")) {
                 mainPageStart.closeModal(modal);
             }
         });
-    }
-
-    renderModal(type=0) {
-        this.strModal = '';
-        let modal = document.getElementById('modal');
-        modal.classList.remove('invisible');
-        switch (type) {
-            case 1:
-                this.loginForm.classList.remove('invisible');
-                this.remindForm.classList.add('invisible');
-                this.regForm.classList.add('invisible');
-                break;
-            case 2:
-                this.loginForm.classList.add('invisible');
-                this.remindForm.classList.remove('invisible');
-                this.regForm.classList.add('invisible');
-                break;
-            case 3:
-                this.loginForm.classList.add('invisible');
-                this.remindForm.classList.add('invisible');
-                this.regForm.classList.remove('invisible');
-                break;
-            default:
-
-        }
 
         let remind = document.getElementById('remind');
         remind.addEventListener('click', (e) => {
@@ -56,12 +58,41 @@ class MainPage {
             elem.addEventListener('click', (e) => {
                 this.renderModal(1);
             });
-        })
+        });
 
         let regbtn = document.getElementById('regbtn');
         regbtn.addEventListener('click', (e) => {
             this.renderModal(3);
         });
+
+        $(this.loginForm).on('beforeSubmit', (e) => {
+            this._formHandler();
+        })
+    }
+
+    renderModal(type=0) {
+        this.strModal = '';
+        let modal = document.getElementById('modal');
+        modal.classList.remove('invisible');
+        switch (type) {
+            case 1:
+                this.loginWindow.classList.remove('invisible');
+                this.remindWindow.classList.add('invisible');
+                this.regWindow.classList.add('invisible');
+                break;
+            case 2:
+                this.loginWindow.classList.add('invisible');
+                this.remindWindow.classList.remove('invisible');
+                this.regWindow.classList.add('invisible');
+                break;
+            case 3:
+                this.loginWindow.classList.add('invisible');
+                this.remindWindow.classList.add('invisible');
+                this.regWindow.classList.remove('invisible');
+                break;
+            default:
+
+        }
 
         // let checkEmail = false
         // let emailFocus = false;
