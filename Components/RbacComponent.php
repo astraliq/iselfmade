@@ -263,12 +263,18 @@ class RbacComponent extends BaseComponent {
         return \Yii::$app->user->can('createTasks');
     }
 
-    public function canViewOwnTask(Tasks $task):bool{
+    public function canViewOwnTask(Tasks $task=null):bool{
         if (\Yii::$app->user->can('admin')) {
             return true;
         }
 
-        if (\Yii::$app->user->can('viewOwnTasks', ['task' => $task])) {
+        if ($task) {
+            if (\Yii::$app->user->can('viewOwnTasks', ['task' => $task])) {
+                return true;
+            }
+        }
+
+        if (\Yii::$app->user->can('viewOwnTasks')) {
             return true;
         }
         return false;

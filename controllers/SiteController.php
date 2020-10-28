@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\Components\DAOComponent;
 use app\Components\TimeZoneComponent;
+use app\controllers\actions\site\ErrorAction;
 use app\models\RegistrationForm;
 use app\models\User;
 use Yii;
@@ -14,8 +15,8 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 
-class SiteController extends Controller
-{
+class SiteController extends Controller {
+
     /**
      * {@inheritdoc}
      */
@@ -45,12 +46,9 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
-    public function actions()
-    {
+    public function actions() {
         return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
+            'error' => ['class' => ErrorAction::class],
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
@@ -63,8 +61,20 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
+        if (!\Yii::$app->user->isGuest) {
+            $this->redirect('/report');
+        }
+
+        $model = new User([
+            'scenario' => 'signUp'
+        ]);
+        $this->view->params['model'] = $model;
+
+//        if (!empty(\Yii::$app->session->getFlash('user_errors'))) {
+//            $model->errors = \Yii::$app->session->getFlash('user_errors')[0];
+//        }
+
         return $this->render('index');
     }
 
@@ -73,8 +83,7 @@ class SiteController extends Controller
      *
      * @return Response
      */
-    public function actionLogout()
-    {
+    public function actionLogout() {
         Yii::$app->user->logout();
 
         return $this->goHome();
@@ -85,8 +94,7 @@ class SiteController extends Controller
      *
      * @return Response|string
      */
-    public function actionTasks()
-    {
+    public function actionTasks() {
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
             Yii::$app->session->setFlash('contactFormSubmitted');

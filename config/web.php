@@ -14,7 +14,7 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
         '@filesWeb'=>'/files/',
     ],
-    'name' => 'iSelfMade',
+    'name' => 'iselfmade.ru',
     'language' => 'ru_RU',
     'components' => [
         'auth' => ['class' => \app\components\AuthComponent::class],
@@ -86,9 +86,8 @@ $config = [
                 'task/finish/<user_id:\d+>/<id:\d+>'=>'task/finish',
                 'report'=>'task/report',
                 'task/img/'=>'img/',
-                'profile'=>'user/view/',
-                'profile/<id:\d+>'=>'user/view/',
-                'user/update/<id:\d+>'=>'user/update/',
+                'profile'=>'user/update/',
+                'profile/<id:\d+>'=>'user/update/',
                 [
                     'class'=>yii\rest\UrlRule::class,
                     'controller'=>'user-rest-api',
@@ -96,6 +95,7 @@ $config = [
                 ],
             ],
         ],
+        'timezones' => ['class' => \app\Components\TimeZoneComponent::class],
 
     ],
     'params' => array_merge($params, ['monthsImenit' => [

@@ -5,6 +5,7 @@ body {
     padding: 0 0 0 0;
     box-sizing: border-box;
     outline: none;
+    font-size: 10px;
 }
 
 
@@ -28,7 +29,7 @@ body {
     margin: 0 0 0 0;
     padding: 0 0 0 0;
     display: flex;
-    // flex-direction: row;
+     flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
     width: 100%;
@@ -303,5 +304,9 @@ body {
 .task_transfer_btn:disabled {
     background-color: $color-disable;
     color: $color-disable2;
+}
 
+.main_menu-selected a{
+    font-weight: 700;
+    color: $color-blue;
 }

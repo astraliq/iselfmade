@@ -2,8 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2e38572c-436e-49d4-8317-261599b6a7b6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/controllers/actions/site/ErrorAction.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/layouts/error_base.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/AuthAsset.php" beforeDir="false" afterPath="$PROJECT_DIR$/assets/AuthAsset.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/AuthController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/SiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/SiteController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/TaskController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/actions/task/ViewAllTasks.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/actions/task/ViewAllTasks.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/layouts/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/layouts/main.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/site/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/site/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/css/mainpage.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/css/mainpage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/js/mainpage.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/mainpage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/scss/mainpage.scss" beforeDir="false" afterPath="$PROJECT_DIR$/web/scss/mainpage.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/scss/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/web/scss/style.scss" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -11,7 +25,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="DONT_SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution>
       <phar pharPath="$PROJECT_DIR$/composer.phar" interpreterId="e1243a74-41f5-4f23-8e88-cac8af6492af" />
@@ -146,7 +160,7 @@
     <property name="TODO_SCOPE" value="All Places" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="ignore.virus.scanning.warn.message" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../calend" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/views/layouts" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -155,15 +169,15 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
-    <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
+    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php.composer" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Open Server 5.3.7\domains\iselfmade.ru\views\layouts" />
       <recent name="D:\Open Server 5.3.7\domains\iselfmade\web\js" />
       <recent name="D:\Open Server 5.3.7\domains\iselfmade\views\layouts" />
       <recent name="D:\Open Server 5.3.7\domains\iselfmade\controllers\actions\task" />
       <recent name="D:\Open Server 5.3.7\domains\iselfmade\widgets\tasks" />
-      <recent name="D:\Open Server 5.3.7\domains\iselfmade\rules" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -244,7 +258,19 @@
       <workItem from="1602692551128" duration="10882000" />
       <workItem from="1603002809819" duration="8783000" />
       <workItem from="1603039279235" duration="9734000" />
-      <workItem from="1603122811112" duration="8109000" />
+      <workItem from="1603122811112" duration="8703000" />
+      <workItem from="1603382743068" duration="8814000" />
+      <workItem from="1603474344467" duration="1387000" />
+      <workItem from="1603557975014" duration="103000" />
+      <workItem from="1603558121458" duration="85000" />
+      <workItem from="1603558209811" duration="447000" />
+      <workItem from="1603558662080" duration="361000" />
+      <workItem from="1603559045840" duration="45000" />
+      <workItem from="1603559109875" duration="6135000" />
+      <workItem from="1603639383779" duration="14787000" />
+      <workItem from="1603725508587" duration="15941000" />
+      <workItem from="1603818959971" duration="5795000" />
+      <workItem from="1603897921313" duration="4466000" />
     </task>
     <servers />
   </component>

@@ -4,6 +4,7 @@
 namespace app\controllers\actions\user;
 
 
+use app\Components\TimeZoneComponent;
 use app\Components\UserComponent;
 use app\models\User;
 use yii\base\Action;
@@ -17,7 +18,7 @@ class UpdateAction extends Action {
             throw new HttpException(403,'Нет доступа');
         }
 
-        if (!\Yii::$app->rbac->canUpdateOwnProfile()) {
+        if (!\Yii::$app->rbac->canUpdateOwnProfile() || !\Yii::$app->rbac->canViewOwnProfile()) {
             throw new HttpException(403,'Нет доступа');
         }
 
@@ -31,6 +32,10 @@ class UpdateAction extends Action {
             throw new HttpException(404, 'Страница не найдена');
         }
 
+        if (!\Yii::$app->rbac->canViewUserProfile($user) && $id) {
+            throw new HttpException(403,'Нет доступа');
+        }
+
         if (\Yii::$app->request->isPost) {
             $postData = \Yii::$app->request->post();
             if ($postData['User']['password'] || $postData['User']['repeat_password']) {
@@ -38,11 +43,6 @@ class UpdateAction extends Action {
             }
             $user->load($postData);
 
-//                    echo '<pre>';
-//        print_r(\Yii::$app->request->post());
-//        print_r($user);
-//        echo '</pre>';
-//        exit();
 //            $data = \Yii::$app->request->post();
 //            \Yii::$app->response->format = Response::FORMAT_JSON;
 //            return $data;
@@ -67,16 +67,23 @@ class UpdateAction extends Action {
                 if (\Yii::$app->request->isAjax) {
                     return ['result' => 'false'];
                 } else {
-                    print_r($user->getErrors());
-//                    return $this->controller->redirect(['/profile']);
+                    goto render;
                 }
-//                echo '<pre>';
-//                print_r($user->getErrors());
-//                echo '</pre>';
+
             }
         }
 
-        return $this->controller->redirect(['/profile']);
+        render:
+        $timezones = \Yii::$app->timezones->getRuTimezones('short_gmt');
+//                echo '<pre>';
+//                print_r($timezones);
+//                echo '</pre>';
+//                exit();
+        return $this->controller->render('view',[
+            'user' => $user,
+            'timezones' => $timezones,
+            'admin' => $admin,
+        ]);
     }
 
 

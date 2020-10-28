@@ -9,7 +9,8 @@ body {
   margin: 0 0 0 0;
   padding: 0 0 0 0;
   box-sizing: border-box;
-  outline: none; }
+  outline: none;
+  font-size: 10px; }
 
 .logo-text {
   padding: 20px 10px 10px 15px;
@@ -27,6 +28,7 @@ body {
   margin: 0 0 0 0;
   padding: 0 0 0 0;
   display: flex;
+  flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%; }
@@ -77,11 +79,13 @@ body {
   font-size: 50px;
   line-height: 50px;
   color: #4C91F8; }
+
 .date__month {
   font-family: "Barlow", sans-serif;
   font-weight: 200;
   font-size: 35px;
   color: #000; }
+
 .date__weekday {
   font-family: "Barlow", sans-serif;
   font-weight: 200;
@@ -249,3 +253,7 @@ body {
 .task_transfer_btn:disabled {
   background-color: #f7f5f7;
   color: grey; }
+
+.main_menu-selected a {
+  font-weight: 700;
+  color: #4C91F8; }

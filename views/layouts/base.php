@@ -17,6 +17,13 @@ use app\assets\AppAsset;
 //];
 AppAsset::register($this);
 
+$avatarImage = \Yii::$app->user->getIdentity()->getAvatarName();
+if (!$avatarImage) {
+    $avatarImage = '/img/user_img.jpg';
+} else {
+    $avatarImage = '/users/ava/' . $avatarImage;
+}
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -35,7 +42,7 @@ AppAsset::register($this);
 <div class="container">
     <div class="custom_light">
         <div class="">
-            <img class="user_img" src="/img/user_img.jpg" width="60" height="60">
+            <img class="user_img" src="<?= $avatarImage ?>" width="60" height="60">
         </div>
     </div>
     <div class="menu">
@@ -46,42 +53,43 @@ AppAsset::register($this);
         </div>
         <div class="menu__list">
             <?php
+            $url = \Yii::$app->request->url;
             echo Nav::widget([
                 'options' => ['class' => 'menu__items'],
                 'items' => [
                     (['label' => 'Отчет',
                         'url' => ['/report'],
-                        'options' => ['class' => ''],
+                        'options' => ['class' => $url=='/report' ? 'main_menu-selected' : ''],
                         'linkOptions' => ['class' => 'menu__item'],
                     ]),
                     (['label' => 'Мои обещания',
                         'url' => ['/promises'],
-                        'options' => ['class' => ''],
+                        'options' => ['class' => $url=='/promises' ? 'main_menu-selected' : ''],
                         'linkOptions' => ['class' => 'menu__item'],
                     ]),
                     (['label' => 'Статистика',
                         'url' => ['/statistics'],
-                        'options' => ['class' => ''],
+                        'options' => ['class' => $url=='/statistics' ? 'main_menu-selected' : ''],
                         'linkOptions' => ['class' => 'menu__item'],
                     ]),
                     (['label' => 'Категории',
                         'url' => ['/category'],
-                        'options' => ['class' => ''],
+                        'options' => ['class' => $url=='/category' ? 'main_menu-selected' : ''],
                         'linkOptions' => ['class' => 'menu__item'],
                     ]),
                     (['label' => 'Повторяющиеся задачи',
                         'url' => ['/repeats'],
-                        'options' => ['class' => ''],
+                        'options' => ['class' => $url=='/repeats' ? 'main_menu-selected' : ''],
                         'linkOptions' => ['class' => 'menu__item'],
                     ]),
                     (['label' => 'Архив отчетов',
                         'url' => ['/reports'],
-                        'options' => ['class' => ''],
+                        'options' => ['class' => $url=='/reports' ? 'main_menu-selected' : ''],
                         'linkOptions' => ['class' => 'menu__item'],
                     ]),
                     (['label' => 'ЛК',
                         'url' => ['/profile'],
-                        'options' => ['class' => ''],
+                        'options' => ['class' => $url=='/profile' ? 'main_menu-selected' : ''],
                         'linkOptions' => ['class' => 'menu__item'],
                     ]),
                     (

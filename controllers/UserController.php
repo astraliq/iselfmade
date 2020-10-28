@@ -4,6 +4,7 @@
 namespace app\controllers;
 
 use app\base\BaseController;
+use app\controllers\actions\site\ErrorAction;
 use app\controllers\actions\user\UpdateAction;
 use app\controllers\actions\user\ViewAction;
 
@@ -15,6 +16,7 @@ class UserController extends BaseController {
         return [
             'view'=>['class'=>ViewAction::class],
             'update' => ['class' =>UpdateAction::class],
+            'error' => ['class' => ErrorAction::class],
         ];
 
     }
