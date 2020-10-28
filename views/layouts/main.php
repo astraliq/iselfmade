@@ -57,16 +57,16 @@ AppAsset::register($this);
             <p class="modal__title">Вход в систему</p>
 
             <?php $form=\yii\bootstrap\ActiveForm::begin([
-                    'validateOnBlur' => false,
-                    'validateOnChange' => true,
-                    'enableAjaxValidation' => true,
+                'validateOnBlur' => false,
+                'validateOnChange' => true,
+                'enableAjaxValidation' => true,
 //                    'enableClientValidation' => true,
 //                    'validationUrl' => '/auth/validate-sign-in',
-                    'action' => '/auth/sign-in',
-                    'options' => [
-                            'id' => 'form-login',
-                            'class' => 'modal__form'
-                    ]
+                'action' => '/auth/sign-in',
+                'options' => [
+                    'id' => 'form-login',
+                    'class' => 'modal__form'
+                ]
             ]); ?>
             <?=$form->field($this->params['model'],'email',['validateOnChange' => false])->textInput(['class' => 'modal__input', 'id' => 'login-user-email'])->error(false)?>
             <?=$form->field($this->params['model'],'password')->passwordInput(['class' => 'modal__input', 'id' => 'login-user-password'])?>
@@ -98,21 +98,21 @@ AppAsset::register($this);
             <p class="modal__title">Регистрация</p>
 
             <?php $form=\yii\bootstrap\ActiveForm::begin([
+                'validateOnChange' => true,
                 'enableAjaxValidation' => true,
-                'enableClientValidation' => true,
                 'action' => '/auth/sign-up',
                 'options' => [
                     'id' => 'form-reg',
-                    'class' => 'modal__form-sign'
+                    'class' => 'modal__form-sign_up'
                 ]
             ]); ?>
-            <?=$form->field($this->params['model'],'email')->textInput(['class' => 'modal__input', 'id' => 'reg-user-email'])->error(false);?>
-            <?=$form->field($this->params['model'],'password')->passwordInput(['class' => 'modal__input', 'id' => 'reg-user-password']);?>
+            <?=$form->field($this->params['model'],'email')->textInput(['class' => 'modal__input', 'id' => 'reg-user-email']);?>
+            <?=$form->field($this->params['model'],'password')->passwordInput(['class' => 'modal__input', 'id' => 'reg-user-password'])?>
             <?=$form->field($this->params['model'],'repeat_password')->passwordInput(['class' => 'modal__input', 'id' => 'reg-user-repeat_password']);?>
             <?= $form->errorSummary($this->params['model'],['header' => '', 'class' => 'has-error']); ?>
             <p class="modal__sign-text">Нажимая на кнопку, вы соглашаетесь с <a class="modal__sign-text_link" href="#">нашими правилами</a>
                 и <a class="modal__sign-text_link" href="#">политикой конфиденциальности</a></p>
-            <div class="div_center">
+            <div class="modal__sub">
                 <button type="submit" class="modal__btn modal__btn-sign">Зарегистрироваться</button>
             </div>
             <?php \yii\bootstrap\ActiveForm::end();?>

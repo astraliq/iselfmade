@@ -3,20 +3,28 @@
 
 namespace app\controllers;
 
+use app\controllers\actions\site\ErrorAction;
 use app\models\User;
 use yii\web\Controller;
 use yii\web\HttpException;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 
-class AuthController extends Controller
-{
+class AuthController extends Controller {
+
+    public $layout = 'main_page';
     private $auth;
 
     public function __construct($id, $module, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->auth = \Yii::$app->auth;
+    }
+
+    public function actions() {
+        return [
+            'error' => ['class' => ErrorAction::class],
+        ];
     }
 
     public function actionSignUp(){
@@ -32,8 +40,9 @@ class AuthController extends Controller
         if (\Yii::$app->request->isPost){
             $model->load(\Yii::$app->request->post());
             if ($this->auth->signUp($model)) {
-                \Yii::$app->session->addFlash('user_email',$model->email);
-                return $this->redirect(['/auth/sign-in']);
+                if ($this->auth->signIn($model)) {
+                    return $this->redirect(['/profile']);
+                }
             }
         }
 
@@ -41,7 +50,6 @@ class AuthController extends Controller
             \Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
-
 
         $this->view->params['model'] = $model;
         return $this->redirect(['/']);
@@ -72,7 +80,6 @@ class AuthController extends Controller
         }
 
         $this->view->params['model'] = $model;
-
         return $this->redirect(['/']);
 
 

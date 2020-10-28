@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\Components\DAOComponent;
 use app\Components\TimeZoneComponent;
+use app\controllers\actions\site\ErrorAction;
 use app\models\RegistrationForm;
 use app\models\User;
 use Yii;
@@ -14,8 +15,8 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 
-class SiteController extends Controller
-{
+class SiteController extends Controller {
+
     /**
      * {@inheritdoc}
      */
@@ -45,12 +46,9 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
-    public function actions()
-    {
+    public function actions() {
         return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
+            'error' => ['class' => ErrorAction::class],
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,

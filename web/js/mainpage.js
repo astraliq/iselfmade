@@ -68,6 +68,9 @@ class MainPage {
         $(this.loginForm).on('beforeSubmit', (e) => {
             this._formHandler();
         })
+        $(this.regForm).on('beforeSubmit', (e) => {
+            this._formHandler();
+        })
     }
 
     renderModal(type=0) {

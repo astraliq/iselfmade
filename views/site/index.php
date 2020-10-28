@@ -3,6 +3,7 @@
 /* @var $this yii\web\View */
 
 ?>
+
 <main class="main__style">
     <h1 class="main__title">iselfmade.ru — сервис для достижения личных целей и выполнения задач</h1>
     <p class="main__text">
