@@ -67,10 +67,13 @@ class MainPage {
 
         $(this.loginForm).on('beforeSubmit', (e) => {
             this._formHandler();
-        })
+        });
+        $(this.remindForm).on('beforeSubmit', (e) => {
+            this._formHandler();
+        });
         $(this.regForm).on('beforeSubmit', (e) => {
             this._formHandler();
-        })
+        });
     }
 
     renderModal(type=0) {
@@ -97,36 +100,6 @@ class MainPage {
 
         }
 
-        // let checkEmail = false
-        // let emailFocus = false;
-        // let passFocus = false;
-        // let inputEmail = document.getElementById('inputEmail');
-        // let inputPass = document.getElementById('inputPass');
-
-        // inputEmail.addEventListener('focus', (e) => {
-        //     inputEmail.placeholder = '';
-        //     emailFocus = true;
-        // });
-
-        // inputEmail.addEventListener('mouseout', (e) => {
-        //     (inputEmail.value != '') ? inputEmail.placeholder = inputEmail.value: inputEmail.placeholder = "Email";
-        //
-        //     checkEmail = mainPageStart.checkEmailMask(inputEmail.value);
-        //     if (!checkEmail && emailFocus) {
-        //         inputEmail.classList.add('input_error');
-        //     } else {
-        //         inputEmail.classList.remove('input_error');
-        //     }
-        // });
-
-        // inputPass.addEventListener('focus', () => {
-        //     inputPass.placeholder = '';
-        //     passFocus = true;
-        // });
-
-        // inputPass.addEventListener('mouseout', () => {
-        //     (inputPass.value != '') ? inputPass.placeholder = inputPass.value: inputPass.placeholder = "Пароль";
-        // });
     }
 
     closeModal(modal) {

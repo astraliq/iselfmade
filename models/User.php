@@ -25,6 +25,7 @@ class User extends UserBase implements IdentityInterface
     private const SCENARIO_VALIDATE_SIGN_UP = 'validateSignUp';
     private const SCENARIO_SIGN_IN = 'signIn';
     private const SCENARIO_VALIDATE_SIGN_IN = 'validateSignIn';
+    private const SCENARIO_REMIND = 'remindPass';
     private const SCENARIO_UPD_PSW = 'updateWithPassword';
 
     public function scenarioSignUp(){
@@ -45,6 +46,7 @@ class User extends UserBase implements IdentityInterface
             self::SCENARIO_VALIDATE_SIGN_UP => ['email', 'password', 'repeat_password'],
             self::SCENARIO_SIGN_IN => ['email', 'password'],
             self::SCENARIO_VALIDATE_SIGN_IN => ['email', 'password'],
+            self::SCENARIO_REMIND => ['email'],
             self::SCENARIO_UPD_PSW => ['password', 'repeat_password', 'name', 'surname', 'phone_number', 'timezone', 'avaReal', 'sex', 'birthday', 'offset_UTC'],
             'default' => ['name', 'surname', 'phone_number', 'timezone', 'avaReal', 'sex', 'birthday', 'offset_UTC']
         ];
@@ -81,6 +83,8 @@ class User extends UserBase implements IdentityInterface
             ['password', 'required', 'when'  => function () {
                 return $this->email != '';
             },'message' => 'Необходимо заполнить пароль'],
+            [['email'], 'required','on'=> [self::SCENARIO_SIGN_UP], 'message' => 'Необходимо заполнить электронную почту'],
+            [['password'], 'required','on'=> [self::SCENARIO_SIGN_UP], 'message' => 'Необходимо заполнить пароль'],
             [['email','password'], 'required','message' => 'Необходимо заполнить электронную почту и пароль'],
 //            ['password', 'string','on'=> self::SCENARIO_SIGN_UP, 'min' => 8, 'max' => 250, 'message' => 'Пароль должен содержать минимум 8 символов'],
 //            ['password', 'match','pattern' => '/^.*(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/', 'message'        => 'Пароль должен содержать латинские буквы минимум 1 строчную и 1 заглавную и 1 цифру', 'on'=> self::SCENARIO_SIGN_UP],
@@ -89,6 +93,7 @@ class User extends UserBase implements IdentityInterface
 
             [['email'], 'unique','on'=> self::SCENARIO_SIGN_UP, 'message' => 'Такой адрес уже зарегистрирован'],
             [['email'], 'validateEmail','on'=> self::SCENARIO_SIGN_IN],
+            [['email'], 'findEmail','on'=> self::SCENARIO_REMIND],
             [['password'], 'validateEmailByPass','on'=> self::SCENARIO_SIGN_IN],
             ['sex', 'in', 'range' => array_keys(self::SEX)],
             ['timezone', 'validateTimezone', 'message' => 'Неверное имя часового пояса'],
@@ -106,6 +111,12 @@ class User extends UserBase implements IdentityInterface
         if (!$user) {
             $this->addError('email', 'Неверная электронная почта или пароль');
             $this->addError('password', 'Неверная электронная почта или пароль');
+        }
+    }
+
+    public function findEmail() {
+        if (!$this->getUserByEmail($this->email)) {
+            $this->addError('email', 'Пользователь с такой почтой не зарегестрирован');
         }
     }
 

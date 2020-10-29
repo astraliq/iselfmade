@@ -36,6 +36,16 @@ class AuthComponent extends Component
         return User::find()->andWhere(['email'=>$email])->one();
     }
 
+    public function sendRecoveryPassEmail($email){
+
+        $message = \Yii::$app->mailer->compose('remmind_pass')
+            ->setFrom('iselfmade@made.ru')
+            ->setTo($email)
+            ->setSubject('iselfmade - Восстановление пароля')
+            ->send();
+        return $message;
+    }
+
     public function signUp(User $model) :bool {
 
         if (!$model->validate()){

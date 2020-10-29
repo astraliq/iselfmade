@@ -88,6 +88,38 @@ class AuthController extends Controller {
 //        return $this->render('signin',['model'=>$model]);
     }
 
+    public function actionRemindPassword(){
+
+        if (!\Yii::$app->user->isGuest) {
+            return $this->redirect(['/report']);
+        }
+
+        $model = new User([
+            'scenario' => 'remindPass'
+        ]);
+
+        if (\Yii::$app->request->isPost) {
+
+            if (\Yii::$app->request->isAjax) {
+                \Yii::$app->response->format = Response::FORMAT_JSON;
+            }
+
+            $model->load(\Yii::$app->request->post());
+            $validate = $model->validate();
+            if ($validate) {
+                if ($this->auth->sendRecoveryPassEmail($model->email)) {
+                    return ['result' => true];
+                } else {
+                    return ['result' => false];
+                }
+            }
+                return $validate;
+        }
+
+        $this->view->params['model'] = $model;
+        return $this->redirect(['/']);
+    }
+
     public function actionValidateSignIn(){
         if (!\Yii::$app->user->isGuest) {
             return $this->redirect(['/report']);

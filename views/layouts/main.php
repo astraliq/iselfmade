@@ -83,12 +83,20 @@ AppAsset::register($this);
 
         <div class="modal__style invisible" id="mwindow-remind">
             <p class="modal__title">Напомнить пароль</p>
-            <form class="modal__form-remind">
-                <input class="modal__input" name="User[email]" type="text" placeholder="Email" aria-required="true">
-                <div class="modal__sub">
-                    <button class="modal__btn">Напомнить</button>
-                </div>
-            </form>
+            <?php $form=\yii\bootstrap\ActiveForm::begin([
+                'validateOnChange' => false,
+                'enableAjaxValidation' => true,
+                'action' => '/auth/remind-password',
+                'options' => [
+                    'id' => 'form-remind',
+                    'class' => 'modal__form-remind'
+                ]
+            ]); ?>
+            <?=$form->field($this->params['model'],'email')->textInput(['class' => 'modal__input', 'id' => 'remind-user-email']);?>
+            <div class="modal__sub">
+                <button type="submit" class="modal__btn">Напомнить</button>
+            </div>
+            <?php \yii\bootstrap\ActiveForm::end();?>
             <div class="div_center">
                 <button class="modal__reg modal__reg_white loginbtn">Войти</button>
             </div>
@@ -109,7 +117,6 @@ AppAsset::register($this);
             <?=$form->field($this->params['model'],'email')->textInput(['class' => 'modal__input', 'id' => 'reg-user-email']);?>
             <?=$form->field($this->params['model'],'password')->passwordInput(['class' => 'modal__input', 'id' => 'reg-user-password'])?>
             <?=$form->field($this->params['model'],'repeat_password')->passwordInput(['class' => 'modal__input', 'id' => 'reg-user-repeat_password']);?>
-            <?= $form->errorSummary($this->params['model'],['header' => '', 'class' => 'has-error']); ?>
             <p class="modal__sign-text">Нажимая на кнопку, вы соглашаетесь с <a class="modal__sign-text_link" href="#">нашими правилами</a>
                 и <a class="modal__sign-text_link" href="#">политикой конфиденциальности</a></p>
             <div class="modal__sub">
