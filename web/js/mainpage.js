@@ -1,19 +1,19 @@
 'use strict';
 class MainPage {
     constructor() {
-        this._init();
         this.loginWindow = document.getElementById('mwindow-login');
         this.remindWindow = document.getElementById('mwindow-remind');
         this.regWindow = document.getElementById('mwindow-reg');
         this.loginForm = document.getElementById('form-login');
         this.remindForm = document.getElementById('form-remind');
         this.regForm = document.getElementById('form-reg');
-
+        this._init();
     }
 
-    _formHandler(e) {
-        let $yiiform = $(this);
+    _formHandler(yiiForm) {
+        let $yiiform = $(yiiForm);
         // отправляем данные на сервер
+
         $.ajax({
                 type: $yiiform.attr('method'),
                 url: $yiiform.attr('action'),
@@ -21,10 +21,12 @@ class MainPage {
             }
         )
             .done(function(data) {
-                if(data.success) {
+                if(data.result) {
                     // данные сохранены
+                    console.log('OK');
                 } else {
                     // сервер вернул ошибку и не сохранил наши данные
+                    console.log('ne OK');
                 }
             })
             .fail(function () {
@@ -43,7 +45,7 @@ class MainPage {
         let modal = document.getElementById('modal');
         modal.addEventListener('mousedown', (e) => {
             let target = e.target;
-            if (!target.closest(".modal__style")) {
+            if (!target.closest('.modal__style')) {
                 mainPageStart.closeModal(modal);
             }
         });
@@ -64,16 +66,15 @@ class MainPage {
         regbtn.addEventListener('click', (e) => {
             this.renderModal(3);
         });
-
-        $(this.loginForm).on('beforeSubmit', (e) => {
-            this._formHandler();
-        });
+        // $(this.loginForm).on('beforeSubmit', (e) => {
+        //     return this._formHandler(this.loginForm);
+        // });
         $(this.remindForm).on('beforeSubmit', (e) => {
-            this._formHandler();
+            return this._formHandler(this.remindForm);
         });
-        $(this.regForm).on('beforeSubmit', (e) => {
-            this._formHandler();
-        });
+        // $(this.regForm).on('beforeSubmit', (e) => {
+        //     return this._formHandler(this.regForm);
+        // });
     }
 
     renderModal(type=0) {
@@ -112,3 +113,4 @@ class MainPage {
 }
 
 let mainPageStart = new MainPage();
+

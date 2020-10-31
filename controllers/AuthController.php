@@ -97,13 +97,8 @@ class AuthController extends Controller {
         $model = new User([
             'scenario' => 'remindPass'
         ]);
-
-        if (\Yii::$app->request->isPost) {
-
-            if (\Yii::$app->request->isAjax) {
-                \Yii::$app->response->format = Response::FORMAT_JSON;
-            }
-
+        if (\Yii::$app->request->isPost && \Yii::$app->request->isAjax) {
+            \Yii::$app->response->format = Response::FORMAT_JSON;
             $model->load(\Yii::$app->request->post());
             $validate = $model->validate();
             if ($validate) {
@@ -112,12 +107,19 @@ class AuthController extends Controller {
                 } else {
                     return ['result' => false];
                 }
+            } else {
+                return ActiveForm::validate($model);
             }
-                return $validate;
         }
 
-        $this->view->params['model'] = $model;
-        return $this->redirect(['/']);
+        if (\Yii::$app->request->isAjax) {
+            \Yii::$app->response->format = Response::FORMAT_JSON;
+            return ['result' => true];
+        } else {
+            $this->view->params['model'] = $model;
+            return $this->redirect(['/']);
+        }
+
     }
 
     public function actionValidateSignIn(){

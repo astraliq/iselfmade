@@ -68,8 +68,8 @@ AppAsset::register($this);
                     'class' => 'modal__form'
                 ]
             ]); ?>
-            <?=$form->field($this->params['model'],'email',['validateOnChange' => false])->textInput(['class' => 'modal__input', 'id' => 'login-user-email'])->error(false)?>
-            <?=$form->field($this->params['model'],'password')->passwordInput(['class' => 'modal__input', 'id' => 'login-user-password'])?>
+            <?=$form->field($this->params['model'],'email',['validateOnChange' => false])->textInput(['class' => 'modal__input', 'id' => 'login-user-email', 'type' => 'email', 'autocomplete' => 'username'])->error(false)?>
+            <?=$form->field($this->params['model'],'password')->passwordInput(['class' => 'modal__input', 'id' => 'login-user-password', 'type' => 'password', 'autocomplete' => 'current-password'])?>
             <div class="modal__sub">
                 <button type="submit" class="modal__btn">Войти</button>
                 <a class="modal__link" id="remind">Напомнить пароль</a>
@@ -82,9 +82,10 @@ AppAsset::register($this);
         </div>
 
         <div class="modal__style invisible" id="mwindow-remind">
-            <p class="modal__title">Напомнить пароль</p>
+            <p class="modal__title">Восстановление пароля</p>
             <?php $form=\yii\bootstrap\ActiveForm::begin([
                 'validateOnChange' => false,
+                'validateOnBlur' => false,
                 'enableAjaxValidation' => true,
                 'action' => '/auth/remind-password',
                 'options' => [
@@ -92,9 +93,9 @@ AppAsset::register($this);
                     'class' => 'modal__form-remind'
                 ]
             ]); ?>
-            <?=$form->field($this->params['model'],'email')->textInput(['class' => 'modal__input', 'id' => 'remind-user-email']);?>
+            <?=$form->field($this->params['model'],'email')->textInput(['class' => 'modal__input', 'id' => 'remind-user-email', 'type' => 'email', 'autocomplete' => 'username']);?>
             <div class="modal__sub">
-                <button type="submit" class="modal__btn">Напомнить</button>
+                <button type="submit" class="modal__btn">Отправить</button>
             </div>
             <?php \yii\bootstrap\ActiveForm::end();?>
             <div class="div_center">
@@ -106,7 +107,7 @@ AppAsset::register($this);
             <p class="modal__title">Регистрация</p>
 
             <?php $form=\yii\bootstrap\ActiveForm::begin([
-                'validateOnChange' => true,
+                'validateOnChange' => false,
                 'enableAjaxValidation' => true,
                 'action' => '/auth/sign-up',
                 'options' => [
@@ -114,9 +115,9 @@ AppAsset::register($this);
                     'class' => 'modal__form-sign_up'
                 ]
             ]); ?>
-            <?=$form->field($this->params['model'],'email')->textInput(['class' => 'modal__input', 'id' => 'reg-user-email']);?>
-            <?=$form->field($this->params['model'],'password')->passwordInput(['class' => 'modal__input', 'id' => 'reg-user-password'])?>
-            <?=$form->field($this->params['model'],'repeat_password')->passwordInput(['class' => 'modal__input', 'id' => 'reg-user-repeat_password']);?>
+            <?=$form->field($this->params['model'],'email',['validateOnChange' => true])->textInput(['class' => 'modal__input', 'id' => 'reg-user-email', 'type' => 'email', 'autocomplete' => 'username']);?>
+            <?=$form->field($this->params['model'],'password')->passwordInput(['class' => 'modal__input', 'id' => 'reg-user-password', 'type' => 'password', 'autocomplete' => 'new-password'])?>
+            <?=$form->field($this->params['model'],'repeat_password')->passwordInput(['class' => 'modal__input', 'id' => 'reg-user-repeat_password', 'type' => 'password', 'autocomplete' => 'new-password']);?>
             <p class="modal__sign-text">Нажимая на кнопку, вы соглашаетесь с <a class="modal__sign-text_link" href="#">нашими правилами</a>
                 и <a class="modal__sign-text_link" href="#">политикой конфиденциальности</a></p>
             <div class="modal__sub">
@@ -143,3 +144,7 @@ AppAsset::register($this);
 </body>
 </html>
 <?php $this->endPage() ?>
+<?php
+
+
+?>

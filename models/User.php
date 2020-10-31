@@ -83,7 +83,7 @@ class User extends UserBase implements IdentityInterface
             ['password', 'required', 'when'  => function () {
                 return $this->email != '';
             },'message' => 'Необходимо заполнить пароль'],
-            [['email'], 'required','on'=> [self::SCENARIO_SIGN_UP], 'message' => 'Необходимо заполнить электронную почту'],
+            [['email'], 'required','on'=> [self::SCENARIO_SIGN_UP, self::SCENARIO_REMIND], 'message' => 'Необходимо заполнить электронную почту'],
             [['password'], 'required','on'=> [self::SCENARIO_SIGN_UP], 'message' => 'Необходимо заполнить пароль'],
             [['email','password'], 'required','message' => 'Необходимо заполнить электронную почту и пароль'],
 //            ['password', 'string','on'=> self::SCENARIO_SIGN_UP, 'min' => 8, 'max' => 250, 'message' => 'Пароль должен содержать минимум 8 символов'],
@@ -115,6 +115,7 @@ class User extends UserBase implements IdentityInterface
     }
 
     public function findEmail() {
+
         if (!$this->getUserByEmail($this->email)) {
             $this->addError('email', 'Пользователь с такой почтой не зарегестрирован');
         }

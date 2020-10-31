@@ -38,7 +38,7 @@ class AuthComponent extends Component
 
     public function sendRecoveryPassEmail($email){
 
-        $message = \Yii::$app->mailer->compose('remmind_pass')
+        $message = \Yii::$app->mailer->compose('remind_pass')
             ->setFrom('iselfmade@made.ru')
             ->setTo($email)
             ->setSubject('iselfmade - Восстановление пароля')
