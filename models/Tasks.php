@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use app\Components\EncryptComponent;
+use app\components\EncryptComponent;
 use Yii;
 
 class Tasks extends TasksBase {

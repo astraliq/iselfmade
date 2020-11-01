@@ -5,7 +5,7 @@ namespace app\commands;
 
 
 use app\base\BaseConsoleController;
-use app\Components\ArchiveTasksComponent;
+use app\components\ArchiveTasksComponent;
 use app\models\ArchiveTasks;
 use yii\console\Controller;
 use yii\console\ExitCode;
