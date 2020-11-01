@@ -17,15 +17,28 @@ class AuthComponent extends Component
             return false;
         }
 
-        $user=$this->getUserByEmail($model->email);
+        $user = $this->getUserByEmail($model->email);
+
+        if ($user->access_token) {
+            $user->access_token = null;
+            $user->save();
+        }
 
         if (!$this->validatePassword($model->password,$user->pass_hash)){
 //            $model->addError('email', 'Неверная электронная почта или пароль');
-            $model->addError('password', 'Неверная электронная почта или пароль');
+            $model->addError('password', 'Неверная электронная почта или пароль.');
             return false;
         };
 
         return \Yii::$app->user->login($user,0);
+    }
+
+    public function validateSignIn(User $model) {
+        $user = $this->getUserByEmail($model->email);
+        if ($this->validatePassword($model->password,$user->pass_hash)) {
+            return true;
+        }
+        return false;
     }
 
     private function validatePassword($password, $pass_hash) {
@@ -34,6 +47,39 @@ class AuthComponent extends Component
 
     private function getUserByEmail($email){
         return User::find()->andWhere(['email'=>$email])->one();
+    }
+
+    public function sendRecoveryPassEmail(User $model) :bool {
+        $user = new User();
+        $user = $user->findIdentityByEmail($model->email);
+        $token = $this->generateAccessTokenRestorePass();
+        $user->access_token = $token;
+        if ($user->save()) {
+            $message = \Yii::$app->mailer->compose('remind_pass',[
+                'token' => $token,
+                'email' => $user->email,
+                'username' => $user->name,
+            ])
+                ->setFrom('iselfmade@made.ru')
+                ->setTo($user->email)
+                ->setSubject('iselfmade - Восстановление пароля')
+                ->send();
+        } else {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function updatePassword(User $model) :bool {
+        $user = new User();
+        $user = $user->getUserByEmailAndToken($model->email, $model->token);
+        $user->pass_hash = $this->genPasswordHash($model->password);
+        $user->access_token = null;
+        if ($user->save()) {
+            return true;
+        }
+        return false;
     }
 
     public function signUp(User $model) :bool {
@@ -69,6 +115,9 @@ class AuthComponent extends Component
         return false;
     }
 
+    private function generateAccessTokenRestorePass() {
+        return \Yii::$app->security->generateRandomString(8);
+    }
 
     private function genPasswordHash(string $password) {
         return \Yii::$app->security->generatePasswordHash($password);

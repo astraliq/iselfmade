@@ -1,19 +1,21 @@
 'use strict';
 class MainPage {
     constructor() {
-        this._init();
         this.loginWindow = document.getElementById('mwindow-login');
         this.remindWindow = document.getElementById('mwindow-remind');
         this.regWindow = document.getElementById('mwindow-reg');
+        this.restoreWindow = document.getElementById('mwindow-restore');
         this.loginForm = document.getElementById('form-login');
         this.remindForm = document.getElementById('form-remind');
+        this.restoreForm = document.getElementById('form-restore');
         this.regForm = document.getElementById('form-reg');
-
+        this._init();
     }
 
-    _formHandler(e) {
-        let $yiiform = $(this);
+    _formHandler(yiiForm, callback=null) {
+        let $yiiform = $(yiiForm);
         // отправляем данные на сервер
+
         $.ajax({
                 type: $yiiform.attr('method'),
                 url: $yiiform.attr('action'),
@@ -21,10 +23,15 @@ class MainPage {
             }
         )
             .done(function(data) {
-                if(data.success) {
+                if(data.result) {
                     // данные сохранены
+                    console.log('OK');
+                    if (callback) {
+                        callback();
+                    }
                 } else {
                     // сервер вернул ошибку и не сохранил наши данные
+                    console.log('ne OK');
                 }
             })
             .fail(function () {
@@ -43,7 +50,7 @@ class MainPage {
         let modal = document.getElementById('modal');
         modal.addEventListener('mousedown', (e) => {
             let target = e.target;
-            if (!target.closest(".modal__style")) {
+            if (!target.closest('.modal__style')) {
                 mainPageStart.closeModal(modal);
             }
         });
@@ -64,13 +71,22 @@ class MainPage {
         regbtn.addEventListener('click', (e) => {
             this.renderModal(3);
         });
-
-        $(this.loginForm).on('beforeSubmit', (e) => {
-            this._formHandler();
+        // $(this.loginForm).on('beforeSubmit', (e) => {
+        //     return this._formHandler(this.loginForm);
+        // });
+        $(this.remindForm).on('beforeSubmit', (e) => {
+            let callback = () => {
+                $('#mwindow-restore #user-email').val($('#remind-user-email').val());
+                this.renderModal(4);
+            };
+            return this._formHandler(this.remindForm, callback);
+        });
+        $(this.restoreForm).on('beforeSubmit', (e) => {
+            return this._formHandler(this.restoreForm);
         })
-        $(this.regForm).on('beforeSubmit', (e) => {
-            this._formHandler();
-        })
+        // $(this.regForm).on('beforeSubmit', (e) => {
+        //     return this._formHandler(this.regForm);
+        // });
     }
 
     renderModal(type=0) {
@@ -82,51 +98,30 @@ class MainPage {
                 this.loginWindow.classList.remove('invisible');
                 this.remindWindow.classList.add('invisible');
                 this.regWindow.classList.add('invisible');
+                this.restoreWindow.classList.add('invisible');
                 break;
             case 2:
                 this.loginWindow.classList.add('invisible');
                 this.remindWindow.classList.remove('invisible');
                 this.regWindow.classList.add('invisible');
+                this.restoreWindow.classList.add('invisible');
                 break;
             case 3:
                 this.loginWindow.classList.add('invisible');
                 this.remindWindow.classList.add('invisible');
                 this.regWindow.classList.remove('invisible');
+                this.restoreWindow.classList.add('invisible');
+                break;
+            case 4:
+                this.loginWindow.classList.add('invisible');
+                this.remindWindow.classList.add('invisible');
+                this.regWindow.classList.add('invisible');
+                this.restoreWindow.classList.remove('invisible');
                 break;
             default:
 
         }
 
-        // let checkEmail = false
-        // let emailFocus = false;
-        // let passFocus = false;
-        // let inputEmail = document.getElementById('inputEmail');
-        // let inputPass = document.getElementById('inputPass');
-
-        // inputEmail.addEventListener('focus', (e) => {
-        //     inputEmail.placeholder = '';
-        //     emailFocus = true;
-        // });
-
-        // inputEmail.addEventListener('mouseout', (e) => {
-        //     (inputEmail.value != '') ? inputEmail.placeholder = inputEmail.value: inputEmail.placeholder = "Email";
-        //
-        //     checkEmail = mainPageStart.checkEmailMask(inputEmail.value);
-        //     if (!checkEmail && emailFocus) {
-        //         inputEmail.classList.add('input_error');
-        //     } else {
-        //         inputEmail.classList.remove('input_error');
-        //     }
-        // });
-
-        // inputPass.addEventListener('focus', () => {
-        //     inputPass.placeholder = '';
-        //     passFocus = true;
-        // });
-
-        // inputPass.addEventListener('mouseout', () => {
-        //     (inputPass.value != '') ? inputPass.placeholder = inputPass.value: inputPass.placeholder = "Пароль";
-        // });
     }
 
     closeModal(modal) {
@@ -136,6 +131,8 @@ class MainPage {
     checkEmailMask(value) {
         return (/^[\w]{1}[\w-\.]*@[\w-]+\.[a-z]{2,4}$/i.test(value))
     }
+
 }
 
 let mainPageStart = new MainPage();
+
