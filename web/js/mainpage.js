@@ -4,13 +4,15 @@ class MainPage {
         this.loginWindow = document.getElementById('mwindow-login');
         this.remindWindow = document.getElementById('mwindow-remind');
         this.regWindow = document.getElementById('mwindow-reg');
+        this.restoreWindow = document.getElementById('mwindow-restore');
         this.loginForm = document.getElementById('form-login');
         this.remindForm = document.getElementById('form-remind');
+        this.restoreForm = document.getElementById('form-restore');
         this.regForm = document.getElementById('form-reg');
         this._init();
     }
 
-    _formHandler(yiiForm) {
+    _formHandler(yiiForm, callback=null) {
         let $yiiform = $(yiiForm);
         // отправляем данные на сервер
 
@@ -24,6 +26,9 @@ class MainPage {
                 if(data.result) {
                     // данные сохранены
                     console.log('OK');
+                    if (callback) {
+                        callback();
+                    }
                 } else {
                     // сервер вернул ошибку и не сохранил наши данные
                     console.log('ne OK');
@@ -70,8 +75,15 @@ class MainPage {
         //     return this._formHandler(this.loginForm);
         // });
         $(this.remindForm).on('beforeSubmit', (e) => {
-            return this._formHandler(this.remindForm);
+            let callback = () => {
+                $('#mwindow-restore #user-email').val($('#remind-user-email').val());
+                this.renderModal(4);
+            };
+            return this._formHandler(this.remindForm, callback);
         });
+        $(this.restoreForm).on('beforeSubmit', (e) => {
+            return this._formHandler(this.restoreForm);
+        })
         // $(this.regForm).on('beforeSubmit', (e) => {
         //     return this._formHandler(this.regForm);
         // });
@@ -86,16 +98,25 @@ class MainPage {
                 this.loginWindow.classList.remove('invisible');
                 this.remindWindow.classList.add('invisible');
                 this.regWindow.classList.add('invisible');
+                this.restoreWindow.classList.add('invisible');
                 break;
             case 2:
                 this.loginWindow.classList.add('invisible');
                 this.remindWindow.classList.remove('invisible');
                 this.regWindow.classList.add('invisible');
+                this.restoreWindow.classList.add('invisible');
                 break;
             case 3:
                 this.loginWindow.classList.add('invisible');
                 this.remindWindow.classList.add('invisible');
                 this.regWindow.classList.remove('invisible');
+                this.restoreWindow.classList.add('invisible');
+                break;
+            case 4:
+                this.loginWindow.classList.add('invisible');
+                this.remindWindow.classList.add('invisible');
+                this.regWindow.classList.add('invisible');
+                this.restoreWindow.classList.remove('invisible');
                 break;
             default:
 
@@ -110,6 +131,7 @@ class MainPage {
     checkEmailMask(value) {
         return (/^[\w]{1}[\w-\.]*@[\w-]+\.[a-z]{2,4}$/i.test(value))
     }
+
 }
 
 let mainPageStart = new MainPage();

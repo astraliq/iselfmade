@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
 class AuthController extends Controller {
 
-    public $layout = 'main_page';
+    public $layout = 'main';
     private $auth;
 
     public function __construct($id, $module, $config = [])
@@ -97,12 +97,16 @@ class AuthController extends Controller {
         $model = new User([
             'scenario' => 'remindPass'
         ]);
-        if (\Yii::$app->request->isPost && \Yii::$app->request->isAjax) {
-            \Yii::$app->response->format = Response::FORMAT_JSON;
+        if (\Yii::$app->request->isPost) {
+            if (\Yii::$app->request->isAjax) {
+                \Yii::$app->response->format = Response::FORMAT_JSON;
+            }
             $model->load(\Yii::$app->request->post());
             $validate = $model->validate();
             if ($validate) {
-                if ($this->auth->sendRecoveryPassEmail($model->email)) {
+                if ($this->auth->sendRecoveryPassEmail($model)) {
+                    \Yii::$app->session->set('user_email', $model->email);
+
                     return ['result' => true];
                 } else {
                     return ['result' => false];
@@ -114,10 +118,61 @@ class AuthController extends Controller {
 
         if (\Yii::$app->request->isAjax) {
             \Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['result' => true];
+            return ['result' => false];
         } else {
             $this->view->params['model'] = $model;
             return $this->redirect(['/']);
+        }
+
+    }
+
+    public function actionRestorePassword(){
+
+        if (!\Yii::$app->user->isGuest) {
+            return $this->redirect(['/report']);
+        }
+
+        $model = new User([
+            'scenario' => 'restorePass'
+        ]);
+        if (\Yii::$app->request->isPost && \Yii::$app->request->isAjax) {
+            \Yii::$app->response->format = Response::FORMAT_JSON;
+            $model->load(\Yii::$app->request->post());
+            $validate = $model->validate();
+            if ($validate) {
+                if ($this->auth->updatePassword($model)) {
+                    $model->scenario = 'signIn';
+                    $this->auth->signIn($model);
+                    return $this->redirect([\Yii::$app->params['links']['profile']]);
+                } else {
+                    return ['result' => false];
+                }
+            } else {
+                return ActiveForm::validate($model);
+            }
+        }
+
+        if (\Yii::$app->request->isAjax) {
+            \Yii::$app->response->format = Response::FORMAT_JSON;
+            return ['result' => false];
+        } else {
+            $modelSignIn = new User([
+                'scenario' => 'signIn'
+            ]);
+            $modelSignUp = new User([
+                'scenario' => 'signUp'
+            ]);
+            $restoreModel = new User([
+                'scenario' => 'restorePass'
+            ]);
+            $this->view->params['signIn'] = $modelSignIn;
+            $this->view->params['signUp'] = $modelSignUp;
+            $this->view->params['restoreModel'] = $restoreModel;
+            $this->view->params['model'] = $model;
+            return $this->render('restore_password',[
+                'model' => $model,
+                'email' => \Yii::$app->session->get('user_email'),
+            ]);
         }
 
     }

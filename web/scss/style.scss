@@ -25,19 +25,25 @@ body {
     }
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    //height: 100%;
+}
 .container {
     margin: 0 0 0 0;
     padding: 0 0 0 0;
     display: flex;
-     flex-direction: row;
+    flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
     width: 100%;
+    flex: 1 0 auto;
 }
 
 .custom_light {
     width: 70px;
-    height: 100vh;
+    height: 100%;
     padding: 35px 0 0 0;
     background-color: $color-menu;
     display: flex;
@@ -309,4 +315,23 @@ body {
 .main_menu-selected a{
     font-weight: 700;
     color: $color-blue;
+}
+
+.footer {
+    padding: 0;
+    flex: 0 0 auto;
+    & .container {
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flex;
+        display: -o-flex;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        padding: 5px 0;
+        & p {
+            margin: 5px 0;
+        }
+    }
 }

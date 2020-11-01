@@ -2,12 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2e38572c-436e-49d4-8317-261599b6a7b6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/messages/ru_RU/app.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/auth/restore_password.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Components/AuthComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/Components/AuthComponent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/params.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/params.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/web.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/AuthController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/SiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/SiteController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mail/remind_pass.php" beforeDir="false" afterPath="$PROJECT_DIR$/mail/remind_pass.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/layouts/base.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/layouts/base.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/layouts/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/layouts/main.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/user/view.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/user/view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/css/mainpage.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/css/mainpage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/js/mainpage.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/mainpage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/scss/mainpage.scss" beforeDir="false" afterPath="$PROJECT_DIR$/web/scss/mainpage.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/scss/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/web/scss/style.scss" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -150,7 +162,7 @@
     <property name="TODO_SCOPE" value="All Places" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="ignore.virus.scanning.warn.message" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/views/layouts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/views/auth" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -159,15 +171,15 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
-    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php.composer" />
+    <property name="settings.editor.selected.configurable" value="editing.templates" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Open Server 5.3.7\domains\iselfmade.ru\views\auth" />
       <recent name="D:\Open Server 5.3.7\domains\iselfmade.ru\views\layouts" />
       <recent name="D:\Open Server 5.3.7\domains\iselfmade\web\js" />
       <recent name="D:\Open Server 5.3.7\domains\iselfmade\views\layouts" />
       <recent name="D:\Open Server 5.3.7\domains\iselfmade\controllers\actions\task" />
-      <recent name="D:\Open Server 5.3.7\domains\iselfmade\widgets\tasks" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -263,7 +275,8 @@
       <workItem from="1603897921313" duration="4708000" />
       <workItem from="1603997064564" duration="4043000" />
       <workItem from="1604160614037" duration="6166000" />
-      <workItem from="1604166863151" duration="7247000" />
+      <workItem from="1604166863151" duration="7310000" />
+      <workItem from="1604208056746" duration="26838000" />
     </task>
     <servers />
   </component>

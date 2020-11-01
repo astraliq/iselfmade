@@ -127,11 +127,10 @@ body {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-
         &-remind {
             width: 100%;
             height: 190px;
-            padding: 10px 0 270px 0;
+            padding: 10px 0 280px 0;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -145,6 +144,18 @@ body {
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
+        }
+        &-restore {
+            width: 100%;
+            height: 355px;
+            padding: 10px 0 30px 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            & .field-restore-email{
+                display: none;
+            }
         }
     }
     &__input {
@@ -185,6 +196,12 @@ body {
             width: 200px;
             font-size: 1.8rem;
             line-height: 2.3rem;
+        }
+        &-restore {
+            width: 200px;
+            font-size: 1.8rem;
+            line-height: 2.3rem;
+            margin: 0 auto;
         }
     }
     &__sign-text {
@@ -328,5 +345,12 @@ body {
         position: absolute;
         top: 55px;
         left: 0;
+    }
+}
+.restore-block {
+    margin: 50px 0;
+    width: 320px;
+    & label {
+        width: 100%;
     }
 }

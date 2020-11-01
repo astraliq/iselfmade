@@ -66,10 +66,18 @@ class SiteController extends Controller {
             $this->redirect('/report');
         }
 
-        $model = new User([
+        $modelSignIn = new User([
+            'scenario' => 'signIn'
+        ]);
+        $modelSignUp = new User([
             'scenario' => 'signUp'
         ]);
-        $this->view->params['model'] = $model;
+        $restoreModel = new User([
+            'scenario' => 'restorePass'
+        ]);
+        $this->view->params['signIn'] = $modelSignIn;
+        $this->view->params['signUp'] = $modelSignUp;
+        $this->view->params['restoreModel'] = $restoreModel;
 
 //        if (!empty(\Yii::$app->session->getFlash('user_errors'))) {
 //            $model->errors = \Yii::$app->session->getFlash('user_errors')[0];
