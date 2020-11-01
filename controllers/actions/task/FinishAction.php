@@ -4,7 +4,7 @@
 namespace app\controllers\actions\task;
 
 
-use app\Components\TasksComponent;
+use app\components\TasksComponent;
 use app\models\Tasks;
 use yii\base\Action;
 use yii\web\HttpException;

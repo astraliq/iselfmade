@@ -1,7 +1,7 @@
 <?php
 
 
-namespace app\Components;
+namespace app\components;
 
 
 class TimeZoneComponent {
