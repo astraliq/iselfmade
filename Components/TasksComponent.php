@@ -343,7 +343,7 @@ class TasksComponent extends BaseComponent {
                 $dateTo = (new \DateTime(date('d.m.Y', $prev) . ' 23:59:59'))->format('Y-m-d H:i:s');
                 break;
             case 2:
-                $prev = strtotime("-1 month");
+                $prev = strtotime(date('15.m.Y') . "-1 month");
                 $dateFrom = (new \DateTime(date('01.m.Y', $prev)  . ' 00:00:00'))->format('Y-m-d H:i:s');
                 $dateTo = (new \DateTime(date('t', $prev).date('.m.Y', $prev) . ' 23:59:59'))->format('Y-m-d H:i:s');
                 break;
@@ -354,6 +354,7 @@ class TasksComponent extends BaseComponent {
                 break;
         }
         $newDate = (new \DateTime(date('d.m.Y') . ' 23:59:59'))->format('Y-m-d H:i:s');
+
         return [
             'newDate' => $newDate,
             'dateFrom' => $dateFrom,
@@ -375,6 +376,7 @@ class TasksComponent extends BaseComponent {
             ])
             ->orderBy(['date_create' => SORT_DESC])
             ->all();
+
         if ($check) {
             return true;
         } else {

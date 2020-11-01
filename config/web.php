@@ -47,6 +47,14 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
+//            'transport' => [
+//                'class' => 'Swift_SmtpTransport',
+//                'host' => 'localhost',
+//                'username' => 'username',
+//                'password' => 'password',
+//                'port' => '587',
+//                'encryption' => 'tls',
+//            ],
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
@@ -64,6 +72,22 @@ $config = [
         'db' => $db,
         'rbac' => ['class' => \app\Components\RbacComponent::class],
         'task' => ['class' => \app\Components\TasksComponent::class],
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/messages',
+                    'sourceLanguage' => 'ru-RU',
+                    'fileMap' => [
+                        'app'       => 'app.php',
+                        'app/error' => 'error.php',
+                    ],
+                ],
+                '*' => [
+                    'class' => 'yii\i18n\PhpMessageSource'
+                ],
+            ],
+        ],
         'userComp' => ['class' => \app\Components\UserComponent::class],
         'encrypt' => ['class' => \app\Components\EncryptComponent::class],
         'urlManager' => [
@@ -98,20 +122,26 @@ $config = [
         'timezones' => ['class' => \app\Components\TimeZoneComponent::class],
 
     ],
-    'params' => array_merge($params, ['monthsImenit' => [
-        '1' => 'январь',
-        '2' => 'феварль',
-        '3' => 'март',
-        '4' => 'апрель',
-        '5' => 'май',
-        '6' => 'июнь',
-        '7' => 'июль',
-        '8' => 'август',
-        '9' => 'сентябрь',
-        '10' => 'октябрь',
-        '11' => 'ноябрь',
-        '12' => 'декабрь',
-    ]]),
+    'params' => array_merge($params, [
+        'monthsImenit' => [
+            '1' => 'январь',
+            '2' => 'феварль',
+            '3' => 'март',
+            '4' => 'апрель',
+            '5' => 'май',
+            '6' => 'июнь',
+            '7' => 'июль',
+            '8' => 'август',
+            '9' => 'сентябрь',
+            '10' => 'октябрь',
+            '11' => 'ноябрь',
+            '12' => 'декабрь',
+        ],
+        'links' => [
+            'report' => '/report',
+            'profile' => '/profile',
+        ],
+    ]),
 ];
 
 if (YII_ENV_DEV) {

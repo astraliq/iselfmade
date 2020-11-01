@@ -42,7 +42,7 @@ if (!$avatarImage) {
 <div class="container">
     <div class="custom_light">
         <div class="">
-            <img class="user_img" src="<?= $avatarImage ?>" width="60" height="60">
+            <img class="user_img" src="<?= Html::encode($avatarImage) ?>" width="60" height="60">
         </div>
     </div>
     <div class="menu">
