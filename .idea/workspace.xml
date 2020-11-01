@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="2e38572c-436e-49d4-8317-261599b6a7b6" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/controllers/actions/site/ErrorAction.php" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/views/layouts/error_base.php" afterDir="false" />
@@ -19,6 +20,9 @@
       <change beforePath="$PROJECT_DIR$/web/scss/mainpage.scss" beforeDir="false" afterPath="$PROJECT_DIR$/web/scss/mainpage.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/scss/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/web/scss/style.scss" afterDir="false" />
     </list>
+=======
+    <list default="true" id="2e38572c-436e-49d4-8317-261599b6a7b6" name="Default Changelist" comment="" />
+>>>>>>> Stashed changes
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -270,7 +274,15 @@
       <workItem from="1603639383779" duration="14787000" />
       <workItem from="1603725508587" duration="15941000" />
       <workItem from="1603818959971" duration="5795000" />
+<<<<<<< Updated upstream
       <workItem from="1603897921313" duration="4466000" />
+=======
+      <workItem from="1603897921313" duration="4708000" />
+      <workItem from="1603997064564" duration="4043000" />
+      <workItem from="1604160614037" duration="6166000" />
+      <workItem from="1604166863151" duration="7310000" />
+      <workItem from="1604208056746" duration="27527000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
