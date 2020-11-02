@@ -11,3 +11,4 @@ config/db_real.php
 /views/layouts/main — копия.php
 .idea/workspace.xml
 *.xml
+.idea/workspace.xml
