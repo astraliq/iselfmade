@@ -12,3 +12,4 @@ config/db_real.php
 .idea/workspace.xml
 *.xml
 .idea/workspace.xml
+/.idea/

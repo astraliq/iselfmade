@@ -196,11 +196,17 @@ body {
 .hidden_block {
   display: none; }
 
+.task__input_block {
+  position: relative; }
+
 .task__input {
-  width: 350px;
-  height: 30px;
-  margin: 10px 0 0 0;
-  padding: 0 10px 0 10px; }
+  width: 500px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  font-size: 18px; }
 
 .task__settings {
   background-color: lightgray;
@@ -212,8 +218,8 @@ body {
   padding: 5px;
   position: absolute;
   z-index: 100;
-  left: 360px;
-  top: 10px; }
+  left: 510px;
+  top: 0; }
 
 .tasks-form {
   width: 100%;
@@ -227,9 +233,6 @@ body {
 
 .tasks-all {
   width: 50%; }
-
-.task__input_block {
-  position: relative; }
 
 .text__list_empty {
   font-style: italic; }

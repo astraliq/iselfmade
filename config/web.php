@@ -38,7 +38,7 @@ $config = [
             'currencyCode' => 'EUR',
 //            'timeZone' => 'Europe/Moscow',
             'defaultTimeZone' => 'UTC',
-            'locale' => 'ruRU',
+            'locale' => 'ru-RU',
         ],
         'user' => [
             'identityClass' => 'app\models\User',

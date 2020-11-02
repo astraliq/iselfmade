@@ -9,7 +9,7 @@
       <option name="fileExtension" value="scss" />
       <option name="immediateSync" value="true" />
       <option name="name" value="SCSS" />
-      <option name="output" value="$ProjectFileDir$/web/css/$FileNameWithoutExtension$.css:$ProjectFileDir$/web/css/$FileNameWithoutExtension$.css.map" />
+      <option name="output" value="$ProjectFileDir$/www/css/$FileNameWithoutExtension$.css:$ProjectFileDir$/www/css/$FileNameWithoutExtension$.css.map" />
       <option name="outputFilters">
         <array />
       </option>

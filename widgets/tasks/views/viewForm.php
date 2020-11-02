@@ -35,21 +35,20 @@ use yii\helpers\Html;
                     echo '<li class="text__list_item">' . Html::encode($task->task);
                 }
                 echo '</li>';
-                echo '<span class="tasks__list_create">' . Html::encode($task->date_create_view) . '</span>';
-
-                if ($del) {
-                    echo '<a href="/task/restore/' . $task->id . '">Восстановить</a>';
-                    echo '<a href="/task/hard-del/' . $task->id . '" style="margin: 0 40px 0 40px">Удалить навсегда</a>';
-                } else {
-                    echo '<a href="/task/change/' . $task->id . '">Изменить</a>';
-                    echo '<a href="/task/del/' . $task->id . '" style="margin: 0 40px 0 40px">Удалить</a>';
-                    if ($task->finished == 1) {
-                        echo '<a href="/task/finish/' . $task->id . '">Вернуть в работу</a>';
-                    } else {
-                        echo '<a href="/task/finish/' . $task->id . '">Завершить</a>';
-                    }
-
-                }
+//                echo '<span class="tasks__list_create">' . Html::encode($task->date_create_view) . '</span>';
+//
+//                if ($del) {
+//                    echo '<a href="/task/restore/' . $task->id . '">Восстановить</a>';
+//                    echo '<a href="/task/hard-del/' . $task->id . '" style="margin: 0 40px 0 40px">Удалить навсегда</a>';
+//                } else {
+//                    echo '<a href="/task/change/' . $task->id . '">Изменить</a>';
+//                    echo '<a href="/task/del/' . $task->id . '" style="margin: 0 40px 0 40px">Удалить</a>';
+//                    if ($task->finished == 1) {
+//                        echo '<a href="/task/finish/' . $task->id . '">Вернуть в работу</a>';
+//                    } else {
+//                        echo '<a href="/task/finish/' . $task->id . '">Завершить</a>';
+//                    }
+//                }
 
             }
         } else {
@@ -66,7 +65,7 @@ use yii\helpers\Html;
 //            echo '<button type="submit" class="btn btn-default">Добавить</button>';
 //            \yii\bootstrap\ActiveForm::end();
                 echo '<div class="task__input_block">';
-                echo '<textarea class="task__input" data-type="' . $type_id .'" data-next_period="' . $nextPeriod .'"></textarea>';
+                echo '<input class="task__input" data-type="' . $type_id .'" data-next_period="' . $nextPeriod .'" type="text"></input>';
                 echo '<div class="task__settings">
                         <label for="private_id">Доступность:</label>
                         <select name="private_id" id="private_id">
