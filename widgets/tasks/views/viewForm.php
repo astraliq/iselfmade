@@ -30,7 +30,7 @@ use yii\helpers\Html;
         if ($tasks) {
             foreach ($tasks as $task) {
                 if ($task->finished == 1) {
-                    echo '<li class="text__list_item text__list_item_checked">' . Html::encode($task->task);
+                    echo '<li class="text__list_item text__strike">' . Html::encode($task->task);
                 } else {
                     echo '<li class="text__list_item">' . Html::encode($task->task);
                 }
