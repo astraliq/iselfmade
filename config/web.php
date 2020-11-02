@@ -13,7 +13,8 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
         '@filesWeb'=>'/files/',
-        '@webroot' => '/www'
+        '@webroot' => '/www',
+        '@web' => '/www',
     ],
     'name' => 'iselfmade.ru',
     'language' => 'ru_RU',
