@@ -30,9 +30,9 @@ use yii\helpers\Html;
         if ($tasks) {
             foreach ($tasks as $task) {
                 if ($task->finished == 1) {
-                    echo '<li class="text__list_item text__strike">' . Html::encode($task->task);
+                    echo '<li class="text__list_item created_tasks text__strike" data-next_period="' . $nextPeriod . '" data-type="' . $type_id . '">' . Html::encode($task->task);
                 } else {
-                    echo '<li class="text__list_item">' . Html::encode($task->task);
+                    echo '<li class="text__list_item created_tasks" data-next_period="' . $nextPeriod . '" data-type="' . $type_id . '" data-private_id="' . $task->private_id . '">' . Html::encode($task->task);
                 }
                 echo '</li>';
 //                echo '<span class="tasks__list_create">' . Html::encode($task->date_create_view) . '</span>';
@@ -55,7 +55,7 @@ use yii\helpers\Html;
             echo '<p class="text__list_empty">Список задач пуст</p>';
         }
         ?>
-        <li class="text__list_item">
+        <li class="text__list_item" date-next_period="<?=$nextPeriod?>" data-type="<?=$type_id?>">
             <?php
             if (!$del) {
 //                $form = \yii\bootstrap\ActiveForm::begin(['action' => 'task/create']);
@@ -65,7 +65,7 @@ use yii\helpers\Html;
 //            echo '<button type="submit" class="btn btn-default">Добавить</button>';
 //            \yii\bootstrap\ActiveForm::end();
                 echo '<div class="task__input_block">';
-                echo '<input class="task__input" data-type="' . $type_id .'" data-next_period="' . $nextPeriod .'" type="text"></input>';
+                echo '<textarea class="task__input" data-type="' . $type_id .'" data-next_period="' . $nextPeriod .'" type="text" maxlength="70"></textarea>';
                 echo '<div class="task__settings">
                         <label for="private_id">Доступность:</label>
                         <select name="private_id" id="private_id">

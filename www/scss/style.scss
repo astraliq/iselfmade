@@ -154,19 +154,21 @@ body {
 
 .text__list_items {
     padding: 10px 0 0 15px;
-
 }
 
 .text__list_item {
+    width: $width-textarea;
     font-family: $font_main-text;
+    min-height: $height2-textarea;
+    margin: 0 0 10px 0;
     font-weight: 300;
     font-size: 18px;
-    line-height: 20px;
+    line-height: $height-textarea;
     color: $color-black;
+    word-wrap: break-word;
     &_checked {
         text-decoration: line-through;
     }
-
 }
 
 .aims {
@@ -225,7 +227,7 @@ body {
     font-family: $font_main-text;
     font-weight: 300;
     font-size: 18px;
-    line-height: 20px;
+    line-height: $height-textarea;
     color: $color-black;
 }
 
@@ -235,16 +237,25 @@ body {
 
 .task__input_block {
     position: relative;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
 }
 
 .task__input {
-    width: 500px;
-    height: 20px;
+    width: $width-textarea;
+    height: 27.5px;
     margin: 0;
     padding: 0;
     background-color: transparent;
     border: none;
     font-size: 18px;
+    line-height: $height-textarea;
+    overflow: hidden;
+    resize: none;
+
 }
 
 .task__settings {
@@ -257,7 +268,7 @@ body {
     padding: 5px;
     position: absolute;
     z-index: 100;
-    left: 510px;
+    left: 360px;
     top: 0;
 }
 

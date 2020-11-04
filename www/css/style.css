@@ -134,11 +134,15 @@ body {
   padding: 10px 0 0 15px; }
 
 .text__list_item {
+  width: 350px;
   font-family: "Source Sans Pro", sans-serif;
+  min-height: 28px;
+  margin: 0 0 10px 0;
   font-weight: 300;
   font-size: 18px;
   line-height: 20px;
-  color: #000; }
+  color: #000;
+  word-wrap: break-word; }
   .text__list_item_checked {
     text-decoration: line-through; }
 
@@ -197,16 +201,24 @@ body {
   display: none; }
 
 .task__input_block {
-  position: relative; }
+  position: relative;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex; }
 
 .task__input {
-  width: 500px;
-  height: 20px;
+  width: 350px;
+  height: 27.5px;
   margin: 0;
   padding: 0;
   background-color: transparent;
   border: none;
-  font-size: 18px; }
+  font-size: 18px;
+  line-height: 20px;
+  overflow: hidden;
+  resize: none; }
 
 .task__settings {
   background-color: lightgray;
@@ -218,7 +230,7 @@ body {
   padding: 5px;
   position: absolute;
   z-index: 100;
-  left: 510px;
+  left: 360px;
   top: 0; }
 
 .tasks-form {

@@ -19,6 +19,7 @@ class Tasks {
         this.inputTaskClass = '.task__input';
         this.inputSettingsClass = '.task__settings';
         this.transferBtn = '.task_transfer_btn';
+        this.taskItem = '.created_tasks';
     }
 
 //	_post(url, data) {
@@ -150,6 +151,7 @@ class Tasks {
     _addSettingsEvents(el) {
         let settings = $(el).parent().children(this.inputSettingsClass);
         el.addEventListener('focus', (e) => {
+            autosize($(el));
             settings.show();
             // закрытие окна при клике вне окна
             $(document).mousedown(function (e) { // событие клика по веб-документу
@@ -167,34 +169,70 @@ class Tasks {
         })
     }
 
+    _addEventsTasksInput(el) {
+        el.addEventListener('click', (e) => {
+            let data = $(el).html();
+            let typeId = $(el).data('type');
+            let nextPeriod = $(el).data('next_period');
+            let privateId = $(el).data('private_id');
+            this._renderTaskInput(el, typeId, nextPeriod, data, privateId)
+        })
+    }
+
+
     init() {
+        let taskItems = document.querySelectorAll(this.taskItem);
+        
+        // устанавливаем события рендера textarea
+        taskItems.forEach( (el) => {
+           this._addEventsTasksInput(el);
+        });
+
         let elems = document.querySelectorAll(this.inputTaskClass);
         if (!elems.length) {
             return false;
         }
-        // let settingsAll = $(this.inputSettingsClass);
+
+        // устанавливаем события на показ окна с настройками задачи
         elems.forEach((el) => {
             this._addSettingsEvents(el);
-            let settings = $(el).parent().children(this.inputSettingsClass);
-            el.addEventListener('focus', (e) => {
-                settings.show();
-                // закрытие окна при клике вне окна
-                $(document).mousedown(function (e) { // событие клика по веб-документу
-                    // если клик был не по нашему блоку и не по его дочерним элементам
-                    if (!$(el).is(e.target) && !settings.is(e.target) && settings.has(e.target).length === 0) {
-                        settings.fadeOut(1); // скрываем его
-                    }
-                });
-
-            });
-
         });
+
+
+        // события кнопки трансфера прошлых задач
         let tranferBtns = document.querySelectorAll(this.transferBtn);
         tranferBtns.forEach((btn) => {
             btn.addEventListener('click', (e) => {
                 this._tranferTasks(btn, btn.dataset.type);
             })
-        })       
+        })
+
+
+    }
+
+    _renderTaskInput(elem, typeId, nextPeriod, data, privateId) {
+        let selected = ['','','',''];
+        selected[privateId-1] = 'selected';
+
+        let html = `<li class="text__list_item" data-next_period="${nextPeriod}" data-type="${typeId}">` +
+                '<div class="task__input_block">' +
+                `<textarea class="task__input" data-type="${typeId}" data-next_period="${nextPeriod}" type="text" maxlength="70">${data}</textarea>` +
+                '<div class="task__settings">'+
+                    '<label for="private_id">Доступность:</label>' +
+                    '<select name="private_id" id="private_id">' +
+                        `<option value="1" ${selected[0]}>Видна всем</option>` +
+                        `<option value="2" ${selected[1]}>Видна только бадди</option>` +
+                        `<option value="3" ${selected[2]}>Видна только куратору</option>` +
+                        `<option value="4" ${selected[3]}>Видна только мне</option>` +
+                    '</select>' +
+                '</div>' +
+            '</div>' +
+        '</li>';
+        $(elem).replaceWith(html);
+        let textareas = document.querySelectorAll('textarea');
+        autosize.destroy(textareas);
+        autosize(textareas);
+
     }
 
     _initCreateTask(elementInput) {
@@ -205,3 +243,5 @@ class Tasks {
 }
 let tasks = new Tasks();
 tasks.init();
+
+
