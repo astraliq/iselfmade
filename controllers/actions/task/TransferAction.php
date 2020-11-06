@@ -46,6 +46,6 @@ class TransferAction extends Action {
 //        print_r($model);
 //        echo '</pre>';
 //        exit();
-        return $this->controller->redirect(['/report']);
+        return $this->controller->redirect([\Yii::$app->params['links']['report']]);
     }
 }

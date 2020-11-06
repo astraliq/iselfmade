@@ -21,6 +21,16 @@ class TasksComponent extends BaseComponent {
         return new $this->modelClass;
     }
 
+    public function getUserTask($id) {
+        $tasks = Tasks::find()
+            ->where([
+                'user_id' => \Yii::$app->user->getId(),
+                'id' => $id,
+            ])
+            ->one();
+        return $tasks;
+    }
+
     public function getUserTasks() {
         $tasks = Tasks::find()
             ->where([
@@ -248,7 +258,6 @@ class TasksComponent extends BaseComponent {
         if (!$task->user_id) {
             $task->user_id = \Yii::$app->user->getId();
         }
-
 
         if ($task->validate()) {
 
