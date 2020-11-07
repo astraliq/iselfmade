@@ -1,9 +1,9 @@
 <?php
 
 $params = require __DIR__ . '/params.php';
-$db = file_exists(__DIR__ . '/db_real.php') ?
-    (require __DIR__ . '/db_real.php') :
-    (require __DIR__ . '/db.php');
+$db = file_exists(__DIR__ . '/db.php') ?
+    (require __DIR__ . '/db.php') :
+    (require __DIR__ . '/db_real.php');
 
 $config = [
     'id' => 'basic',
@@ -13,13 +13,15 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
         '@filesWeb'=>'/files/',
+        '@webroot' => '/www',
+        '@web' => '/www',
     ],
     'name' => 'iselfmade.ru',
     'language' => 'ru_RU',
     'components' => [
         'auth' => ['class' => \app\components\AuthComponent::class],
         'authManager' => ['class' => 'yii\rbac\DbManager'],
-        'dao' => ['class' => \app\Components\DAOComponent::class],
+        'dao' => ['class' => \app\components\DAOComponent::class],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'eI-IGl_zVxsnssjqFoUUedH5VSkgfBiV',
@@ -36,7 +38,7 @@ $config = [
             'currencyCode' => 'EUR',
 //            'timeZone' => 'Europe/Moscow',
             'defaultTimeZone' => 'UTC',
-            'locale' => 'ruRU',
+            'locale' => 'ru-RU',
         ],
         'user' => [
             'identityClass' => 'app\models\User',
@@ -70,8 +72,8 @@ $config = [
             ],
         ],
         'db' => $db,
-        'rbac' => ['class' => \app\Components\RbacComponent::class],
-        'task' => ['class' => \app\Components\TasksComponent::class],
+        'rbac' => ['class' => \app\components\RbacComponent::class],
+        'task' => ['class' => \app\components\TasksComponent::class],
         'i18n' => [
             'translations' => [
                 'app*' => [
@@ -88,8 +90,8 @@ $config = [
                 ],
             ],
         ],
-        'userComp' => ['class' => \app\Components\UserComponent::class],
-        'encrypt' => ['class' => \app\Components\EncryptComponent::class],
+        'userComp' => ['class' => \app\components\UserComponent::class],
+        'encrypt' => ['class' => \app\components\EncryptComponent::class],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
@@ -119,7 +121,7 @@ $config = [
                 ],
             ],
         ],
-        'timezones' => ['class' => \app\Components\TimeZoneComponent::class],
+        'timezones' => ['class' => \app\components\TimeZoneComponent::class],
 
     ],
     'params' => array_merge($params, [

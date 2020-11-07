@@ -10,46 +10,36 @@ use yii\base\Action;
 use yii\web\HttpException;
 use yii\web\Response;
 
-class FinishAction extends Action {
-    public function run() {
+class UpdateAllAction extends Action {
+    public $view;
 
+    public function run() {
         if (\Yii::$app->user->isGuest ) {
             $this->controller->redirect(['/']);
         }
-        if (!\Yii::$app->request->isPost) {
+        if (!\Yii::$app->request->isPost || !\Yii::$app->rbac->canCreateTask()) {
             throw new HttpException(403,'Нет доступа');
         }
         $comp = \Yii::createObject(['class' => TasksComponent::class,'modelClass' => Tasks::class]);
         $model = $comp->getModel();
-
-        $id = \Yii::$app->request->post()['id'] ?? null;
-        $user_id = \Yii::$app->request->post()['user_id'] ?? null;
         $action = $this->id;
-        $task = $model->findOne(['id' => $id, 'user_id' => \Yii::$app->user->getId()]);
 
-        if (!$task) {
-            throw new HttpException(404, 'Задача не найдена');
-        } else {
-            if (!\Yii::$app->user->can('updateOwnTasks',['task' => $task])) {
-                throw new HttpException(403,'Нет доступа');
-            }
-        }
-
-        \Yii::$app->rbac->canAccessCRUDTask($id, $task, $user_id);
+        $tasks = \Yii::$app->request->post()['Tasks'];
 
         if (\Yii::$app->request->isAjax) {
             \Yii::$app->response->format = Response::FORMAT_JSON;
         }
 
-        if ($comp->finishTask($task)) {
+        if ($comp->updateAllTasks($tasks)) {
             if (\Yii::$app->request->isAjax) {
                 return ['result' => true];
             }
         } else {
             if (\Yii::$app->request->isAjax) {
-                ['result' => false];
+                return ['result' => false];
             }
         }
+
 
         return $this->controller->redirect([\Yii::$app->params['links']['report']]);
     }

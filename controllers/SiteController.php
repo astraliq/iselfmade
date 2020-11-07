@@ -2,8 +2,8 @@
 
 namespace app\controllers;
 
-use app\Components\DAOComponent;
-use app\Components\TimeZoneComponent;
+use app\components\DAOComponent;
+use app\components\TimeZoneComponent;
 use app\controllers\actions\site\ErrorAction;
 use app\models\RegistrationForm;
 use app\models\User;

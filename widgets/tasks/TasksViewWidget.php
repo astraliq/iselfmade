@@ -23,7 +23,7 @@ class TasksViewWidget extends Widget {
 //        echo print_r($this->model);
 //        echo '</pre>';
 //        exit();
-        return $this->render('viewForm',[
+        return $this->render('tasksViewForm',[
             'title' => $this->title,
             'tasks' => $this->tasks,
             'del' => $this->del,

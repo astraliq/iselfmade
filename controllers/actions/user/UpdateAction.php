@@ -4,8 +4,8 @@
 namespace app\controllers\actions\user;
 
 
-use app\Components\TimeZoneComponent;
-use app\Components\UserComponent;
+use app\components\TimeZoneComponent;
+use app\components\UserComponent;
 use app\models\User;
 use yii\base\Action;
 use yii\web\HttpException;

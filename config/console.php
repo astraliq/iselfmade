@@ -1,9 +1,9 @@
 <?php
 
 $params = require __DIR__ . '/params.php';
-$db = file_exists(__DIR__ . '/db_real.php') ?
-    (require __DIR__ . '/db_real.php') :
-    (require __DIR__ . '/db.php');
+$db = file_exists(__DIR__ . '/db.php') ?
+    (require __DIR__ . '/db.php') :
+    (require __DIR__ . '/db_real.php');
 
 $config = [
     'id' => 'basic-console',
@@ -20,8 +20,8 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        'dao' => ['class' => \app\Components\DAOComponent::class],
-        'encrypt' => ['class' => \app\Components\EncryptComponent::class],
+        'dao' => ['class' => \app\components\DAOComponent::class],
+        'encrypt' => ['class' => \app\components\EncryptComponent::class],
         'log' => [
             'targets' => [
                 [
@@ -30,9 +30,9 @@ $config = [
                 ],
             ],
         ],
-        'rbac' => ['class' => \app\Components\RbacComponent::class],
+        'rbac' => ['class' => \app\components\RbacComponent::class],
         'db' => $db,
-        'timezones' => ['class' => \app\Components\TimeZoneComponent::class],
+        'timezones' => ['class' => \app\components\TimeZoneComponent::class],
     ],
     'params' => $params,
 
