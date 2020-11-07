@@ -10,6 +10,7 @@ use app\controllers\actions\task\CreateAction;
 use app\controllers\actions\task\DeleteAction;
 use app\controllers\actions\task\FinishAction;
 use app\controllers\actions\task\TransferAction;
+use app\controllers\actions\task\UpdateAllAction;
 use app\controllers\actions\task\ViewAction;
 use app\controllers\actions\task\ViewAllTasks;
 
@@ -31,6 +32,7 @@ class TaskController extends BaseController {
             'restore' => ['class' =>DeleteAction::class],
             'hard-del' => ['class' =>DeleteAction::class],
             'finish' => ['class' =>FinishAction::class],
+            'update-all' => ['class' =>UpdateAllAction::class],
             'error' => ['class' => ErrorAction::class],
         ];
 
