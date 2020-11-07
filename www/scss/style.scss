@@ -80,6 +80,7 @@ body {
         &:hover {
             color: $color-blue;
             cursor: pointer;
+            background-color: transparent !important;
         }
         &_select {
             color: $color-blue;
@@ -269,7 +270,7 @@ body {
     padding: 5px;
     position: absolute;
     z-index: 100;
-    left: 360px;
+    left: $width-textarea + 10px;
     top: 0;
     font-size: 15px;
     & option {
@@ -327,12 +328,10 @@ body {
 }
 
 .task_transfer_btn:disabled {
-    background-color: $color-disable;
     color: $color-disable2;
 }
 
 .main_menu-selected a{
-    font-weight: 700;
     color: $color-blue;
 }
 
@@ -374,4 +373,10 @@ body {
     font-size: 10px;
     font-style: italic;
     margin: 0 20px 0 15px;
+}
+
+.profile_form label {
+    font-family: "Barlow", sans-serif;
+    font-size: 12px;
+    font-weight: 200;
 }

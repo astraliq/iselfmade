@@ -4,11 +4,11 @@ use yii\helpers\Html;
 
 <!--<h4 class="user_profile-email">--><?//=$user->email?><!--</h4>-->
 <div class="row">
-    <div class="user_profile col-md-8">
+    <div class="user_profile">
         <?php $form = \yii\bootstrap\ActiveForm::begin([
                 'enableAjaxValidation' => true,
                 'enableClientValidation' => true,
-            'options' => ['enctype' => 'multipart/form-data'],
+            'options' => ['class' => 'profile_form', 'enctype' => 'multipart/form-data'],
         ]);  ?>
         <?=$form->field($user,'email')->textInput(['readOnly' => true]);?>
         <?=$form->field($user,'name')->textInput(['autocomplete' => 'name']);?>

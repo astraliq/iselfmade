@@ -1,7 +1,8 @@
-$font-logo: 'Barlow',
-sans-serif;
-$font_main-text: 'Source Sans Pro',
-sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,400;0,700;1,200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,400;0,700;1,200&family=Source+Sans+Pro:wght@200;400;600;700;900&display=swap');
+
+$font-logo: 'Barlow', sans-serif;
+$font_main-text: 'Source Sans Pro', sans-serif;
 
 /*font-family: 'Caveat',
 cursive;
@@ -22,6 +23,6 @@ $color-green: #00ff95;
 $color-icons: rgb(136, 201, 255);
 $color-disable: rgb(247, 245, 247);
 $color-disable2: grey;
-$width-textarea: 350px; // ширина текстового блока задачи
-$height-textarea: 20px; // высота строки задачи
+$width-textarea: 400px; // ширина текстового блока задачи
+$height-textarea: 17px; // высота строки задачи
 $height2-textarea: 28px; // высота блока задачи

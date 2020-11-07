@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,400;0,700;1,200&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,400;0,700;1,200&family=Source+Sans+Pro:wght@200;400;600;700;900&display=swap");
 /*font-family: 'Caveat',
 cursive;
 font-family: 'Fira Sans',
@@ -72,7 +74,8 @@ body {
     text-decoration: none; }
     .menu__item:hover {
       color: #4C91F8;
-      cursor: pointer; }
+      cursor: pointer;
+      background-color: transparent !important; }
     .menu__item_select {
       color: #4C91F8; }
       .menu__item_select:hover {
@@ -134,13 +137,13 @@ body {
   padding: 10px 0 0 15px; }
 
 .text__list_item {
-  width: 350px;
+  width: 400px;
   font-family: "Source Sans Pro", sans-serif;
   min-height: 28px;
   margin: 0 0 10px 5px;
   font-weight: 300;
   font-size: 18px;
-  line-height: 20px;
+  line-height: 17px;
   color: #000;
   word-wrap: break-word; }
   .text__list_item:hover .check_btn {
@@ -194,7 +197,7 @@ body {
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 300;
   font-size: 18px;
-  line-height: 20px;
+  line-height: 17px;
   color: #000; }
 
 .hidden_block {
@@ -209,14 +212,14 @@ body {
   display: flex; }
 
 .task__input {
-  width: 350px;
+  width: 400px;
   height: 27.5px;
   margin: 0;
   padding: 0;
   background-color: transparent;
   border: none;
   font-size: 18px;
-  line-height: 20px;
+  line-height: 17px;
   overflow: hidden;
   resize: none; }
 
@@ -230,7 +233,7 @@ body {
   padding: 5px;
   position: absolute;
   z-index: 100;
-  left: 360px;
+  left: 410px;
   top: 0;
   font-size: 15px; }
   .task__settings option {
@@ -274,11 +277,9 @@ body {
   transform: scale(0.95); }
 
 .task_transfer_btn:disabled {
-  background-color: #f7f5f7;
   color: grey; }
 
 .main_menu-selected a {
-  font-weight: 700;
   color: #4C91F8; }
 
 .footer {
@@ -315,3 +316,8 @@ body {
   font-size: 10px;
   font-style: italic;
   margin: 0 20px 0 15px; }
+
+.profile_form label {
+  font-family: "Barlow", sans-serif;
+  font-size: 12px;
+  font-weight: 200; }
