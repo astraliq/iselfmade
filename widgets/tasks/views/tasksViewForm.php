@@ -5,10 +5,12 @@
 use yii\helpers\Html;
 $finished = '';
 $check = '';
+
 ?>
 
 <div class="tasks__list" data-type="<?=$type_id?>" data-next_period="<?=$nextPeriod?>">
     <a class="main__data_title main__data_line"><?= Html::encode($title) ?></a>
+    <span class="saving_tasks">Сохранено</span>
     <?php
         switch ($type_id) {
             case 3:

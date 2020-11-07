@@ -166,9 +166,7 @@ body {
     line-height: $height-textarea;
     color: $color-black;
     word-wrap: break-word;
-    &_checked {
-        text-decoration: line-through;
-    }
+
     &:hover .check_btn {
         display: block;
     }
@@ -273,6 +271,10 @@ body {
     z-index: 100;
     left: 360px;
     top: 0;
+    font-size: 15px;
+    & option {
+        font-size: 15px;
+    }
 }
 
 .tasks-form {
@@ -364,4 +366,12 @@ body {
     left: -30px;
     top: 1px;
     font-size: 16px;
+}
+
+.saving_tasks {
+    display: none;
+    color: $color-gray;
+    font-size: 10px;
+    font-style: italic;
+    margin: 0 20px 0 15px;
 }

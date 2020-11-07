@@ -12,6 +12,22 @@ if ($task->finished == 1) {
     $check = 'check-empty';
 }
 
+$privateSelect = [];
+switch ($task->private_id) {
+    case 4:
+        $privateSelect['4'] = 'selected';
+        break;
+    case 3:
+        $privateSelect['3'] = 'selected';
+        break;
+    case 2:
+        $privateSelect['2'] = 'selected';
+        break;
+    case 1:
+        $privateSelect['1'] = 'selected';
+        break;
+}
+
 ?>
 
 
@@ -22,10 +38,10 @@ if ($task->finished == 1) {
         <div class="task__settings">
             <label for="private_id">Доступность:</label>
             <select name="private_id" id="private_id">
-                <option value="1" selected>Видна всем</option>
-                <option value="2">Видна только бадди</option>
-                <option value="3">Видна только куратору</option>
-                <option value="4">Видна только мне</option>
+                <option value="1" <?=$privateSelect['1']?>>Видна всем</option>
+                <option value="2" <?=$privateSelect['2']?>>Видна только бадди</option>
+                <option value="3" <?=$privateSelect['3']?>>Видна только куратору</option>
+                <option value="4" <?=$privateSelect['4']?>>Видна только мне</option>
             </select>
         </div>
     </div>

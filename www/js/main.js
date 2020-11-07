@@ -3,7 +3,6 @@
 
 class Tasks {
     constructor() {
-        this.init();
         this.task = '';
         this.id = null;
         this.private_id = null;
@@ -25,8 +24,12 @@ class Tasks {
         this.inputSettingsClass = '.task__settings';
         this.transferBtn = '.task_transfer_btn';
         this.checkBtn = '.check_btn';
-        this.taskItem = '.created_tasks';
         this.finishClass = '.text__strike';
+        this.allTasksClass = '.tasks-all';
+        this.savingClass = '.saving_tasks';
+        this.timerInput;
+        this.timerSavind;
+        this.tasksForUpdate = [];
     }
 
 //	_post(url, data) {
@@ -79,6 +82,10 @@ class Tasks {
         return $(tasksBlock).parent().parent().before(html);
     }
 
+    renderAllTasks(tasksBlock, html) {
+        return $(tasksBlock).replaceWith(html);
+    }
+
     replaceOneTask(task, html) {
         return $(task).replaceWith(html);
     }
@@ -97,6 +104,21 @@ class Tasks {
             btn.removeClass('icon-check-empty');
             btn.addClass('icon-check');
         }
+    }
+
+    renderSaving(types) {
+        types.forEach( (type) => {
+            let saving = document.querySelector(this.taskListClass + `[data-type="${type}"]`).querySelector(this.savingClass);
+            saving.style.display = 'inline-block';
+        })
+    }
+
+    stopRenderSaving(types) {
+        types.forEach( (type) => {
+            let saving = document.querySelector(this.taskListClass + `[data-type="${type}"]`).querySelector(this.savingClass);
+            saving.style.display = 'none';
+        })
+
     }
 
     _createTask(inputBlock) {
@@ -147,7 +169,6 @@ class Tasks {
         let sendData = {
             'Tasks': {
                 'task': this.task,
-                'id': this.id,
                 'private_id': this.private_id,
                 'type_id': this.type_id,
                 'cat_id': this.cat_id,
@@ -159,7 +180,8 @@ class Tasks {
                 'finished': this.finished,
                 'repeat_type_id': this.repeat_type_id,
                 'nextPeriod': this.nextPeriod,
-            }
+            },
+            'id': this.id,
         };
         this._post('/task/change', sendData)
             .then(data => {
@@ -171,6 +193,48 @@ class Tasks {
                     let task = document.querySelectorAll(this.inputTaskClass + `[data-type="${this.type_id}"][data-next_period="${this.nextPeriod}"]`);
                     this._addEventsTasks([task]);
                     inputBlock.focus();
+                }
+            })
+            .catch(error => {
+            });
+    }
+
+    _updateChangedTasks(tasks, types) {
+        let sendPropertiesData = [];
+        tasks.forEach( (task) => {
+            if (task._validateTask()) {
+                sendPropertiesData.push({
+                    'id': task.id,
+                    'task': task.task,
+                    'private_id': task.private_id,
+                    'type_id': task.type_id,
+                    'cat_id': task.cat_id,
+                    'aim_id': task.aim_id,
+                    'goal_id': task.goal_id,
+                    'hashtags': task.hashtags,
+                    'date_calculate': task.date_calculate,
+                    'curator_emails': task.curator_emails,
+                    'finished': task.finished,
+                    'repeat_type_id': task.repeat_type_id,
+                    'nextPeriod': task.nextPeriod,
+                });
+            } else {
+                console.log('ошибка валидации - ' + task.id);
+            }
+        });
+
+        let sendData = {
+            'Tasks': sendPropertiesData,
+        };
+
+        this._post('/task/update-all', sendData)
+            .then(data => {
+                if (data.result) {
+                    clearTimeout(this.timerSavind);
+                    this.renderSaving(types);
+                    this.timerSavind = setTimeout( () => {
+                        this.stopRenderSaving(types);
+                    }, 2000)
                 }
             })
             .catch(error => {
@@ -219,15 +283,13 @@ class Tasks {
         return true;
     }
 
-
-
-    getFormData(form) {
-        let settings = $(form).parent().children(this.inputSettingsClass);
-        this.task = form.value;
+    getFormData(input) {
+        let settings = $(input).parent().children(this.inputSettingsClass);
+        this.task = input.value;
         this.private_id = settings.children('select').val();
-        this.type_id = $(form).data('type');
-        this.nextPeriod = $(form).data('next_period');
-        this.finished = $(form).data('finished');
+        this.type_id = input.dataset.type;
+        this.nextPeriod = input.dataset.next_period;
+        this.finished = input.dataset.finished;
         return true;
     }
 
@@ -241,7 +303,8 @@ class Tasks {
                 settings.show();
                 // закрытие окна при клике вне окна
                 $(document).mousedown(function (e) { // событие клика по веб-документу
-                    if (!$(el).is(e.target) && !settings.is(e.target) && settings.has(e.target).length === 0) { // если клик был не по нашему блоку и не по его дочерним элементам
+                    if (!$(el).is(e.target) && !settings.is(e.target) && settings.has(e.target).length === 0) {
+                        // если клик был не по нашему блоку и не по его дочерним элементам
                         settings.fadeOut(1); // скрываем его
                     }
                 });
@@ -274,6 +337,24 @@ class Tasks {
             if (el.parentNode.querySelector('.check_btn')) {
                 el.parentNode.querySelector('.check_btn').addEventListener('click', (e) => {
                     this._initFinishTask(el);
+                })
+            }
+
+            // события сохранения измененных задач
+            if ($(el).parents(this.taskListItemClass).hasClass(this.createdTasksClass.slice(1))) {
+                el.addEventListener('input', (e) => {
+                    // обновляем таймаут сохранения
+                    clearTimeout(this.timerInput);
+
+                    this.id = el.dataset.id;
+                    // добавляем в массив id, которые были изменены
+                    this.tasksForUpdate.push(this.id);
+                    // удаляем дубликаты
+                    this.tasksForUpdate = [...new Set(this.tasksForUpdate)];
+                    this.timerInput = setTimeout(() => {
+                        this._initUpdateTasks(this.tasksForUpdate);
+                        this.tasksForUpdate = [];
+                    }, 2000)
                 })
             }
 
@@ -313,24 +394,13 @@ class Tasks {
         else return 0;
     }
 
-    _addEventsTasksInput(el) {
-        el.addEventListener('click', (e) => {
-            let data = $(el).html();
-            let typeId = $(el).data('type');
-            let nextPeriod = $(el).data('next_period');
-            let privateId = $(el).data('private_id');
-            this._renderTaskInput(el, typeId, nextPeriod, data, privateId)
-        })
-    }
-
-
     init() {
         let elems = document.querySelectorAll(this.inputTaskClass);
         if (!elems.length) {
             return false;
         }
 
-        // устанавливаем события на показ окна с настройками задачи
+        // устанавливаем события на элементы ввода задач
         this._addEventsTasks(elems);
 
         // события кнопки трансфера прошлых задач
@@ -349,28 +419,6 @@ class Tasks {
         autosize(textareas);
     }
 
-    _renderTaskInput(elem, typeId, nextPeriod, data, privateId) {
-        let selected = ['','','',''];
-        selected[privateId-1] = 'selected';
-
-        let html = `<li class="text__list_item" data-next_period="${nextPeriod}" data-type="${typeId}">` +
-                '<div class="task__input_block">' +
-                `<textarea class="task__input" data-type="${typeId}" data-next_period="${nextPeriod}" type="text" maxlength="70">${data}</textarea>` +
-                '<div class="task__settings">'+
-                    '<label for="private_id">Доступность:</label>' +
-                    '<select name="private_id" id="private_id">' +
-                        `<option value="1" ${selected[0]}>Видна всем</option>` +
-                        `<option value="2" ${selected[1]}>Видна только бадди</option>` +
-                        `<option value="3" ${selected[2]}>Видна только куратору</option>` +
-                        `<option value="4" ${selected[3]}>Видна только мне</option>` +
-                    '</select>' +
-                '</div>' +
-            '</div>' +
-        '</li>';
-        $(elem).replaceWith(html);
-        this.updateAutoresize();
-    }
-
     _initCreateTask(elementInput) {
         this.getFormData(elementInput);
         this._createTask(elementInput);
@@ -378,16 +426,54 @@ class Tasks {
 
     _initUpdateTask(elementInput) {
         this.getFormData(elementInput);
+        this.id = elementInput.dataset.id;
         this._updateTask(elementInput);
+    }
+
+    _initUpdateTasks(idArr) {
+        let tasks = [];
+        let types = [];
+
+        idArr.forEach( (id) => {
+            this.id = id;
+            this.getFormData($(this.allTasksClass).find(this.inputTaskClass + `[data-id="${id}"]`)[0]);
+            tasks.push(new Task(this));
+            types.push(this.type_id);
+        });
+        // удаляем дубликаты
+        types = [...new Set(types)];
+
+        this._updateChangedTasks(tasks, types);
     }
 
     _initFinishTask(elementInput) {
         this.getFormData(elementInput);
-        this.id = $(elementInput).data('id');
+        this.id = elementInput.dataset.id;
         this._finishTask(elementInput);
     }
 
 }
+
+class Task extends Tasks {
+    constructor(task) {
+        super();
+        this.task = task.task;
+        this.id = task.id;
+        this.private_id = task.private_id;
+        this.type_id = task.type_id;
+        this.cat_id = task.cat_id;
+        this.aim_id = task.aim_id;
+        this.goal_id = task.goal_id;
+        this.hashtags = task.hashtags;
+        this.curator_emails = task.curator_emails;
+        this.finished = task.finished;
+        this.deleted = task.deleted;
+        this.repeat_type_id = task.repeat_type_id;
+        this.nextPeriod = task.nextPeriod;
+    }
+
+}
+
 let tasks = new Tasks();
 tasks.init();
 

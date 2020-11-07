@@ -7,8 +7,10 @@ namespace app\components;
 use app\base\BaseComponent;
 use app\models\Tasks;
 use app\models\User;
+use yii\db\ActiveRecord;
 use yii\db\conditions\BetweenCondition;
 use yii\web\UploadedFile;
+use yii\widgets\ActiveForm;
 
 class TasksComponent extends BaseComponent {
     public $modelClass;
@@ -258,9 +260,7 @@ class TasksComponent extends BaseComponent {
         if (!$task->user_id) {
             $task->user_id = \Yii::$app->user->getId();
         }
-
         if ($task->validate()) {
-
 //            foreach ($task->filesReal as &$file) {
 //                $file = $fileSaver->saveFile($file);
 //                if (!$file) {
@@ -268,13 +268,8 @@ class TasksComponent extends BaseComponent {
 //                }
 //            }
 //            $task->files = implode('|',$task->filesReal);
+
             // валидация + сохранение активности
-
-
-//            echo '<pre>';
-//            print_r($task->date_calculate);
-//            echo '</pre>';
-//            exit();
             if ($task->save()) {
                 return $task;
             }
@@ -333,6 +328,17 @@ class TasksComponent extends BaseComponent {
         }
 //        \Yii::error($task->getErrors());
         return false;
+    }
+
+    public function updateAllTasks($tasks) {
+        $this->modelClass = Tasks::class;
+        foreach ($tasks as $task) {
+            $model = $this->getModel();
+            $taskToUpdate = $model->findOne(['id' => $task['id'], 'user_id' => \Yii::$app->user->getId()]);
+            $taskToUpdate->load(['Tasks' => $task]);
+            $this->addTask($taskToUpdate);
+        }
+        return true;
     }
 
     public function findTodayNotifTask() {
