@@ -3,6 +3,7 @@
 
 namespace app\controllers;
 
+use app\components\UserComponent;
 use app\controllers\actions\site\ErrorAction;
 use app\models\User;
 use yii\web\Controller;
@@ -40,6 +41,7 @@ class AuthController extends Controller {
         if (\Yii::$app->request->isPost){
             $model->load(\Yii::$app->request->post());
             if ($this->auth->signUp($model)) {
+                $this->auth->sendConfirmationMail($model);
                 if ($this->auth->signIn($model)) {
                     return $this->redirect(['/profile']);
                 }
@@ -126,15 +128,46 @@ class AuthController extends Controller {
 
     }
 
-    public function actionRestorePassword(){
+    public function actionValidateRemindPassword(){
 
         if (!\Yii::$app->user->isGuest) {
             return $this->redirect(['/report']);
         }
+        $model = new User([
+            'scenario' => 'remindPass'
+        ]);
+        if (\Yii::$app->request->isAjax) {
+            \Yii::$app->response->format = Response::FORMAT_JSON;
+        }
+        if (\Yii::$app->request->isPost) {
+            $model->load(\Yii::$app->request->post());
+            $validate = $model->validate();
+            if ($validate) {
+                return ['result' => true];
+            } else {
+                return ActiveForm::validate($model);
+            }
+        }
+        if (\Yii::$app->request->isAjax) {
+            return ['result' => false];
+        } else {
+            $this->view->params['model'] = $model;
+            return $this->redirect(['/']);
+        }
+    }
 
+    public function actionRestorePassword($email=null,$token=null){
+        if (!\Yii::$app->user->isGuest) {
+            return $this->redirect(['/report']);
+        }
         $model = new User([
             'scenario' => 'restorePass'
         ]);
+        if (!$email) {
+            if (\Yii::$app->session->get('user_email')) {
+                $email = \Yii::$app->session->get('user_email');
+            }
+        }
         if (\Yii::$app->request->isPost && \Yii::$app->request->isAjax) {
             \Yii::$app->response->format = Response::FORMAT_JSON;
             $model->load(\Yii::$app->request->post());
@@ -143,7 +176,7 @@ class AuthController extends Controller {
                 if ($this->auth->updatePassword($model)) {
                     $model->scenario = 'signIn';
                     $this->auth->signIn($model);
-                    return $this->redirect([\Yii::$app->params['links']['profile']]);
+                    return $this->redirect([\Yii::$app->params['links']['report']]);
                 } else {
                     return ['result' => false];
                 }
@@ -165,16 +198,77 @@ class AuthController extends Controller {
             $restoreModel = new User([
                 'scenario' => 'restorePass'
             ]);
+
+            $model->token = $token;
             $this->view->params['signIn'] = $modelSignIn;
             $this->view->params['signUp'] = $modelSignUp;
             $this->view->params['restoreModel'] = $restoreModel;
             $this->view->params['model'] = $model;
+
             return $this->render('restore_password',[
                 'model' => $model,
-                'email' => \Yii::$app->session->get('user_email'),
+                'email' => $email,
+                'token' => $token,
             ]);
         }
 
+    }
+
+    public function actionConfirmationEmail($email=null,$confirmation_token=null){
+        if (\Yii::$app->user->isGuest) {
+            return $this->redirect(['/']);
+        }
+
+        if ((!$email || !$confirmation_token) && !\Yii::$app->request->isPost) {
+            throw new HttpException(400,'Отсутствуют необходимые параметры');
+        }
+
+        $model = new User([
+            'scenario' => 'confirmationEmail'
+        ]);
+        $model->email = $email;
+        $model->confirmation_token = $confirmation_token;
+
+        if (\Yii::$app->request->isAjax && \Yii::$app->request->isPost) {
+            \Yii::$app->response->format = Response::FORMAT_JSON;
+            $model = \Yii::$app->user->getIdentity();
+        }
+
+        $validate = $model->validate();
+        if ($validate) {
+            if ($this->auth->confirmEmail($model)) {
+                if (\Yii::$app->request->isAjax) {
+                    return ['result' => true];
+                }
+                return $this->redirect([\Yii::$app->params['links']['report']]);
+            }
+        }
+
+        if (\Yii::$app->request->isAjax) {
+            return ['result' => false];
+        }
+
+        return $this->redirect('/');
+    }
+
+    public function actionSendConfirmationEmail(){
+        if (\Yii::$app->user->isGuest || !\Yii::$app->request->isPost) {
+            throw new HttpException(403,'нет доступа');
+        }
+        $model = new User([
+            'scenario' => 'confirmationEmail'
+        ]);
+        if (\Yii::$app->request->isAjax && \Yii::$app->request->isPost) {
+            \Yii::$app->response->format = Response::FORMAT_JSON;
+            $model = \Yii::$app->user->getIdentity();
+        }
+        $validate = $model->validate();
+        if ($validate) {
+            if ($this->auth->sendConfirmationMail($model)) {
+                return ['result' => true];
+            }
+        }
+        return ['result' => false];
     }
 
     public function actionValidateSignIn(){

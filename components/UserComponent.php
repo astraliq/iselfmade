@@ -6,6 +6,7 @@ namespace app\components;
 
 use app\base\BaseComponent;
 use app\models\User;
+use yii\web\Cookie;
 use yii\web\UploadedFile;
 
 class UserComponent extends BaseComponent {
@@ -46,6 +47,27 @@ class UserComponent extends BaseComponent {
         }
 
         //валидация файлов не прошла
+        return false;
+    }
+
+    public function checkConfirmationEmail():bool {
+        $user = \Yii::$app->user->getIdentity();
+        if ($user->confirm_email != 1) {
+            // получаем куки от клиента
+            $reqCookie = \Yii::$app->request->cookies;
+            // куки для отдачи клиенту
+            $resCookie = \Yii::$app->response->cookies;
+            $confirmEmailCookie = $reqCookie->getValue('conf_email_cookie', '0');
+            if ($confirmEmailCookie == '0') {
+                $resCookie->add(new Cookie([
+                    'name' => 'conf_email_cookie',
+                    'value' => 1,
+                    'expire' => time() + 86400,
+                ]));
+                return true;
+            }
+            return false;
+        }
         return false;
     }
 

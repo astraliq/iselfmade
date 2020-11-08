@@ -86,7 +86,8 @@ AppAsset::register($this);
             <?php $form=\yii\bootstrap\ActiveForm::begin([
                 'validateOnChange' => false,
                 'validateOnBlur' => false,
-//                'enableAjaxValidation' => true,
+                'enableAjaxValidation' => true,
+                'validationUrl' => '/auth/validate-remind-password',
                 'action' => '/auth/remind-password',
                 'options' => [
                     'id' => 'form-remind',
@@ -117,9 +118,9 @@ AppAsset::register($this);
                 ]
             ]); ?>
             <?=$form->field($this->params['restoreModel'],'email')->textInput(['class' => 'modal__input', 'id' => 'restore-email', 'type' => 'email', 'autocomplete' => 'username'])->hiddenInput()->label(false);?>
-            <?=$form->field($this->params['restoreModel'],'token')->textInput(['class' => 'modal__input', 'id' => 'restore-token', 'type' => 'text', 'autocomplete' => 'token']);?>
-            <?=$form->field($this->params['restoreModel'],'password')->passwordInput(['class' => 'modal__input', 'id' => 'restore-user-password', 'type' => 'password', 'autocomplete' => 'new-password'])?>
-            <?=$form->field($this->params['restoreModel'],'repeat_password')->passwordInput(['class' => 'modal__input', 'id' => 'restore-user-repeat_password', 'type' => 'password', 'autocomplete' => 'new-password']);?>
+            <?=$form->field($this->params['restoreModel'],'token')->textInput(['class' => 'modal__input', 'id' => 'restore-token', 'placeholder' => 'Код подтверждения из письма','type' => 'text', 'autocomplete' => 'token']);?>
+            <?=$form->field($this->params['restoreModel'],'password')->passwordInput(['class' => 'modal__input', 'id' => 'restore-user-password', 'type' => 'password', 'autocomplete' => 'new-password'])->label('Новый пароль')?>
+            <?=$form->field($this->params['restoreModel'],'repeat_password')->passwordInput(['class' => 'modal__input', 'id' => 'restore-user-repeat_password', 'type' => 'password', 'autocomplete' => 'new-password'])->label('Повтор нового пароля');?>
             <div class="modal__sub">
                 <button type="submit" class="modal__btn modal__btn-restore">Готово!</button>
             </div>

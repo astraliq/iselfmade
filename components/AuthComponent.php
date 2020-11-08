@@ -60,7 +60,7 @@ class AuthComponent extends Component
                 'email' => $user->email,
                 'username' => $user->name,
             ])
-                ->setFrom('iselfmade@made.ru')
+                ->setFrom('hello@iselfmade.ru')
                 ->setTo($user->email)
                 ->setSubject('iselfmade - Восстановление пароля')
                 ->send();
@@ -71,11 +71,47 @@ class AuthComponent extends Component
         return true;
     }
 
+    public function sendConfirmationMail(User $model) :bool {
+        $user = new User();
+        $user = $user->findIdentityByEmail($model->email);
+        if ($user->confirm_email == 0) {
+            $confirmation_token = $this->generateConfirmationEmailToken();
+            $user->confirmation_token = $confirmation_token;
+            if ($user->save()) {
+                $message = \Yii::$app->mailer->compose(
+                    'confirm_email', [
+                    'confirmation_token' => $confirmation_token,
+                    'email' => $user->email,
+                ]
+                )
+                    ->setFrom('hello@iselfmade.ru')
+                    ->setTo($user->email)
+                    ->setSubject('iselfmade - Подтверждение электронной почты')
+                    ->send();
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
     public function updatePassword(User $model) :bool {
         $user = new User();
         $user = $user->getUserByEmailAndToken($model->email, $model->token);
         $user->pass_hash = $this->genPasswordHash($model->password);
         $user->access_token = null;
+        if ($user->save()) {
+            return true;
+        }
+        return false;
+    }
+
+    public function confirmEmail(User $model) :bool {
+        $user = new User();
+        $user = $user->getUserByEmailAndConfirmToken($model->email, $model->confirmation_token);
+        $user->confirmation_token = null;
+        $user->confirm_email = 1;
         if ($user->save()) {
             return true;
         }
@@ -117,6 +153,10 @@ class AuthComponent extends Component
 
     private function generateAccessTokenRestorePass() {
         return \Yii::$app->security->generateRandomString(8);
+    }
+
+    private function generateConfirmationEmailToken() {
+        return \Yii::$app->security->generateRandomString(12);
     }
 
     private function genPasswordHash(string $password) {

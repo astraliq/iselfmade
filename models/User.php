@@ -22,6 +22,7 @@ class User extends UserBase implements IdentityInterface
     CONST SEX = [self::MALE => 'Мужской', self::FEMALE => 'Женский'];
 
     private const SCENARIO_SIGN_UP = 'signUp';
+    private const SCENARIO_CONFIRM_EMAIL = 'confirmationEmail';
     private const SCENARIO_VALIDATE_SIGN_UP = 'validateSignUp';
     private const SCENARIO_SIGN_IN = 'signIn';
     private const SCENARIO_VALIDATE_SIGN_IN = 'validateSignIn';
@@ -44,6 +45,7 @@ class User extends UserBase implements IdentityInterface
     public function scenarios() {
         return [
             self::SCENARIO_SIGN_UP => ['email', 'password', 'repeat_password'],
+            self::SCENARIO_CONFIRM_EMAIL => ['email', 'confirmation_token'],
             self::SCENARIO_VALIDATE_SIGN_UP => ['email', 'password', 'repeat_password'],
             self::SCENARIO_SIGN_IN => ['email', 'password'],
             self::SCENARIO_VALIDATE_SIGN_IN => ['email', 'password'],
@@ -85,7 +87,7 @@ class User extends UserBase implements IdentityInterface
             ['password', 'required', 'when'  => function () {
                 return $this->email != '';
             },'message' => 'Необходимо заполнить пароль'],
-            [['email'], 'required','on'=> [self::SCENARIO_SIGN_UP, self::SCENARIO_REMIND], 'message' => 'Необходимо заполнить электронную почту'],
+            [['email'], 'required','on'=> [self::SCENARIO_SIGN_UP, self::SCENARIO_REMIND, self::SCENARIO_CONFIRM_EMAIL], 'message' => 'Необходимо заполнить электронную почту'],
             [['password'], 'required','on'=> [self::SCENARIO_SIGN_UP, self::SCENARIO_RESTORE], 'message' => 'Необходимо заполнить пароль'],
             [['email','password'], 'required','message' => 'Необходимо заполнить электронную почту и пароль'],
 //            ['password', 'string','on'=> self::SCENARIO_SIGN_UP, 'min' => 8, 'max' => 250, 'message' => 'Пароль должен содержать минимум 8 символов'],
@@ -93,6 +95,7 @@ class User extends UserBase implements IdentityInterface
             ['repeat_password', 'compare', 'compareAttribute' => 'password','on'=> [self::SCENARIO_SIGN_UP, self::SCENARIO_UPD_PSW, self::SCENARIO_RESTORE], 'message' => 'Пароли должны совпадать'],
             ['repeat_password', 'required', 'message' => 'Необходимо повторить пароль'],
             ['token', 'required', 'message' => 'Необходимо ввести код подтверждения'],
+            ['confirmation_token', 'required', 'on'=> [self::SCENARIO_CONFIRM_EMAIL], 'message' => 'Необходимо ввести код подтверждения электронной почты'],
             ['token', 'checkToken', 'on'=> [self::SCENARIO_RESTORE], 'message' => 'Код подтверждения не совпадает с отправленным.'],
             [['email'], 'unique','on'=> self::SCENARIO_SIGN_UP, 'message' => 'Такой адрес уже зарегистрирован'],
             [['email'], 'validateEmail','on'=> [self::SCENARIO_SIGN_IN, self::SCENARIO_RESTORE]],
@@ -195,6 +198,10 @@ class User extends UserBase implements IdentityInterface
 
     public static function getUserByEmailAndToken($email, $token) {
         return User::find()->andWhere(['email'=>$email,'access_token'=>$token])->one();
+    }
+
+    public static function getUserByEmailAndConfirmToken($email, $confirmation_token) {
+        return User::find()->andWhere(['email'=>$email,'confirmation_token'=>$confirmation_token])->one();
     }
 
     /**

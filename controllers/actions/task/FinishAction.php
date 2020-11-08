@@ -24,8 +24,10 @@ class FinishAction extends Action {
 
         $id = \Yii::$app->request->post()['id'] ?? null;
         $user_id = \Yii::$app->request->post()['user_id'] ?? null;
+        $nextPeriod = \Yii::$app->request->post()['nextPeriod'] ?? null;
         $action = $this->id;
         $task = $model->findOne(['id' => $id, 'user_id' => \Yii::$app->user->getId()]);
+        $task->nextPeriod = $nextPeriod;
 
         if (!$task) {
             throw new HttpException(404, 'Задача не найдена');

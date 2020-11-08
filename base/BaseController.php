@@ -10,8 +10,8 @@ class BaseController extends Controller
 {
     public $previousUrl = '/';
 
-    public function beforeAction($action)
-    {
+    public function beforeAction($action) {
+
         if (\Yii::$app->user->isGuest) {
             return $this->redirect(['/'])->send();
         }

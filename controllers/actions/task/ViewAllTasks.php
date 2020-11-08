@@ -5,6 +5,7 @@ namespace app\controllers\actions\task;
 
 
 use app\components\TasksComponent;
+use app\components\UserComponent;
 use app\models\Tasks;
 use app\models\TasksSearch;
 use yii\base\Action;
@@ -45,6 +46,10 @@ class ViewAllTasks extends Action {
             return $tasks;
         }
 
+        $userComp = \Yii::createObject(['class' => UserComponent::class]);
+        $notifConfEmail = $userComp->checkConfirmationEmail();
+
+
         return $this->controller->render('view_all', [
             'tasks' => $tasks,
             'tasksTomorrow' => $tasksTomorrow,
@@ -57,6 +62,7 @@ class ViewAllTasks extends Action {
             'model' => $model,
 //            'provider' => $provider,
             'admin'=>$admin,
+            'notifConfEmail' => $notifConfEmail,
         ]);
 
     }

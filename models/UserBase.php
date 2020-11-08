@@ -27,6 +27,8 @@ use Yii;
  * @property string|null $city Город нахождения
  * @property string|null $timezone Часовой пояс
  * @property int|null $offset_UTC Смещение времени от UTC
+ * @property int|null $confirm_email Подтверждение почты
+ * @property string|null $confirmation_token Подтверждающий почту токен
  *
  * @property MissionTasks[] $missionTasks
  */
@@ -47,10 +49,10 @@ class UserBase extends \yii\db\ActiveRecord
     {
         return [
             [['email', 'pass_hash'], 'required'],
-            [['sex', 'group_id', 'offset_UTC'], 'integer'],
+            [['sex', 'group_id', 'offset_UTC', 'confirm_email'], 'integer'],
             [['birthday', 'date_create'], 'safe'],
             [['balance'], 'number'],
-            [['email', 'phone_number', 'pass_hash', 'auth_key', 'access_token', 'name', 'surname', 'avatar', 'buddy_ids', 'curators_ids', 'curators_emails'], 'string', 'max' => 255],
+            [['email', 'phone_number', 'pass_hash', 'auth_key', 'access_token', 'name', 'surname', 'avatar', 'buddy_ids', 'curators_ids', 'curators_emails', 'confirmation_token'], 'string', 'max' => 255],
             [['city', 'timezone'], 'string', 'max' => 64],
         ];
     }
@@ -81,6 +83,8 @@ class UserBase extends \yii\db\ActiveRecord
             'city' => Yii::t('app', 'Город нахождения'),
             'timezone' => Yii::t('app', 'Часовой пояс'),
             'offset_UTC' => Yii::t('app', 'Смещение времени от UTC'),
+            'confirm_email' => Yii::t('app', 'Подтверждение почты'),
+            'confirmation_token' => Yii::t('app', 'Подтверждающий почту токен'),
         ];
     }
 

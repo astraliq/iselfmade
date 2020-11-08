@@ -17,11 +17,31 @@ if ($username) {
 }
 
 ?>
+<style>
+    .logo {
+        text-decoration: none;
+        font-weight: 600;
+    }
+    .blue_logo {
+        color: #4C91F8;
+    }
+    .black_logo {
+        color: #000;
+    }
+    .logo:hover .blue_logo {
+        color: #000;
+     }
+
+    .logo:hover .black_logo {
+        color: #4C91F8;
+     }
+
+</style>
 <p>Вы получили это письмо, потому что кто-то, скорее всего Вы, начал процедуру смены пароля для профиля: <?= Html::encode($email)?></p>
 <p>Скопируйте код подтверждения в форму установки нового пароля:</p>
-<div class="token" style="width: 300px; height: 50px; background-color: gray; border-radius: 5px"><span style="font-size: 16px; color: whitesmoke;"><?=$token?></span></div>
-<p>или передите по ссылке: <a href="<?=Url::home('https') . '/auth/restore-password'?>">восстановить пароль</a></p>
+<div class="token" style="width: 200px; height: 40px; background-color: gray; border-radius: 5px"><span style="font-size: 16px; color: whitesmoke; text-align: center; display: block; line-height: 40px;"><?=$token?></span></div>
+<p>или передите по ссылке: <a href="<?=Url::home('https') . 'auth/restore-password?email=' . $email . '&token=' . $token?>">восстановить пароль</a></p>
 <p>Если это какая-то ужасная ошибка — просто проигнорируйте это письмо. Без указания кода подтверждения сменить пароль невозможно.</p>
 <p>Это письмо отправлено роботом, отвечать на него не нужно.</p>
-<p>С уважением, <br>Команда <a href="<?= Url::home('https') ?>">iselfmade</a></p>
+<p>С уважением, <br>Команда <a href="<?= Url::home('https') ?>" class="logo"><span class="black_logo">i</span><span class="blue_logo">self</span><span class="black_logo">made</span></a></p>
 

@@ -244,6 +244,7 @@ class Tasks {
     _finishTask(inputBlock) {
         let sendData = {
             'id': this.id,
+            'nextPeriod': this.nextPeriod,
         };
         this._post('/task/finish', sendData)
             .then(data => {
@@ -474,7 +475,86 @@ class Task extends Tasks {
 
 }
 
+class Modal {
+    constructor() {
+
+    }
+
+    _post(url, data) {
+        return $.post({
+            url: url,
+            data: data,
+            success: function (data) {
+                //data приходят те данные, который прислал на сервер
+                if (data.result !== true) {
+                    console.log('ERROR_POST_DATA');
+                }
+            }
+        })
+    }
+    _get(url, data) {
+        return $.get({
+            url: url,
+            data: data,
+            success: function (data) {
+                //data приходят те данные, который прислал на сервер
+                if (data.result !== true) {
+                    console.log('ERROR_GET_DATA');
+                }
+            }
+        })
+    }
+
+    sendConfirmationEmail(confEmailBlock) {
+        let sendData = {
+            'confirmation': true,
+        };
+        this._post('/auth/send-confirmation-email', sendData)
+            .then(data => {
+                if (data.result) {
+                    this.closeConfirmEmailWindow(confEmailBlock);
+                }
+            })
+            .catch(error => {
+                this.enableBtn(btnSendEmail);
+                console.log(error);
+            });
+    }
+
+    init() {
+        let confEmailBlock = document.querySelector('.email_confirmation');
+        if (confEmailBlock) {
+            let btnSendEmail = confEmailBlock.querySelector('.btn_conf_email');
+            let closeWindow = confEmailBlock.querySelector('.email_confirmation_close');
+            btnSendEmail.addEventListener('click', (e) => {
+                this.sendConfirmationEmail(confEmailBlock);
+                this.disableBtn(btnSendEmail);
+            });
+
+            closeWindow.addEventListener('click', (e) => {
+                this.closeConfirmEmailWindow(confEmailBlock);
+            });
+
+        }
+    }
+
+    disableBtn(btn) {
+        btn.setAttribute('disabled', 'disabled');
+    }
+
+    enableBtn(btn) {
+        btn.removeAttribute('disabled');
+    }
+
+    closeConfirmEmailWindow(window) {
+        window.style.display = 'none';
+    }
+
+}
+
 let tasks = new Tasks();
 tasks.init();
 
+let confirmModal = new Modal();
+confirmModal.init();
 

@@ -60,6 +60,19 @@ use yii\helpers\Html;
 <!--            <div class="footnotes__numbers footnotes__numbers_color-red">62,5%</div>-->
 <!--        </div>-->
 <!--    </div>-->
-
-
 </div>
+
+<?php
+    if ($notifConfEmail) {
+        echo '<div class="email_confirmation">
+        <button class="email_confirmation_close">X</button>
+        <h4>Подтверждение электронной почты</h4>
+        <p>После регистрации на Вашу электронную почту отправлено письмо со ссылкой подтверждения.</p>
+        <p>Просим Вас в ближайшее время подтвердить электронную почту для полноценного использования сервиса.</p>
+        <p>Если Вам по какой-либо причине не пришло письмо со ссылкой подтверждения, то нажмите на кнопку:</p>
+        <button class="btn_conf_email">Отправить письмо</button>
+    </div>';
+    }
+
+?>
+

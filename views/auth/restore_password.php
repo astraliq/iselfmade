@@ -19,9 +19,9 @@ $this->params['breadcrumbs'][] = $this->title;
         ]
     ]); ?>
     <?=$form->field($model,'email')->textInput(['class' => 'modal__input', 'id' => 'main-restore-email', 'type' => 'email', 'autocomplete' => 'username'])->hiddenInput(['value' => $email])->label(false);?>
-    <?=$form->field($model,'token')->textInput(['class' => 'modal__input', 'id' => 'main-restore-token', 'type' => 'text', 'autocomplete' => 'token']);?>
-    <?=$form->field($model,'password')->passwordInput(['class' => 'modal__input', 'id' => 'main-restore-user-password', 'type' => 'password', 'autocomplete' => 'new-password'])?>
-    <?=$form->field($model,'repeat_password')->passwordInput(['class' => 'modal__input', 'id' => 'main-restore-user-repeat_password', 'type' => 'password', 'autocomplete' => 'new-password']);?>
+    <?=$form->field($model,'token')->textInput(['class' => 'modal__input', 'id' => 'main-restore-token', 'placeholder' => 'Код подтверждения из письма', 'type' => 'text', 'autocomplete' => 'token']);?>
+    <?=$form->field($model,'password')->passwordInput(['class' => 'modal__input', 'id' => 'main-restore-user-password', 'type' => 'password', 'autocomplete' => 'new-password'])->label('Новый парооль')?>
+    <?=$form->field($model,'repeat_password')->passwordInput(['class' => 'modal__input', 'id' => 'main-restore-user-repeat_password', 'type' => 'password', 'autocomplete' => 'new-password'])->label('Повтор нового парооля');?>
     <div class="modal__sub">
         <button type="submit" class="modal__btn modal__btn-restore">Готово!</button>
     </div>
