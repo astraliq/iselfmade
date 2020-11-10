@@ -115,30 +115,6 @@ body {
     }
 }
 
-.main__data {
-    margin: 0 0 80px 0;
-    padding: 35px 0 0 40px;
-    min-width: 65%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    &_title {
-        font-family: $font_main-text;
-        font-weight: 500;
-        font-size: 20px;
-        line-height: 25px;
-        color: $color-blue;
-    }
-    &_line {
-        padding-bottom: 1px;
-        border-bottom: 1px dashed $color-black;
-        &:hover {
-            cursor: pointer;
-        }
-    }
-}
-
 .vshow {
     font-family: $font_main-text;
     font-weight: 400;
@@ -151,26 +127,6 @@ body {
     width: 100%;
     margin: 0 0 0 0;
     padding: 0 0 30px 0;
-}
-
-.text__list_items {
-    padding: 10px 0 0 15px;
-}
-
-.text__list_item {
-    width: $width-textarea;
-    font-family: $font_main-text;
-    min-height: $height2-textarea;
-    margin: 0 0 2px 5px;
-    font-weight: 300;
-    font-size: 18px;
-    line-height: $height-textarea;
-    color: $color-black;
-    word-wrap: break-word;
-
-    &:hover .check_btn {
-        display: block;
-    }
 }
 
 .aims {
@@ -188,6 +144,166 @@ body {
         padding: 0 0 0 10px;
         max-width: 150px;
         width: 100%;
+    }
+}
+
+.text__list_item {
+    width: $width-textarea;
+    font-family: $font_main-text;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: $height-textarea;
+    color: $color-black;
+    word-wrap: break-word;
+    margin: 0 0 2px 5px;
+
+
+    &:hover .check_btn {
+        display: block;
+    }
+}
+
+.main__data {
+    margin: 0 0 80px 0;
+    padding: 35px 0 0 40px;
+    min-width: 65%;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    transition: all $anim_transition_tasks ease;
+
+    &_title {
+        font-family: $font_main-text;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 25px;
+        color: $color-blue;
+    }
+    &_line {
+        padding-bottom: 1px;
+        border-bottom: 1px dashed $color-black;
+        cursor: pointer;
+        &:hover {
+            transition: all $anim_transition_tasks ease;
+            text-decoration: none;
+            color: $color-blue;
+        }
+    }
+
+}
+
+.task__input_block {
+    position: relative;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+}
+
+.task__input {
+    width: $width-textarea;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    line-height: $height-textarea;
+
+    overflow: hidden !important;
+    resize: none !important;
+}
+
+.hide_input {
+    height: 0;
+    opacity: 0;
+    left: -9999px;
+    & + label {
+        width: fit-content;
+    }
+    //& + label::after {
+    //  content: '+';
+    //  position: absolute;
+    //  right: 50px;
+    //  top: 0px;
+    //  color: #333;
+    //}
+    //& + label:hover::after {
+    //    top: 0px;
+    //    font-weight: 700;
+    //}
+    & + label {
+        display: block;
+        cursor: pointer;
+    }
+
+    & ~ .text__list_items {
+        transition: all $anim_transition_tasks ease;
+        opacity: 1;
+        padding: 10px 0 0 15px;
+    }
+    &:checked ~ .text__list_items {
+        transition: all $anim_transition_tasks ease;
+        opacity: 0;
+        padding: 0;
+        margin: 0;
+    }
+
+    & ~ .text__list_items .text__list_item {
+        transition: all $anim_transition_tasks ease;
+        opacity: 1;
+        min-height: $height2-textarea;
+    }
+    &:checked ~ .text__list_items .text__list_item {
+        transition: all $anim_transition_tasks ease;
+        opacity: 0;
+        min-height: 0;
+    }
+
+    & ~.text__list_items .task__input_block {
+        transition: all $anim_transition_tasks ease;
+        opacity: 1;
+        height: 0;
+    }
+    &:checked ~ .text__list_items .task__input_block {
+        transition: all $anim_transition_tasks ease;
+        opacity: 0;
+        height: 0 !important;
+    }
+
+    & ~ .text__list_items .task__input {
+        transition: all $anim_transition_tasks ease;
+        opacity: 1;
+        height: $height2-textarea;
+    }
+    &:checked ~ .text__list_items .task__input {
+        transition: all $anim_transition_tasks ease;
+        opacity: 0;
+        height: 0 !important;
+    }
+
+
+
+
+    // стиль label в свернутом состоянии
+    &:checked + label {
+        color: #00a3c6;
+        border-bottom: 1px solid $color-black;
+    }
+
+
+
+}
+
+.disabled_hidden {
+    cursor: default;
+    &:hover {
+        cursor: default;
     }
 }
 
@@ -218,46 +334,8 @@ body {
     color: $color-gray;
 }
 
-.item-input {
-    padding: 0 10px;
-    width: 450px;
-    height: 35px;
-    border: 1px solid #B1B1B1;
-    box-sizing: border-box;
-    border-radius: 10px;
-    outline: none;
-    font-family: $font_main-text;
-    font-weight: 300;
-    font-size: 18px;
-    line-height: $height-textarea;
-    color: $color-black;
-}
-
 .hidden_block {
     display: none;
-}
-
-.task__input_block {
-    position: relative;
-    display: -webkit-flex;
-    display: -moz-flex;
-    display: -ms-flex;
-    display: -o-flex;
-    display: flex;
-}
-
-.task__input {
-    width: $width-textarea;
-    height: $height2-textarea;
-    margin: 0;
-    padding: 0;
-    background-color: transparent;
-    border: none;
-    font-size: 18px;
-    line-height: $height-textarea;
-    overflow: hidden;
-    resize: none;
-
 }
 
 .task__settings {

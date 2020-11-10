@@ -9,7 +9,17 @@ $check = '';
 ?>
 
 <div class="tasks__list" data-type="<?=$type_id?>" data-next_period="<?=$nextPeriod?>">
-    <a class="main__data_title main__data_line"><?= Html::encode($title) ?></a>
+    <?php
+    if ($type_id==2 || $type_id==3) {
+        $disabled = '';
+        $activeClass = '';
+    } else {
+        $disabled = 'disabled';
+        $activeClass = 'disabled_hidden';
+    }
+    ?>
+    <input id="task-<?=$type_id?>-<?=$nextPeriod?>" class="hide_input" type="checkbox" <?=$disabled?>>
+    <label for="task-<?=$type_id?>-<?=$nextPeriod?>" class="main__data_title main__data_line <?=$activeClass?>"><?= Html::encode($title) ?></label>
     <span class="saving_tasks">Сохранено</span>
     <?php
         switch ($type_id) {
