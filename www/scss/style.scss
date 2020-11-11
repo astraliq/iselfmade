@@ -185,6 +185,7 @@ body {
         color: $color-blue;
     }
     &_line {
+        display: inline-block;
         padding-bottom: 1px;
         border-bottom: 1px dashed $color-black;
         cursor: pointer;
@@ -220,6 +221,8 @@ body {
 }
 
 .hide_input {
+    margin: 0;
+    width: 0;
     height: 0;
     opacity: 0;
     left: -9999px;
@@ -238,7 +241,7 @@ body {
     //    font-weight: 700;
     //}
     & + label {
-        display: block;
+        display: inline-block;
         cursor: pointer;
     }
 
@@ -254,27 +257,27 @@ body {
         margin: 0;
     }
 
-    & ~ .text__list_items .text__list_item {
-        transition: all $anim_transition_tasks ease;
-        opacity: 1;
-        min-height: $height2-textarea;
-    }
-    &:checked ~ .text__list_items .text__list_item {
-        transition: all $anim_transition_tasks ease;
-        opacity: 0;
-        min-height: 0;
-    }
+    //& ~ .text__list_items .text__list_item {
+    //    transition: all $anim_transition_tasks ease;
+    //    opacity: 1;
+    //    min-height: $height2-textarea;
+    //}
+    //&:checked ~ .text__list_items .text__list_item {
+    //    transition: all $anim_transition_tasks ease;
+    //    opacity: 0;
+    //    min-height: 0;
+    //}
 
-    & ~.text__list_items .task__input_block {
-        transition: all $anim_transition_tasks ease;
-        opacity: 1;
-        height: 0;
-    }
-    &:checked ~ .text__list_items .task__input_block {
-        transition: all $anim_transition_tasks ease;
-        opacity: 0;
-        height: 0 !important;
-    }
+    //& ~.text__list_items .task__input_block {
+    //    transition: all $anim_transition_tasks ease;
+    //    opacity: 1;
+    //    height: 0;
+    //}
+    //&:checked ~ .text__list_items .task__input_block {
+    //    transition: all $anim_transition_tasks ease;
+    //    opacity: 0;
+    //    height: 0 !important;
+    //}
 
     & ~ .text__list_items .task__input {
         transition: all $anim_transition_tasks ease;
@@ -530,4 +533,11 @@ body {
             color: $color-blue;
         }
     }
+}
+
+.transition_none {
+    transition: none;
+}
+.transition_all {
+    transition: all $anim_transition_tasks ease;
 }

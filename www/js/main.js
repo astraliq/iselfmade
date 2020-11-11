@@ -297,6 +297,7 @@ class Tasks {
     _addEventsTasks(elems) {
         elems.forEach((el) => {
             let settings = $(el).parent().children(this.inputSettingsClass);
+            autosize.destroy($(el));
             autosize($(el));
 
             // появление настроек при фокусировке на textarea
@@ -320,7 +321,9 @@ class Tasks {
                     task = task.slice(0,caretPos) + '\r\n' + task.slice(caretPos,task.length);
                     $(el).val(task);
                     this.setCaretPosition(el, caretPos+1);
+                    el.classList.add('transition_none');
                     autosize.update($(el));
+                    el.classList.add('transition_all');
                 }
             });
 
@@ -346,7 +349,7 @@ class Tasks {
                 el.addEventListener('input', (e) => {
                     // обновляем таймаут сохранения
                     clearTimeout(this.timerInput);
-
+                    el.classList.add('transition_none');
                     this.id = el.dataset.id;
                     // добавляем в массив id, которые были изменены
                     this.tasksForUpdate.push(this.id);
@@ -355,9 +358,22 @@ class Tasks {
                     this.timerInput = setTimeout(() => {
                         this._initUpdateTasks(this.tasksForUpdate);
                         this.tasksForUpdate = [];
+                        el.classList.add('transition_all');
                     }, 2000)
                 })
             }
+
+            let hideBlocks = [document.getElementById('task-3-0'), document.getElementById('task-2-0')];
+            hideBlocks.forEach( (el) => {
+                el.addEventListener('click', (e) => {
+                    if ($(el).is(':checked')) {
+                        document.cookie = `${el.id}=1`;
+                    } else {
+                        document.cookie = `${el.id}=0`;
+                    }
+                })
+
+            })
 
         });
 
@@ -395,6 +411,14 @@ class Tasks {
         else return 0;
     }
 
+    get_cookie (cookie_name) {
+        let results = document.cookie.match ( '(^|;) ?' + cookie_name + '=([^;]*)(;|$)' );
+        if ( results )
+            return ( unescape ( results[2] ) );
+        else
+            return null;
+    }
+
     init() {
         let elems = document.querySelectorAll(this.inputTaskClass);
         if (!elems.length) {
@@ -412,6 +436,17 @@ class Tasks {
             })
         })
 
+        this.updateHidingByCookie();
+
+    }
+
+    updateHidingByCookie() {
+        let hideBlocks = [document.getElementById('task-3-0'), document.getElementById('task-2-0')];
+        hideBlocks.forEach( (el) => {
+            if (this.get_cookie(el.id) == 1) {
+                el.checked = 1;
+            }
+        })
     }
 
     updateAutoresize() {
