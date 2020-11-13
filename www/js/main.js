@@ -303,6 +303,8 @@ class Tasks {
             // появление настроек при фокусировке на textarea
             el.addEventListener('focus', (e) => {
                 settings.show();
+                // settings.css('display', 'flex');
+
                 // закрытие окна при клике вне окна
                 $(document).mousedown(function (e) { // событие клика по веб-документу
                     if (!$(el).is(e.target) && !settings.is(e.target) && settings.has(e.target).length === 0) {
@@ -318,7 +320,7 @@ class Tasks {
                     e.preventDefault();
                     let caretPos = this.getCaretPos(el);
                     let task = $(el).val();
-                    task = task.slice(0,caretPos) + '\r\n' + task.slice(caretPos,task.length);
+                    task = task.slice(0, caretPos) + '\r\n' + task.slice(caretPos,task.length);
                     $(el).val(task);
                     this.setCaretPosition(el, caretPos+1);
                     el.classList.add('transition_none');

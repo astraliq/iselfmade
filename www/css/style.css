@@ -251,20 +251,88 @@ body {
   display: none; }
 
 .task__settings {
-  background-color: lightgray;
+  background-color: #c2ddff;
   display: none;
   width: 300px;
-  height: 100px;
+  height: 130px;
   box-shadow: 2px 1px 5px;
-  border-radius: 2px;
-  padding: 5px;
+  border-radius: 3px;
+  padding: 5px 5px 5px 5px;
   position: absolute;
   z-index: 100;
   left: 410px;
   top: 0;
-  font-size: 15px; }
+  font-size: 15px;
+  font-weight: 300;
+  flex-wrap: wrap;
+  justify-content: center; }
+  .task__settings select {
+    border: none;
+    border-bottom: 1px #609df8 solid;
+    background-color: transparent;
+    padding: 2px 0 2px 5px;
+    margin: 0;
+    height: 27px;
+    border-radius: 2px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    color: #555;
+    font-size: inherit;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
+  .task__settings label {
+    height: 27px;
+    line-height: 27px;
+    margin: 0;
+    font-size: inherit;
+    font-weight: 300; }
   .task__settings option {
-    font-size: 15px; }
+    font-size: inherit; }
+  .task__settings .weekends_block,
+  .task__settings .select_block {
+    margin: 7px auto;
+    width: 100%;
+    font-size: inherit;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    justify-content: flex-start; }
+    .task__settings .weekends_block .label_block,
+    .task__settings .select_block .label_block {
+      display: -webkit-flex;
+      display: -moz-flex;
+      display: -ms-flex;
+      display: -o-flex;
+      display: flex;
+      justify-content: flex-end;
+      width: 30%;
+      font-size: inherit;
+      margin: 0 10px 0 0;
+      line-height: 27px; }
+  .task__settings .repeated {
+    margin: 5px 0 0 0;
+    width: 30px;
+    height: 15px; }
+  .task__settings span {
+    font-size: inherit; }
+  .task__settings .weekends_block {
+    height: 30px;
+    align-items: center; }
+    .task__settings .weekends_block .repeat_weekdays {
+      width: 100%;
+      font-size: inherit;
+      display: -webkit-flex;
+      display: -moz-flex;
+      display: -ms-flex;
+      display: -o-flex;
+      display: flex;
+      justify-content: center; }
+      .task__settings .weekends_block .repeat_weekdays input {
+        margin: 0 4px;
+        width: 15px;
+        height: 15px; }
 
 .tasks-form {
   width: 100%;
@@ -353,6 +421,7 @@ body {
   position: absolute;
   display: block;
   width: 400px;
+  z-index: 9999;
   box-shadow: -6px 4px 10px 1px #f7f5f7;
   background-color: whitesmoke;
   display: -webkit-flex;

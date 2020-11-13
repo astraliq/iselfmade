@@ -29,6 +29,8 @@ use Yii;
  * @property int|null $deleted 0-не удалено,1-удалено
  * @property int|null $repeat_type_id null-без повтора,1-ежедневно,2-раз в месяц,3-раз в год
  * @property string|null $secret_key
+ * @property int|null $repeated_by_id Id повторяемой задачи
+ * @property string|null $repeated_weekdays Id дней недели через запятую
  *
  * @property MissionCats $cat
  * @property SupportGroups $group
@@ -54,9 +56,9 @@ class TasksBase extends \yii\db\ActiveRecord
     {
         return [
             [['id', 'user_id', 'task'], 'required'],
-            [['id', 'user_id', 'private_id', 'type_id', 'cat_id', 'aim_id', 'goal_id', 'group_id', 'finished', 'deleted', 'repeat_type_id'], 'integer'],
+            [['id', 'user_id', 'private_id', 'type_id', 'cat_id', 'aim_id', 'goal_id', 'group_id', 'finished', 'deleted', 'repeat_type_id', 'repeated_by_id'], 'integer'],
             [['date_create', 'date_start', 'date_finish', 'date_calculate'], 'safe'],
-            [['task', 'main_img', 'buddy_ids', 'curators_ids', 'curators_emails', 'hashtags', 'secret_key'], 'string', 'max' => 255],
+            [['task', 'main_img', 'buddy_ids', 'curators_ids', 'curators_emails', 'hashtags', 'secret_key', 'repeated_weekdays'], 'string', 'max' => 255],
             [['id', 'user_id'], 'unique', 'targetAttribute' => ['id', 'user_id']],
             [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => MissionCats::className(), 'targetAttribute' => ['cat_id' => 'id']],
             [['group_id'], 'exist', 'skipOnError' => true, 'targetClass' => SupportGroups::className(), 'targetAttribute' => ['group_id' => 'id']],
@@ -95,6 +97,8 @@ class TasksBase extends \yii\db\ActiveRecord
             'deleted' => Yii::t('app', '0-не удалено,1-удалено'),
             'repeat_type_id' => Yii::t('app', 'null-без повтора,1-ежедневно,2-раз в месяц,3-раз в год'),
             'secret_key' => Yii::t('app', 'Secret Key'),
+            'repeated_by_id' => Yii::t('app', 'Id повторяемой задачи'),
+            'repeated_weekdays' => Yii::t('app', 'Id дней недели через запятую'),
         ];
     }
 
@@ -155,6 +159,6 @@ class TasksBase extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Users::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }

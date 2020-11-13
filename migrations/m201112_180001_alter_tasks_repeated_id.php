@@ -13,7 +13,7 @@ class m201112_180001_alter_tasks_repeated_id extends Migration
     public function safeUp()
     {
         $this->addColumn('mission_tasks', 'repeated_by_id', $this->integer()->comment('Id повторяемой задачи'));
-        $this->addColumn('mission_tasks', 'repeated_weekdays', $this->integer()->comment('Id дней недели через запятую'));
+        $this->addColumn('mission_tasks', 'repeated_weekdays', $this->string(255)->comment('Id дней недели через запятую'));
     }
 
     /**
