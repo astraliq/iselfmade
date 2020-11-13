@@ -4,7 +4,7 @@
 namespace app\controllers\actions\task;
 
 
-use app\Components\TasksComponent;
+use app\components\TasksComponent;
 use app\models\Tasks;
 use yii\base\Action;
 use yii\web\HttpException;
@@ -13,8 +13,11 @@ use yii\web\Response;
 class TransferAction extends Action {
     public function run() {
 
-        if (\Yii::$app->user->isGuest || !\Yii::$app->rbac->canCreateTask()) {
-            throw new HttpException(403, 'Нет доступа');
+        if (\Yii::$app->user->isGuest ) {
+            $this->controller->redirect(['/']);
+        }
+        if (!\Yii::$app->request->isPost || !\Yii::$app->rbac->canCreateTask()) {
+            throw new HttpException(403,'Нет доступа');
         }
 
         $comp = \Yii::createObject(['class' => TasksComponent::class,'modelClass' => Tasks::class]);
@@ -46,6 +49,6 @@ class TransferAction extends Action {
 //        print_r($model);
 //        echo '</pre>';
 //        exit();
-        return $this->controller->redirect(['/report']);
+        return $this->controller->redirect([\Yii::$app->params['links']['report']]);
     }
 }

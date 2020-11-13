@@ -4,7 +4,7 @@
 namespace app\controllers\actions\task;
 
 
-use app\Components\TasksComponent;
+use app\components\TasksComponent;
 use app\models\Tasks;
 use yii\base\Action;
 use yii\web\HttpException;
@@ -12,10 +12,15 @@ use yii\web\Response;
 
 class ViewAction extends Action {
 
-    public function run($id, $user_id=null) {
+    public function run() {
 
-        if (\Yii::$app->user->isGuest || !\Yii::$app->rbac->canViewOwnTask()) {
-            throw new HttpException(403, 'Нет доступа');
+        return $this->controller->redirect([\Yii::$app->params['links']['report']]);
+
+        if (\Yii::$app->user->isGuest ) {
+            $this->controller->redirect(['/']);
+        }
+        if (!\Yii::$app->rbac->canViewOwnTask()) {
+            throw new HttpException(403,'Нет доступа');
         }
 
         $admin = false;
