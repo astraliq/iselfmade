@@ -71,9 +71,10 @@ class MainPage {
         regbtn.addEventListener('click', (e) => {
             this.renderModal(3);
         });
-        // $(this.loginForm).on('beforeSubmit', (e) => {
-        //     return this._formHandler(this.loginForm);
-        // });
+
+        $(this.loginForm).on('beforeSubmit', (e) => {
+            return this._formHandler(this.loginForm);
+        });
         $(this.remindForm).on('beforeSubmit', (e) => {
             let callback = () => {
                 $('#mwindow-restore #user-email').val($('#remind-user-email').val());
@@ -82,11 +83,11 @@ class MainPage {
             return this._formHandler(this.remindForm, callback);
         });
         $(this.restoreForm).on('beforeSubmit', (e) => {
-                return this._formHandler(this.restoreForm);
-            })
-            // $(this.regForm).on('beforeSubmit', (e) => {
-            //     return this._formHandler(this.regForm);
-            // });
+            return this._formHandler(this.restoreForm);
+        })
+        $(this.regForm).on('beforeSubmit', (e) => {
+            return this._formHandler(this.regForm);
+        });
     }
 
     renderModal(type = 0) {
