@@ -4,4 +4,4 @@ function hello(text) {
 
 hello(`Консоль открыывают только избранные.
 Тут может быть ваша реклама.
-Напишите на hello@iselfmade.ru`);
+Пишите на hello@iselfmade.ru`);
