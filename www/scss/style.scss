@@ -9,6 +9,10 @@ body {
 }
 
 
+:disabled {
+    color: $color-disable2;
+}
+
 .logo-text {
     padding: 20px 10px 10px 15px;
     font-family: $font-logo;
@@ -218,6 +222,10 @@ body {
 
     overflow: hidden !important;
     resize: none !important;
+
+    &:focus {
+        color: $color-blue;
+    }
 }
 
 .hide_input {
@@ -295,7 +303,7 @@ body {
 
     // стиль label в свернутом состоянии
     &:checked + label {
-        color: #00a3c6;
+        color: $color-blue2;
         border-bottom: 1px solid $color-black;
     }
 
@@ -337,10 +345,6 @@ body {
     color: $color-gray;
 }
 
-.hidden_block {
-    display: none;
-}
-
 .task__settings {
     background-color: $color-blue-light2;
     display: none;
@@ -354,9 +358,9 @@ body {
     left: $width-textarea + 10px;
     top: 0;
     font-size: 15px;
-    font-weight: 300;
     flex-wrap: wrap;
     justify-content: center;
+    font-weight: 400;
 
 
     & select {
@@ -369,22 +373,26 @@ body {
 
         //border: 1px solid #AAA;
         border-radius: 2px;
-        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         color: #555;
         font-size: inherit;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        font-weight: inherit;
+        width: 180px;
     }
     & label {
         height: 27px;
         line-height: 27px;
         margin: 0;
         font-size: inherit;
-        font-weight: 300;
+        font-weight: inherit;
+        color: black;
     }
     & option {
         font-size: inherit;
+        font-weight: inherit;
     }
 
     & .weekends_block,
@@ -424,11 +432,15 @@ body {
 
     & span {
         font-size: inherit;
+        color: black;
+        font-weight: inherit;
     }
     & .weekends_block {
         height: 30px;
         align-items: center;
-        //display: none;
+        transition: all $anim_transition_tasks ease;
+        opacity: 1;
+        visibility: visible;
 
         & .repeat_weekdays {
             width: 100%;
@@ -627,9 +639,22 @@ body {
     }
 }
 
+.repeated_title {
+    display: inline-block;
+}
+
 .transition_none {
     transition: none;
 }
 .transition_all {
     transition: all $anim_transition_tasks ease;
+}
+
+.hidden_block {
+    display: none !important;
+}
+.hidden_block_anim {
+    opacity: 0 !important;
+    visibility: none !important;
+    height: 0 !important;
 }

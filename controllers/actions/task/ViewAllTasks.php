@@ -49,18 +49,15 @@ class ViewAllTasks extends Action {
         $userComp = \Yii::createObject(['class' => UserComponent::class]);
         $notifConfEmail = $userComp->checkConfirmationEmail();
 
-
         return $this->controller->render('view_all', [
             'tasks' => $tasks,
             'tasksTomorrow' => $tasksTomorrow,
             'aims' => $aims,
             'goals' => $goals,
-//            'deleted' => $deleted,
             'renewTasks' => $checkRenewTasks,
             'renewAims' => $checkRenewAims,
             'renewGoals' => $checkRenewGoals,
             'model' => $model,
-//            'provider' => $provider,
             'admin'=>$admin,
             'notifConfEmail' => $notifConfEmail,
         ]);

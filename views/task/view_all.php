@@ -19,6 +19,7 @@ use yii\helpers\Html;
             'model' => $model,
             'nextPeriod' => 0,
             'renewLast' => $renewGoals,
+            'block_id' => 4,
         ]); ?>
         <?= \app\widgets\tasks\TasksViewWidget::widget([
             'title' => 'Задачи на '. $month ,
@@ -28,6 +29,7 @@ use yii\helpers\Html;
             'model' => $model,
             'nextPeriod' => 0,
             'renewLast' => $renewAims,
+            'block_id' => 3,
         ]); ?>
         <?= \app\widgets\tasks\TasksViewWidget::widget([
             'title' => 'Что я сделал сегодня',
@@ -37,6 +39,7 @@ use yii\helpers\Html;
             'model' => $model,
             'nextPeriod' => 0,
             'renewLast' => $renewTasks,
+            'block_id' => 2,
         ]); ?>
         <?= \app\widgets\tasks\TasksViewWidget::widget([
             'title' => 'Что я сделаю завтра',
@@ -46,6 +49,7 @@ use yii\helpers\Html;
             'model' => $model,
             'nextPeriod' => 1,
             'renewLast' => false,
+            'block_id' => 1,
         ]); ?>
     </div>
 <!--    <div class="tasks-deleted"  style="width: 50%">-->
@@ -62,17 +66,5 @@ use yii\helpers\Html;
 <!--    </div>-->
 </div>
 
-<?php
-    if ($notifConfEmail) {
-        echo '<div class="email_confirmation">
-        <button class="email_confirmation_close">X</button>
-        <h4>Подтверждение электронной почты</h4>
-        <p>После регистрации на Вашу электронную почту отправлено письмо со ссылкой подтверждения.</p>
-        <p>Просим Вас в ближайшее время подтвердить электронную почту для полноценного использования сервиса.</p>
-        <p>Если Вам по какой-либо причине не пришло письмо со ссылкой подтверждения, то нажмите на кнопку:</p>
-        <button class="btn_conf_email">Отправить письмо</button>
-    </div>';
-    }
-
-?>
+<?php $this->render('/modals/confirm_email',['notifConfEmail' => $notifConfEmail]); ?>
 

@@ -14,6 +14,9 @@ body {
   outline: none;
   font-size: 10px; }
 
+:disabled {
+  color: grey; }
+
 .logo-text {
   padding: 20px 10px 10px 15px;
   font-family: "Barlow", sans-serif;
@@ -129,7 +132,7 @@ body {
     width: 100%; }
 
 .text__list_item {
-  width: 400px;
+  width: 450px;
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 300;
   font-size: 18px;
@@ -178,7 +181,7 @@ body {
   display: flex; }
 
 .task__input {
-  width: 400px;
+  width: 450px;
   margin: 0;
   padding: 0;
   background-color: transparent;
@@ -187,6 +190,8 @@ body {
   line-height: 17px;
   overflow: hidden !important;
   resize: none !important; }
+  .task__input:focus {
+    color: #4C91F8; }
 
 .hide_input {
   margin: 0;
@@ -247,9 +252,6 @@ body {
   text-decoration-color: #b1b1b1;
   color: #b1b1b1; }
 
-.hidden_block {
-  display: none; }
-
 .task__settings {
   background-color: #c2ddff;
   display: none;
@@ -260,12 +262,12 @@ body {
   padding: 5px 5px 5px 5px;
   position: absolute;
   z-index: 100;
-  left: 410px;
+  left: 460px;
   top: 0;
   font-size: 15px;
-  font-weight: 300;
   flex-wrap: wrap;
-  justify-content: center; }
+  justify-content: center;
+  font-weight: 400; }
   .task__settings select {
     border: none;
     border-bottom: 1px #609df8 solid;
@@ -274,20 +276,24 @@ body {
     margin: 0;
     height: 27px;
     border-radius: 2px;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     color: #555;
     font-size: inherit;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap; }
+    white-space: nowrap;
+    font-weight: inherit;
+    width: 180px; }
   .task__settings label {
     height: 27px;
     line-height: 27px;
     margin: 0;
     font-size: inherit;
-    font-weight: 300; }
+    font-weight: inherit;
+    color: black; }
   .task__settings option {
-    font-size: inherit; }
+    font-size: inherit;
+    font-weight: inherit; }
   .task__settings .weekends_block,
   .task__settings .select_block {
     margin: 7px auto;
@@ -316,10 +322,15 @@ body {
     width: 30px;
     height: 15px; }
   .task__settings span {
-    font-size: inherit; }
+    font-size: inherit;
+    color: black;
+    font-weight: inherit; }
   .task__settings .weekends_block {
     height: 30px;
-    align-items: center; }
+    align-items: center;
+    transition: all 0.5s ease;
+    opacity: 1;
+    visibility: visible; }
     .task__settings .weekends_block .repeat_weekdays {
       width: 100%;
       font-size: inherit;
@@ -476,8 +487,19 @@ body {
       transform: scale(0.99);
       color: #4C91F8; }
 
+.repeated_title {
+  display: inline-block; }
+
 .transition_none {
   transition: none; }
 
 .transition_all {
   transition: all 0.5s ease; }
+
+.hidden_block {
+  display: none !important; }
+
+.hidden_block_anim {
+  opacity: 0 !important;
+  visibility: none !important;
+  height: 0 !important; }

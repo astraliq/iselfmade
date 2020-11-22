@@ -7,8 +7,10 @@ namespace app\components;
 use app\base\BaseComponent;
 use app\models\Tasks;
 use app\models\User;
+use phpDocumentor\Reflection\Types\False_;
 use yii\db\ActiveRecord;
 use yii\db\conditions\BetweenCondition;
+use yii\helpers\Console;
 use yii\web\UploadedFile;
 use yii\widgets\ActiveForm;
 
@@ -260,6 +262,7 @@ class TasksComponent extends BaseComponent {
         if (!$task->user_id) {
             $task->user_id = \Yii::$app->user->getId();
         }
+   
         if ($task->validate()) {
 //            foreach ($task->filesReal as &$file) {
 //                $file = $fileSaver->saveFile($file);
@@ -333,8 +336,14 @@ class TasksComponent extends BaseComponent {
     public function updateAllTasks($tasks) {
         $this->modelClass = Tasks::class;
         foreach ($tasks as $task) {
+            if (\Yii::$app instanceof yii\console\Application) {
+                $user_id = $task->user_id;
+            } else {
+                $user_id = \Yii::$app->user->getId();
+            }
+
             $model = $this->getModel();
-            $taskToUpdate = $model->findOne(['id' => $task['id'], 'user_id' => \Yii::$app->user->getId()]);
+            $taskToUpdate = $model->findOne(['id' => $task['id'], 'user_id' => $user_id]);
             $taskToUpdate->load(['Tasks' => $task]);
             $this->addTask($taskToUpdate);
         }
@@ -448,4 +457,234 @@ class TasksComponent extends BaseComponent {
             'nextPeriod' => $nextPeriod,
         ];
     }
+
+    private function existRepeatTaskInArr($task, $searchArr) {
+        $keysArr = [];
+        foreach ($searchArr as $key => $searchTask) {
+            if ($searchTask['repeated_by_id'] == $task['id']) {
+                array_push($keysArr, $key);
+            }
+        }
+        return $keysArr;
+    }
+
+    public function createRepeatedTasks():bool {
+        $this->modelClass = Tasks::class;
+        $today = date('d.m.Y');
+        $tomorrow = date('d.m.Y', strtotime("+1 day"));
+        $tasksToRepeat = Tasks::find()
+//            ->where([
+//                'user_id' => \Yii::$app->user->getId(),
+//                'type_id' => 1,
+//                'deleted' => 0,
+//            ])
+            ->andWhere(['not', ['repeat_type_id' => null]])
+            ->orderBy(['date_create' => SORT_ASC])
+            ->all();
+        $alreadyRepeatedTasks = Tasks::find()
+            ->where([
+                'repeat_type_id' => null,
+            ])
+            ->andWhere(['not', ['repeated_by_id' => null]])
+            ->orderBy(['date_create' => SORT_ASC])
+            ->all();
+//        echo print_r([$today]);
+//        echo print_r([$tomorrow]);
+//        $date = date('Y-m-d', $tasksToRepeat[0]['date_start']);
+//        $date = \Yii::$app->formatter->asDateTime($tasksToRepeat[0]['date_start'], 'php:d.m.Y');
+//        echo print_r([$date]);
+//        if ($date == $tomorrow) {
+//            echo 'true';
+//        } else {
+//            echo 'false';
+//        }
+
+
+
+//        echo print_r($tasksToRepeat);
+//        exit();
+        $tasksToCreateToday = [];
+        $tasksToCreateNextPeriod = [];
+        foreach ($tasksToRepeat as $task) {
+            $dateStartTask = \Yii::$app->formatter->asDateTime(
+                $task->date_start, 'php:d.m.Y'
+            );
+            $dateCalcTask = \Yii::$app->formatter->asDateTime(
+                $task->date_calculate, 'php:d.m.Y'
+            );
+
+            // ищем ранее созданные повторные такие же задачи
+            $findRepeatedTasksKeys = $this->existRepeatTaskInArr($task, $alreadyRepeatedTasks);
+            switch ($task->repeat_type_id) {
+                case 1:
+                    if ($findRepeatedTasksKeys) {
+                        $todayAdd = true;
+                        $tomorrowAdd = true;
+                        foreach ($findRepeatedTasksKeys as $key) {
+                            // проверяем даты старта и расчетные завершения задач и если для текущего периода не создавались задачи, то добавляем задачу в массив $tasksToCreate для последующего создания задачи
+                            $dateStartRepeated = \Yii::$app->formatter->asDateTime(
+                                $alreadyRepeatedTasks[$key]->date_start, 'php:d.m.Y'
+                            );
+                            $dateCalcRepeated = \Yii::$app->formatter->asDateTime(
+                                $alreadyRepeatedTasks[$key]->date_calculate, 'php:d.m.Y'
+                            );
+                            if ($dateStartRepeated == $today || $dateCalcRepeated == $today || $dateStartTask == $today || $dateCalcTask == $today) {
+                                $todayAdd = false;
+                            }
+                            if ($dateStartRepeated == $tomorrow || $dateCalcRepeated == $tomorrow || $dateStartTask == $tomorrow || $dateCalcTask == $tomorrow) {
+                                $tomorrowAdd = false;
+                            }
+                        }
+
+                        if ($todayAdd) {
+                            array_push($tasksToCreateToday, $task);
+                        }
+                        if ($tomorrowAdd) {
+                            array_push($tasksToCreateNextPeriod, $task);
+                        }
+                    } else {
+                        if ($dateStartTask != $today && $dateCalcTask != $today) {
+                            array_push($tasksToCreateToday, $task);
+                        }
+                        if ($dateStartTask != $tomorrow && $dateCalcTask != $tomorrow) {
+                            array_push($tasksToCreateNextPeriod, $task);
+                        }
+                    }
+                    break;
+                case 2:
+                    $the_date = time();
+//                    $the_date = strtotime('23.10.2020');
+                    $day = date('d');
+                    $month = date('m', strtotime(date('15.m.Y') . "+1 month"));
+                    $year = date('Y', strtotime("+1 month"));
+                    // для проверки
+//                    $day = '23';
+//                    $month = '11';
+//                    $year = '2020';
+
+                    if (!checkdate(intval($month), intval($day), intval($year))) {
+                        $nextRepeatDate = date('d.m.Y', strtotime('last day of next month', $the_date));
+                    } else {
+                        $nextRepeatDate = date('d.m.Y', strtotime("+1 month", $the_date));
+                    }
+
+                    if ($tomorrow == $nextRepeatDate && $this->checkRepeatedTasksAddedTomorrow($findRepeatedTasksKeys)) {
+                       array_push($tasksToCreateNextPeriod, $task);
+                    }
+                    break;
+                case 3:
+                    $the_date = time();
+                    $day = date('d');
+                    $month = date('m', strtotime( "+1 year"));
+                    $year = date('Y', strtotime("+1 year"));
+
+                    if (!checkdate(intval($month), intval($day), intval($year))) {
+                        $nextRepeatDate = date('28.02.Y', strtotime( "+1 year"));
+                    } else {
+                        $nextRepeatDate = date('d.m.Y', strtotime("+1 month", $the_date));
+                    }
+
+                    if ($tomorrow == $nextRepeatDate && $this->checkRepeatedTasksAddedTomorrow($findRepeatedTasksKeys)) {
+                        array_push($tasksToCreateNextPeriod, $task);
+                    }
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    break;
+            }
+        }
+
+        // создание повторных задач
+        foreach ($tasksToCreateToday as $task) {
+            $model = $this->getModel();
+            $model->user_id = $task->user_id;
+            $model->private_id = $task->private_id;
+            $model->type_id = $task->type_id;
+            $model->cat_id = $task->cat_id;
+            $model->aim_id = $task->aim_id;
+            $model->goal_id = $task->goal_id;
+            $model->task = $task->task;
+            $model->main_img = $task->main_img;
+            $model->buddy_ids = $task->buddy_ids;
+            $model->group_id = $task->group_id;
+            $model->curators_ids = $task->curators_ids;
+            $model->curators_emails = $task->curators_emails;
+            $model->hashtags = $task->hashtags;
+            $model->deleted = $task->deleted;
+            $model->repeat_type_id = null;
+            $model->secret_key = $task->secret_key;
+            $model->nextPeriod = 0;
+            // id основной задачи пишем в repeated_by_id
+            $model->repeated_by_id = $task->id;
+
+            $this->addTask($model);
+        }
+        foreach ($tasksToCreateNextPeriod as $task) {
+            $model = $this->getModel();
+            $model->user_id = $task->user_id;
+            $model->private_id = $task->private_id;
+            $model->type_id = $task->type_id;
+            $model->cat_id = $task->cat_id;
+            $model->aim_id = $task->aim_id;
+            $model->goal_id = $task->goal_id;
+            $model->task = $task->task;
+            $model->main_img = $task->main_img;
+            $model->buddy_ids = $task->buddy_ids;
+            $model->group_id = $task->group_id;
+            $model->curators_ids = $task->curators_ids;
+            $model->curators_emails = $task->curators_emails;
+            $model->hashtags = $task->hashtags;
+            $model->deleted = $task->deleted;
+            $model->repeat_type_id = null;
+            $model->secret_key = $task->secret_key;
+            $model->nextPeriod = 1;
+            // id основной задачи пишем в repeated_by_id
+            $model->repeated_by_id = $task->id;
+
+            $this->addTask($model);
+        }
+        return true;
+    }
+
+    private function checkRepeatedTasksAddedTomorrow($findRepeatedTasksKeys) {
+        if ($findRepeatedTasksKeys) {
+            $tomorrowAdd = true;
+            foreach ($findRepeatedTasksKeys as $key) {
+                $dateStartRepeated = \Yii::$app->formatter->asDateTime(
+                    $alreadyRepeatedTasks[$key]->date_start, 'php:d.m.Y'
+                );
+                $dateCalcRepeated = \Yii::$app->formatter->asDateTime(
+                    $alreadyRepeatedTasks[$key]->date_calculate, 'php:d.m.Y'
+                );
+                if ($dateStartRepeated == $tomorrow) {
+                    $tomorrowAdd = false;
+                }
+            }
+        }
+        return $tomorrowAdd;
+    }
+
+    public function getAllRepeatedTasks() {
+        $tasks = Tasks::find()
+            ->where([
+                'user_id' => \Yii::$app->user->getId(),
+//                'type_id' => 1,
+//                'deleted' => 0,
+            ])
+            ->andWhere(['not', ['repeat_type_id' => null]])
+            ->orderBy(['date_create' => SORT_ASC])
+            ->all();
+
+        return $tasks;
+    }
+
+
+
 }

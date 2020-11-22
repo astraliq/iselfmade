@@ -1,5 +1,12 @@
 'use strict';
 
+function get_cookie (cookie_name) {
+    let results = document.cookie.match ( '(^|;) ?' + cookie_name + '=([^;]*)(;|$)' );
+    if ( results )
+        return ( unescape ( results[2] ) );
+    else
+        return null;
+}
 
 class Tasks {
     constructor() {
@@ -15,13 +22,18 @@ class Tasks {
         this.finished = 0;
         this.deleted = 0;
         this.repeat_type_id = null;
+        this.repeated_weekdays = null;
+        this.repeat_by_id = null;
         this.nextPeriod = 0;
         this.inputTaskClass = '.task__input';
+        this.inputTaskBlockClass = '.task__input_block';
         this.newInputTaskClass = '.new_input_task';
         this.taskListClass = '.tasks__list';
         this.taskListItemClass = '.text__list_item';
         this.createdTasksClass = '.created_tasks';
         this.inputSettingsClass = '.task__settings';
+        this.weekendsBlockClass = '.weekends_block';
+        this.repeatedByIdClass = '.repeated_by_id'; // select настроек повтора
         this.transferBtn = '.task_transfer_btn';
         this.checkBtn = '.check_btn';
         this.finishClass = '.text__strike';
@@ -106,19 +118,18 @@ class Tasks {
         }
     }
 
-    renderSaving(types) {
-        types.forEach( (type) => {
-            let saving = document.querySelector(this.taskListClass + `[data-type="${type}"]`).querySelector(this.savingClass);
+    renderSaving(blocksIds) {
+        blocksIds.forEach( (id) => {
+            let saving = document.getElementById(id).querySelector(this.savingClass);
             saving.style.display = 'inline-block';
         })
     }
 
-    stopRenderSaving(types) {
-        types.forEach( (type) => {
-            let saving = document.querySelector(this.taskListClass + `[data-type="${type}"]`).querySelector(this.savingClass);
+    stopRenderSaving(blocksIds) {
+        blocksIds.forEach( (id) => {
+            let saving = document.getElementById(id).querySelector(this.savingClass);
             saving.style.display = 'none';
         })
-
     }
 
     _createTask(inputBlock) {
@@ -140,6 +151,8 @@ class Tasks {
                 'curator_emails': this.curator_emails,
                 'finished': this.finished,
                 'repeat_type_id': this.repeat_type_id,
+                'repeat_by_id': this.repeat_by_id,
+                'repeated_weekdays': this.repeated_weekdays,
                 'nextPeriod': this.nextPeriod,
             }
         };
@@ -179,6 +192,8 @@ class Tasks {
                 'curator_emails': this.curator_emails,
                 'finished': this.finished,
                 'repeat_type_id': this.repeat_type_id,
+                'repeat_by_id': this.repeat_by_id,
+                'repeated_weekdays': this.repeated_weekdays,
                 'nextPeriod': this.nextPeriod,
             },
             'id': this.id,
@@ -199,7 +214,7 @@ class Tasks {
             });
     }
 
-    _updateChangedTasks(tasks, types) {
+    _updateChangedTasks(tasks, blocksIds) {
         let sendPropertiesData = [];
         tasks.forEach( (task) => {
             if (task._validateTask()) {
@@ -216,6 +231,8 @@ class Tasks {
                     'curator_emails': task.curator_emails,
                     'finished': task.finished,
                     'repeat_type_id': task.repeat_type_id,
+                    'repeat_by_id': this.repeat_by_id,
+                    'repeated_weekdays': this.repeated_weekdays,
                     'nextPeriod': task.nextPeriod,
                 });
             } else {
@@ -231,9 +248,9 @@ class Tasks {
             .then(data => {
                 if (data.result) {
                     clearTimeout(this.timerSavind);
-                    this.renderSaving(types);
+                    this.renderSaving(blocksIds);
                     this.timerSavind = setTimeout( () => {
-                        this.stopRenderSaving(types);
+                        this.stopRenderSaving(blocksIds);
                     }, 2000)
                 }
             })
@@ -287,10 +304,22 @@ class Tasks {
     getFormData(input) {
         let settings = $(input).parent().children(this.inputSettingsClass);
         this.task = input.value;
-        this.private_id = settings.children('select').val();
         this.type_id = input.dataset.type;
         this.nextPeriod = input.dataset.next_period;
         this.finished = input.dataset.finished;
+
+        // настройки задачи
+        this.private_id = settings.find('.private_id').val();
+        let repeatIdValue = settings.find('.repeated_by_id').val();
+        this.repeat_type_id = repeatIdValue == 0 ? null : repeatIdValue;
+        let weekdaysInputs = settings.find('.repeat_weekdays')[0].querySelectorAll('input');
+        let weekdayData = [];
+        weekdaysInputs.forEach( (input) => {
+            if (input.checked) {
+                weekdayData.push(input.dataset.id);
+            }
+        });
+        this.repeated_weekdays = weekdayData.join(',');
         return true;
     }
 
@@ -334,7 +363,9 @@ class Tasks {
                 el.addEventListener('keypress', (e) => {
                     if ((!e.ctrlKey || !e.which == 17) && (e.which == 13 || e.keyCode == 13)) {
                         e.preventDefault();
+                        el.classList.add('transition_none');
                         this._initCreateTask(el, settings);
+                        el.classList.add('transition_all');
                     }
                 })
             }
@@ -346,39 +377,106 @@ class Tasks {
                 })
             }
 
+            // события появления найтроек повтора по дням недели
+            let elemRepeatSettings = $(el).parents(this.inputTaskBlockClass).find(this.repeatedByIdClass);
+            elemRepeatSettings[0].addEventListener('change', (e) => {
+                let weekends = elemRepeatSettings.parents(this.inputSettingsClass).find(this.weekendsBlockClass);
+                if (elemRepeatSettings[0].value == 8) {
+                    weekends[0].classList.remove('hidden_block_anim');
+                } else {
+                    weekends[0].classList.add('hidden_block_anim');
+                }
+            });
+
             // события сохранения измененных задач
             if ($(el).parents(this.taskListItemClass).hasClass(this.createdTasksClass.slice(1))) {
+                // let repeatedById = el.dataset.repeated_by_id ? el.dataset.repeated_by_id : el.dataset.id;
+                // //находим такую же повторную задачу
+                // let sameNextPeriod = el.dataset.next_period == 0 ? 1 : 0;
+                // let sameTask, sameSettings;
+                // if (repeatedById) {
+                //     sameTask = document.querySelector(this.inputTaskClass + `[data-repeated_by_id="${repeatedById}"][data-next_period="${sameNextPeriod}"]`);
+                //     if (!sameTask) {
+                //         sameTask = document.querySelector(this.inputTaskClass + `[data-id="${repeatedById}"][data-next_period="${sameNextPeriod}"]`);
+                //     }
+                //     sameSettings = $(sameTask).parent().children(this.inputSettingsClass);
+                // }
+
                 el.addEventListener('input', (e) => {
-                    // обновляем таймаут сохранения
-                    clearTimeout(this.timerInput);
-                    el.classList.add('transition_none');
-                    this.id = el.dataset.id;
-                    // добавляем в массив id, которые были изменены
-                    this.tasksForUpdate.push(this.id);
-                    // удаляем дубликаты
-                    this.tasksForUpdate = [...new Set(this.tasksForUpdate)];
-                    this.timerInput = setTimeout(() => {
-                        this._initUpdateTasks(this.tasksForUpdate);
-                        this.tasksForUpdate = [];
-                        el.classList.add('transition_all');
-                    }, 2000)
-                })
+                    // if (sameTask) {
+                    //     sameTask.value = el.value;
+                    // }
+                    this._updateTasksByEvent(el);
+                });
+
+                let selects = settings[0].querySelectorAll('select');
+                let inputs = settings[0].querySelectorAll('input');
+                selects.forEach( (select) => {
+                    select.addEventListener('change', (e) => {
+
+                        // копируем настройки селектов в такие же повторные задачи
+                        // if (sameTask) {
+                        //     let selectVal = $(e.target).val();
+                        //     let sameSelectVal = sameSettings[0].querySelector('.' + e.target.className);
+                        //     $(sameSelectVal).children(`option[value=${selectVal}]`).prop('selected', true);
+                        //
+                        //     let sameWeekends = sameSettings.find(this.weekendsBlockClass);
+                        //     if (selectVal == 8) {
+                        //         sameWeekends[0].classList.remove('hidden_block_anim');
+                        //     } else {
+                        //         sameWeekends[0].classList.add('hidden_block_anim');
+                        //     }
+                        // }
+                        this._updateTasksByEvent(el);
+                    })
+                });
+                inputs.forEach( (input) => {
+                    input.addEventListener('change', (e) => {
+                        if (sameTask) {
+                            // копируем настройки инпутов дней недели в такие же повторные задачи
+                            let selectVal = e.target.checked;
+                            let sameInputVal = sameSettings[0].querySelector(`.repeat_weekdays input[data-id="${e.target.dataset.id}"]`);
+                            sameInputVal.checked = selectVal;
+                        }
+
+                        this._updateTasksByEvent(el);
+                    })
+                });
+
+
             }
 
             let hideBlocks = [document.getElementById('task-3-0'), document.getElementById('task-2-0')];
             hideBlocks.forEach( (el) => {
-                el.addEventListener('click', (e) => {
-                    if ($(el).is(':checked')) {
-                        document.cookie = `${el.id}=1`;
-                    } else {
-                        document.cookie = `${el.id}=0`;
-                    }
-                })
-
+                if (el) {
+                    el.addEventListener('click', (e) => {
+                        if ($(el).is(':checked')) {
+                            document.cookie = `${el.id}=1`;
+                        } else {
+                            document.cookie = `${el.id}=0`;
+                        }
+                    })
+                }
             })
-
         });
 
+    }
+
+    _updateTasksByEvent(el) {
+        // обновляем таймаут сохранения
+        clearTimeout(this.timerInput);
+        el.classList.add('transition_none');
+        this.id = el.dataset.id;
+        // добавляем в массив id, которые были изменены
+        this.tasksForUpdate.push(this.id);
+        // удаляем дубликаты
+        this.tasksForUpdate = [...new Set(this.tasksForUpdate)];
+        // устанавливаем задержку перед сохранением после последнего изменения
+        this.timerInput = setTimeout(() => {
+            this._initUpdateTasks(this.tasksForUpdate);
+            this.tasksForUpdate = [];
+            el.classList.add('transition_all');
+        }, 2000)
     }
 
      setCaretPosition(elem, caretPos) {
@@ -413,14 +511,6 @@ class Tasks {
         else return 0;
     }
 
-    get_cookie (cookie_name) {
-        let results = document.cookie.match ( '(^|;) ?' + cookie_name + '=([^;]*)(;|$)' );
-        if ( results )
-            return ( unescape ( results[2] ) );
-        else
-            return null;
-    }
-
     init() {
         let elems = document.querySelectorAll(this.inputTaskClass);
         if (!elems.length) {
@@ -445,8 +535,10 @@ class Tasks {
     updateHidingByCookie() {
         let hideBlocks = [document.getElementById('task-3-0'), document.getElementById('task-2-0')];
         hideBlocks.forEach( (el) => {
-            if (this.get_cookie(el.id) == 1) {
-                el.checked = 1;
+            if (el) {
+                if (get_cookie(el.id) == 1) {
+                    el.checked = 1;
+                }
             }
         })
     }
@@ -470,18 +562,18 @@ class Tasks {
 
     _initUpdateTasks(idArr) {
         let tasks = [];
-        let types = [];
-
+        let blocksIds = [];
         idArr.forEach( (id) => {
             this.id = id;
-            this.getFormData($(this.allTasksClass).find(this.inputTaskClass + `[data-id="${id}"]`)[0]);
+            let input = $(this.allTasksClass).find(this.inputTaskClass + `[data-id="${id}"]`);
+            let tasksList = input.parents(this.taskListClass)[0];
+            this.getFormData(input[0]);
             tasks.push(new Task(this));
-            types.push(this.type_id);
+            blocksIds.push(tasksList.id);
         });
         // удаляем дубликаты
-        types = [...new Set(types)];
-
-        this._updateChangedTasks(tasks, types);
+        blocksIds = [...new Set(blocksIds)];
+        this._updateChangedTasks(tasks, blocksIds);
     }
 
     _initFinishTask(elementInput) {

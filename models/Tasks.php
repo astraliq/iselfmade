@@ -11,6 +11,8 @@ class Tasks extends TasksBase {
     public $date_create_view;
     public $date_calculate_view;
     public $nextPeriod;
+    public $parent_repeat_type;
+    public $parent_repeated_weekdays;
     const TASK = 1;
     const AIM = 2;
     const GOAL = 3;
@@ -21,26 +23,54 @@ class Tasks extends TasksBase {
     const PRIVATE = 4;
     const TASK_PRIVATE = [self::NO_PRIVATE => 'Видна всем', self::ONLY_BUDDY => 'Видна только бадди', self::ONLY_CURATOR => 'Видна только куратору', self::PRIVATE => 'Видна только мне',];
 
+    public function getConstants() {
+        return [
+            'TASK' => self::TASK,
+            'AIM' => self::AIM,
+            'GOAL' => self::GOAL,
+            'TYPE_TASK' => self::TYPE_TASK,
+            'NO_PRIVATE' => self::NO_PRIVATE,
+            'ONLY_BUDDY' => self::ONLY_BUDDY,
+            'ONLY_CURATOR' => self::ONLY_CURATOR,
+            'PRIVATE' => self::PRIVATE,
+            'TASK_PRIVATE' => self::TASK_PRIVATE,
+        ];
+    }
+
 
     public function afterFind() {
         parent::afterFind();
+        if (\Yii::$app instanceof yii\console\Application) {
+            $user_id = $this->user_id;
+        } else {
+            $user_id = \Yii::$app->user->getId();
+        }
+
         $this->date_create_view = \Yii::$app->formatter->asDateTime($this->date_create, 'php:d F Y, H:i:s');
         $this->date_calculate_view = \Yii::$app->formatter->asDateTime($this->date_calculate, 'php:d F Y, H:i:s');
-//        echo $this->date_calculate;
-//        echo '<br>';
-//        exit();
-//        $dateCalc = \DateTime::createFromFormat('Y-m-d', $this->date_calculate);
-//        echo $dateCalc;
-//        exit();
-//        $this->date_calculate = $dateCalc->format('d.m.Y');
 
-//        echo $this->date_calculate;
-//        exit();
-        $user = new User();
 
+        // расшифровка задачи
         if ($this->private_id == self::PRIVATE) {
-            $this->task = \Yii::$app->encrypt->expandData($this->task, $user->getUserEmail(\Yii::$app->user->getId()), $this->user_id, $this->secret_key, $this->id);
+            $user = new User();
+            $this->task = \Yii::$app->encrypt->expandData($this->task, $user->getUserEmail($user_id), $this->user_id, $this->secret_key, $this->id);
         }
+
+        // если задача повторная, то берем основные атрибуты от родителя
+        if ($this->repeated_by_id) {
+
+            $parentTask = Tasks::find()
+                ->where([
+                    'user_id' => $user_id,
+                    'id' => $this->repeated_by_id,
+                ])
+                ->one();
+            $this->parent_repeat_type = $parentTask->repeat_type_id;
+            $this->parent_repeated_weekdays = $parentTask->repeated_weekdays;
+//            $this->private_id = $parentTask->private_id;
+//            $this->task = $parentTask->task;
+        }
+
     }
 
 
@@ -66,7 +96,9 @@ class Tasks extends TasksBase {
                     $this->date_calculate = date('Y-m-d', $addPeriod) . ' 23:59:59';
 
                 } else {
-                    $this->date_calculate = date('Y-m-d') . ' 23:59:59';
+                    if (!$this->date_calculate) {
+                        $this->date_calculate = date('Y-m-d') . ' 23:59:59';
+                    }
                 }
                 break;
             case 2:
@@ -75,8 +107,10 @@ class Tasks extends TasksBase {
                     $this->date_start = date('Y-m-d', $addPeriod) . ' 00:00:00';
                     $this->date_calculate = (new \DateTime(date('t', time()).'.'.date('m.Y', $addPeriod) . ' 23:59:59'))->format('Y-m-d H:i:s');
                 } else {
-                    $this->date_calculate = (new \DateTime(date('t', time()).'.'.date('m.Y') . ' 23:59:59'))->format('Y-m-d H:i:s');
-
+                    if (!$this->date_calculate) {
+                        $this->date_calculate =
+                            (new \DateTime(date('t', time()) . '.' . date('m.Y') . ' 23:59:59'))->format('Y-m-d H:i:s');
+                    }
                 }
                 break;
             case 3:
@@ -85,19 +119,24 @@ class Tasks extends TasksBase {
                     $this->date_start = date('Y-m-d', $addPeriod) . ' 00:00:00';
                     $this->date_calculate = (new \DateTime(date('31.12.'.date('Y', $addPeriod)) . ' 23:59:59'))->format('Y-m-d H:i:s');
                 } else {
-                    $this->date_calculate = (new \DateTime(date('31.12.'.date('Y')) . ' 23:59:59'))->format('Y-m-d H:i:s');
+                    if (!$this->date_calculate) {
+                        $this->date_calculate =
+                            (new \DateTime(date('31.12.' . date('Y')) . ' 23:59:59'))->format('Y-m-d H:i:s');
+                    }
                 }
                 break;
         }
 
-//            echo '<pre>';
-//            echo $this->date_calculate;
-//            echo '</pre>';
-//            exit();
+        if (\Yii::$app instanceof yii\console\Application) {
+            $user_id = $this->user_id;
+        } else {
+            $user_id = \Yii::$app->user->getId();
+        }
 
         if (!$this->id) {
+
             $max = $this->find()
-                ->andWhere(['user_id' => \Yii::$app->user->getId()])
+                ->andWhere(['user_id' => $user_id])
                 ->max('id');
             if (!$max) {
                 $this->id = 1;
@@ -105,9 +144,6 @@ class Tasks extends TasksBase {
                 $this->id = ++$max;
             }
         }
-
-        // заглушка, пока не используется повтор
-        $this->repeat_type_id = null;
 
         return parent::beforeValidate(); // TODO: Change the autogenerated stub
     }
@@ -128,11 +164,58 @@ class Tasks extends TasksBase {
 
 
     public function beforeSave($insert) {
+        if (\Yii::$app instanceof yii\console\Application) {
+            $user_id = $this->user_id;
+        } else {
+            $user_id = \Yii::$app->user->getId();
+        }
+
+        // если задача повторная, то присваиваем изменения родителю
+        if ($this->repeated_by_id) {
+//            $parentTask = Tasks::find()
+//                ->where([
+//                    'user_id' => $user_id,
+//                    'id' => $this->repeated_by_id,
+//                ])
+//                ->one();
+//
+//            $parentTask->repeat_type_id = $this->repeat_type_id;
+//            $parentTask->repeated_weekdays = $this->repeated_weekdays;
+//            $parentTask->task = $this->task;
+//            $parentTask->private_id = $this->private_id;
+//            // сохраняем изменения без валидации
+//            $parentTask->save(false);
+            $this->repeat_type_id = null;
+        }
+
+        // изменяем все подобные задачи за текущий и будущие периоды, кроме прошедших
+//        if ($this->repeated_by_id) {
+//            $alreadyRepeatedTasks = Tasks::find()
+//                ->where([
+//                    'user_id' => $user_id,
+//                    'repeat_type_id' => null,
+//                    'repeated_by_id' => $this->repeated_by_id,
+//                ])
+//                ->andWhere(['not', ['id' => $this->id]])
+//                ->andWhere(['AND',
+//                ['>=', 'date_start', (new \DateTime(date('d.m.Y')  . ' 00:00:00'))->format('Y-m-d H:i:s')]
+//                ])
+//                ->orderBy(['date_create' => SORT_ASC])
+//                ->all();
+//
+//            foreach ($alreadyRepeatedTasks as $alreadyRepeatedTask) {
+//                $alreadyRepeatedTask->repeat_type_id = $this->repeat_type_id;
+//                $alreadyRepeatedTask->task =  $this->task;
+//                $alreadyRepeatedTask->private_id = $this->private_id;
+//            }
+//            \Yii::$app->dao->updateUserTasks($alreadyRepeatedTasks);
+//        }
+
+        // шифруем задачу
         if ($this->private_id == self::PRIVATE) {
             $user = new User();
             $this->secret_key = \Yii::$app->encrypt->genFalseKey();
-            $this->task = \Yii::$app->encrypt->encryptData($this->task, $user->getUserEmail(\Yii::$app->user->getId()), $this->user_id, $this->secret_key, $this->id);
-
+            $this->task = \Yii::$app->encrypt->encryptData($this->task, $user->getUserEmail($user_id), $this->user_id, $this->secret_key, $this->id);
         } else {
             $this->secret_key = null;
         }
@@ -160,7 +243,7 @@ class Tasks extends TasksBase {
             [['private_id','repeat_type_id'],'integer'],
             ['private_id', 'in', 'range' => array_keys(self::TASK_PRIVATE)],
             ['date_calculate', 'date', 'format' => 'php: Y-m-d H:i:s'],
-            [['nextPeriod', 'date_create_view', 'date_calculate_view'], 'safe'],
+            [['nextPeriod', 'date_create_view', 'date_calculate_view', 'parent_repeat_type', 'parent_repeated_weekdays'], 'safe'],
 //            ['aim_id', 'value' => null, 'when' => function($model) {
 //                return !$model->type_id == 1 || !$model->type_id == 2;
 //            }],

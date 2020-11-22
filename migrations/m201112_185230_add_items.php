@@ -23,7 +23,7 @@ class m201112_185230_add_items extends Migration
                 ['Раз в неделю', 'Once a week'],
                 ['По будням', 'On weekdays'],
                 ['По выходным', 'On weekends'],
-                ['По дням недели', 'By days of the week'],
+                ['По дням недели', 'By days of week'],
             ]);
         $this->addForeignKey('tasks_to_repeat_types','mission_tasks','repeat_type_id','periods','id','restrict','restrict');
     }

@@ -22,6 +22,17 @@ $config = [
         ],
         'dao' => ['class' => \app\components\DAOComponent::class],
         'encrypt' => ['class' => \app\components\EncryptComponent::class],
+        'formatter' => [
+            'dateFormat' => 'd.M.Y',
+            'timeFormat' => 'H:i:s',
+            'datetimeFormat' => 'php:d F Y H:i',
+            'decimalSeparator' => '',
+            'thousandSeparator' => ' ',
+            'currencyCode' => 'EUR',
+//            'timeZone' => 'Europe/Moscow',
+            'defaultTimeZone' => 'UTC',
+            'locale' => 'ru-RU',
+        ],
         'log' => [
             'targets' => [
                 [
@@ -33,6 +44,7 @@ $config = [
         'rbac' => ['class' => \app\components\RbacComponent::class],
         'db' => $db,
         'timezones' => ['class' => \app\components\TimeZoneComponent::class],
+        'task' => ['class' => \app\components\TasksComponent::class],
     ],
     'params' => $params,
 

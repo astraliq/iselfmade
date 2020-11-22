@@ -37,7 +37,7 @@ use Yii;
  * @property MissionPrivate $private
  * @property Periods $repeatType
  * @property MissionTypes $type
- * @property Users $user
+ * @property User $user
  */
 class TasksBase extends \yii\db\ActiveRecord
 {
@@ -60,12 +60,12 @@ class TasksBase extends \yii\db\ActiveRecord
             [['date_create', 'date_start', 'date_finish', 'date_calculate'], 'safe'],
             [['task', 'main_img', 'buddy_ids', 'curators_ids', 'curators_emails', 'hashtags', 'secret_key', 'repeated_weekdays'], 'string', 'max' => 255],
             [['id', 'user_id'], 'unique', 'targetAttribute' => ['id', 'user_id']],
-            [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => MissionCats::className(), 'targetAttribute' => ['cat_id' => 'id']],
-            [['group_id'], 'exist', 'skipOnError' => true, 'targetClass' => SupportGroups::className(), 'targetAttribute' => ['group_id' => 'id']],
-            [['private_id'], 'exist', 'skipOnError' => true, 'targetClass' => MissionPrivate::className(), 'targetAttribute' => ['private_id' => 'id']],
-            [['repeat_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => Periods::className(), 'targetAttribute' => ['repeat_type_id' => 'id']],
-            [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => MissionTypes::className(), 'targetAttribute' => ['type_id' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => MissionCats::class, 'targetAttribute' => ['cat_id' => 'id']],
+            [['group_id'], 'exist', 'skipOnError' => true, 'targetClass' => SupportGroups::class, 'targetAttribute' => ['group_id' => 'id']],
+            [['private_id'], 'exist', 'skipOnError' => true, 'targetClass' => MissionPrivate::class, 'targetAttribute' => ['private_id' => 'id']],
+            [['repeat_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => Periods::class, 'targetAttribute' => ['repeat_type_id' => 'id']],
+            [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => MissionTypes::class, 'targetAttribute' => ['type_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -109,7 +109,7 @@ class TasksBase extends \yii\db\ActiveRecord
      */
     public function getCat()
     {
-        return $this->hasOne(MissionCats::className(), ['id' => 'cat_id']);
+        return $this->hasOne(MissionCats::class, ['id' => 'cat_id']);
     }
 
     /**
@@ -119,7 +119,7 @@ class TasksBase extends \yii\db\ActiveRecord
      */
     public function getGroup()
     {
-        return $this->hasOne(SupportGroups::className(), ['id' => 'group_id']);
+        return $this->hasOne(SupportGroups::class, ['id' => 'group_id']);
     }
 
     /**
@@ -129,7 +129,7 @@ class TasksBase extends \yii\db\ActiveRecord
      */
     public function getPrivate()
     {
-        return $this->hasOne(MissionPrivate::className(), ['id' => 'private_id']);
+        return $this->hasOne(MissionPrivate::class, ['id' => 'private_id']);
     }
 
     /**
@@ -139,7 +139,7 @@ class TasksBase extends \yii\db\ActiveRecord
      */
     public function getRepeatType()
     {
-        return $this->hasOne(Periods::className(), ['id' => 'repeat_type_id']);
+        return $this->hasOne(Periods::class, ['id' => 'repeat_type_id']);
     }
 
     /**
@@ -149,7 +149,7 @@ class TasksBase extends \yii\db\ActiveRecord
      */
     public function getType()
     {
-        return $this->hasOne(MissionTypes::className(), ['id' => 'type_id']);
+        return $this->hasOne(MissionTypes::class, ['id' => 'type_id']);
     }
 
     /**

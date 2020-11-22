@@ -78,7 +78,7 @@ if (!$avatarImage) {
                         'linkOptions' => ['class' => 'menu__item'],
                     ]),
                     (['label' => 'Повторяющиеся задачи',
-                        'url' => ['/repeats'],
+                        'url' => ['/repeated'],
                         'options' => ['class' => $url=='/repeats' ? 'main_menu-selected' : ''],
                         'linkOptions' => ['class' => 'menu__item'],
                     ]),
