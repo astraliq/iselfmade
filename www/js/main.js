@@ -432,12 +432,12 @@ class Tasks {
                 });
                 inputs.forEach( (input) => {
                     input.addEventListener('change', (e) => {
-                        if (sameTask) {
-                            // копируем настройки инпутов дней недели в такие же повторные задачи
-                            let selectVal = e.target.checked;
-                            let sameInputVal = sameSettings[0].querySelector(`.repeat_weekdays input[data-id="${e.target.dataset.id}"]`);
-                            sameInputVal.checked = selectVal;
-                        }
+                        // if (sameTask) {
+                        //     // копируем настройки инпутов дней недели в такие же повторные задачи
+                        //     let selectVal = e.target.checked;
+                        //     let sameInputVal = sameSettings[0].querySelector(`.repeat_weekdays input[data-id="${e.target.dataset.id}"]`);
+                        //     sameInputVal.checked = selectVal;
+                        // }
 
                         this._updateTasksByEvent(el);
                     })

@@ -99,13 +99,13 @@ $typeId = $newTask == 1 ? $type_id : $task->type_id;
             </div>
             <div class="weekends_block <?=$weekdaysShowClass?>">
                 <div class="repeat_weekdays">
-                    <input type="checkbox" data-id="1" <?=$weekdaysCheckedInputs[1]?>><span>Пн</span>
-                    <input type="checkbox" data-id="2" <?=$weekdaysCheckedInputs[2]?>><span>Вт</span>
-                    <input type="checkbox" data-id="3" <?=$weekdaysCheckedInputs[3]?>><span>Ср</span>
-                    <input type="checkbox" data-id="4" <?=$weekdaysCheckedInputs[4]?>><span>Чт</span>
-                    <input type="checkbox" data-id="5" <?=$weekdaysCheckedInputs[5]?>><span>Пт</span>
-                    <input type="checkbox" data-id="6" <?=$weekdaysCheckedInputs[6]?>><span>Сб</span>
-                    <input type="checkbox" data-id="7" <?=$weekdaysCheckedInputs[7]?>><span>Вс</span>
+                    <input type="checkbox" data-id="1" <?=$weekdaysCheckedInputs[1]?> <?=$disableRepeateAttr?>><span>Пн</span>
+                    <input type="checkbox" data-id="2" <?=$weekdaysCheckedInputs[2]?> <?=$disableRepeateAttr?>><span>Вт</span>
+                    <input type="checkbox" data-id="3" <?=$weekdaysCheckedInputs[3]?> <?=$disableRepeateAttr?>><span>Ср</span>
+                    <input type="checkbox" data-id="4" <?=$weekdaysCheckedInputs[4]?> <?=$disableRepeateAttr?>><span>Чт</span>
+                    <input type="checkbox" data-id="5" <?=$weekdaysCheckedInputs[5]?> <?=$disableRepeateAttr?>><span>Пт</span>
+                    <input type="checkbox" data-id="6" <?=$weekdaysCheckedInputs[6]?> <?=$disableRepeateAttr?>><span>Сб</span>
+                    <input type="checkbox" data-id="7" <?=$weekdaysCheckedInputs[7]?> <?=$disableRepeateAttr?>><span>Вс</span>
                 </div>
             </div>
         </div>

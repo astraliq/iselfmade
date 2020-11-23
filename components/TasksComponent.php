@@ -488,21 +488,7 @@ class TasksComponent extends BaseComponent {
             ->andWhere(['not', ['repeated_by_id' => null]])
             ->orderBy(['date_create' => SORT_ASC])
             ->all();
-//        echo print_r([$today]);
-//        echo print_r([$tomorrow]);
-//        $date = date('Y-m-d', $tasksToRepeat[0]['date_start']);
-//        $date = \Yii::$app->formatter->asDateTime($tasksToRepeat[0]['date_start'], 'php:d.m.Y');
-//        echo print_r([$date]);
-//        if ($date == $tomorrow) {
-//            echo 'true';
-//        } else {
-//            echo 'false';
-//        }
 
-
-
-//        echo print_r($tasksToRepeat);
-//        exit();
         $tasksToCreateToday = [];
         $tasksToCreateNextPeriod = [];
         foreach ($tasksToRepeat as $task) {
@@ -568,7 +554,7 @@ class TasksComponent extends BaseComponent {
                         $nextRepeatDate = date('d.m.Y', strtotime("+1 month", $the_date));
                     }
 
-                    if ($tomorrow == $nextRepeatDate && $this->checkRepeatedTasksAddedTomorrow($findRepeatedTasksKeys)) {
+                    if ($tomorrow == $nextRepeatDate && $this->checkRepeatedTasksAddedTomorrow($findRepeatedTasksKeys, $alreadyRepeatedTasks)) {
                        array_push($tasksToCreateNextPeriod, $task);
                     }
                     break;
@@ -584,19 +570,75 @@ class TasksComponent extends BaseComponent {
                         $nextRepeatDate = date('d.m.Y', strtotime("+1 month", $the_date));
                     }
 
-                    if ($tomorrow == $nextRepeatDate && $this->checkRepeatedTasksAddedTomorrow($findRepeatedTasksKeys)) {
+                    if ($tomorrow == $nextRepeatDate && $this->checkRepeatedTasksAddedTomorrow($findRepeatedTasksKeys, $alreadyRepeatedTasks)) {
                         array_push($tasksToCreateNextPeriod, $task);
                     }
                     break;
                 case 4:
+                    $the_date = time();
+//                    $the_date = strtotime('31.03.2020');
+                    $day = date('d');
+                    $month = date('m', strtotime(date('15.m.Y') . "+3 month"));
+                    $year = date('Y', strtotime("+3 month"));
+                    // для проверки
+//                    $day = '31';
+//                    $month = '06';
+//                    $year = '2021';
+
+                    if (!checkdate(intval($month), intval($day), intval($year))) {
+                        $nextRepeatDate = date('d.m.Y', strtotime("last day of next month", strtotime('+2 month', $the_date)));
+                    } else {
+                        $nextRepeatDate = date('d.m.Y', strtotime("+3 month", $the_date));
+                    }
+
+                    if ($tomorrow == $nextRepeatDate && $this->checkRepeatedTasksAddedTomorrow($findRepeatedTasksKeys, $alreadyRepeatedTasks)) {
+                        array_push($tasksToCreateNextPeriod, $task);
+                    }
                     break;
                 case 5:
+                    $nextRepeatDate = date('d.m.Y', strtotime("+1 week"));
+                    if ($tomorrow == $nextRepeatDate && $this->checkRepeatedTasksAddedTomorrow($findRepeatedTasksKeys, $alreadyRepeatedTasks)) {
+                        array_push($tasksToCreateNextPeriod, $task);
+                    }
                     break;
                 case 6:
+                    $nextRepeatDate = date('d.m.Y', $this->getNextWorkday());
+                    if ($tomorrow == $nextRepeatDate && $this->checkRepeatedTasksAddedTomorrow($findRepeatedTasksKeys, $alreadyRepeatedTasks)) {
+                        array_push($tasksToCreateNextPeriod, $task);
+                    }
                     break;
                 case 7:
+                    $nextRepeatDate = date('d.m.Y', $this->getNextHoliday());
+                    if ($tomorrow == $nextRepeatDate && $this->checkRepeatedTasksAddedTomorrow($findRepeatedTasksKeys, $alreadyRepeatedTasks)) {
+                        array_push($tasksToCreateNextPeriod, $task);
+                    }
                     break;
                 case 8:
+                    $todayAdd = false;
+                    $tomorrowAdd = false;
+                    // получаем массив повторов по дням недели из базы
+                    $selectedRepeats = explode(',', $task->repeated_weekdays);
+                    for ($i = 0; $i < count($selectedRepeats); $i++) {
+                        $selectedRepeats[$i] = $selectedRepeats[$i] == 7 ? 0 : $selectedRepeats[$i];
+                    }
+                    $dayNum = (int) date('w');
+                    $dayNumTomorrow = (int) date('w', strtotime("+1 day"));
+
+                    if (in_array($dayNum, $selectedRepeats)) {
+                        $todayAdd = true;
+                    }
+
+                    if (in_array($dayNumTomorrow, $selectedRepeats)) {
+                        $tomorrowAdd = true;
+                    }
+
+                    if ($todayAdd && $this->checkRepeatedTasksAddedToday($findRepeatedTasksKeys, $alreadyRepeatedTasks)) {
+                        array_push($tasksToCreateToday, $task);
+                    }
+
+                    if ($tomorrowAdd && $this->checkRepeatedTasksAddedTomorrow($findRepeatedTasksKeys, $alreadyRepeatedTasks)) {
+                        array_push($tasksToCreateNextPeriod, $task);
+                    }
                     break;
             }
         }
@@ -653,7 +695,85 @@ class TasksComponent extends BaseComponent {
         return true;
     }
 
-    private function checkRepeatedTasksAddedTomorrow($findRepeatedTasksKeys) {
+    private function getNextWorkday($date=null) {
+        // список праздников (нерабочих дней)
+        $bankHols = array(
+            '01.01.2021',
+            '04.01.2021',
+            '05.01.2021',
+            '06.01.2021',
+            '07.01.2021',
+            '08.01.2021',
+            '22.02.2021',
+            '23.02.2021',
+            '08.03.2021',
+            '03.05.2021',
+            '10.05.2021',
+            '14.06.2021',
+            '04.11.2021',
+            '31.12.2021',
+        );
+        $nextdays = array(strtotime('+1 day'), strtotime('+2 days'), strtotime('+3 days'), strtotime('+4 days'), strtotime('+5 days'), strtotime('+6 days'), strtotime('+7 days'));
+        for ($i = 0; $i < count($nextdays); $i++) {
+            $dayNum = (int) date('w', $nextdays[$i]);
+            $daytext = date('d.m.Y', $nextdays[$i]);
+            if (($dayNum > 0) && ($dayNum < 6) && (!in_array($daytext, $bankHols))) {
+              return $nextdays[$i];
+            }
+        }
+        return false;
+    }
+
+    private function getNextHoliday($date=null) {
+        // список праздников (нерабочих дней)
+        $bankHols = array(
+            '01.01.2021',
+            '04.01.2021',
+            '05.01.2021',
+            '06.01.2021',
+            '07.01.2021',
+            '08.01.2021',
+            '22.02.2021',
+            '23.02.2021',
+            '08.03.2021',
+            '03.05.2021',
+            '10.05.2021',
+            '14.06.2021',
+            '04.11.2021',
+            '31.12.2021',
+        );
+        $nextdays = array(strtotime('+1 day'), strtotime('+2 days'), strtotime('+3 days'), strtotime('+4 days'), strtotime('+5 days'), strtotime('+6 days'), strtotime('+7 days'));
+        for ($i = 0; $i < count($nextdays); $i++) {
+            $dayNum = (int) date('w', $nextdays[$i]);
+            $daytext = date('d.m.Y', $nextdays[$i]);
+            if (($dayNum == 0) || ($dayNum == 6) || (in_array($daytext, $bankHols))) {
+              return $nextdays[$i];
+            }
+        }
+        return false;
+    }
+
+    private function checkRepeatedTasksAddedToday($findRepeatedTasksKeys, $alreadyRepeatedTasks) {
+        $today = date('d.m.Y');
+        if ($findRepeatedTasksKeys) {
+            $todayAdd = true;
+            foreach ($findRepeatedTasksKeys as $key) {
+                $dateStartRepeated = \Yii::$app->formatter->asDateTime(
+                    $alreadyRepeatedTasks[$key]->date_start, 'php:d.m.Y'
+                );
+                $dateCalcRepeated = \Yii::$app->formatter->asDateTime(
+                    $alreadyRepeatedTasks[$key]->date_calculate, 'php:d.m.Y'
+                );
+                if ($dateStartRepeated == $today) {
+                    $todayAdd = false;
+                }
+            }
+        }
+        return $todayAdd;
+    }
+
+    private function checkRepeatedTasksAddedTomorrow($findRepeatedTasksKeys, $alreadyRepeatedTasks) {
+        $tomorrow = date('d.m.Y', strtotime("+1 day"));
         if ($findRepeatedTasksKeys) {
             $tomorrowAdd = true;
             foreach ($findRepeatedTasksKeys as $key) {
