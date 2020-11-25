@@ -178,7 +178,8 @@ body {
   display: -moz-flex;
   display: -ms-flex;
   display: -o-flex;
-  display: flex; }
+  display: flex;
+  flex-wrap: wrap; }
 
 .task__input {
   width: 450px;
@@ -486,6 +487,19 @@ body {
     .email_confirmation_close:active {
       transform: scale(0.99);
       color: #4C91F8; }
+
+.repeated-all .task__input {
+  height: 20px; }
+
+.next_repeat_date_row {
+  width: 100%;
+  margin: 0 0 10px 0;
+  font-size: 13px;
+  color: #609df8;
+  font-weight: 400; }
+  .next_repeat_date_row span {
+    font-size: 13px;
+    margin: 0 10px; }
 
 .repeated_title {
   display: inline-block; }

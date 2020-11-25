@@ -209,6 +209,7 @@ body {
     display: -ms-flex;
     display: -o-flex;
     display: flex;
+    flex-wrap: wrap;
 }
 
 .task__input {
@@ -636,6 +637,24 @@ body {
             transform: scale(0.99);
             color: $color-blue;
         }
+    }
+}
+
+.repeated-all {
+  & .task__input {
+    height: 20px;
+  }
+}
+
+.next_repeat_date_row {
+    width: 100%;
+    margin: 0 0 10px 0;
+    font-size: 13px;
+    color: $color-blue-light;
+    font-weight: 400;
+    & span {
+        font-size: 13px;
+        margin: 0 10px;
     }
 }
 

@@ -46,9 +46,11 @@ class NextRepeatDateAction  extends Action {
             }
         } else {
             if (\Yii::$app->request->isAjax) {
-                ['result' => false];
+                return ['result' => false];
             }
         }
+
+
 
         return $this->controller->redirect([\Yii::$app->params['links']['report']]);
 

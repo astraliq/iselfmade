@@ -47,7 +47,7 @@ $check = '';
                     'type_id' => $type_id,
                     'nextPeriod' => $nextPeriod,
                     'newTask' => 0,
-                    'disable_finish' => false,
+                    'repeatedTask' => false,
                 ]);
             }
         }
@@ -56,6 +56,7 @@ $check = '';
             'type_id' => $type_id,
             'nextPeriod' => $nextPeriod,
             'newTask' => 1,
+            'repeatedTask' => false,
         ]);
         ?>
 

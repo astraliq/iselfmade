@@ -13,6 +13,8 @@ class Tasks extends TasksBase {
     public $nextPeriod;
     public $parent_repeat_type;
     public $parent_repeated_weekdays;
+    public $nextRepeatDate;
+
     const TASK = 1;
     const AIM = 2;
     const GOAL = 3;

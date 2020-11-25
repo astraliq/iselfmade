@@ -762,7 +762,7 @@ class TasksComponent extends BaseComponent {
         if (!checkdate(intval($month), intval($day), intval($year))) {
             $nextRepeatDate = date('28.02.Y', strtotime( "+1 year"));
         } else {
-            $nextRepeatDate = date('d.m.Y', strtotime("+1 month", $the_date));
+            $nextRepeatDate = date('d.m.Y', strtotime("+1 year", $the_date));
         }
         return $nextRepeatDate;
     }
@@ -796,6 +796,10 @@ class TasksComponent extends BaseComponent {
             ->andWhere(['not', ['repeat_type_id' => null]])
             ->orderBy(['date_create' => SORT_ASC])
             ->all();
+
+        foreach ($tasks as $task) {
+            $task->nextRepeatDate = $this->getNextRepeatDate( $task);
+        }
 
         return $tasks;
     }
@@ -835,8 +839,8 @@ class TasksComponent extends BaseComponent {
                 $nextDays = array(strtotime('+1 day'), strtotime('+2 days'), strtotime('+3 days'), strtotime('+4 days'), strtotime('+5 days'), strtotime('+6 days'), strtotime('+7 days'));
                 for ($i = 0; $i < count($nextDays); $i++) {
                     $dayNum = (int) date('w', $nextDays[$i]);
-                    $daytext = date('d.m.Y', $nextDays[$i]);
-                    if ((in_array($daytext, $selectedRepeats))) {
+//                    $daytext = date('d.m.Y', $nextDays[$i]);
+                    if ((in_array($dayNum, $selectedRepeats))) {
                         return date('d.m.Y', $nextDays[$i]);
                     }
                 }

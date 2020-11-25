@@ -39,6 +39,7 @@ class Tasks {
         this.finishClass = '.text__strike';
         this.allTasksClass = '.tasks-all';
         this.savingClass = '.saving_tasks';
+        this.nextRepeatDate = '.next_repeat_date';
         this.timerInput;
         this.timerSavind;
         this.tasksForUpdate = [];
@@ -247,6 +248,14 @@ class Tasks {
         this._post('/task/update-all', sendData)
             .then(data => {
                 if (data.result) {
+                    console.log(blocksIds);
+                    tasks.forEach( (task) => {
+                        let repeatDate = document.getElementById(`repeated-${task.id}`);
+                        if (repeatDate) {
+                            this.updateRepeatDate(repeatDate);
+                        }
+                    });
+
                     clearTimeout(this.timerSavind);
                     this.renderSaving(blocksIds);
                     this.timerSavind = setTimeout( () => {
@@ -289,6 +298,22 @@ class Tasks {
             });
     }
 
+    updateRepeatDate(dateElement) {
+        let sendData = {
+                'id': dateElement.dataset.id,
+        };
+        this._post('/task/next-repeat-date', sendData)
+            .then(data => {
+                if (data.result) {
+                    dateElement.innerText = data.nextDate;
+                }
+            })
+            .catch(error => {
+                dateElement.innerText = '';
+                console.log(error);
+            });
+    }
+
     _validateTask() {
         if (this.task.length < 2) {
             console.log('ошибка, в задаче менее 2х символов');
@@ -304,6 +329,7 @@ class Tasks {
     getFormData(input) {
         let settings = $(input).parent().children(this.inputSettingsClass);
         this.task = input.value;
+        this.id = input.dataset.id;
         this.type_id = input.dataset.type;
         this.nextPeriod = input.dataset.next_period;
         this.finished = input.dataset.finished;
@@ -326,6 +352,7 @@ class Tasks {
     _addEventsTasks(elems) {
         elems.forEach((el) => {
             let settings = $(el).parent().children(this.inputSettingsClass);
+            // let repeatDate = $(el).parent().children(this.nextRepeatDate);
             autosize.destroy($(el));
             autosize($(el));
 
@@ -427,6 +454,7 @@ class Tasks {
                         //         sameWeekends[0].classList.add('hidden_block_anim');
                         //     }
                         // }
+
                         this._updateTasksByEvent(el);
                     })
                 });

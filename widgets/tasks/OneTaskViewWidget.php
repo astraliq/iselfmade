@@ -14,7 +14,7 @@ class OneTaskViewWidget extends Widget {
     public $nextPeriod;
     public $newTask;
     public $type_id;
-    public $disable_finish;
+    public $repeatedTask;
 
 
     public function run() {
@@ -27,7 +27,7 @@ class OneTaskViewWidget extends Widget {
             'nextPeriod' => $this->nextPeriod,
             'newTask' => $this->newTask,
             'type_id' => $this->type_id,
-            'disable_finish' => $this->disable_finish,
+            'repeatedTask' => $this->repeatedTask,
         ]);
     }
 }
