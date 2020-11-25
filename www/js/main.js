@@ -306,10 +306,12 @@ class Tasks {
             .then(data => {
                 if (data.result) {
                     dateElement.innerText = data.nextDate;
+                } else {
+                    dateElement.innerText = '';
                 }
+
             })
             .catch(error => {
-                dateElement.innerText = '';
                 console.log(error);
             });
     }
