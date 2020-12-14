@@ -37,9 +37,9 @@ class ViewAllTasks extends Action {
         // удаленные задачи
 //        $deleted = $comp->getDeletedTasks();
 
-        $checkRenewTasks = $comp->checkDataToRenew(1);
-        $checkRenewAims = $comp->checkDataToRenew(2);
-        $checkRenewGoals = $comp->checkDataToRenew(3);
+//        $checkRenewTasks = $comp->checkDataToRenew(1);
+//        $checkRenewAims = $comp->checkDataToRenew(2);
+//        $checkRenewGoals = $comp->checkDataToRenew(3);
 
         if (\Yii::$app->request->isAjax) {
             \Yii::$app->response->format=Response::FORMAT_JSON;
@@ -54,9 +54,9 @@ class ViewAllTasks extends Action {
             'tasksTomorrow' => $tasksTomorrow,
             'aims' => $aims,
             'goals' => $goals,
-            'renewTasks' => $checkRenewTasks,
-            'renewAims' => $checkRenewAims,
-            'renewGoals' => $checkRenewGoals,
+//            'renewTasks' => $checkRenewTasks,
+//            'renewAims' => $checkRenewAims,
+//            'renewGoals' => $checkRenewGoals,
             'model' => $model,
             'admin'=>$admin,
             'notifConfEmail' => $notifConfEmail,

@@ -215,9 +215,9 @@ class AuthController extends Controller {
     }
 
     public function actionConfirmationEmail($email=null,$confirmation_token=null){
-        if (\Yii::$app->user->isGuest) {
-            return $this->redirect(['/']);
-        }
+//        if (\Yii::$app->user->isGuest) {
+//            return $this->redirect(['/']);
+//        }
 
         if ((!$email || !$confirmation_token) && !\Yii::$app->request->isPost) {
             throw new HttpException(400,'Отсутствуют необходимые параметры');

@@ -531,10 +531,10 @@ class TasksComponent extends BaseComponent {
                             $dateCalcRepeated = \Yii::$app->formatter->asDateTime(
                                 $alreadyRepeatedTasks[$key]->date_calculate, 'php:d.m.Y'
                             );
-                            if ($dateStartRepeated == $today || $dateCalcRepeated == $today || $dateStartTask == $today || $dateCalcTask == $today) {
+                            if ($dateStartRepeated == $today || $dateStartTask == $today) {
                                 $todayAdd = false;
                             }
-                            if ($dateStartRepeated == $tomorrow || $dateCalcRepeated == $tomorrow || $dateStartTask == $tomorrow || $dateCalcTask == $tomorrow) {
+                            if ($dateStartRepeated == $tomorrow  || $dateStartTask == $tomorrow) {
                                 $tomorrowAdd = false;
                             }
                         }
@@ -847,8 +847,150 @@ class TasksComponent extends BaseComponent {
                 return false;
                 break;
         }
+        return false;
     }
 
+    public function sendReportsToCurators() {
+        $today = date('d.m.Y');
+        $dayOfWeek = date('w', time());
+        $yesterday = date('d.m.Y', strtotime("-1 day"));
+
+        $users = User::find()
+            ->where([
+                'confirm_email' => 1,
+//                'finished' => 0,
+            ])
+            ->andWhere(['not', ['curators_emails' => null]])
+            ->all();
+        $reportsToSend = [];
+
+        foreach ($users as $user) {
+            // отправка ежедневно
+            if ($user->curators_email_repeat == 1) {
+                $tasks = $this->getTasksByDateAndUserId($user->id, $yesterday);
+                $userReports =[
+                    'type' => 1,
+                    'email' => $user->curators_emails,
+                    'userName' => $user->name,
+                    'userSurname' => $user->surname,
+                    'reports' => [
+                        ['date' => $yesterday,
+                        'tasks' => $tasks,]
+                    ],
+                ];
+            }
+            // отправка раз в неделю
+            if ($user->curators_email_repeat == 5 ) {
+                $userReports =[
+                    'type' => 5,
+                    'email' => $user->curators_emails,
+                    'userName' => $user->name,
+                    'userSurname' => $user->surname,
+                    'reports' => [],
+                ];
+                $lastWeekDays = [strtotime('-1 day'), strtotime('-2 days'), strtotime('-3 days'), strtotime('-4 days'), strtotime('-5 days'), strtotime('-6 days'), strtotime('-7 days')];
+                foreach ($lastWeekDays as $lastWeekDay) {
+                    $dateFact = date('d.m.Y', $lastWeekDay);
+                    $tasksByDate = $this->getTasksByDateAndUserId($user->id, $dateFact);
+                    array_push($userReports['reports'], [
+                        'date' => $dateFact,
+                        'tasks' => $tasksByDate,
+                    ]);
+                }
+            }
+            if ($userReports) {
+                array_push($reportsToSend, $userReports);
+            }
+
+        }
+
+        $sendResult = true;
+        foreach ($reportsToSend as $sendingReport) {
+            $type = $sendingReport['type'] == 1 ? 'Ежедневный отчет' : 'Еженедельный отчет';
+            $message = \Yii::$app->mailer->compose('curators_report',[
+                'email' => $sendingReport['email'],
+                'name' => $sendingReport['userName'],
+                'surname' => $sendingReport['userSurname'],
+                'reports' => $sendingReport['reports'],
+            ])
+                ->setFrom('hello@iselfmade.ru')
+                ->setTo($user->email)
+                ->setSubject($sendingReport['userName'] . ' - ' . $type)
+                ->send();
+            if (!$message) {
+                $sendResult = false;
+            }
+        }
+
+        return $sendResult;
+    }
+
+    public function getTasksByDateAndUserId($userId, $date) {
+        $tasks = Tasks::find()
+            ->where([
+                'user_id' => $userId,
+                'deleted' => 0,
+//                'finished' => 0,
+            ])
+            ->andWhere(['AND',
+                ['>=', 'date_calculate', (new \DateTime(date($date)))->format('Y-m-d H:i:s')],
+                ['<=', 'date_calculate', (new \DateTime($date . ' 23:59:59'))->format('Y-m-d H:i:s')]
+            ])
+            ->andWhere(['AND',
+                ['>=', 'date_start', (new \DateTime($date  . ' 00:00:00'))->format('Y-m-d H:i:s')],
+                ['<=', 'date_start', (new \DateTime($date . ' 23:59:59'))->format('Y-m-d H:i:s')]
+            ])
+            ->orderBy(['date_create' => SORT_ASC])
+            ->all();
+
+        return $tasks;
+    }
+
+    public function getUserTasksBetweenTwoDates($userId, $date1, $date2) {
+        $tasks = Tasks::find()
+            ->where([
+                'user_id' => $userId,
+                'deleted' => 0,
+//                'finished' => 0,
+            ])
+//            ->andWhere(['AND',
+//                ['>=', 'date_calculate', (new \DateTime(date($date1)))->format('Y-m-d H:i:s')],
+//                ['<=', 'date_calculate', (new \DateTime($date2 . ' 23:59:59'))->format('Y-m-d H:i:s')]
+//            ])
+            ->andWhere(['AND',
+                ['>=', 'date_start', (new \DateTime($date1  . ' 00:00:00'))->format('Y-m-d H:i:s')],
+                ['<=', 'date_start', (new \DateTime($date2 . ' 23:59:59'))->format('Y-m-d H:i:s')]
+            ])
+            ->orderBy(['date_create' => SORT_ASC])
+            ->all();
+
+        return $tasks;
+    }
+
+    public function getArchiveTasksByDate($date) {
+        $tasks = Tasks::find()
+            ->where([
+                'user_id' => \Yii::$app->user->getId(),
+                'deleted' => 0,
+            ])
+            ->andWhere(['AND',
+                ['>=', 'date_calculate', (new \DateTime(date($date)))->format('Y-m-d 00:00:00')],
+                ['<=', 'date_calculate', (new \DateTime($date . ' 23:59:59'))->format('Y-m-d H:i:s')]
+            ])
+            ->andWhere(['AND',
+                ['>=', 'date_start', (new \DateTime($date  . ' 00:00:00'))->format('Y-m-d H:i:s')],
+                ['<=', 'date_start', (new \DateTime($date . ' 23:59:59'))->format('Y-m-d H:i:s')]
+            ])
+            ->orderBy(['date_create' => SORT_ASC])
+            ->all();
+
+        if ($tasks) {
+            return $tasks;
+        } else {
+            return false;
+        }
+
+    }
 
 
 }

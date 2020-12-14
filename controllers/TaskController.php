@@ -6,9 +6,11 @@ namespace app\controllers;
 
 use app\base\BaseController;
 use app\controllers\actions\site\ErrorAction;
+use app\controllers\actions\task\ArchiveAction;
 use app\controllers\actions\task\CreateAction;
 use app\controllers\actions\task\DeleteAction;
 use app\controllers\actions\task\FinishAction;
+use app\controllers\actions\task\GetArchiveAction;
 use app\controllers\actions\task\NextRepeatDateAction;
 use app\controllers\actions\task\RepeatedAction;
 use app\controllers\actions\task\TransferAction;
@@ -38,6 +40,8 @@ class TaskController extends BaseController {
             'error' => ['class' => ErrorAction::class],
             'repeated' => ['class' => RepeatedAction::class],
             'next-repeat-date' => ['class' => NextRepeatDateAction::class],
+            'archive' => ['class' => ArchiveAction::class],
+            'get-archive' => ['class' => GetArchiveAction::class],
         ];
 
     }

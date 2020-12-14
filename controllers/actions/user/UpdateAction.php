@@ -43,20 +43,12 @@ class UpdateAction extends Action {
             }
             $user->load($postData);
 
-//            $data = \Yii::$app->request->post();
-//            \Yii::$app->response->format = Response::FORMAT_JSON;
-//            return $data;
-//            exit();
-
             if (\Yii::$app->request->isAjax) {
                 \Yii::$app->response->format = Response::FORMAT_JSON;
                 return ActiveForm::validate($user);
             }
 
             if ($comp->updateUser($user)) {
-//                $lastPage = \Yii::$app->session->getFlash('lastPage');
-//                return $this->controller->redirect($lastPage);
-//                return $this->controller->redirect(['/task/view/' . $user->id]);
                 if (\Yii::$app->request->isAjax) {
 
                     return ['result' => true, 'user' => $user];
@@ -75,14 +67,15 @@ class UpdateAction extends Action {
 
         render:
         $timezones = \Yii::$app->timezones->getRuTimezones('short_gmt');
-//                echo '<pre>';
-//                print_r($timezones);
-//                echo '</pre>';
-//                exit();
+
+        $userComp = \Yii::createObject(['class' => UserComponent::class]);
+        $notifConfEmail = $userComp->checkConfirmationEmail();
+
         return $this->controller->render('view',[
             'user' => $user,
             'timezones' => $timezones,
             'admin' => $admin,
+            'notifConfEmail' => $notifConfEmail,
         ]);
     }
 

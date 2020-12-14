@@ -9,7 +9,6 @@ use yii\helpers\Html;
 ?>
 
 <div class="tasks-form">
-<!--    <p><a class="btn btn-lg btn-success" href="/task/create">Создать задачу</a></p>-->
     <div class="tasks-all">
         <?= \app\widgets\tasks\TasksViewWidget::widget([
             'title' => 'Цели на год',
@@ -52,19 +51,9 @@ use yii\helpers\Html;
             'block_id' => 1,
         ]); ?>
     </div>
-<!--    <div class="tasks-deleted"  style="width: 50%">-->
-<!--        --><?//= \app\widgets\tasks\TasksViewWidget::widget([
-//            'title' => 'Удаленные',
-//            'tasks' => $deleted,
-//            'del' => true,
-//            'model' => $model,
-//        ]); ?>
-<!--        <div class="aims__footnotes">-->
-<!--            <div class="footnotes__text">Коэффециент выполнения</div>-->
-<!--            <div class="footnotes__numbers footnotes__numbers_color-red">62,5%</div>-->
-<!--        </div>-->
-<!--    </div>-->
+
 </div>
 
-<?php $this->render('/modals/confirm_email',['notifConfEmail' => $notifConfEmail]); ?>
+
+<?= $this->render('/modals/confirm_email', ['notifConfEmail' => $notifConfEmail]); ?>
 

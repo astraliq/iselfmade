@@ -155,7 +155,7 @@ class AuthComponent extends Component
         return \Yii::$app->security->generateRandomString(8);
     }
 
-    private function generateConfirmationEmailToken() {
+    function generateConfirmationEmailToken() {
         return \Yii::$app->security->generateRandomString(12);
     }
 

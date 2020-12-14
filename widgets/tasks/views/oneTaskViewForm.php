@@ -5,7 +5,7 @@ $finished = '';
 $check = '';
 
 
-if ($task->finished == 1) {
+if ($task->finished == 1 && !$repeatedTask) {
     $finished = 'text__strike';
     $check = 'check';
 } else {

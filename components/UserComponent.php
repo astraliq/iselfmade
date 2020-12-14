@@ -24,10 +24,6 @@ class UserComponent extends BaseComponent {
         $user->avaReal = UploadedFile::getInstance($user, 'avaReal');
         $fileSaver = \Yii::createObject(['class' => FileSaverComponent::class]);
 
-//                echo '<pre>';
-//                print_r($user);
-//                echo '</pre>';
-//                exit();
         if ($user->validate()) {
             if ($user->avaReal) {
                 $file = $fileSaver->saveAvatar($user->avaReal);
@@ -72,4 +68,44 @@ class UserComponent extends BaseComponent {
     }
 
 
+    public function sendConfirmCuratorEmailMail(User $user) :bool {
+        $auth = \Yii::$app->auth;
+        if ($user->curators_email_confirm == 0) {
+            $confirmation_token = $auth->generateConfirmationEmailToken();
+            $user->curators_access_token = $confirmation_token;
+            if ($user->save()) {
+                $message = \Yii::$app->mailer->compose(
+                    'curators_confirm', [
+                        'confirmation_token' => $confirmation_token,
+                        'userId' => $user->id,
+                        'name' => $user->name,
+                    ]
+                )
+                    ->setFrom('hello@iselfmade.ru')
+                    ->setTo($user->curators_emails)
+                    ->setSubject('iselfmade - Подтверждение куратора')
+                    ->send();
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public function confirmCuratorsEmail(User $user, $confirmation_token) :bool {
+        if ($user->curators_access_token === $confirmation_token) {
+            $user->curators_access_token = null;
+            $user->curators_email_confirm = 1;
+            $user->curators_access_token = null;
+            $user->scenario = 'confirmationCuratorsEmail';
+            if ($user->save()) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 }

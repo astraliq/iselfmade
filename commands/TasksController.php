@@ -52,4 +52,17 @@ class TasksController extends BaseConsoleController {
 
         return ExitCode::UNSPECIFIED_ERROR;
     }
+
+    public function actionCuratorReports() {
+        $comp = \Yii::createObject(['class' => TasksComponent::class,'modelClass' => Tasks::class]);
+        $model = $comp->getModel();
+        $sends = $comp->sendReportsToCurators();
+        if ($sends) {
+            return ExitCode::OK;
+        }
+
+        echo print_r($sends);
+
+        return ExitCode::UNSPECIFIED_ERROR;
+    }
 }

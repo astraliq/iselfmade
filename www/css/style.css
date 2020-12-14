@@ -152,7 +152,6 @@ body {
   display: -ms-flex;
   display: -o-flex;
   display: flex;
-  flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   transition: all 0.5s ease; }
@@ -430,7 +429,7 @@ body {
   font-weight: 200; }
 
 .email_confirmation {
-  position: absolute;
+  position: fixed;
   display: block;
   width: 400px;
   z-index: 9999;
@@ -450,10 +449,12 @@ body {
   top: 20px;
   right: 50px; }
   .email_confirmation h4 {
-    color: #4C91F8; }
+    color: #4C91F8;
+    width: 350px; }
   .email_confirmation p {
     font-size: 13px; }
-  .email_confirmation .btn_conf_email {
+  .email_confirmation .btn_conf_email,
+  .email_confirmation .btn_ok {
     width: 160px;
     height: 32px;
     background-color: #4C91F8;
@@ -465,10 +466,14 @@ body {
     line-height: 30px;
     font-weight: 600;
     cursor: default; }
-    .email_confirmation .btn_conf_email:disabled {
+    .email_confirmation .btn_conf_email:disabled,
+    .email_confirmation .btn_ok:disabled {
       background-color: gray; }
-    .email_confirmation .btn_conf_email:active {
+    .email_confirmation .btn_conf_email:active,
+    .email_confirmation .btn_ok:active {
       transform: scale(0.98); }
+  .email_confirmation .btn_ok {
+    width: 80px; }
   .email_confirmation_close {
     position: absolute;
     width: 30px;
@@ -488,6 +493,9 @@ body {
       transform: scale(0.99);
       color: #4C91F8; }
 
+#modal_confirm_curators_email {
+  display: none; }
+
 .repeated-all .task__input {
   height: 20px; }
 
@@ -503,6 +511,206 @@ body {
 
 .repeated_title {
   display: inline-block; }
+
+.user_profile {
+  width: 300px; }
+  .user_profile option {
+    font-size: 13px; }
+
+.user_profile-curator,
+.user_profile-psw {
+  border-top: 1px gray solid;
+  margin: 10px 0 0 0;
+  padding: 10px 0 0 0;
+  position: relative; }
+
+.archive_title {
+  margin: 20px 0 0 0;
+  color: #4C91F8;
+  font-size: 16px; }
+
+.archive_date {
+  display: inline-block;
+  font-size: 16px; }
+
+#calendar_block {
+  width: 250px;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  flex-direction: column; }
+  #calendar_block .message {
+    font-size: 12px;
+    margin: 20px 0 0 0;
+    border-radius: 6px;
+    border: 1px solid #4C91F8;
+    padding: 5px 5px 5px 20px;
+    position: relative;
+    text-align: center; }
+    #calendar_block .message:before {
+      content: '';
+      position: absolute;
+      background-image: url("../img/exclamation-mark.png");
+      width: 8px;
+      height: 34px;
+      background-size: cover;
+      top: 4px;
+      left: 6px; }
+
+.cal {
+  display: block;
+  width: 216px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4); }
+  .cal a {
+    text-decoration: none; }
+  .cal caption {
+    display: block;
+    line-height: 32px;
+    font-weight: bold;
+    color: whitesmoke;
+    text-align: center;
+    text-shadow: 0 -1px #000000;
+    background: #4C91F8;
+    border-top: 1px solid #30458a;
+    border-bottom: 1px solid #30458a;
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.04); }
+    .cal caption a {
+      display: block;
+      line-height: 32px;
+      padding: 0 45px;
+      font-size: 15px;
+      color: whitesmoke;
+      cursor: default; }
+      .cal caption a:hover {
+        color: white; }
+    .cal caption .prev {
+      float: left;
+      margin: 0;
+      cursor: pointer;
+      padding: 0 19px;
+      color: whitesmoke; }
+    .cal caption .next {
+      float: right;
+      margin: 0;
+      cursor: pointer;
+      padding: 0 20px;
+      color: whitesmoke; }
+  .cal th,
+  .cal td {
+    width: 30px;
+    text-align: center;
+    text-shadow: 0 1px rgba(255, 255, 255, 0.8); }
+  .cal th:first-child,
+  .cal td:first-child {
+    border-left: 0; }
+  .cal th {
+    line-height: 20px;
+    font-size: 10px;
+    color: #696969;
+    text-transform: uppercase;
+    background: #f3f3f3;
+    border-left: 1px solid #f3f3f3; }
+  .cal td {
+    font-size: 11px;
+    font-weight: bold;
+    border-top: 1px solid #c2c2c2;
+    border-left: 1px solid #c2c2c2; }
+    .cal td a {
+      clear: both;
+      display: block;
+      position: relative;
+      width: 30px;
+      line-height: 28px;
+      color: #666;
+      cursor: default;
+      font-size: 12px;
+      background-image: linear-gradient(to bottom, #eaeaea 0%, #e5e5e5 60%, #d9d9d9 100%);
+      box-shadow: inset 1px 1px rgba(255, 255, 255, 0.5); }
+    .cal td a:hover,
+    .cal td.off a {
+      background: #f3f3f3; }
+    .cal td.off a {
+      color: #b3b3b3; }
+    .cal td.active a,
+    .cal td a:active {
+      margin: 0;
+      color: #f3f3f3;
+      text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+      background: #B32800;
+      border: 0px solid #598b94;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05); }
+    .cal td.active:first-child a,
+    .cal td:first-child a:active {
+      border-left: 0;
+      margin-left: 0; }
+    .cal td.active:last-child a,
+    .cal td:last-child a:active {
+      border-right: 0;
+      margin-right: 0; }
+    .cal td .active,
+    .cal td a:active {
+      margin: 0;
+      color: black;
+      text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+      background: #F5C527;
+      border: 0px solid #598b94;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05); }
+  .cal tr:last-child td.active a,
+  .cal tr:last-child td a:active {
+    border-bottom: 0;
+    margin-bottom: 0; }
+  .cal tr .today a {
+    background-color: #4C91F8;
+    background-image: none;
+    color: whitesmoke;
+    box-shadow: none;
+    font-weight: 300; }
+
+.failure_icon {
+  display: block;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  background-image: url("../img/failure_icon.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  right: -25px;
+  top: 38px; }
+
+.success_icon {
+  display: block;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  background-image: url("../img/success_icon.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  right: -25px;
+  top: 38px; }
+
+.curators_emails {
+  padding: px 12px;
+  padding-right: 95px; }
+
+#curators_emails_btn_conf {
+  width: 80px;
+  height: 23px;
+  background-color: #4C91F8;
+  color: white;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  font-size: 10px;
+  line-height: 23px;
+  font-weight: 600;
+  cursor: default;
+  position: absolute;
+  right: 7px;
+  top: 38px; }
+  #curators_emails_btn_conf:active {
+    transform: scale(0.97); }
 
 .transition_none {
   transition: none; }

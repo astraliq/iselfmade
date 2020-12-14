@@ -111,11 +111,12 @@ $config = [
                 'task/finish/<id:\d+>'=>'task/finish',
                 'task/finish/<user_id:\d+>/<id:\d+>'=>'task/finish',
                 'report'=>'task/report/',
+                'archive'=>'task/archive/',
                 'repeated'=>'task/repeated/',
                 'profile'=>'user/update/',
                 'task/img/'=>'img/',
                 'profile/<id:\d+>'=>'user/update/',
-
+                'confirm-curator-email'=>'site/confirm-curator-email',
                 [
                     'class'=>yii\rest\UrlRule::class,
                     'controller'=>'user-rest-api',

@@ -41,5 +41,5 @@ use yii\helpers\Html;
 //    ]); ?>
 <!---->
 <!--</div>-->
-<?php $this->render('/modals/confirm_email',['notifConfEmail' => $notifConfEmail]); ?>
+<?php echo $this->render('/modals/confirm_email',['notifConfEmail' => $notifConfEmail]); ?>
 
