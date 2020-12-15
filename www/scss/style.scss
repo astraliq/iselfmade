@@ -491,6 +491,12 @@ body {
     }
 }
 
+.tasks_show_finished {
+    display: block;
+    cursor: pointer;
+    margin: 5px 0 0 5px;
+}
+
 .task_transfer_btn {
     border: none;
     background-color: $color-icons;

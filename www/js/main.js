@@ -50,9 +50,12 @@ class Tasks {
         this.allTasksClass = '.tasks-all';
         this.savingClass = '.saving_tasks';
         this.nextRepeatDate = '.next_repeat_date';
+        this.tasksFinishedClass = '.tasks_show_finished';
         this.timerInput;
         this.timerSavind;
+        this.timerLastFinishTask;
         this.tasksForUpdate = [];
+        this.tasksToHide = [];
     }
 
 //	_post(url, data) {
@@ -114,18 +117,33 @@ class Tasks {
     }
 
     finishTask(taskInput) {
+        let parentBlock = $(taskInput).parents(this.taskListItemClass);
+        let finishBtn = $(parentBlock).parent().parent().children(this.tasksFinishedClass);
         this.finished = taskInput.dataset.finished;
         let btn = $(taskInput).parent().children(this.checkBtn);
         if (this.finished == 1) {
             taskInput.dataset.finished = '0';
-            $(taskInput).parents(this.taskListItemClass).removeClass(this.finishClass.slice(1));
+            parentBlock.removeClass(this.finishClass.slice(1));
             btn.removeClass('icon-check');
             btn.addClass('icon-check-empty');
+            this.tasksToHide.find( (el, index) => {
+                if (el == parentBlock[0]) {
+                    this.tasksToHide.splice(index, 1);
+                }
+            })
         } else if (this.finished == 0) {
             taskInput.dataset.finished = '1';
-            $(taskInput).parents(this.taskListItemClass).addClass(this.finishClass.slice(1));
+            parentBlock.addClass(this.finishClass.slice(1));
             btn.removeClass('icon-check-empty');
             btn.addClass('icon-check');
+            if (finishBtn[0].innerText === 'Показать завершенные') {
+                clearTimeout(this.timerLastFinishTask);
+                this.tasksToHide.push(parentBlock[0]);
+                this.timerLastFinishTask = setTimeout( () => {
+                    this._hideTasks(this.tasksToHide);
+                }, 2000)
+            }
+
         }
     }
 
@@ -258,7 +276,6 @@ class Tasks {
         this._post('/task/update-all', sendData)
             .then(data => {
                 if (data.result === true) {
-                    console.log(blocksIds);
                     tasks.forEach( (task) => {
                         let repeatDate = document.getElementById(`repeated-${task.id}`);
                         if (repeatDate) {
@@ -580,6 +597,28 @@ class Tasks {
             })
         });
 
+        let showFinishedTasksBtn = document.querySelectorAll(this.tasksFinishedClass);
+        if (showFinishedTasksBtn) {
+            let parent = showFinishedTasksBtn[0].parentNode;
+            let tasksBlock = parent.querySelector('ol');
+            showFinishedTasksBtn.forEach( (btn) => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (btn.innerText === 'Скрыть завершенные') {
+                        this._hideFinished(tasksBlock, btn);
+                    } else {
+                        this._showFinished(tasksBlock, btn);
+                    }
+                });
+                if (get_cookie('show_finished') == 0) {
+                    this._showFinished(tasksBlock, btn);
+                } else {
+                    this._hideFinished(tasksBlock, btn);
+                }
+            });
+
+        }
+
         this.updateHidingByCookie();
 
     }
@@ -632,6 +671,36 @@ class Tasks {
         this.getFormData(elementInput);
         this.id = elementInput.dataset.id;
         this._finishTask(elementInput);
+    }
+
+    _hideFinished(block, btn) {
+        let tasks = block.querySelectorAll(this.createdTasksClass);
+        tasks.forEach( (task) => {
+            let finish = task.querySelector(this.inputTaskClass).dataset.finished;
+            if (finish == 1) {
+                task.style.display = 'none';
+            }
+        });
+        btn.textContent = 'Показать завершенные';
+        document.cookie = 'show_finished=1';
+    }
+
+    _hideTasks(tasks) {
+        tasks.forEach( (task) => {
+            task.style.display = 'none';
+        })
+    }
+
+    _showFinished(block, btn) {
+        let tasks = block.querySelectorAll(this.createdTasksClass);
+        tasks.forEach( (task) => {
+            let finish = task.querySelector(this.inputTaskClass).dataset.finished;
+            if (finish == 1) {
+                task.style.display = 'list-item';
+            }
+        });
+        btn.textContent = 'Скрыть завершенные';
+        document.cookie = 'show_finished=0';
     }
 
 }

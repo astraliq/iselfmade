@@ -37,6 +37,10 @@ $check = '';
         if (!$nextPeriod && $type_id==5) {
             echo '<button class="task_transfer_btn icon-arrow-curved" ' . $active .' data-type="' . $type_id . '" title="' . $btnName . '"></button>';
         }
+        if ($nextPeriod == 0 && $type_id == 1) {
+            echo '<a class="tasks_show_finished">Скрыть завершенные</a>';
+        }
+
     ?>
     <ol class="text__list_items">
         <?php

@@ -34,7 +34,7 @@ class GetArchiveAction extends Action {
         $date = \Yii::$app->request->post()['date'] ?? null;
         $unixDate = strtotime($date);
         if ($unixDate >= $unixToday) {
-            return ['result' => false, 'message' => 'Можно просмотреть задачи только за прошедший преиод.'];
+            return ['result' => false, 'message' => 'Можно просмотреть задачи только за прошедший период.'];
         }
         $title = '';
         if ($date === $yesterdayDate) {

@@ -20,6 +20,7 @@ class TasksViewWidget extends Widget {
 
 
     public function run() {
+
         return $this->render('tasksViewForm',[
             'title' => $this->title,
             'tasks' => $this->tasks,

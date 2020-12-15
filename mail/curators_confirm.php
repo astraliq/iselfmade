@@ -31,8 +31,8 @@ use yii\helpers\Url;
 <p>Вам будут регулярно приходить на почту письма с отчетами о выполнении им ежедневных задач.</p>
 <p>Регулярность писем будет зависить от настроек пользователя.</p>
 <br>
-<p>Для подтверждения получения писем передите по ссылке:</p>
-<a href="<?=Url::home('https') . 'user/confirmation-curators-email?user=' . $userId . '&confirmation_token=' . $confirmation_token?>">Подтвердить</a>
+<p>Для подтверждения получения писем перейдите по ссылке:</p>
+<a href="<?=Url::home('http') . 'user/confirmation-curators-email?user=' . $userId . '&confirmation_token=' . $confirmation_token?>">Подтвердить</a>
 <br>
 <p>Если письмо пришло к Вам по ошибке или Вы не желаете быть куратором пользователя <?=$name?> - просто проигнорируйте это письмо.</p>
 <br>
