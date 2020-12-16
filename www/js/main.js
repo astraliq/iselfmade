@@ -1116,9 +1116,9 @@ function createCalendar(elem, year, month, day) {
         if (d.getDate() == nowDay && d.getMonth() == nowMonth && d.getFullYear() == nowYear) {
             // сегодня
             table += `<td class="today" title="сегодня"><a class="calend_cell today">${d.getDate()}</a></td>`;
-        } else if (ifDayIsActive(d, activitiesArr)) {
+        } else if (ifDayIsActive(d, activitiesArr) || (d.getDate() == (nowDay - 1) && d.getMonth() == nowMonth && d.getFullYear() == nowYear)) {
             // активная дата
-            table += `<td class="active"><a class="calend_cell">${d.getDate()}</a></td>`;
+            table += `<td class=""><a class="calend_cell active">${d.getDate()}</a></td>`;
         } else {
             // обычная дата
             table += '<td class=""><a class="calend_cell">' + d.getDate() + '</a></td>';

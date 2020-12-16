@@ -210,6 +210,7 @@ body {
     display: -o-flex;
     display: flex;
     flex-wrap: wrap;
+
 }
 
 .task__input {
@@ -220,13 +221,12 @@ body {
     border: none;
     font-size: 18px;
     line-height: $height-textarea;
-
     overflow: hidden !important;
     resize: none !important;
 
     &:focus {
         color: $color-blue;
-      border-bottom: 1px solid $color-blue-light2;
+        border-bottom: 1px solid $color-blue-light2;
     }
 }
 
