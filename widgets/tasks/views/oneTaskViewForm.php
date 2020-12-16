@@ -62,7 +62,7 @@ $typeId = $newTask == 1 ? $type_id : $task->type_id;
 ?>
 <li class="text__list_item <?=$createdTaskClass?> <?=$finished?>" data-next_period="<?=$nextPeriod?>" data-type="<?=$task->type_id?>" data-private_id="<?=$task->private_id?>">
     <div class="task__input_block">
-        <textarea class="task__input <?=$newInputClass?>" data-type="<?=$typeId?>" data-next_period="<?=$nextPeriod?>" data-finished="<?=$task->finished?>" data-id="<?=$task->id?>" data-repeated_by_id="<?=$task->repeated_by_id?>" type="text" maxlength="70"><?=Html::encode($task->task)?></textarea>
+        <textarea class="task__input <?=$newInputClass?>" data-type="<?=$typeId?>" data-next_period="<?=$nextPeriod?>" data-finished="<?=$task->finished?>" data-deleted="<?=$task->deleted?>" data-id="<?=$task->id?>" data-repeated_by_id="<?=$task->repeated_by_id?>" type="text" maxlength="70"><?=Html::encode($task->task)?></textarea>
         <?php
         if ($newTask == 0 && !$repeatedTask) {
             echo '<button class="check_btn icon-' . $check . '"></button>';

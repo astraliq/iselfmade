@@ -215,7 +215,7 @@ body {
 .task__input {
     width: $width-textarea;
     margin: 0;
-    padding: 0;
+    padding: 0 8px 0 0;
     background-color: transparent;
     border: none;
     font-size: 18px;
@@ -226,6 +226,7 @@ body {
 
     &:focus {
         color: $color-blue;
+      border-bottom: 1px solid $color-blue-light2;
     }
 }
 
@@ -356,7 +357,7 @@ body {
     padding: 5px 5px 5px 5px;
     position: absolute;
     z-index: 100;
-    left: $width-textarea + 10px;
+    left: $width-textarea;
     top: 0;
     font-size: 15px;
     flex-wrap: wrap;

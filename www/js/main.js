@@ -264,6 +264,25 @@ class Tasks {
                     'repeated_weekdays': this.repeated_weekdays,
                     'nextPeriod': task.nextPeriod,
                 });
+            } else if(task.task.length == 0) {
+                task.deleted = 1;
+                sendPropertiesData.push({
+                    'id': task.id,
+                    'private_id': task.private_id,
+                    'type_id': task.type_id,
+                    'cat_id': task.cat_id,
+                    'aim_id': task.aim_id,
+                    'goal_id': task.goal_id,
+                    'hashtags': task.hashtags,
+                    'date_calculate': task.date_calculate,
+                    'curator_emails': task.curator_emails,
+                    'finished': task.finished,
+                    'deleted': task.deleted,
+                    'repeat_type_id': task.repeat_type_id,
+                    'repeat_by_id': this.repeat_by_id,
+                    'repeated_weekdays': this.repeated_weekdays,
+                    'nextPeriod': task.nextPeriod,
+                });
             } else {
                 console.log('ошибка валидации - ' + task.id);
             }
@@ -280,6 +299,14 @@ class Tasks {
                         let repeatDate = document.getElementById(`repeated-${task.id}`);
                         if (repeatDate) {
                             this.updateRepeatDate(repeatDate);
+                        }
+                        if (task.deleted == 1) {
+                            let tasksEl = document.querySelectorAll(this.inputTaskClass);
+                            tasksEl.forEach( (taskEl) => {
+                                if (taskEl.dataset.id == task.id) {
+                                    taskEl.parentElement.parentElement.style.display = 'none';
+                                }
+                            });
                         }
                     });
 
@@ -355,13 +382,22 @@ class Tasks {
         return true;
     }
 
+    _checkTaskLength(taskInput) {
+        if (taskInput.value.length == 1) {
+            taskInput.style.borderBottomColor = 'red';
+        } else {
+            taskInput.style.removeProperty('borderBottomColor');
+        }
+    }
+
     getFormData(input) {
         let settings = $(input).parent().children(this.inputSettingsClass);
         this.task = input.value;
         this.id = input.dataset.id;
         this.type_id = input.dataset.type;
         this.nextPeriod = input.dataset.next_period;
-        this.finished = input.dataset.finished;
+        this.finished = input.dataset.finished ? input.dataset.finished : 0;
+        this.deleted = input.dataset.deleted ? input.dataset.deleted : 0;
 
         // настройки задачи
         this.private_id = settings.find('.private_id').val();
@@ -474,6 +510,7 @@ class Tasks {
                     // if (sameTask) {
                     //     sameTask.value = el.value;
                     // }
+                    this._checkTaskLength(el);
                     this._updateTasksByEvent(el);
                 });
 
@@ -495,7 +532,6 @@ class Tasks {
                         //         sameWeekends[0].classList.add('hidden_block_anim');
                         //     }
                         // }
-
                         this._updateTasksByEvent(el);
                     })
                 });
@@ -507,7 +543,6 @@ class Tasks {
                         //     let sameInputVal = sameSettings[0].querySelector(`.repeat_weekdays input[data-id="${e.target.dataset.id}"]`);
                         //     sameInputVal.checked = selectVal;
                         // }
-
                         this._updateTasksByEvent(el);
                     })
                 });

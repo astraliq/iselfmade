@@ -183,7 +183,7 @@ body {
 .task__input {
   width: 450px;
   margin: 0;
-  padding: 0;
+  padding: 0 8px 0 0;
   background-color: transparent;
   border: none;
   font-size: 18px;
@@ -191,7 +191,8 @@ body {
   overflow: hidden !important;
   resize: none !important; }
   .task__input:focus {
-    color: #4C91F8; }
+    color: #4C91F8;
+    border-bottom: 1px solid #c2ddff; }
 
 .hide_input {
   margin: 0;
@@ -262,7 +263,7 @@ body {
   padding: 5px 5px 5px 5px;
   position: absolute;
   z-index: 100;
-  left: 460px;
+  left: 450px;
   top: 0;
   font-size: 15px;
   flex-wrap: wrap;
