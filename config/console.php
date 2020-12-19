@@ -61,7 +61,9 @@ $config = [
         'timezones' => ['class' => \app\components\TimeZoneComponent::class],
         'task' => ['class' => \app\components\TasksComponent::class],
     ],
-    'params' => $params,
+    'params' => array_merge($params, [
+        'serverUrl' => 'https://test.iselfmade.ru/',
+    ]),
 
     /*
     'controllerMap' => [

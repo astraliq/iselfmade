@@ -42,8 +42,8 @@ if (!$user->curators_emails) {
             <?=$form->field($user,'curators_email_repeat')->dropDownList($user::REPEAT_CURATOR, ['options' => [ '1' => ['Selected' => true]], 'autocomplete' => 'sex']);?>
         </div>
         <div class="user_profile-psw">
-            <?=$form->field($user,'password',['enableClientValidation'=>false])->passwordInput(['type' => 'password', 'autocomplete' => 'new-password']);?>
-            <?=$form->field($user,'repeat_password',['enableClientValidation'=>false])->passwordInput(['type' => 'password', 'autocomplete' => 'new-password']);?>
+            <?=$form->field($user,'password',['enableClientValidation'=>false])->passwordInput(['type' => 'password', 'autocomplete' => 'new-password'])->label('Новый пароль');?>
+            <?=$form->field($user,'repeat_password',['enableClientValidation'=>false])->passwordInput(['type' => 'password', 'autocomplete' => 'new-password'])->label('Повтор нового пароля');?>
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Сохранить</button>

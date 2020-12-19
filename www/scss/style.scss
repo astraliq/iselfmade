@@ -217,12 +217,14 @@ body {
     width: $width-textarea;
     margin: 0;
     padding: 0 8px 0 0;
+    border-color: black;
     background-color: transparent;
     border: none;
     font-size: 18px;
     line-height: $height-textarea;
     overflow: hidden !important;
     resize: none !important;
+    transition: all $anim_transition_tasks ease;
 
     &:focus {
         color: $color-blue;

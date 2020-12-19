@@ -40,6 +40,9 @@ class TasksController extends BaseConsoleController {
         return ExitCode::OK;
     }
 
+    /**
+     * запускает скрипт создания повторяемых задач
+     */
     public function actionRepeat() {
         $comp = \Yii::createObject(['class' => TasksComponent::class,'modelClass' => Tasks::class]);
         $model = $comp->getModel();
@@ -53,6 +56,9 @@ class TasksController extends BaseConsoleController {
         return ExitCode::UNSPECIFIED_ERROR;
     }
 
+    /**
+     * запускает скрипт рассылки отчетов на электронную почту кураторам
+     */
     public function actionCuratorReports() {
         $comp = \Yii::createObject(['class' => TasksComponent::class,'modelClass' => Tasks::class]);
         $model = $comp->getModel();

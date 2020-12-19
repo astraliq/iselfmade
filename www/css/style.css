@@ -184,12 +184,14 @@ body {
   width: 450px;
   margin: 0;
   padding: 0 8px 0 0;
+  border-color: black;
   background-color: transparent;
   border: none;
   font-size: 18px;
   line-height: 17px;
   overflow: hidden !important;
-  resize: none !important; }
+  resize: none !important;
+  transition: all 0.5s ease; }
   .task__input:focus {
     color: #4C91F8;
     border-bottom: 1px solid #c2ddff; }

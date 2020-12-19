@@ -13,6 +13,7 @@ use app\controllers\actions\task\FinishAction;
 use app\controllers\actions\task\GetArchiveAction;
 use app\controllers\actions\task\NextRepeatDateAction;
 use app\controllers\actions\task\RepeatedAction;
+use app\controllers\actions\task\SetGradeAction;
 use app\controllers\actions\task\TransferAction;
 use app\controllers\actions\task\UpdateAllAction;
 use app\controllers\actions\task\ViewAction;
@@ -42,6 +43,7 @@ class TaskController extends BaseController {
             'next-repeat-date' => ['class' => NextRepeatDateAction::class],
             'archive' => ['class' => ArchiveAction::class],
             'get-archive' => ['class' => GetArchiveAction::class],
+            'set-grade' => ['class' => SetGradeAction::class],
         ];
 
     }

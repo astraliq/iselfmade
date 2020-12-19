@@ -73,6 +73,7 @@ class UserComponent extends BaseComponent {
         if ($user->curators_email_confirm == 0) {
             $confirmation_token = $auth->generateConfirmationEmailToken();
             $user->curators_access_token = $confirmation_token;
+            $user->grade_token = $auth->generateUserGradeToken();
             if ($user->save()) {
                 $message = \Yii::$app->mailer->compose(
                     'curators_confirm', [

@@ -7,7 +7,7 @@ namespace app\controllers\actions\site;
 use app\models\User;
 use yii\base\Action;
 
-class ConfirmCuratorEmailAction extends Action {
+class GradeResultAction extends Action {
     public function run($result) {
         $modelSignIn = new User([
             'scenario' => 'signIn'
@@ -23,13 +23,13 @@ class ConfirmCuratorEmailAction extends Action {
         $this->controller->view->params['restoreModel'] = $restoreModel;
 
         if ($result == 1) {
-            return $this->controller->render('confirmed_for_curator', [
-                'text' => 'Подтверждение зафиксировано. Спасибо.',
+            return $this->controller->render('result_grades', [
+                'text' => 'Оценки поставлены. Спасибо.',
             ]);
         }
 
-        return $this->controller->render('confirmed_for_curator', [
-            'text' => 'Ошибка подтверждения. Возможно пользователь отменил действие или Вам отправлено другое письмо со ссылкой подтверждения.',
+        return $this->controller->render('result_grades', [
+            'text' => 'Произошла ошибка. Оценки не поставлены. Возможно оценки уже были проставлены ранее.',
         ]);
     }
 }

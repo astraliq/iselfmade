@@ -117,6 +117,7 @@ $config = [
                 'task/img/'=>'img/',
                 'profile/<id:\d+>'=>'user/update/',
                 'confirm-curator-email'=>'site/confirm-curator-email',
+                'grade-result'=>'site/grade-result',
                 [
                     'class'=>yii\rest\UrlRule::class,
                     'controller'=>'user-rest-api',

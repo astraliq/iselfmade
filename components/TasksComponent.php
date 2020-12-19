@@ -7,6 +7,7 @@ namespace app\components;
 use app\base\BaseComponent;
 use app\models\Tasks;
 use app\models\User;
+use app\models\UsersGrades;
 use phpDocumentor\Reflection\Types\False_;
 use yii\db\ActiveRecord;
 use yii\db\conditions\BetweenCondition;
@@ -854,10 +855,11 @@ class TasksComponent extends BaseComponent {
         $today = date('d.m.Y');
         $dayOfWeek = date('w', time());
         $yesterday = date('d.m.Y', strtotime("-1 day"));
+        $lastStartWeekDay = date('d.m.Y', strtotime("-7 day"));
 
         $users = User::find()
             ->where([
-                'confirm_email' => 1,
+                'curators_email_confirm' => 1,
 //                'finished' => 0,
             ])
             ->andWhere(['not', ['curators_emails' => null]])
@@ -873,6 +875,11 @@ class TasksComponent extends BaseComponent {
                     'email' => $user->curators_emails,
                     'userName' => $user->name,
                     'userSurname' => $user->surname,
+                    'userId' => $user->id,
+                    'period' => 1,
+                    'date1' => $yesterday,
+                    'date2' => $yesterday,
+                    'token' => $user->grade_token,
                     'reports' => [
                         ['date' => $yesterday,
                         'tasks' => $tasks,]
@@ -880,12 +887,18 @@ class TasksComponent extends BaseComponent {
                 ];
             }
             // отправка раз в неделю
-            if ($user->curators_email_repeat == 5 ) {
+//            if ($user->curators_email_repeat == 5) {
+            if ($user->curators_email_repeat == 5 && $dayOfWeek == 1) {
                 $userReports =[
                     'type' => 5,
                     'email' => $user->curators_emails,
                     'userName' => $user->name,
                     'userSurname' => $user->surname,
+                    'userId' => $user->id,
+                    'period' => 5,
+                    'date1' => $lastStartWeekDay,
+                    'date2' => $yesterday,
+                    'token' => $user->grade_token,
                     'reports' => [],
                 ];
                 $lastWeekDays = [strtotime('-1 day'), strtotime('-2 days'), strtotime('-3 days'), strtotime('-4 days'), strtotime('-5 days'), strtotime('-6 days'), strtotime('-7 days')];
@@ -912,6 +925,11 @@ class TasksComponent extends BaseComponent {
                 'name' => $sendingReport['userName'],
                 'surname' => $sendingReport['userSurname'],
                 'reports' => $sendingReport['reports'],
+                'userId' => $sendingReport['userId'],
+                'period' => $sendingReport['period'],
+                'date1' => $sendingReport['date1'],
+                'date2' => $sendingReport['date2'],
+                'token' => $sendingReport['token'],
             ])
                 ->setFrom('hello@iselfmade.ru')
                 ->setTo($user->email)
@@ -990,6 +1008,53 @@ class TasksComponent extends BaseComponent {
             return false;
         }
 
+    }
+
+    public function setUserGrades($userId, $period, $date1, $date2, $grade):bool {
+        $today = date('Y-m-d');
+        $setDate = (new \DateTime(date($date1)))->format('Y-m-d');
+        $minDate = date('Y-m-d', strtotime("-7 day"));
+
+        if ($setDate < $minDate || $setDate >= $today) {
+            return false;
+        }
+
+        switch ($period) {
+            case 1:
+                $userGrade = new UsersGrades();
+                $userGrade->user_id = $userId;
+                $userGrade->grade = $grade;
+                $userGrade->date = (new \DateTime(date($date1)))->format('Y-m-d');
+                if ($userGrade->save()) {
+                    return true;
+                } else {
+                    return false;
+                }
+                break;
+            case 5:
+                $res = false;
+                for ($i = 0; $i <= 6; $i++) {
+                    $userGrade = new UsersGrades();
+                    $userGrade->user_id = $userId;
+                    $userGrade->grade = $grade;
+                    if ($i == 0) {
+                        $userGrade->date = (new \DateTime(date($date1)))->format('Y-m-d');
+                    } else {
+                        $userGrade->date = date('Y-m-d', strtotime($date1 . '+' . $i .' day'));
+                    }
+                    if ($userGrade->save()) {
+                        $res = true;
+                    }
+                }
+                if ($res) {
+                    return $res;
+                } else {
+                    return $res;
+                }
+                break;
+            default:
+                return false;
+        }
     }
 
 

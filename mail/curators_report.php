@@ -67,11 +67,11 @@ if ($reports) {
 <br>
 <br>
 <p>Поставьте пользователю оценку за выполнение задач:</p>
-<a href="/" class="grade">1</a>
-<a href="/" class="grade">2</a>
-<a href="/" class="grade">3</a>
-<a href="/" class="grade">4</a>
-<a href="/" class="grade">5</a>
+<a href="<?=\Yii::$app->params['serverUrl'] . 'task/set-grade?user=' . $userId . '&date1=' . $date1 . '&date2=' . $date2 . '&period=' . $period . '&grade=1&token=' . $token?>" class="grade">1</a>
+<a href="<?=\Yii::$app->params['serverUrl'] . 'task/set-grade?user=' . $userId . '&date1=' . $date1 . '&date2=' . $date2 . '&period=' . $period . '&grade=2&token=' . $token?>" class="grade">2</a>
+<a href="<?=\Yii::$app->params['serverUrl'] . 'task/set-grade?user=' . $userId . '&date1=' . $date1 . '&date2=' . $date2 . '&period=' . $period . '&grade=3&token=' . $token?>" class="grade">3</a>
+<a href="<?=\Yii::$app->params['serverUrl'] . 'task/set-grade?user=' . $userId . '&date1=' . $date1 . '&date2=' . $date2 . '&period=' . $period . '&grade=4&token=' . $token?>" class="grade">4</a>
+<a href="<?=\Yii::$app->params['serverUrl'] . 'task/set-grade?user=' . $userId . '&date1=' . $date1 . '&date2=' . $date2 . '&period=' . $period . '&grade=5&token=' . $token?>" class="grade">5</a>
 <br>
 <br>
 <p>Это письмо отправлено роботом, отвечать на него не нужно.</p>

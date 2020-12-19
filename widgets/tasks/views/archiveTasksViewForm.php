@@ -21,6 +21,8 @@ use yii\helpers\Html;
                     'task' => $task,
                 ]);
             }
+        } else {
+            echo '<p>Задачи отсутствовали.</p>';
         }
         ?>
     </ol>

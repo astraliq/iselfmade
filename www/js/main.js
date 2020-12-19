@@ -464,7 +464,6 @@ class Tasks {
 
             document.addEventListener('keypress', (e) => {
                 if ((!e.ctrlKey || !e.which == 17) && (e.which == 13 || e.keyCode == 13)) {
-                    console.log(e);
                     // if (e.target) {
                     //     e.preventDefault();
                     //     el.classList.add('transition_none');
@@ -1122,7 +1121,7 @@ function createCalendar(elem, year, month, day) {
         } else {
             // обычная дата
             table += '<td class=""><a class="calend_cell">' + d.getDate() + '</a></td>';
-        };
+        }
 
 
         if (getDay(d) % 7 == 6) { // вс, последний день - перевод строки
