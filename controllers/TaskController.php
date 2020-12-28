@@ -7,6 +7,7 @@ namespace app\controllers;
 use app\base\BaseController;
 use app\controllers\actions\site\ErrorAction;
 use app\controllers\actions\task\ArchiveAction;
+use app\controllers\actions\task\CheckReportsAction;
 use app\controllers\actions\task\CreateAction;
 use app\controllers\actions\task\DeleteAction;
 use app\controllers\actions\task\FinishAction;
@@ -44,6 +45,7 @@ class TaskController extends BaseController {
             'archive' => ['class' => ArchiveAction::class],
             'get-archive' => ['class' => GetArchiveAction::class],
             'set-grade' => ['class' => SetGradeAction::class],
+            'check-reports' => ['class' => CheckReportsAction::class],
         ];
 
     }

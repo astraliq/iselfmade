@@ -14,6 +14,7 @@ use yii\helpers\Html;
             'title' => 'Вчера',
             'date' => $yesterdayDate,
             'tasks' => $yesterday,
+            'grade' => $yesterdayGrade,
             'block_id' => 0,
         ]); ?>
 <!--        --><?//= \app\widgets\tasks\ArchiveTasksWidget::widget([

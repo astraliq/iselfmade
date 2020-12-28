@@ -113,6 +113,7 @@ $config = [
                 'report'=>'task/report/',
                 'archive'=>'task/archive/',
                 'repeated'=>'task/repeated/',
+                'check-reports'=>'task/check-reports/',
                 'profile'=>'user/update/',
                 'task/img/'=>'img/',
                 'profile/<id:\d+>'=>'user/update/',

@@ -10,11 +10,6 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
-//Yii::$app->assetManager->bundles['yii\bootstrap\BootstrapAsset'] = [
-//    'css' => [
-//        'css/style.css',
-//    ]
-//];
 AppAsset::register($this);
 
 $avatarImage = \Yii::$app->user->getIdentity()->getAvatarName();
@@ -24,6 +19,7 @@ if (!$avatarImage) {
     $avatarImage = '/users/ava/' . $avatarImage;
 }
 
+$userRole = current(\Yii::$app->authManager->getRolesByUser(\Yii::$app->user->getId()))->name;
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -38,7 +34,6 @@ if (!$avatarImage) {
 </head>
 <body>
 <?php $this->beginBody() ?>
-
 <div class="container">
     <div class="custom_light">
         <div class="">
@@ -92,6 +87,11 @@ if (!$avatarImage) {
                         'options' => ['class' => $url=='/profile' ? 'main_menu-selected' : ''],
                         'linkOptions' => ['class' => 'menu__item'],
                     ]),
+                    $userRole === 'moderator' ? ((['label' => 'Проверка отчетов',
+                        'url' => ['/check-reports'],
+                        'options' => ['class' => $url=='/check-reports' ? 'main_menu-selected' : ''],
+                        'linkOptions' => ['class' => 'menu__item'],
+                    ])) : (''),
                     (
                         '<li class="menu__logout">'
                         . Html::beginForm(['/site/logout'], 'post')

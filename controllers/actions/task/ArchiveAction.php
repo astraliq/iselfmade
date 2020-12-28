@@ -7,6 +7,7 @@ namespace app\controllers\actions\task;
 use app\components\TasksComponent;
 use app\components\UserComponent;
 use app\models\Tasks;
+use app\models\UsersGrades;
 use yii\base\Action;
 use yii\web\HttpException;
 use yii\web\Response;
@@ -25,10 +26,13 @@ class ArchiveAction extends Action {
 
         $userId = \Yii::$app->user->getId();
         $yesterdayDate = date('d.m.Y', strtotime( "-1 day"));
+        $yesterdayUTC = date('Y-m-d', strtotime( "-1 day"));
         $beforeYesterdayDate = date('d.m.Y', strtotime( "-2 day"));
         $yesterdayTasks = $comp->getTasksByDateAndUserId($userId, $yesterdayDate);
         $beforeYesterdayTasks = $comp->getTasksByDateAndUserId($userId, $beforeYesterdayDate);
 
+        $gradeModel = new UsersGrades();
+        $yesterdayGrade = $gradeModel->findOne(['user_id' => $userId, 'date' => $yesterdayUTC])->grade;
 
         // архив задач за последний месяц
 //        $date1 = date('d.m.Y', strtotime( "-1 month"));
@@ -48,6 +52,7 @@ class ArchiveAction extends Action {
             'yesterdayDate' => $yesterdayDate,
             'beforeYesterday' => $beforeYesterdayTasks,
             'beforeYesterdayDate' => $beforeYesterdayDate,
+            'yesterdayGrade' => $yesterdayGrade,
             'admin'=>$admin,
             'notifConfEmail' => $notifConfEmail,
         ]);

@@ -7,6 +7,7 @@ namespace app\controllers\actions\task;
 use app\components\TasksComponent;
 use app\components\UserComponent;
 use app\models\Tasks;
+use app\models\UsersGrades;
 use app\widgets\tasks\ArchiveTasksWidget;
 use yii\base\Action;
 use yii\web\HttpException;
@@ -43,15 +44,21 @@ class GetArchiveAction extends Action {
             $title = 'Позавчера';
         }
 
+        $dateUTC = (new \DateTime(date($date)))->format('Y-m-d');
         $archiveTasks = $comp->getArchiveTasksByDate($date);
-
+        $gradeModel = new UsersGrades();
+        $userGrade = $gradeModel->findOne(['user_id' => \Yii::$app->user->getId(), 'date' => $dateUTC])->grade;
         if ($archiveTasks) {
-            return ['result' => true, 'html' => ArchiveTasksWidget::widget([
-                'title' => $title,
-                'date' => $date,
-                'tasks' => $archiveTasks,
-                'block_id' => 0,
-            ])];
+            return [
+                'result' => true,
+                'html' => ArchiveTasksWidget::widget([
+                    'title' => $title,
+                    'date' => $date,
+                    'tasks' => $archiveTasks,
+                    'block_id' => 0,
+                    'grade' => $userGrade,
+                ]),
+                ];
         } else {
             return ['result' => false, 'message' => 'В выбранную дату задачи отсутствовали.'];
         }

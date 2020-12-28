@@ -875,6 +875,17 @@ body {
     }
 }
 
+.grade_text {
+    font-size: 14px;
+    color: $color-blue-light;
+}
+
+.grade_number {
+    font-size: 16px;
+    font-weight: 700;
+    color: $color-blue-black;
+}
+
 .failure_icon {
     display: block;
     height: 20px;

@@ -11,6 +11,7 @@ class ArchiveTasksWidget extends Widget {
     public $tasks;
     public $block_id;
     public $date;
+    public $grade;
 
 
     public function run() {
@@ -19,6 +20,7 @@ class ArchiveTasksWidget extends Widget {
             'date' => $this->date,
             'tasks' => $this->tasks,
             'block_id' => $this->block_id,
+            'grade' => $this->grade,
         ]);
     }
 }

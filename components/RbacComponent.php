@@ -243,6 +243,21 @@ class RbacComponent extends BaseComponent {
         return true;
     }
 
+    public function setModeratorRole($id) {
+        if(!$id || is_int($id)){
+            return false;
+        }
+        $user = (new User())->findIdentity($id);
+        if(!$user){
+            return false;
+        }
+        $manager = $this->getManager();
+        $role = $manager->getRole('moderator');
+        $manager->revokeAll($id);
+        $manager->assign($role,$id);
+        return true;
+    }
+
     public function canAccessCRUDTask($taskId, Tasks $model, $user_id=null) {
         if ($this->canViewAll()) { // если админ
             if ($user_id) {

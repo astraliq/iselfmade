@@ -9,10 +9,18 @@ if ($title) {
 }
 
 use yii\helpers\Html;
+
+if ($grade) {
+    $gradeText = 'Оценка проверяющего: ';
+} else {
+    $grade ='';
+}
+
 ?>
 
 <div class="archive__list" id="archive-<?=$block_id?>">
     <h4 class="archive_title"><?=Html::encode($title)?><?=$comma?><span class="archive_date"><?=Html::encode($date)?></span></h4>
+    <p class="grade_text"><?=$gradeText?><span class="grade_number"><?=$grade?></span></p>
     <ol class="archive__list_items">
         <?php
         if ($tasks) {
@@ -26,4 +34,5 @@ use yii\helpers\Html;
         }
         ?>
     </ol>
+
 </div>

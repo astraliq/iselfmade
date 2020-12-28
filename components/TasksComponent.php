@@ -932,7 +932,7 @@ class TasksComponent extends BaseComponent {
                 'token' => $sendingReport['token'],
             ])
                 ->setFrom('hello@iselfmade.ru')
-                ->setTo($user->email)
+                ->setTo($user->curators_emails)
                 ->setSubject($sendingReport['userName'] . ' - ' . $type)
                 ->send();
             if (!$message) {
