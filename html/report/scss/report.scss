@@ -1,0 +1,185 @@
+@import '../../scss/param';
+html {
+    font-size: 10px;
+}
+
+*,
+body {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    box-sizing: border-box;
+}
+
+.wrapper {
+    width: 100%;
+    display: flex;
+}
+
+.left-menu {
+    width: 260px;
+    padding: 40px 0 0 30px;
+}
+
+.date {
+    padding-bottom: 25px;
+    &__text {
+        font-family: $font_main-text;
+        font-weight: 300;
+        font-size: 2rem;
+        line-height: 2.7rem;
+        color: $color-black;
+        text-transform: uppercase;
+        &:first-of-type {
+            padding-bottom: 10px;
+        }
+    }
+    &__numb {
+        color: $color-blue;
+    }
+}
+
+.date-numb {
+    display: flex;
+    align-items: flex-end;
+}
+
+.number {
+    font-family: $font_main-text;
+    font-weight: 500;
+    font-size: 5rem;
+    line-height: 100%;
+    color: $color-blue;
+}
+
+.month {
+    font-family: $font_main-text;
+    font-weight: 400;
+    font-size: 3rem;
+    line-height: 3rem;
+    color: $color-black;
+    text-transform: uppercase;
+    padding: 0 0 3px 7px;
+}
+
+.line {
+    width: 200px;
+    height: 2px;
+    background-color: $color-blue;
+    border-radius: 10px;
+}
+
+.menu {
+    padding-top: 25px;
+    &__item {
+        font-family: $font_main-text;
+        font-weight: 400;
+        font-size: 1.8rem;
+        line-height: 30px;
+        color: $color-black;
+    }
+    &__item-link {
+        display: block;
+        color: $color-blue;
+        text-decoration: underline;
+        &:hover {
+            text-decoration: none;
+            color: $color-black;
+        }
+    }
+}
+
+.dop-menu {
+    padding-top: 30px;
+}
+
+.main {
+    // .main__style
+    &__style {
+        width: 100%;
+        padding-left: 50px;
+    }
+}
+
+.top-menu {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 20px 30px 0 0;
+    &__link {
+        padding-right: 10px;
+    }
+}
+
+.user {
+    // .user__img
+    &__img {}
+}
+
+.goals {
+    width: 100%;
+}
+
+.title {
+    font-family: $font_main-text;
+    font-weight: 500;
+    font-size: 2rem;
+    line-height: 2.5rem;
+    text-transform: uppercase;
+    color: $color-blue-light;
+    padding-top: 30px;
+}
+
+.roll-unroll {
+    text-decoration: none;
+    padding-bottom: 2px;
+    border-bottom: 2px dashed $color-blue;
+    &:hover {
+        cursor: pointer;
+        border-bottom: none;
+        padding-bottom: 4px;
+    }
+}
+
+.show-end {
+    padding-left: 10px;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.3rem;
+    line-height: 1.3rem;
+    text-transform: lowercase;
+}
+
+.tasks {}
+
+.today {}
+
+.cases {
+    // .cases__input
+    &__input {}
+}
+
+.factor {
+    // .factor__text
+    &__text {}
+    // .factor__numb
+    &__numb {}
+}
+
+.tomorrow {}
+
+.files {
+    // .files__form
+    &__form {}
+    // .files__input
+    &__input {}
+    // .files__btn
+    &__btn {}
+}
+
+.impress {
+    // .impress__text
+    &__text {}
+}
+
+.day-rating {}

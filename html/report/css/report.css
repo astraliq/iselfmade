@@ -1,0 +1,117 @@
+html {
+  font-size: 10px; }
+
+*,
+body {
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+  box-sizing: border-box; }
+
+.wrapper {
+  width: 100%;
+  display: flex; }
+
+.left-menu {
+  width: 260px;
+  padding: 40px 0 0 30px; }
+
+.date {
+  padding-bottom: 25px; }
+  .date__text {
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-size: 2rem;
+    line-height: 2.7rem;
+    color: #000;
+    text-transform: uppercase; }
+    .date__text:first-of-type {
+      padding-bottom: 10px; }
+  .date__numb {
+    color: #1D68D8; }
+
+.date-numb {
+  display: flex;
+  align-items: flex-end; }
+
+.number {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 5rem;
+  line-height: 100%;
+  color: #1D68D8; }
+
+.month {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 3rem;
+  line-height: 3rem;
+  color: #000;
+  text-transform: uppercase;
+  padding: 0 0 3px 7px; }
+
+.line {
+  width: 200px;
+  height: 2px;
+  background-color: #1D68D8;
+  border-radius: 10px; }
+
+.menu {
+  padding-top: 25px; }
+  .menu__item {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 1.8rem;
+    line-height: 30px;
+    color: #000; }
+  .menu__item-link {
+    display: block;
+    color: #1D68D8;
+    text-decoration: underline; }
+    .menu__item-link:hover {
+      text-decoration: none;
+      color: #000; }
+
+.dop-menu {
+  padding-top: 30px; }
+
+.main__style {
+  width: 100%;
+  padding-left: 50px; }
+
+.top-menu {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px 30px 0 0; }
+  .top-menu__link {
+    padding-right: 10px; }
+
+.goals {
+  width: 100%; }
+
+.title {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 2rem;
+  line-height: 2.5rem;
+  text-transform: uppercase;
+  color: #609df8;
+  padding-top: 30px; }
+
+.roll-unroll {
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 2px dashed #1D68D8; }
+  .roll-unroll:hover {
+    cursor: pointer;
+    border-bottom: none;
+    padding-bottom: 4px; }
+
+.show-end {
+  padding-left: 10px;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.3rem;
+  line-height: 1.3rem;
+  text-transform: lowercase; }
