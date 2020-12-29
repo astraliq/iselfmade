@@ -91,17 +91,10 @@ body {
 }
 
 .container {
-    display: block;
-    margin: 0 auto;
-}
-
-.curator .container {
     width: 1000px;
     margin: 0 auto;
     // border: 1px solid blue;
 }
-
-
 
 .header {
     &__style {
@@ -120,7 +113,6 @@ body {
     &-logo-link {
         text-decoration: none;
         &:hover {
-            text-decoration: none;
             .header-logo-text {
                 color: $color-blue
             }
@@ -132,13 +124,8 @@ body {
     &-logo-text {
         color: $color-black;
         font-size: 1.58rem;
-        padding: 13px 0 0 12px;
-        line-height: 0;
-        & span {
-            text-transform: uppercase;
-            font-size: 1.58rem;
-        }
-
+        padding: 5px 0px 0px 12px;
+        line-height: 0px;
     }
     &-logo-text-self {
         color: $color-blue;
@@ -165,34 +152,6 @@ body {
             text-decoration: none;
             &:hover {
                 text-decoration: none;
-            }
-        }
-    }
-    &__items {
-        padding-right: 30px;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-    }
-    &__item {
-        padding: 0 10px;
-    }
-    &__menu {
-        font-family: $font_main-text;
-        font-weight: 400;
-        font-size: 2rem;
-        line-height: 2.5rem;
-        color: $color-black;
-        &-active {
-            color: $color-blue;
-        }
-        &-link {
-            color: $color-black;
-            text-decoration: underline;
-            &:hover {
-                color: $color-blue;
-                text-decoration: none;
-                cursor: pointer;
             }
         }
     }
@@ -225,8 +184,7 @@ body {
         margin: 0 auto;
         padding-bottom: 25px;
     }
-    &__text,
-    &__text strong {
+    &__text {
         max-width: 985px;
         font-family: $font_main-text;
         font-weight: 400;
@@ -235,19 +193,10 @@ body {
         color: $color-black;
         margin: 0 auto;
     }
-    &__text span {
-        font-family: $font_main-text;
-        font-size: 4rem;
-    }
     &__text_color-blue {
         color: $color-blue;
         font-weight: 600;
     }
-}
-
-strong {
-    font-weight: 700 !important;
-    font-size: inherit;
 }
 
 .modal {
@@ -270,9 +219,6 @@ strong {
         right: 40px;
         padding: 40px 40px 0 40px;
         z-index: 3;
-        & .form-group {
-            margin: 0;
-        }
     }
     &__title {
         font-family: $font_main-text;
@@ -280,7 +226,6 @@ strong {
         font-size: 2.5rem;
         line-height: 3.1rem;
         color: $color-black;
-        margin: 0;
     }
     &__form {
         width: 100%;
@@ -289,7 +234,6 @@ strong {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        margin: 0 0 65px 0;
         &-remind {
             width: 100%;
             height: 190px;
@@ -298,7 +242,6 @@ strong {
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            margin: 0 0 65px 0;
         }
         &-sign_up {
             width: 100%;
@@ -308,7 +251,6 @@ strong {
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            margin: 0;
         }
         &-restore {
             width: 100%;
@@ -318,7 +260,6 @@ strong {
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            margin: 0;
             & .field-restore-email {
                 display: none;
             }
@@ -438,17 +379,12 @@ strong {
         font-size: 4rem;
         font-weight: 200;
         font-family: $font_main-text;
-        padding: 0 0 6px 0;
         // opacity: .8;
         &:hover {
             cursor: pointer;
             background-color: $color-blue-light;
             // color: $color-disable;
         }
-    }
-
-    & .help-block-error {
-        height: 5px;
     }
 }
 
@@ -531,8 +467,6 @@ strong {
     color: $color-blue;
     text-transform: uppercase;
     padding-bottom: 25px;
-    width: 1000px;
-    margin: 0 auto;
 }
 
 .curator {
@@ -543,7 +477,6 @@ strong {
         font-size: 2.2rem;
         line-height: 140%;
         color: $color-black;
-        margin: 0;
         &:last-child {
             padding-bottom: 50px;
         }
@@ -561,9 +494,6 @@ strong {
         border-radius: 50px;
         display: flex;
         align-items: center;
-        & p {
-            margin: 0;
-        }
     }
     &__sound-round {
         display: flex;
@@ -612,37 +542,17 @@ strong {
     }
 }
 
-.section_container {
-    width: 1000px;
-    margin: 0 auto;
-}
-
 .container_full {
     width: 100%;
     height: 185px;
     background-color: $color-blue-light;
     padding: 40px 0;
-    & a {
-        font-size: inherit;
-    }
-    & .container {
-        font-size: inherit;
-        width: 1000px;
-        margin: 0 auto;
-    }
 }
 
 .tutor {
     padding-top: 65px;
     padding-bottom: 20px;
     width: 100%;
-    & h2 {
-        margin: 0;
-    }
-    & .container {
-        width: 1000px;
-        margin: 0 auto;
-    }
     &__text {
         font-family: $font_main-text;
         font-weight: 400;
@@ -711,10 +621,6 @@ strong {
 
 .other {
     padding-top: 60px;
-    & .container {
-        width: 1000px;
-        margin: 0 auto;
-    }
     &__button {
         padding: 50px 0 80px 0;
         width: 100%;
@@ -873,10 +779,10 @@ strong {
 }
 
 .btn__shadow {
-    box-shadow: 3px 3px 8px 1px $color-gray;
+    box-shadow: 5px 5px 8px 1px $color-gray;
     &:active {
-        box-shadow: 1px 1px 10px 1px $color-gray;
-        transform: scale(0.99);
+        box-shadow: -2px -2px 10px 1px $color-gray;
+        padding: 0 2px 2px 0;
     }
 }
 
@@ -1034,18 +940,5 @@ strong {
             cursor: pointer;
             background: $color-blue-light;
         }
-        &:active {
-            transform: scale(0.95);
-        }
     }
-}
-
-.div_center {
-    display: -webkit-flex;
-    display: -moz-flex;
-    display: -ms-flex;
-    display: -o-flex;
-    display: flex;
-    margin: 0 auto;
-    justify-content: center;
 }

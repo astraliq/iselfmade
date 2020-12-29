@@ -1,9 +1,10 @@
+// $font-logo: "Barlow";
+$font_main-text: 'Roboto',
 @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,400;0,700;1,200&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,400;0,700;1,200&family=Source+Sans+Pro:wght@200;400;600;700;900&display=swap');
 
 $font-logo: 'Barlow', sans-serif;
-//$font_main-text: 'Source Sans Pro', sans-serif;
-$font_main-text: 'Roboto', sans-serif;
+$font_main-text: 'Source Sans Pro', sans-serif;
 
 /*font-family: 'Caveat',
 cursive;
@@ -13,8 +14,7 @@ font-family: 'Scada',
 sans-serif;*/
 
 $main_background_color: #ffffff;
-//$color-blue: #4C91F8;
-$color-blue: #1D68D8;
+$color-blue: #4C91F8;
 $color-blue-black: #30458a;
 $color-blue2: #00a3c6;
 $color-blue-light: #609df8;
