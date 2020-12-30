@@ -8,8 +8,18 @@ $check = '';
 
 ?>
 
-<div class="tasks__list" data-type="<?=$type_id?>" data-next_period="<?=$nextPeriod?>">
-    <a class="main__data_title main__data_line"><?= Html::encode($title) ?></a>
+<div class="tasks__list" id="tasks__list-<?=$block_id?>" data-type="<?=$type_id?>" data-next_period="<?=$nextPeriod?>">
+    <?php
+    if ($type_id==2 || $type_id==3) {
+        $disabled = '';
+        $activeClass = '';
+    } else {
+        $disabled = 'disabled';
+        $activeClass = 'disabled_hidden';
+    }
+    ?>
+    <input id="task-<?=$type_id?>-<?=$nextPeriod?>" class="hide_input" type="checkbox" <?=$disabled?>>
+    <label for="task-<?=$type_id?>-<?=$nextPeriod?>" class="main__data_title main__data_line <?=$activeClass?>"><?= Html::encode($title) ?></label>
     <span class="saving_tasks">Сохранено</span>
     <?php
         switch ($type_id) {
@@ -27,6 +37,10 @@ $check = '';
         if (!$nextPeriod && $type_id==5) {
             echo '<button class="task_transfer_btn icon-arrow-curved" ' . $active .' data-type="' . $type_id . '" title="' . $btnName . '"></button>';
         }
+        if ($nextPeriod == 0 && $type_id == 1) {
+            echo '<a class="tasks_show_finished">Скрыть завершенные</a>';
+        }
+
     ?>
     <ol class="text__list_items">
         <?php
@@ -34,24 +48,22 @@ $check = '';
             foreach ($tasks as $task) {
                 echo \app\widgets\tasks\OneTaskViewWidget::widget([
                     'task' => $task,
+                    'type_id' => $type_id,
                     'nextPeriod' => $nextPeriod,
+                    'newTask' => 0,
+                    'repeatedTask' => false,
                 ]);
             }
         }
+        echo \app\widgets\tasks\OneTaskViewWidget::widget([
+            'task' => '',
+            'type_id' => $type_id,
+            'nextPeriod' => $nextPeriod,
+            'newTask' => 1,
+            'repeatedTask' => false,
+        ]);
         ?>
-        <li class="text__list_item" data-next_period="<?=$nextPeriod?>" data-type="<?=$type_id?>">
-            <div class="task__input_block">
-                <textarea class="task__input new_input_task" data-type="<?=$type_id?>" data-next_period="<?=$nextPeriod?>" type="text" maxlength="70"></textarea>
-                <div class="task__settings">
-                    <label for="private_id">Доступность:</label>
-                    <select name="private_id" id="private_id">
-                        <option value="1" selected>Видна всем</option>
-                        <option value="2">Видна только бадди</option>
-                        <option value="3">Видна только куратору</option>
-                        <option value="4">Видна только мне</option>
-                    </select>
-                </div>
-            </div>
-        </li>
     </ol>
+
+
 </div>

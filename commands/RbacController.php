@@ -51,6 +51,13 @@ class RbacController extends Controller {
         }
     }
 
+    public function actionSetModeratorRole($id) {
+        if (\Yii::$app->rbac->setModeratorRole($id)) {
+            $this->stdout("Done!\n", Console::BOLD);
+            return ExitCode::OK;
+        }
+    }
+
 
 
 }

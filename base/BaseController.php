@@ -10,12 +10,16 @@ class BaseController extends Controller
 {
     public $previousUrl = '/';
 
-    public function beforeAction($action)
-    {
-        if (\Yii::$app->user->isGuest) {
-            return $this->redirect(['/'])->send();
+    public function beforeAction($action) {
+
+//        if (\Yii::$app->user->isGuest) {
+//            return $this->redirect(['/'])->send();
+//        }
+        $user = \Yii::$app->user->getIdentity();
+        if ($user) {
+            \Yii::$app->setTimeZone(\Yii::$app->user->getIdentity()->getTimezone());
         }
-        \Yii::$app->setTimeZone(\Yii::$app->user->getIdentity()->getTimezone());
+
 //        if (!\Yii::$app->request->isPost) {
 //            \Yii::$app->session->addFlash('lastPage',\Yii::$app->request->referrer);
 //        }

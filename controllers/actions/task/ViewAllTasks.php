@@ -5,6 +5,7 @@ namespace app\controllers\actions\task;
 
 
 use app\components\TasksComponent;
+use app\components\UserComponent;
 use app\models\Tasks;
 use app\models\TasksSearch;
 use yii\base\Action;
@@ -36,27 +37,29 @@ class ViewAllTasks extends Action {
         // удаленные задачи
 //        $deleted = $comp->getDeletedTasks();
 
-        $checkRenewTasks = $comp->checkDataToRenew(1);
-        $checkRenewAims = $comp->checkDataToRenew(2);
-        $checkRenewGoals = $comp->checkDataToRenew(3);
+//        $checkRenewTasks = $comp->checkDataToRenew(1);
+//        $checkRenewAims = $comp->checkDataToRenew(2);
+//        $checkRenewGoals = $comp->checkDataToRenew(3);
 
         if (\Yii::$app->request->isAjax) {
             \Yii::$app->response->format=Response::FORMAT_JSON;
             return $tasks;
         }
 
+        $userComp = \Yii::createObject(['class' => UserComponent::class]);
+        $notifConfEmail = $userComp->checkConfirmationEmail();
+
         return $this->controller->render('view_all', [
             'tasks' => $tasks,
             'tasksTomorrow' => $tasksTomorrow,
             'aims' => $aims,
             'goals' => $goals,
-//            'deleted' => $deleted,
-            'renewTasks' => $checkRenewTasks,
-            'renewAims' => $checkRenewAims,
-            'renewGoals' => $checkRenewGoals,
+//            'renewTasks' => $checkRenewTasks,
+//            'renewAims' => $checkRenewAims,
+//            'renewGoals' => $checkRenewGoals,
             'model' => $model,
-//            'provider' => $provider,
             'admin'=>$admin,
+            'notifConfEmail' => $notifConfEmail,
         ]);
 
     }

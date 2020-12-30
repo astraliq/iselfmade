@@ -110,10 +110,15 @@ $config = [
                 'task/hard-del/<user_id:\d+>/<id:\d+>'=>'task/hard-del',
                 'task/finish/<id:\d+>'=>'task/finish',
                 'task/finish/<user_id:\d+>/<id:\d+>'=>'task/finish',
-                'report'=>'task/report',
-                'task/img/'=>'img/',
+                'report'=>'task/report/',
+                'archive'=>'task/archive/',
+                'repeated'=>'task/repeated/',
+                'check-reports'=>'task/check-reports/',
                 'profile'=>'user/update/',
+                'task/img/'=>'img/',
                 'profile/<id:\d+>'=>'user/update/',
+                'confirm-curator-email'=>'site/confirm-curator-email',
+                'grade-result'=>'site/grade-result',
                 [
                     'class'=>yii\rest\UrlRule::class,
                     'controller'=>'user-rest-api',
@@ -142,6 +147,7 @@ $config = [
         'links' => [
             'report' => '/report',
             'profile' => '/profile',
+            'repeated' => '/repeated',
         ],
     ]),
 ];

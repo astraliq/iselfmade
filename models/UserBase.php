@@ -27,8 +27,15 @@ use Yii;
  * @property string|null $city Город нахождения
  * @property string|null $timezone Часовой пояс
  * @property int|null $offset_UTC Смещение времени от UTC
+ * @property int|null $confirm_email Подтверждение почты
+ * @property string|null $confirmation_token Подтверждающий почту токен
+ * @property int|null $curators_email_repeat Регулярность отправки отчетов на почту
+ * @property int|null $curators_email_confirm Подтверждение почты куратора
+ * @property string|null $curators_access_token Токен подтверждения почты куратора
+ * @property string|null $grade_token Токен для установки оценок за выполнение задач
  *
  * @property MissionTasks[] $missionTasks
+ * @property Periods $curatorsEmailRepeat
  */
 class UserBase extends \yii\db\ActiveRecord
 {
@@ -47,11 +54,12 @@ class UserBase extends \yii\db\ActiveRecord
     {
         return [
             [['email', 'pass_hash'], 'required'],
-            [['sex', 'group_id', 'offset_UTC'], 'integer'],
+            [['sex', 'group_id', 'offset_UTC', 'confirm_email', 'curators_email_repeat', 'curators_email_confirm'], 'integer'],
             [['birthday', 'date_create'], 'safe'],
             [['balance'], 'number'],
-            [['email', 'phone_number', 'pass_hash', 'auth_key', 'access_token', 'name', 'surname', 'avatar', 'buddy_ids', 'curators_ids', 'curators_emails'], 'string', 'max' => 255],
+            [['email', 'phone_number', 'pass_hash', 'auth_key', 'access_token', 'name', 'surname', 'avatar', 'buddy_ids', 'curators_ids', 'curators_emails', 'confirmation_token', 'curators_access_token', 'grade_token'], 'string', 'max' => 255],
             [['city', 'timezone'], 'string', 'max' => 64],
+            [['curators_email_repeat'], 'exist', 'skipOnError' => true, 'targetClass' => Periods::className(), 'targetAttribute' => ['curators_email_repeat' => 'id']],
         ];
     }
 
@@ -81,6 +89,12 @@ class UserBase extends \yii\db\ActiveRecord
             'city' => Yii::t('app', 'Город нахождения'),
             'timezone' => Yii::t('app', 'Часовой пояс'),
             'offset_UTC' => Yii::t('app', 'Смещение времени от UTC'),
+            'confirm_email' => Yii::t('app', 'Подтверждение почты'),
+            'confirmation_token' => Yii::t('app', 'Подтверждающий почту токен'),
+            'curators_email_repeat' => Yii::t('app', 'Регулярность отправки отчетов на почту'),
+            'curators_email_confirm' => Yii::t('app', 'Подтверждение почты куратора'),
+            'curators_access_token' => Yii::t('app', 'Токен подтверждения почты куратора'),
+            'grade_token' => Yii::t('app', 'Токен для установки оценок за выполнение задач'),
         ];
     }
 
@@ -92,5 +106,15 @@ class UserBase extends \yii\db\ActiveRecord
     public function getMissionTasks()
     {
         return $this->hasMany(MissionTasks::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[CuratorsEmailRepeat]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCuratorsEmailRepeat()
+    {
+        return $this->hasOne(Periods::className(), ['id' => 'curators_email_repeat']);
     }
 }

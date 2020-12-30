@@ -17,17 +17,24 @@ class User extends UserBase implements IdentityInterface
     public $avaReal;
     public $timezoneKeyNumber;
 
+    CONST DAY = 1;
+    CONST WEEK = 5;
+    CONST REPEAT_CURATOR = [self::DAY=> 'Каждый день', self::WEEK=> 'Раз в неделю'];
+
+
     CONST MALE = 1;
     CONST FEMALE = 2;
     CONST SEX = [self::MALE => 'Мужской', self::FEMALE => 'Женский'];
 
     private const SCENARIO_SIGN_UP = 'signUp';
+    private const SCENARIO_CONFIRM_EMAIL = 'confirmationEmail';
     private const SCENARIO_VALIDATE_SIGN_UP = 'validateSignUp';
     private const SCENARIO_SIGN_IN = 'signIn';
     private const SCENARIO_VALIDATE_SIGN_IN = 'validateSignIn';
     private const SCENARIO_REMIND = 'remindPass';
     private const SCENARIO_RESTORE = 'restorePass';
     private const SCENARIO_UPD_PSW = 'updateWithPassword';
+    private const SCENARIO_CONFIRM_CURATOR_EMAIL = 'confirmationCuratorsEmail';
 
     public function scenarioSignUp(){
         $this->scenario = self::SCENARIO_SIGN_UP;
@@ -44,13 +51,15 @@ class User extends UserBase implements IdentityInterface
     public function scenarios() {
         return [
             self::SCENARIO_SIGN_UP => ['email', 'password', 'repeat_password'],
+            self::SCENARIO_CONFIRM_EMAIL => ['email', 'confirmation_token'],
+            self::SCENARIO_CONFIRM_CURATOR_EMAIL => ['curators_emails', 'curators_access_token', 'curators_email_confirm'],
             self::SCENARIO_VALIDATE_SIGN_UP => ['email', 'password', 'repeat_password'],
             self::SCENARIO_SIGN_IN => ['email', 'password'],
             self::SCENARIO_VALIDATE_SIGN_IN => ['email', 'password'],
             self::SCENARIO_REMIND => ['email'],
             self::SCENARIO_RESTORE => ['email', 'token', 'password', 'repeat_password'],
-            self::SCENARIO_UPD_PSW => ['password', 'repeat_password', 'name', 'surname', 'phone_number', 'timezone', 'avaReal', 'sex', 'birthday', 'offset_UTC'],
-            'default' => ['name', 'surname', 'phone_number', 'timezone', 'avaReal', 'sex', 'birthday', 'offset_UTC']
+            self::SCENARIO_UPD_PSW => ['password', 'repeat_password', 'name', 'surname', 'phone_number', 'timezone', 'avaReal', 'sex', 'birthday', 'offset_UTC', 'curators_emails', 'curators_email_repeat'],
+            'default' => ['name', 'surname', 'phone_number', 'timezone', 'avaReal', 'sex', 'birthday', 'offset_UTC', 'curators_emails', 'curators_email_repeat']
         ];
     }
 
@@ -85,7 +94,7 @@ class User extends UserBase implements IdentityInterface
             ['password', 'required', 'when'  => function () {
                 return $this->email != '';
             },'message' => 'Необходимо заполнить пароль'],
-            [['email'], 'required','on'=> [self::SCENARIO_SIGN_UP, self::SCENARIO_REMIND], 'message' => 'Необходимо заполнить электронную почту'],
+            [['email'], 'required','on'=> [self::SCENARIO_SIGN_UP, self::SCENARIO_REMIND, self::SCENARIO_CONFIRM_EMAIL], 'message' => 'Необходимо заполнить электронную почту'],
             [['password'], 'required','on'=> [self::SCENARIO_SIGN_UP, self::SCENARIO_RESTORE], 'message' => 'Необходимо заполнить пароль'],
             [['email','password'], 'required','message' => 'Необходимо заполнить электронную почту и пароль'],
 //            ['password', 'string','on'=> self::SCENARIO_SIGN_UP, 'min' => 8, 'max' => 250, 'message' => 'Пароль должен содержать минимум 8 символов'],
@@ -93,6 +102,7 @@ class User extends UserBase implements IdentityInterface
             ['repeat_password', 'compare', 'compareAttribute' => 'password','on'=> [self::SCENARIO_SIGN_UP, self::SCENARIO_UPD_PSW, self::SCENARIO_RESTORE], 'message' => 'Пароли должны совпадать'],
             ['repeat_password', 'required', 'message' => 'Необходимо повторить пароль'],
             ['token', 'required', 'message' => 'Необходимо ввести код подтверждения'],
+            ['confirmation_token', 'required', 'on'=> [self::SCENARIO_CONFIRM_EMAIL], 'message' => 'Необходимо ввести код подтверждения электронной почты'],
             ['token', 'checkToken', 'on'=> [self::SCENARIO_RESTORE], 'message' => 'Код подтверждения не совпадает с отправленным.'],
             [['email'], 'unique','on'=> self::SCENARIO_SIGN_UP, 'message' => 'Такой адрес уже зарегистрирован'],
             [['email'], 'validateEmail','on'=> [self::SCENARIO_SIGN_IN, self::SCENARIO_RESTORE]],
@@ -101,6 +111,8 @@ class User extends UserBase implements IdentityInterface
             [['password'], 'validatePassword','on'=> self::SCENARIO_SIGN_IN],
             ['sex', 'in', 'range' => array_keys(self::SEX)],
             ['timezone', 'validateTimezone', 'message' => 'Неверное имя часового пояса'],
+            ['curators_email_repeat', 'in', 'range' => array_keys(self::REPEAT_CURATOR)],
+            ['curators_emails', 'email', 'message' => 'Введенное значение не является правильным email адресом.'],
         ], parent::rules());
     }
 
@@ -109,6 +121,25 @@ class User extends UserBase implements IdentityInterface
 
         parent::afterFind(); // TODO: Change the autogenerated stub
     }
+
+    public function afterValidate() {
+        $userFind = $this->findOne(['id' => $this->id]);
+        if ($userFind->curators_emails !== $this->curators_emails) {
+            $this->curators_email_confirm = null;
+            $this->curators_access_token = null;
+        }
+        parent::afterValidate(); // TODO: Change the autogenerated stub
+    }
+
+
+    public function beforeSave($insert) {
+        if (!$this->curators_email_repeat) {
+            $this->curators_email_repeat = 1;
+        }
+
+        return parent::beforeSave($insert); // TODO: Change the autogenerated stub
+    }
+
 
     public function checkToken() {
         $user = User::getUserByEmailAndToken($this->email, $this->token);
@@ -197,6 +228,10 @@ class User extends UserBase implements IdentityInterface
         return User::find()->andWhere(['email'=>$email,'access_token'=>$token])->one();
     }
 
+    public static function getUserByEmailAndConfirmToken($email, $confirmation_token) {
+        return User::find()->andWhere(['email'=>$email,'confirmation_token'=>$confirmation_token])->one();
+    }
+
     /**
      * @return int|string current user ID
      */
@@ -268,6 +303,8 @@ class User extends UserBase implements IdentityInterface
             'password' => Yii::t('app', 'Пароль'),
             'repeat_password' => Yii::t('app', 'Повтор пароля'),
             'token' => Yii::t('app', 'Код подтверждения'),
+            'curators_emails' => Yii::t('app', 'Электронная почта куратора'),
+
         ]);
     }
 }

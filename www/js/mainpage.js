@@ -12,7 +12,7 @@ class MainPage {
         this._init();
     }
 
-    _formHandler(yiiForm, callback = null) {
+    _formHandler(yiiForm, callback=null) {
         let $yiiform = $(yiiForm);
         // отправляем данные на сервер
 
@@ -20,9 +20,10 @@ class MainPage {
                 type: $yiiform.attr('method'),
                 url: $yiiform.attr('action'),
                 data: $yiiform.serializeArray()
-            })
+            }
+        )
             .done(function(data) {
-                if (data.result) {
+                if(data.result) {
                     // данные сохранены
                     console.log('OK');
                     if (callback) {
@@ -33,7 +34,7 @@ class MainPage {
                     console.log('ne OK');
                 }
             })
-            .fail(function() {
+            .fail(function () {
                 // не удалось выполнить запрос к серверу
             });
 
@@ -44,7 +45,6 @@ class MainPage {
     _init() {
         let login = document.getElementById('login');
         login.addEventListener('click', (e) => {
-            e.preventDefault();
             this.renderModal();
         });
         let modal = document.getElementById('modal');
@@ -61,7 +61,7 @@ class MainPage {
         });
 
         let loginbtn = document.querySelectorAll('.loginbtn');
-        loginbtn.forEach((elem) => {
+        loginbtn.forEach( (elem) => {
             elem.addEventListener('click', (e) => {
                 this.renderModal(1);
             });
@@ -71,10 +71,9 @@ class MainPage {
         regbtn.addEventListener('click', (e) => {
             this.renderModal(3);
         });
-
-        $(this.loginForm).on('beforeSubmit', (e) => {
-            return this._formHandler(this.loginForm);
-        });
+        // $(this.loginForm).on('beforeSubmit', (e) => {
+        //     return this._formHandler(this.loginForm);
+        // });
         $(this.remindForm).on('beforeSubmit', (e) => {
             let callback = () => {
                 $('#mwindow-restore #user-email').val($('#remind-user-email').val());
@@ -85,12 +84,12 @@ class MainPage {
         $(this.restoreForm).on('beforeSubmit', (e) => {
             return this._formHandler(this.restoreForm);
         })
-        $(this.regForm).on('beforeSubmit', (e) => {
-            return this._formHandler(this.regForm);
-        });
+        // $(this.regForm).on('beforeSubmit', (e) => {
+        //     return this._formHandler(this.regForm);
+        // });
     }
 
-    renderModal(type = 0) {
+    renderModal(type=0) {
         this.strModal = '';
         let modal = document.getElementById('modal');
         modal.classList.remove('invisible');
@@ -136,3 +135,4 @@ class MainPage {
 }
 
 let mainPageStart = new MainPage();
+

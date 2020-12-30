@@ -10,11 +10,6 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
-//Yii::$app->assetManager->bundles['yii\bootstrap\BootstrapAsset'] = [
-//    'css' => [
-//        'css/style.css',
-//    ]
-//];
 AppAsset::register($this);
 
 $avatarImage = \Yii::$app->user->getIdentity()->getAvatarName();
@@ -24,9 +19,32 @@ if (!$avatarImage) {
     $avatarImage = '/users/ava/' . $avatarImage;
 }
 
+$userRole = current(\Yii::$app->authManager->getRolesByUser(\Yii::$app->user->getId()))->name;
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
+<!--
+НОСОРОГ — система достижения целей
+                              ¶¶¶1
+                           1¶¶¶¶¶¶¶  1¶¶        1
+                    1¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶         ¶
+        1¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶    1   ¶¶
+     1¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶11¶¶  ¶¶¶
+    ¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶1¶¶¶1
+   ¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶
+  ¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶
+  ¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶
+ ¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶
+ ¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶      1¶¶¶¶¶¶¶
+ 1¶¶¶¶11¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶1
+ 1¶¶¶¶ ¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶  ¶¶¶¶1
+ ¶¶¶¶  ¶¶¶          ¶¶¶1  ¶¶¶¶
+ 1¶¶   ¶¶¶          ¶¶¶1  ¶¶¶1
+  ¶¶¶  ¶¶¶¶         ¶¶¶   ¶¶¶
+ 1¶¶¶1  111         ¶¶¶1  ¶¶¶¶¶
+                    ¶¶¶¶¶ 1¶¶¶¶
+http://iselfmade.ru
+-->
 <html lang="<?= Yii::$app->language ?>">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
@@ -38,7 +56,6 @@ if (!$avatarImage) {
 </head>
 <body>
 <?php $this->beginBody() ?>
-
 <div class="container">
     <div class="custom_light">
         <div class="">
@@ -67,31 +84,36 @@ if (!$avatarImage) {
                         'options' => ['class' => $url=='/promises' ? 'main_menu-selected' : ''],
                         'linkOptions' => ['class' => 'menu__item'],
                     ]),
-                    (['label' => 'Статистика',
-                        'url' => ['/statistics'],
-                        'options' => ['class' => $url=='/statistics' ? 'main_menu-selected' : ''],
-                        'linkOptions' => ['class' => 'menu__item'],
-                    ]),
-                    (['label' => 'Категории',
-                        'url' => ['/category'],
-                        'options' => ['class' => $url=='/category' ? 'main_menu-selected' : ''],
-                        'linkOptions' => ['class' => 'menu__item'],
-                    ]),
+//                    (['label' => 'Статистика',
+//                        'url' => ['/statistics'],
+//                        'options' => ['class' => $url=='/statistics' ? 'main_menu-selected' : ''],
+//                        'linkOptions' => ['class' => 'menu__item'],
+//                    ]),
+//                    (['label' => 'Категории',
+//                        'url' => ['/category'],
+//                        'options' => ['class' => $url=='/category' ? 'main_menu-selected' : ''],
+//                        'linkOptions' => ['class' => 'menu__item'],
+//                    ]),
                     (['label' => 'Повторяющиеся задачи',
-                        'url' => ['/repeats'],
+                        'url' => ['/repeated'],
                         'options' => ['class' => $url=='/repeats' ? 'main_menu-selected' : ''],
                         'linkOptions' => ['class' => 'menu__item'],
                     ]),
                     (['label' => 'Архив отчетов',
-                        'url' => ['/reports'],
-                        'options' => ['class' => $url=='/reports' ? 'main_menu-selected' : ''],
+                        'url' => ['/archive'],
+                        'options' => ['class' => $url=='/archive' ? 'main_menu-selected' : ''],
                         'linkOptions' => ['class' => 'menu__item'],
                     ]),
-                    (['label' => 'ЛК',
+                    (['label' => 'Личный кабинет',
                         'url' => ['/profile'],
                         'options' => ['class' => $url=='/profile' ? 'main_menu-selected' : ''],
                         'linkOptions' => ['class' => 'menu__item'],
                     ]),
+                    $userRole === 'moderator' ? ((['label' => 'Проверка отчетов',
+                        'url' => ['/check-reports'],
+                        'options' => ['class' => $url=='/check-reports' ? 'main_menu-selected' : ''],
+                        'linkOptions' => ['class' => 'menu__item'],
+                    ])) : (''),
                     (
                         '<li class="menu__logout">'
                         . Html::beginForm(['/site/logout'], 'post')

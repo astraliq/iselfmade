@@ -4,7 +4,9 @@ namespace app\controllers;
 
 use app\components\DAOComponent;
 use app\components\TimeZoneComponent;
+use app\controllers\actions\site\ConfirmCuratorEmailAction;
 use app\controllers\actions\site\ErrorAction;
+use app\controllers\actions\site\GradeResultAction;
 use app\models\RegistrationForm;
 use app\models\User;
 use Yii;
@@ -53,6 +55,8 @@ class SiteController extends Controller {
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
+            'confirm-curator-email' => ['class' => ConfirmCuratorEmailAction::class],
+            'grade-result' => ['class' => GradeResultAction::class],
         ];
     }
 
@@ -62,6 +66,7 @@ class SiteController extends Controller {
      * @return string
      */
     public function actionIndex() {
+
         if (!\Yii::$app->user->isGuest) {
             $this->redirect('/report');
         }
@@ -82,7 +87,6 @@ class SiteController extends Controller {
 //        if (!empty(\Yii::$app->session->getFlash('user_errors'))) {
 //            $model->errors = \Yii::$app->session->getFlash('user_errors')[0];
 //        }
-
         return $this->render('index');
     }
 

@@ -6,6 +6,7 @@ namespace app\components;
 
 use app\base\BaseComponent;
 use app\models\User;
+use yii\web\Cookie;
 use yii\web\UploadedFile;
 
 class UserComponent extends BaseComponent {
@@ -23,10 +24,6 @@ class UserComponent extends BaseComponent {
         $user->avaReal = UploadedFile::getInstance($user, 'avaReal');
         $fileSaver = \Yii::createObject(['class' => FileSaverComponent::class]);
 
-//                echo '<pre>';
-//                print_r($user);
-//                echo '</pre>';
-//                exit();
         if ($user->validate()) {
             if ($user->avaReal) {
                 $file = $fileSaver->saveAvatar($user->avaReal);
@@ -49,5 +46,67 @@ class UserComponent extends BaseComponent {
         return false;
     }
 
+    public function checkConfirmationEmail():bool {
+        $user = \Yii::$app->user->getIdentity();
+        if ($user->confirm_email != 1) {
+            // получаем куки от клиента
+            $reqCookie = \Yii::$app->request->cookies;
+            // куки для отдачи клиенту
+            $resCookie = \Yii::$app->response->cookies;
+            $confirmEmailCookie = $reqCookie->getValue('conf_email_cookie', '0');
+            if ($confirmEmailCookie == '0') {
+                $resCookie->add(new Cookie([
+                    'name' => 'conf_email_cookie',
+                    'value' => 1,
+                    'expire' => time() + 86400,
+                ]));
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
 
+
+    public function sendConfirmCuratorEmailMail(User $user) :bool {
+        $auth = \Yii::$app->auth;
+        if ($user->curators_email_confirm == 0) {
+            $confirmation_token = $auth->generateConfirmationEmailToken();
+            $user->curators_access_token = $confirmation_token;
+            $user->grade_token = $auth->generateUserGradeToken();
+            if ($user->save()) {
+                $message = \Yii::$app->mailer->compose(
+                    'curators_confirm', [
+                        'confirmation_token' => $confirmation_token,
+                        'userId' => $user->id,
+                        'name' => $user->name,
+                    ]
+                )
+                    ->setFrom('hello@iselfmade.ru')
+                    ->setTo($user->curators_emails)
+                    ->setSubject('iselfmade - Подтверждение куратора')
+                    ->send();
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public function confirmCuratorsEmail(User $user, $confirmation_token) :bool {
+        if ($user->curators_access_token === $confirmation_token) {
+            $user->curators_access_token = null;
+            $user->curators_email_confirm = 1;
+            $user->curators_access_token = null;
+            $user->scenario = 'confirmationCuratorsEmail';
+            if ($user->save()) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 }

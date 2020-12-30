@@ -6,7 +6,9 @@ namespace app\commands;
 
 use app\base\BaseConsoleController;
 use app\components\ArchiveTasksComponent;
+use app\components\TasksComponent;
 use app\models\ArchiveTasks;
+use app\models\Tasks;
 use yii\console\Controller;
 use yii\console\ExitCode;
 use yii\helpers\Console;
@@ -36,5 +38,37 @@ class TasksController extends BaseConsoleController {
         echo $comp->archiveLastYearTasks($model);
 
         return ExitCode::OK;
+    }
+
+    /**
+     * запускает скрипт создания повторяемых задач
+     */
+    public function actionRepeat() {
+        $comp = \Yii::createObject(['class' => TasksComponent::class,'modelClass' => Tasks::class]);
+        $model = $comp->getModel();
+        $repeat = $comp->createRepeatedTasks();
+        if ($repeat) {
+            return ExitCode::OK;
+        }
+
+        echo print_r($repeat);
+
+        return ExitCode::UNSPECIFIED_ERROR;
+    }
+
+    /**
+     * запускает скрипт рассылки отчетов на электронную почту кураторам
+     */
+    public function actionCuratorReports() {
+        $comp = \Yii::createObject(['class' => TasksComponent::class,'modelClass' => Tasks::class]);
+        $model = $comp->getModel();
+        $sends = $comp->sendReportsToCurators();
+        if ($sends) {
+            return ExitCode::OK;
+        }
+
+        echo print_r($sends);
+
+        return ExitCode::UNSPECIFIED_ERROR;
     }
 }

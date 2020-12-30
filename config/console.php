@@ -22,6 +22,17 @@ $config = [
         ],
         'dao' => ['class' => \app\components\DAOComponent::class],
         'encrypt' => ['class' => \app\components\EncryptComponent::class],
+        'formatter' => [
+            'dateFormat' => 'd.M.Y',
+            'timeFormat' => 'H:i:s',
+            'datetimeFormat' => 'php:d F Y H:i',
+            'decimalSeparator' => '',
+            'thousandSeparator' => ' ',
+            'currencyCode' => 'EUR',
+//            'timeZone' => 'Europe/Moscow',
+            'defaultTimeZone' => 'UTC',
+            'locale' => 'ru-RU',
+        ],
         'log' => [
             'targets' => [
                 [
@@ -30,11 +41,29 @@ $config = [
                 ],
             ],
         ],
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+//            'transport' => [
+//                'class' => 'Swift_SmtpTransport',
+//                'host' => 'localhost',
+//                'username' => 'username',
+//                'password' => 'password',
+//                'port' => '587',
+//                'encryption' => 'tls',
+//            ],
+            // send all mails to a file by default. You have to set
+            // 'useFileTransport' to false and configure a transport
+            // for the mailer to send real emails.
+            'useFileTransport' => true,
+        ],
         'rbac' => ['class' => \app\components\RbacComponent::class],
         'db' => $db,
         'timezones' => ['class' => \app\components\TimeZoneComponent::class],
+        'task' => ['class' => \app\components\TasksComponent::class],
     ],
-    'params' => $params,
+    'params' => array_merge($params, [
+        'serverUrl' => 'https://test.iselfmade.ru/',
+    ]),
 
     /*
     'controllerMap' => [

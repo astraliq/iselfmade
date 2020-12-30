@@ -5,6 +5,7 @@ namespace app\components;
 
 
 use app\base\BaseComponent;
+use app\models\User;
 use yii\base\Component;
 use yii\caching\TagDependency;
 use yii\db\Connection;
@@ -45,6 +46,7 @@ class DAOComponent extends BaseComponent {
             ->all($this->getConnection());
 //        ->createCommand()->rawSql;
     }
+
 
     /*
     public function getCountMissions(){
