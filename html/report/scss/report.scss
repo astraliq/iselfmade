@@ -172,9 +172,12 @@ body {
     // .files__form
     &__form {}
     // .files__input
-    &__input {}
-    // .files__btn
-    &__btn {}
+    &__input {
+        width: 108px;
+        height: 35px;
+        background: $color-blue;
+        border-radius: 10px;
+    }
 }
 
 .impress {

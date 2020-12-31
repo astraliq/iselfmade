@@ -1,11 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,400;0,700;1,200&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,400;0,700;1,200&family=Source+Sans+Pro:wght@200;400;600;700;900&display=swap");
-/*font-family: 'Caveat',
-cursive;
-font-family: 'Fira Sans',
-sans-serif;
-font-family: 'Scada',
-sans-serif;*/
 html {
   font-size: 10px; }
 
@@ -26,7 +18,7 @@ body {
 .date {
   padding-bottom: 25px; }
   .date__text {
-    font-family: "Source Sans Pro", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-weight: 300;
     font-size: 2rem;
     line-height: 2.7rem;
@@ -42,14 +34,14 @@ body {
   align-items: flex-end; }
 
 .number {
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 500;
   font-size: 5rem;
   line-height: 100%;
   color: #4C91F8; }
 
 .month {
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-size: 3rem;
   line-height: 3rem;
@@ -66,7 +58,7 @@ body {
 .menu {
   padding-top: 25px; }
   .menu__item {
-    font-family: "Source Sans Pro", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-weight: 400;
     font-size: 1.8rem;
     line-height: 30px;
@@ -99,7 +91,7 @@ body {
   width: 100%; }
 
 .title {
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 500;
   font-size: 2rem;
   line-height: 2.5rem;
@@ -123,3 +115,9 @@ body {
   font-size: 1.3rem;
   line-height: 1.3rem;
   text-transform: lowercase; }
+
+.files__input {
+  width: 108px;
+  height: 35px;
+  background: #4C91F8;
+  border-radius: 10px; }
