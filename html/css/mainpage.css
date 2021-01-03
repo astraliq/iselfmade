@@ -37,7 +37,7 @@ body {
 .header-logo-link {
   text-decoration: none; }
   .header-logo-link:hover .header-logo-text {
-    color: #1D68D8; }
+    color: #4C91F8; }
   .header-logo-link:hover .header-logo-text-self {
     color: #000; }
 .header-logo-text {
@@ -46,7 +46,7 @@ body {
   padding: 5px 0px 0px 12px;
   line-height: 0px; }
 .header-logo-text-self {
-  color: #1D68D8; }
+  color: #4C91F8; }
 .header__logo {
   font-family: "Roboto", sans-serif;
   font-weight: 600;
@@ -56,11 +56,11 @@ body {
   .header__logo_black {
     color: #000; }
     .header__logo_black:hover {
-      color: #1D68D8; }
+      color: #4C91F8; }
       .header__logo_black:hover .header__logo_blue {
         color: #000; }
   .header__logo_blue {
-    color: #1D68D8; }
+    color: #4C91F8; }
   .header__logo-link {
     text-decoration: none; }
     .header__logo-link:hover {
@@ -69,7 +69,7 @@ body {
   height: 50px;
   width: 200px;
   border-radius: 10px;
-  background-color: #1D68D8;
+  background-color: #4C91F8;
   color: #fff;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
@@ -99,7 +99,7 @@ body {
   color: #000;
   margin: 0 auto; }
 .header__text_color-blue {
-  color: #1D68D8;
+  color: #4C91F8;
   font-weight: 600; }
 
 .modal {
@@ -181,7 +181,7 @@ body {
   .modal__btn {
     width: 150px;
     height: 50px;
-    background: #1D68D8;
+    background: #4C91F8;
     border-radius: 10px;
     color: #fff;
     font-family: "Roboto", sans-serif;
@@ -211,7 +211,7 @@ body {
       text-decoration: underline;
       color: #000; }
       .modal__sign-text_link:hover {
-        color: #1D68D8;
+        color: #4C91F8;
         cursor: pointer;
         text-decoration: none; }
   .modal__link {
@@ -221,7 +221,7 @@ body {
     font-size: 1.6rem;
     line-height: 2rem;
     text-decoration-line: underline;
-    color: #1D68D8; }
+    color: #4C91F8; }
     .modal__link:hover {
       text-decoration: none;
       color: #609df8;
@@ -239,16 +239,16 @@ body {
     .modal__reg:hover {
       background-color: #f7f5f7; }
     .modal__reg_white {
-      border: 1px solid #1D68D8;
+      border: 1px solid #4C91F8;
       color: #000;
       background-color: #fff; }
     .modal__reg_blue {
       color: #fff;
-      background-color: #1D68D8; }
+      background-color: #4C91F8; }
   .modal__close {
     width: 40px;
     height: 40px;
-    background-color: #1D68D8;
+    background-color: #4C91F8;
     position: absolute;
     top: 85px;
     right: 440px;
@@ -326,7 +326,7 @@ body {
   font-weight: 600;
   font-size: 5rem;
   line-height: 75px;
-  color: #1D68D8;
+  color: #4C91F8;
   text-transform: uppercase;
   padding-bottom: 25px; }
 
@@ -361,7 +361,7 @@ body {
     height: 65px;
     border-radius: 50%;
     padding-left: 5px;
-    background-color: #1D68D8;
+    background-color: #4C91F8;
     color: #fff; }
     .curator__sound-round:hover {
       background-color: #609df8;
@@ -372,7 +372,7 @@ body {
     font-weight: 400;
     font-size: 1.5rem;
     line-height: 1.9rem;
-    color: #1D68D8; }
+    color: #4C91F8; }
   .curator__img {
     width: 555px;
     padding: 40px 0;
@@ -469,7 +469,7 @@ body {
   .other__btn {
     width: 300px;
     height: 60px;
-    background: #1D68D8;
+    background: #4C91F8;
     border-radius: 15px;
     font-family: "Roboto", sans-serif;
     font-weight: 500;
@@ -492,7 +492,8 @@ body {
   padding: 60px 0 80px 0; }
   .rates__items {
     display: flex;
-    justify-content: space-around; }
+    justify-content: space-around;
+    padding-bottom: 70px; }
   .rates__item {
     width: 240px;
     border-radius: 20px;
@@ -559,7 +560,7 @@ body {
     font-size: 4rem;
     line-height: 4rem;
     text-align: center;
-    color: #1D68D8;
+    color: #4C91F8;
     padding-bottom: 7px; }
   .rates__minus {
     font-family: "Roboto", sans-serif;
@@ -578,7 +579,7 @@ body {
   .rates__btn {
     width: 230px;
     height: 65px;
-    background: #1D68D8;
+    background: #4C91F8;
     border-radius: 15px;
     font-family: "Roboto", sans-serif;
     font-weight: 400;
