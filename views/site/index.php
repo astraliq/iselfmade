@@ -138,7 +138,17 @@
                 <p class="chapter__text">Всё, что вам кажется может быть придётся делать в будущем. Записывайте, чтобы не забыть.</p>
             </div>
             <div class="other__button">
-                <button class="other__btn btn__shadow">Посмотреть все сервисы</button>
+                <input id="show_more" class="show_more" type="checkbox">
+                <label for="show_more" class="other__btn btn__shadow hide_blocks_label">Посмотреть все сервисы</label>
+<!--                СКРЫТЫЕ БЛОКИ-->
+                <div class="chapter">
+                    <h2 class="chapter__title">...........мои обещания............</h2>
+                    <p class="chapter__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores aspernatur atque autem consectetur consequuntur dolorem</p>
+                </div>
+                <div class="chapter">
+                    <h2 class="chapter__title">.............Возможные дела............</h2>
+                    <p class="chapter__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. At beatae consequuntur distinctio eius et facere labore magni numquam tempore vero!.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -167,7 +177,7 @@
                     Количество дней, когда <strong>можно пропустить</strong> сдачу отчёта (в месяц)
                 </p>
                 <p class="rates__text">
-                    <strong>Минимальный</strong> коэффециент выполнения дневных дел
+                    <strong>Минимальный</strong> коэффициент выполнения дневных дел
                 </p>
                 <p class="rates__text">
                     Работа с целями, задачами и делами на день
@@ -202,7 +212,7 @@
                 <p class="rates__minus">–</p>
                 <p class="rates__minus">–</p>
                 <div class="rates__button">
-                    <button class="rates__btn btn__shadow">Попробовать бесплатно</button>
+                    <button class="rates__btn btn__shadow" id="btn_start_free">Попробовать бесплатно</button>
                 </div>
             </div>
             <div class="rates__item rates-result">
@@ -219,7 +229,7 @@
                 <p class="rates__plus">+</p>
                 <p class="rates__minus">–</p>
                 <div class="rates__button">
-                    <!-- <button class="rates__btn" disabled>Начать</button> -->
+                    <!-- <button class="rates__btn" id="btn_start_result" disabled>Начать</button> -->
                     <p class="rates__name">Доступен с 01.03.2021</p>
                 </div>
             </div>
@@ -237,12 +247,64 @@
                 <p class="rates__minus">–</p>
                 <p class="rates__plus">+</p>
                 <div class="rates__button">
-                    <!-- <button class="rates__btn" disabled>Начать</button> -->
+                    <!-- <button class="rates__btn" id="btn_start_break" disabled>Начать</button> -->
                     <p class="rates__name">Доступен с 01.03.2021</p>
                 </div>
             </div>
         </div>
     </section>
+    <div class="modal2 invisible" id="modal2">
+        <div class="modal2_group">
+            <div class="modal2__close" id="close2">×</div>
+            <button class="modal2__btn_mark modal2__mark_login" id="loginbtn2">Войти</button>
+            <button class="modal2__btn_mark modal2__mark_reg" id="regbtn2">Зарегистрироваться</button>
+            <div class="modal2__style invisible" id="mwindow-login2">
+                <p class="modal2__title">Вход в систему</p>
+                <?php $form=\yii\bootstrap\ActiveForm::begin([
+                    'validateOnBlur' => false,
+                    'validateOnChange' => true,
+                    'enableAjaxValidation' => true,
+//                    'enableClientValidation' => true,
+//                    'validationUrl' => '/auth/validate-sign-in',
+                    'action' => '/auth/sign-in',
+                    'options' => [
+                        'id' => 'form-login2',
+                        'class' => 'modal2__form'
+                    ]
+                ]); ?>
+                <?=$form->field($this->params['signIn'],'email',['validateOnChange' => false])->textInput(['class' => 'modal2__input', 'id' => 'login2-user-email', 'type' => 'email', 'autocomplete' => 'username'])->error(false)?>
+                <?=$form->field($this->params['signIn'],'password')->passwordInput(['class' => 'modal2__input', 'id' => 'login2-user-password', 'type' => 'password', 'autocomplete' => 'current-password'])?>
+                <div class="modal2__sub">
+                    <button type="submit" class="modal2__btn">Войти</button>
+                    <!--                <a class="modal2__link" id="remind2">Напомнить пароль</a>-->
+                </div>
+                <?php \yii\bootstrap\ActiveForm::end();?>
+            </div>
+
+            <div class="modal2__style" id="mwindow-reg2">
+                <p class="modal2__title">Регистрация</p>
+
+                <?php $form=\yii\bootstrap\ActiveForm::begin([
+                    'validateOnChange' => false,
+                    'enableAjaxValidation' => true,
+                    'action' => '/auth/sign-up',
+                    'options' => [
+                        'id' => 'form-reg2',
+                        'class' => 'modal2__form-sign_up'
+                    ]
+                ]); ?>
+                <?=$form->field($this->params['signUp'],'email',['validateOnChange' => true])->textInput(['class' => 'modal2__input', 'id' => 'reg2-user-email', 'type' => 'email', 'autocomplete' => 'username']);?>
+                <?=$form->field($this->params['signUp'],'password')->passwordInput(['class' => 'modal2__input', 'id' => 'reg2-user-password', 'type' => 'password', 'autocomplete' => 'new-password'])?>
+                <?=$form->field($this->params['signUp'],'repeat_password')->passwordInput(['class' => 'modal2__input', 'id' => 'reg2-user-repeat_password', 'type' => 'password', 'autocomplete' => 'new-password']);?>
+                <p class="modal2__sign-text">Нажимая на кнопку, вы соглашаетесь с <a class="modal2__sign-text_link" href="#">нашими правилами</a>
+                    и <a class="modal2__sign-text_link" href="#">политикой конфиденциальности</a></p>
+                <div class="modal2__sub">
+                    <button type="submit" class="modal2__btn modal2__btn-sign">Зарегистрироваться</button>
+                </div>
+                <?php \yii\bootstrap\ActiveForm::end();?>
+            </div>
+        </div>
+    </div>
     <section class="rhino">
         <p class="rhino__text">
             Носорог&nbsp;&#151; спокойное и упрямое животное. <br>Своим рогом расчищает себе путь: ломает ветки, стоящие на его пути. При опасности может рогом нанести сокрушительный удар врагу.
