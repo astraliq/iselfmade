@@ -265,7 +265,7 @@ strong {
         height: 500px;
         background-color: $color-white;
         border-radius: 10px;
-        box-shadow: -6px 4px 10px 1px $color-disable;
+        box-shadow: 0px 0 10px 9px $color-shadow;
         top: 65px;
         right: 40px;
         padding: 40px 40px 0 40px;
@@ -439,6 +439,7 @@ strong {
         font-weight: 200;
         font-family: $font_main-text;
         padding: 0 0 6px 0;
+        box-shadow: -9px 1px 9px 2px $color-shadow;
         // opacity: .8;
         &:hover {
             cursor: pointer;
@@ -574,6 +575,7 @@ strong {
         height: 65px;
         border-radius: 50%;
         padding-left: 5px;
+        border: none;
         background-color: $color-blue;
         color: $color-white;
         &:hover {
@@ -902,11 +904,11 @@ strong {
 .rhino {
     width: 100%;
     min-height: 450px;
-    background-image: url('../img/rhino_bg.png');
-    background-position: left center;
+    background-image: url(../img/rhino_bg.jpg);
+    background-position: bottom;
     background-repeat: no-repeat;
-    background-size: contain auto;
-    padding: 50px 0 0 50%;
+    background-size: cover;
+    padding: 3% 2% 0 51%;
     &__text {
         font-family: $font_main-text;
         font-weight: 300;
@@ -1048,4 +1050,59 @@ strong {
     display: flex;
     margin: 0 auto;
     justify-content: center;
+}
+
+.audio-controls {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    position: relative;
+    z-index: 0;
+
+    & .track-name {
+        position: absolute;
+        top: 23px;
+        left: 63px;
+    }
+
+    & .audio-track {
+        //width: 326px;
+        width: 65px;
+        border-radius: 35px;
+        height: 63px;
+        background-color: #dddddd;
+        margin-left: -65px;
+    }
+
+    & .track-volume {
+        position: absolute;
+        top: 6px;
+        right: 90px;
+        & .volume {
+            display: none;
+        }
+    }
+
+    &:hover .volume {
+        display: block;
+    }
+
+    & .time {
+        position: absolute;
+        top: 42px;
+        right: 160px;
+        width: 10px;
+        height: 3px;
+    }
+
+    & .play {
+        z-index: 2;
+    }
+    & .pause {
+        padding: 0;
+        z-index: 2;
+        display: none;
+    }
 }

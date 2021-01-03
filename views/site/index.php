@@ -37,9 +37,17 @@
                 чтобы узнать как много дел вы уже выполнили сегодня.
             </p>
             <div class="curator__sound">
-                <div class="curator__sound-oval">
-                    <div class="curator__sound-round" id="sound">►</div>
-                    <p class="curator__sound-text">Фрагмент разговора с куратором</p>
+                <audio id="audio" src=""></audio>
+                <div class="curator__sound-oval audio-controls">
+                    <button class="curator__sound-round play">►</button>
+                    <button class="curator__sound-round pause">&#10074;&#10074;</button>
+                    <div class="audio-track">
+                        <div class="time"></div>
+                    </div>
+                    <p class="curator__sound-text track-name">Фрагмент разговора с куратором</p>
+                    <div class="track-volume">
+                        <input type="range" class="volume" name="volume" min="0" max="10" value="1">
+                    </div>
                 </div>
             </div>
             <p class="curator__text">

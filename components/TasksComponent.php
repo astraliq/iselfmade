@@ -119,14 +119,14 @@ class TasksComponent extends BaseComponent {
                 'deleted' => 0,
 //                'finished' => 0,
             ])
-            ->andWhere(['AND',
-                ['>=', 'date_calculate', (new \DateTime(date('01.'.date('m.Y'))))->format('Y-m-d H:i:s')],
-                ['<=', 'date_calculate', (new \DateTime(date('t', time()).date('.m.Y') . ' 23:59:59'))->format('Y-m-d H:i:s')]
-            ])
-            ->andWhere(['AND',
-//                ['>=', 'date_start', (new \DateTime(date('01.'.date('m.Y'))))->format('Y-m-d H:i:s')],
-                ['<=', 'date_start', (new \DateTime(date('t', time()).date('.m.Y') . ' 23:59:59'))->format('Y-m-d H:i:s')]
-            ])
+//            ->andWhere(['AND',
+//                ['>=', 'date_calculate', (new \DateTime(date('01.'.date('m.Y'))))->format('Y-m-d H:i:s')],
+//                ['<=', 'date_calculate', (new \DateTime(date('t', time()).date('.m.Y') . ' 23:59:59'))->format('Y-m-d H:i:s')]
+//            ])
+//            ->andWhere(['AND',
+////                ['>=', 'date_start', (new \DateTime(date('01.'.date('m.Y'))))->format('Y-m-d H:i:s')],
+//                ['<=', 'date_start', (new \DateTime(date('t', time()).date('.m.Y') . ' 23:59:59'))->format('Y-m-d H:i:s')]
+//            ])
             ->orderBy(['date_create' => SORT_ASC])
             ->all();
         return $tasks;
@@ -141,14 +141,14 @@ class TasksComponent extends BaseComponent {
                 'deleted' => 0,
 //                'finished' => 0,
             ])
-            ->andWhere(['AND',
-                ['>=', 'date_calculate', (new \DateTime(date('01.01.'.date('Y'))))->format('Y-m-d H:i:s')],
-                ['<=', 'date_calculate', (new \DateTime(date('31.12.'.date('Y')) . ' 23:59:59'))->format('Y-m-d H:i:s')]
-            ])
-            ->andWhere(['AND',
-//                ['>=', 'date_start', (new \DateTime(date('01.01.'.date('Y'))))->format('Y-m-d H:i:s')],
-                ['<=', 'date_start', (new \DateTime(date('31.12.'.date('Y')) . ' 23:59:59'))->format('Y-m-d H:i:s')]
-            ])
+//            ->andWhere(['AND',
+//                ['>=', 'date_calculate', (new \DateTime(date('01.01.'.date('Y'))))->format('Y-m-d H:i:s')],
+//                ['<=', 'date_calculate', (new \DateTime(date('31.12.'.date('Y')) . ' 23:59:59'))->format('Y-m-d H:i:s')]
+//            ])
+//            ->andWhere(['AND',
+////                ['>=', 'date_start', (new \DateTime(date('01.01.'.date('Y'))))->format('Y-m-d H:i:s')],
+//                ['<=', 'date_start', (new \DateTime(date('31.12.'.date('Y')) . ' 23:59:59'))->format('Y-m-d H:i:s')]
+//            ])
             ->orderBy(['date_create' => SORT_ASC])
             ->all();
         return $tasks;
