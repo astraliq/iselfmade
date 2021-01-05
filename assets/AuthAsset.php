@@ -14,6 +14,7 @@ class AuthAsset extends AssetBundle {
     ];
     public $js = [
         'js/mainpage.js',
+        'js/audio.js',
     ];
 
 }
