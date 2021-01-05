@@ -28,9 +28,9 @@
             </p>
         </div>
     </section>
-    <section class="title container">Как это работает</section>
+    <section class="title section_container">Как это работает</section>
     <section class="curator">
-        <div class="container">
+        <div class="section_container">
             <h2 class="chapter__title">Персональный куратор</h2>
             <p class="curator__text">
                 У вас будет <strong>персональный куратор</strong>. Он будет проверять каждый отчёт, который вы заполняете в системе. А в тарифах &laquo;Результат&raquo; и &laquo;Прорыв&raquo;, куратор ещё и <strong>звонит вам по телефону</strong>,
@@ -63,7 +63,7 @@
             </p>
         </div>
         <div class="container_full">
-            <div class="container">
+            <div class="section_container">
                 <p class="curator__info">
                     Куратор верит в вас.<br>Не подведите его — сделайте уже то, что запланировали.
                 </p>
@@ -71,7 +71,7 @@
         </div>
     </section>
     <section class="tutor">
-        <div class="container">
+        <div class="section_container">
             <h2 class="chapter__title">Человек, перед которым стыдно облажаться</h2>
             <p class="tutor__text">
                 <strong>Наставник</strong> &#151; человек, перед которым вам лично будет очень неудобно, если он узнает, что вы не выполнили то, что планировали и тем самым не достигли намеченных целей.
@@ -106,12 +106,12 @@
         </div>
     </section>
     <section class="container_full container_full-240">
-        <div class="container">
+        <div class="section_container">
             Система &laquo;НОСОРОГ&raquo;&nbsp;&#151; не просто программа для списка дел.<br> Это целый набор сервисов, которые помогают вам делать то, что вы запланировали.
         </div>
     </section>
     <section class="other">
-        <div class="container">
+        <div class="section_container">
             <p class="title">Дополнительные сервисы</p>
             <h2 class="chapter__title">Доска эффективности</h2>
             <p class="chapter__text">
@@ -153,13 +153,13 @@
         </div>
     </section>
     <section class="container_full container_full-280">
-        <div class="container">
+        <div class="section_container">
             Мы постепенно добавляем новые сервисы.<br> Есть идея нового сервиса?<br>
             <a class="plate-link" href="#">Напишите нам</a> любым удобным вам способом.<br> Готовы обсуждать.
         </div>
     </section>
     <section class="rates">
-        <div class="container">
+        <div class="section_container">
             <p class="title">Тарифы</p>
         </div>
         <div class="rates__items">

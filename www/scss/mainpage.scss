@@ -90,12 +90,13 @@ body {
     width: 100%;
 }
 
-.container {
+.section_container {
     display: block;
+    width: 1000px;
     margin: 0 auto;
 }
 
-.curator .container {
+.curator .section_container {
     width: 1000px;
     margin: 0 auto;
     // border: 1px solid blue;
@@ -132,7 +133,7 @@ body {
     &-logo-text {
         color: $color-black;
         font-size: 1.58rem;
-        padding: 13px 0 0 12px;
+        padding: 5px 0 0 12px;
         line-height: 0;
         & span {
             text-transform: uppercase;
@@ -856,7 +857,7 @@ strong {
     & a {
         font-size: inherit;
     }
-    & .container {
+    & .section_container {
         font-size: inherit;
         width: 1000px;
         margin: 0 auto;
