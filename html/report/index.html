@@ -132,8 +132,18 @@ http://iselfmade.ru
             </section>
             <section class="files">
                 <p class="title">Загрузить файлы <span class="show-end">(по необходимости)</span></p>
-                <div class="files__form">
+                <!-- <div class="files__form">
                     <input type="file" multiple class="files__input">
+                </div> -->
+                <div class="field__wrapper">
+
+                    <input name="file" type="file" name="file" id="field__file-2" class="field field__file" multiple>
+
+                    <label class="field__file-wrapper" for="field__file-2">
+                      <div class="field__file-fake">Ничего не выбрано</div>
+                      <div class="field__file-button">Выбрать</div>
+                    </label>
+
                 </div>
             </section>
             <section class="impress">
@@ -146,6 +156,7 @@ http://iselfmade.ru
         </main>
     </div>
     <script src="js/console.js" defer></script>
+    <script src="js/report.js" defer></script>
 </body>
 
 </html>
