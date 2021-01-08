@@ -97,6 +97,7 @@ body {
     &__style {
         width: 100%;
         padding-left: 50px;
+        padding-bottom: 50px;
     }
 }
 
@@ -130,17 +131,16 @@ body {
     padding-top: 30px;
 }
 
-.roll-unroll {
-    text-decoration: none;
-    padding-bottom: 2px;
-    border-bottom: 2px dashed $color-blue;
-    &:hover {
-        cursor: pointer;
-        border-bottom: none;
-        padding-bottom: 4px;
-    }
-}
-
+// .roll-unroll {
+//     text-decoration: none;
+//     padding-bottom: 2px;
+//     border-bottom: 2px dashed $color-blue;
+//     &:hover {
+//         cursor: pointer;
+//         border-bottom: none;
+//         padding-bottom: 4px;
+//     }
+// }
 .show-end {
     padding-left: 10px;
     font-style: italic;
@@ -254,8 +254,65 @@ body {
 
 //files
 .impress {
-    // .impress__text
-    &__text {}
+    &__text {
+        width: 500px;
+        height: 150px;
+        border: 1px solid $color-blue-light;
+        border-radius: 10px;
+        outline: none;
+        -moz-appearance: none;
+        padding: 10px;
+        resize: none;
+        font-family: $font_main-text;
+        font-size: 1.4rem;
+    }
 }
 
-.day-rating {}
+.day-rating {
+    // padding-bottom: 40px;
+    width: 400px;
+    height: 100px;
+    padding-bottom: 40px;
+}
+
+.allstars__div {
+    margin: 15px 0 30px 0;
+}
+
+.stars {
+    font-family: $font_main-text;
+    color: $color-blue;
+    font-size: 2rem;
+    line-height: 2rem;
+    font-weight: 400;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.final__btn {
+    width: 200px;
+    height: 50px;
+    background: $color-blue;
+    border-radius: 15px;
+    outline: none;
+    border: none;
+    font-family: $font_main-text;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    text-transform: uppercase;
+    color: $color-white;
+    &:hover {
+        cursor: pointer;
+        background-color: $color-blue-light;
+    }
+}
+
+.btn__shadow {
+    box-shadow: 5px 5px 8px 1px $color-gray;
+    &:active {
+        box-shadow: -2px -2px 10px 1px $color-gray;
+        padding: 0 2px 2px 0;
+    }
+}

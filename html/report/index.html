@@ -85,9 +85,9 @@ http://iselfmade.ru
                 <a class="menu__item menu__item-link" href="">Возможные дела</a>
                 <a class="menu__item menu__item-link" href="">Группа поддержки</a>
                 <a class="menu__item menu__item-link" href="">Архив отчётов</a>
+                <a class="menu__item menu__item-link" href="">Остальные сервисы</a>
             </div>
             <div class="dop-menu">
-                <a class="menu__item menu__item-link" href="">Остальные сервисы</a>
                 <a class="menu__item menu__item-link" href="">Настройки</a>
                 <a class="menu__item menu__item-link" href="">Помощь</a>
             </div>
@@ -132,27 +132,25 @@ http://iselfmade.ru
             </section>
             <section class="files">
                 <p class="title">Загрузить файлы <span class="show-end">(по необходимости)</span></p>
-                <!-- <div class="files__form">
-                    <input type="file" multiple class="files__input">
-                </div> -->
                 <div class="field__wrapper">
-
                     <input name="file" type="file" name="file" id="field__file-2" class="field field__file" multiple>
-
                     <label class="field__file-wrapper" for="field__file-2">
                       <div class="field__file-fake">Ничего не выбрано</div>
                       <div class="field__file-button">Выбрать</div>
                     </label>
-
                 </div>
             </section>
             <section class="impress">
                 <p class="title">Общее впечатление дня</p>
-                <textarea class="impress__text" placeholder="Это никак не влияет на статистику или эффективность. Это возможность лучше понимать себя вообще и в моменте."></textarea>
+                <textarea class="impress__text" placeholder="Это никак не влияет на вашу статистику или эффективность. Это ещё одна возможность посмотреть на себя со стороны и лучше понимать себя."></textarea>
             </section>
-            <section class="day-rating">
-                &#9733; &#9733; &#9733; &#9733; &#9733; &#9734; &#9734; &#9734; &#9734; &#9734;
+            <section class="day-rating" id="allstars">
+                <p class="title">Личная оценка дня</p>
+                <div class="allstars__div">
+                    <p class="stars" id="stars"></p>
+                </div>
             </section>
+            <button class="final__btn btn__shadow" id="sendreport">Отправить отчёт</button>
         </main>
     </div>
     <script src="js/console.js" defer></script>
