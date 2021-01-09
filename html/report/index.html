@@ -142,12 +142,27 @@ http://iselfmade.ru
             </section>
             <section class="impress">
                 <p class="title">Общее впечатление дня</p>
-                <textarea class="impress__text" placeholder="Это никак не влияет на вашу статистику или эффективность. Это ещё одна возможность посмотреть на себя со стороны и лучше понимать себя."></textarea>
+                <textarea class="impress__text" placeholder="Это никак не влияет на вашу статистику или эффективность. Это ещё одна возможность посмотреть на себя со стороны и лучше понимать что происходит в вашей жизни."></textarea>
             </section>
             <section class="day-rating" id="allstars">
                 <p class="title">Личная оценка дня</p>
-                <div class="allstars__div">
+                <!-- <div class="allstars__div">
                     <p class="stars" id="stars"></p>
+                </div> -->
+                <div class="estimation">
+                    <select class="estimation__items" name="items" id="select">
+                        <option class="estimation__item" value="0" selected>Каким был этот день?</option>
+                        <option class="estimation__item" value="1">1&nbsp;&#151;&nbsp;Никаким</option>
+                        <option class="estimation__item" value="2">2&nbsp;&#151;&nbsp;Ужасным</option>
+                        <option class="estimation__item" value="3">3&nbsp;&#151;&nbsp;Сложным</option>
+                        <option class="estimation__item" value="4">4&nbsp;&#151;&nbsp;Малоэффективным</option>
+                        <option class="estimation__item" value="5">5&nbsp;&#151;&nbsp;Простым</option>
+                        <option class="estimation__item" value="6">6&nbsp;&#151;&nbsp;Так себе</option>
+                        <option class="estimation__item" value="7">7&nbsp;&#151;&nbsp;Нормальным</option>
+                        <option class="estimation__item" value="8">8&nbsp;&#151;&nbsp;С хорошим результатом</option>
+                        <option class="estimation__item" value="9">9&nbsp;&#151;&nbsp;Эффективным</option>
+                        <option class="estimation__item" value="10">10&nbsp;&#151;&nbsp;Супер продуктивным</option>
+                    </select>
                 </div>
             </section>
             <button class="final__btn btn__shadow" id="sendreport">Отправить отчёт</button>

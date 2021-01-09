@@ -18,7 +18,7 @@ Array.prototype.forEach.call(fields, function(input) {
 const STARS = document.getElementById('stars');
 let stars_str = '';
 // &#9733; &#9733; &#9733; &#9733; &#9733; &#9734; &#9734; &#9734; &#9734;
-function printStars() {
+function printStars(numb) {
     for (let i = 1; i <= 10; i++) {
         stars_str = stars_str + `<span id="${i}" class="st_item">&#9734; </span>`;
     }
@@ -48,4 +48,20 @@ STARS.onmouseover = (e) => {
 
         STARS.insertAdjacentHTML("beforeend", stars_str);
     }
+    document.getElementById(e.target.id).addEventListener('click', (evt2) => {
+        stars_str = '';
+        STARS.innerHTML = '';
+        for (let j = 1; j <= evt2.target.id; j++) {
+            stars_str = stars_str + `<span id="${j}">&#9733; </span>`;
+        };
+        if (evt2.target.id < 10) {
+            for (let i = evt2.target.id; i < 10; i++) {
+                stars_str = stars_str + `<span id="${i}">&#9734; </span>`;
+            };
+        };
+
+        STARS.insertAdjacentHTML("beforeend", stars_str);
+        console.log(`click${evt2.target.id}`);
+
+    })
 };
