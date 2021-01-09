@@ -1,5 +1,5 @@
 <div class="email_confirmation" id="modal_confirm_curators_email">
-    <button class="email_confirmation_close">X</button>
+    <button class="email_confirmation_close">+</button>
     <h4>Подтверждение электронной почты куратора</h4>
     <p>На указанную электронную почту куратора отправлено письмо со ссылкой подтверждения.</p>
     <p>Как только куратор подтвердит получение рассылок, напротив поля с его адресом будет стоять "галочка".</p>

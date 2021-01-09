@@ -261,7 +261,7 @@
             </div>
         </div>
     </section>
-    <div class="modal2 invisible" id="modal2">
+    <div class="modal2 hide-modal d-none" id="modal2">
         <div class="modal2_group">
             <div class="modal2__close" id="close2">×</div>
             <button class="modal2__btn_mark modal2__mark_login" id="loginbtn2">Войти</button>

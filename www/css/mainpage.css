@@ -15,9 +15,6 @@ body {
   padding: 0 0 0 0;
   box-sizing: border-box; }
 
-.invisible {
-  display: none; }
-
 .input_error {
   border: 1px solid red; }
 
@@ -165,6 +162,7 @@ strong {
 
 .modal {
   display: block;
+  animation: showBlock 0.1s ease-in forwards;
   width: 100%;
   height: 100vh;
   background-color: transparent;
@@ -338,6 +336,7 @@ strong {
 
 .modal2 {
   display: block;
+  animation: showBlock 0.1s ease-in forwards;
   width: 100%;
   height: 400px;
   background-color: transparent;
@@ -351,7 +350,7 @@ strong {
     width: 500px;
     z-index: 3; }
   .modal2__style {
-    position: relative;
+    position: absolute;
     width: inherit;
     min-height: 360px;
     background-color: #fff;
@@ -584,8 +583,7 @@ strong {
   padding-top: 110px; }
 
 .f-screen__center {
-  width: 1100px;
-  margin: 0 auto; }
+  width: 1100px; }
 
 .f-screen__center-text {
   font-family: "Roboto", sans-serif;
@@ -1162,3 +1160,24 @@ strong {
     padding: 0;
     z-index: 2;
     display: none; }
+
+.invisible {
+  visibility: hidden; }
+
+.hide-modal {
+  animation: hideBlock 0.1s ease-in forwards !important; }
+
+@keyframes hideBlock {
+  0% {
+    opacity: 1; }
+  100% {
+    opacity: 0; } }
+
+@keyframes showBlock {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
+.d-none {
+  display: none; }

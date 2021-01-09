@@ -458,10 +458,12 @@ body {
   top: 20px;
   right: 50px; }
   .email_confirmation h4 {
+    font-size: 18px;
+    margin: 0 0px 10px 0;
     color: #1D68D8;
     width: 350px; }
   .email_confirmation p {
-    font-size: 13px; }
+    font-size: 16px; }
   .email_confirmation .btn_conf_email,
   .email_confirmation .btn_ok {
     width: 160px;
@@ -474,7 +476,8 @@ body {
     font-size: 15px;
     line-height: 30px;
     font-weight: 600;
-    cursor: default; }
+    cursor: default;
+    margin: 20px 0 0 0; }
     .email_confirmation .btn_conf_email:disabled,
     .email_confirmation .btn_ok:disabled {
       background-color: gray; }
@@ -485,22 +488,21 @@ body {
     width: 80px; }
   .email_confirmation_close {
     position: absolute;
-    width: 30px;
-    height: 30px;
+    right: 4px;
+    top: -3px;
+    width: 32px;
+    font-size: 40px;
+    opacity: 0.7;
     background-color: transparent;
     color: #373737;
     border: none;
-    outline: none;
-    border-radius: 5px;
-    font-size: 20px;
-    line-height: 30px;
-    font-weight: 400;
-    right: 4px;
-    top: 4px;
-    cursor: default; }
+    transform: rotate(45deg); }
     .email_confirmation_close:active {
       transform: scale(0.99);
+      transform: rotate(45deg);
       color: #1D68D8; }
+  .email_confirmation_close:hover {
+    opacity: 1; }
 
 #modal_confirm_curators_email {
   display: none; }
@@ -743,3 +745,13 @@ body {
   opacity: 0 !important;
   visibility: none !important;
   height: 0 !important; }
+
+.b-show {
+  display: block;
+  animation: showBlock 0.1s linear forwards; }
+
+@keyframes showBlock {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }

@@ -73,10 +73,6 @@ body {
     box-sizing: border-box;
 }
 
-.invisible {
-    display: none;
-}
-
 .input_error {
     border: 1px solid red;
 }
@@ -253,6 +249,7 @@ strong {
 
 .modal {
     display: block;
+    animation: showBlock $anim_showblocks ease-in forwards;
     width: 100%;
     height: 100vh;
     background-color: transparent;
@@ -455,6 +452,7 @@ strong {
 }
 .modal2 {
     display: block;
+    animation: showBlock $anim_showblocks ease-in forwards;
     width: 100%;
     height: 400px;
     background-color: transparent;
@@ -470,7 +468,7 @@ strong {
         z-index: 3;
     }
     &__style {
-        position: relative;
+        position: absolute;
         width: inherit;
         min-height: 360px;
         background-color: #fff;
@@ -740,7 +738,6 @@ strong {
     }
     &__center {
         width: 1100px;
-        margin: 0 auto;
     }
     &__center-text {
         font-family: $font_main-text;
@@ -1419,4 +1416,32 @@ strong {
         z-index: 2;
         display: none;
     }
+}
+
+.invisible {
+    visibility: hidden;
+}
+.hide-modal {
+    animation: hideBlock $anim_showblocks ease-in forwards !important;
+}
+
+@keyframes hideBlock {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+@keyframes showBlock {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.d-none {
+    display: none;
 }

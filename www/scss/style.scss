@@ -598,12 +598,14 @@ body {
     right: 50px;
 
     & h4 {
+        font-size: 18px;
+        margin: 0 0px 10px 0;
         color: $color-blue;
         width: 350px;
     }
 
     & p {
-        font-size: 13px;
+        font-size: 16px;
     }
 
     & .btn_conf_email,
@@ -619,6 +621,7 @@ body {
         line-height: 30px;
         font-weight: 600;
         cursor: default;
+        margin: 20px 0 0 0;
 
         &:disabled {
             background-color: gray;
@@ -635,25 +638,44 @@ body {
 
     &_close {
         position: absolute;
-        width: 30px;
-        height: 30px;
+        right: 4px;
+        top: -3px;
+        width: 32px;
+        font-size: 40px;
+        opacity: 0.7;
         background-color: transparent;
         color: #373737;
         border: none;
-        outline: none;
-        border-radius: 5px;
-        font-size: 20px;
-        line-height: 30px;
-        font-weight: 400;
-        right: 4px;
-        top: 4px;
-        cursor: default;
-
+        transform: rotate(45deg);
         &:active {
             transform: scale(0.99);
+            transform: rotate(45deg);
             color: $color-blue;
         }
     }
+
+    &_close:hover {
+        opacity: 1;
+    }
+
+    //&_close {
+    //    position: absolute;
+    //    width: 30px;
+    //    height: 30px;
+    //    background-color: transparent;
+    //    color: #373737;
+    //    border: none;
+    //    outline: none;
+    //    border-radius: 5px;
+    //    font-size: 20px;
+    //    line-height: 30px;
+    //    font-weight: 400;
+    //    right: 4px;
+    //    top: 4px;
+    //    cursor: default;
+    //
+    //
+    //}
 }
 
 #modal_confirm_curators_email {
@@ -950,4 +972,17 @@ body {
     opacity: 0 !important;
     visibility: none !important;
     height: 0 !important;
+}
+
+.b-show {
+    display: block;
+    animation: showBlock $anim_showblocks linear forwards;
+}
+@keyframes showBlock {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
