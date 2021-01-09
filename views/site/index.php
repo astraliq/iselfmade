@@ -229,8 +229,8 @@
                 <p class="rates__plus">+</p>
                 <p class="rates__minus">–</p>
                 <div class="rates__button">
-                    <!-- <button class="rates__btn" id="btn_start_result" disabled>Начать</button> -->
-                    <p class="rates__name">Доступен с 01.03.2021</p>
+                     <button class="rates__btn" id="btn_start_result">Начать</button>
+<!--                    <p class="rates__name">Доступен с 01.03.2021</p>-->
                 </div>
             </div>
             <div class="rates__item rates-break">
@@ -247,9 +247,17 @@
                 <p class="rates__minus">–</p>
                 <p class="rates__plus">+</p>
                 <div class="rates__button">
-                    <!-- <button class="rates__btn" id="btn_start_break" disabled>Начать</button> -->
-                    <p class="rates__name">Доступен с 01.03.2021</p>
+                     <button class="rates__btn" id="btn_start_break">Начать</button>
+<!--                    <p class="rates__name">Доступен с 01.03.2021</p>-->
                 </div>
+            </div>
+        </div>
+        <div class="section_container">
+            <div class="chapter">
+                <h2 class="chapter__title">Пользоваться системой бесплатно</h2>
+                <p class="chapter__text">На тарифе &laquo;Стандарт&raquo; первые <strong>3 месяца абсолютно бесплатны</strong>.<strong> Всегда</strong>.</p>
+                <p class="chapter__text">Но и по истечении 3–х месяцев вы можете пользоваться системой бесплатно, если будете выполнять следующие условия: писать отчёты <strong>каждый рабочий день</strong> и коэффициент выполнения будет <strong>не ниже 80%</strong>. Выполняете
+                    эти условия в течении месяца, в следующем для вас будет бонусная скидка 100%.</p>
             </div>
         </div>
     </section>
@@ -269,7 +277,7 @@
                     'action' => '/auth/sign-in',
                     'options' => [
                         'id' => 'form-login2',
-                        'class' => 'modal2__form'
+                        'class' => 'modal2__form-sign_in'
                     ]
                 ]); ?>
                 <?=$form->field($this->params['signIn'],'email',['validateOnChange' => false])->textInput(['class' => 'modal2__input', 'id' => 'login2-user-email', 'type' => 'email', 'autocomplete' => 'username'])->error(false)?>

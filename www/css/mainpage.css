@@ -370,6 +370,7 @@ strong {
   .modal2__form {
     width: 100%;
     height: 230px;
+    padding: 10px 0 30px 0;
     display: -webkit-flex;
     display: -moz-flex;
     display: -ms-flex;
@@ -384,6 +385,10 @@ strong {
       width: 100%;
       height: 190px;
       padding: 10px 0 280px 0;
+      display: -webkit-flex;
+      display: -moz-flex;
+      display: -ms-flex;
+      display: -o-flex;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -393,15 +398,37 @@ strong {
       width: 100%;
       height: 355px;
       padding: 10px 0 30px 0;
+      display: -webkit-flex;
+      display: -moz-flex;
+      display: -ms-flex;
+      display: -o-flex;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
       margin: 0; }
+    .modal2__form-sign_in {
+      width: 100%;
+      padding: 10px 0 30px 0;
+      display: -webkit-flex;
+      display: -moz-flex;
+      display: -ms-flex;
+      display: -o-flex;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0; }
+      .modal2__form-sign_in .form-group {
+        margin: 0 0 22px 0; }
     .modal2__form-restore {
       width: 100%;
       height: 355px;
       padding: 10px 0 30px 0;
+      display: -webkit-flex;
+      display: -moz-flex;
+      display: -ms-flex;
+      display: -o-flex;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -830,7 +857,8 @@ strong {
   padding: 60px 0 80px 0; }
   .rates__items {
     display: flex;
-    justify-content: space-around; }
+    justify-content: space-around;
+    padding-bottom: 70px; }
   .rates__item {
     width: 240px;
     border-radius: 20px;
