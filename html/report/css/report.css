@@ -86,7 +86,21 @@ body {
   align-items: center;
   padding: 20px 30px 0 0; }
   .top-menu__link {
-    padding-right: 10px; }
+    padding-right: 10px;
+    position: relative; }
+    .top-menu__link::after {
+      content: '2';
+      width: 15px;
+      height: 15px;
+      border-radius: 100%;
+      background-color: #ff0000;
+      color: #fff;
+      font-family: "Roboto", sans-serif;
+      font-size: 1.1rem;
+      top: -3px;
+      left: 10px;
+      position: absolute;
+      text-align: center; }
 
 .goals {
   width: 100%; }

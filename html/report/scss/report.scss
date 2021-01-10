@@ -109,6 +109,21 @@ body {
     padding: 20px 30px 0 0;
     &__link {
         padding-right: 10px;
+        position: relative;
+        &::after {
+            content: '2';
+            width: 15px;
+            height: 15px;
+            border-radius: 100%;
+            background-color: $color-red;
+            color: $color-white;
+            font-family: $font_main-text;
+            font-size: 1.1rem;
+            top: -3px;
+            left: 10px;
+            position: absolute;
+            text-align: center;
+        }
     }
 }
 
