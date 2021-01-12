@@ -14,3 +14,25 @@ Array.prototype.forEach.call(fields, function(input) {
             label.querySelector('.field__file-fake').innerText = labelVal;
     });
 });
+
+
+let disagree = document.getElementById('disagree');
+
+disagree.addEventListener('click', () => {
+    let disblock = document.getElementById('disblock');
+    disblock.classList.remove('invisible');
+    disagree.classList.remove('comments__line-blue');
+    disagree.classList.add('comments__line');
+
+});
+
+document.getElementById('dissend').addEventListener('click', () => {
+    let distext = document.getElementById('distext');
+    console.log(distext.value);
+    let disblock = document.getElementById('disblock');
+    disblock.innerHTML = '';
+    disagree.innerHTML = '';
+    disblock.innerHTML = `
+        <p class="my__comment">${distext.value}</p>
+    `;
+})
