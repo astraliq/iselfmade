@@ -90,7 +90,9 @@ body {
     font-weight: 400;
     font-size: 1.5rem;
     line-height: 1.5rem;
-    color: #4C91F8; }
+    color: #4C91F8;
+    display: block;
+    padding: 0 15px; }
     .top-menu__link:hover {
       text-decoration: none;
       color: #000; }
