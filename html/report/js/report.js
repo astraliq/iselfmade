@@ -15,37 +15,24 @@ Array.prototype.forEach.call(fields, function(input) {
     });
 });
 
-const STARS = document.getElementById('stars');
-let stars_str = '';
-// &#9733; &#9733; &#9733; &#9733; &#9733; &#9734; &#9734; &#9734; &#9734;
-function printStars() {
-    for (let i = 1; i <= 10; i++) {
-        stars_str = stars_str + `<span id="${i}" class="st_item">&#9734; </span>`;
-    }
-    STARS.insertAdjacentHTML("beforeend", stars_str);
-}
-printStars();
-let allstars = document.querySelectorAll('.st_item');
 
-STARS.onmouseout = (e) => {
-    STARS.innerHTML = '';
-    stars_str = '';
-    printStars();
-}
+let disagree = document.getElementById('disagree');
 
-STARS.onmouseover = (e) => {
-    document.getElementById(e.target.id).onmousemove = (evt) => {
-        stars_str = '';
-        STARS.innerHTML = '';
-        for (let j = 1; j <= evt.target.id; j++) {
-            stars_str = stars_str + `<span id="${j}">&#9733; </span>`;
-        };
-        if (evt.target.id < 10) {
-            for (let i = evt.target.id; i < 10; i++) {
-                stars_str = stars_str + `<span id="${i}">&#9734; </span>`;
-            };
-        };
+disagree.addEventListener('click', () => {
+    let disblock = document.getElementById('disblock');
+    disblock.classList.remove('invisible');
+    disagree.classList.remove('comments__line-blue');
+    disagree.classList.add('comments__line');
 
-        STARS.insertAdjacentHTML("beforeend", stars_str);
-    }
-};
+});
+
+document.getElementById('dissend').addEventListener('click', () => {
+    let distext = document.getElementById('distext');
+    console.log(distext.value);
+    let disblock = document.getElementById('disblock');
+    disblock.innerHTML = '';
+    disagree.innerHTML = '';
+    disblock.innerHTML = `
+        <p class="my__comment">${distext.value}</p>
+    `;
+})
