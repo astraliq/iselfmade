@@ -34,9 +34,15 @@ body {
   margin: 0 auto; }
 
 .header__style {
-  padding-top: 20px;
-  width: 96%;
+  padding: 20px 30px 0 30px;
+  width: 100%;
   margin: 0 auto; }
+
+.header__style_error {
+  padding: 20px 30px 0 30px;
+  width: 100%;
+  margin: 0 auto;
+  border-bottom: 3px solid #30458a; }
 
 .header__top {
   display: flex;
@@ -137,6 +143,16 @@ body {
   color: #000;
   margin: 0 auto;
   padding-bottom: 25px; }
+
+.header__title2 {
+  max-width: 1100px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  font-size: 35px;
+  line-height: 48px;
+  text-align: center;
+  color: #000;
+  margin: 0 130px; }
 
 .header__text,
 .header__text strong {
@@ -514,7 +530,14 @@ strong {
     font-weight: 400;
     font-size: 1.8rem;
     line-height: 2.3rem;
-    border: none; }
+    margin: 0;
+    border: none;
+    background-color: #fff;
+    color: #1D68D8;
+    box-shadow: none; }
+    .modal2__btn_mark:active {
+      transform: none;
+      box-shadow: none; }
     .modal2__btn_mark:hover {
       background-color: #1D68D8 !important;
       color: #fff; }
@@ -663,6 +686,7 @@ strong {
     justify-content: center;
     align-items: center;
     font-size: 2.5rem;
+    margin: 0;
     width: 65px;
     height: 65px;
     border-radius: 50%;
@@ -1005,7 +1029,8 @@ strong {
   justify-content: flex-start;
   background-image: url(../img/rhino-footer-bg.png);
   background-position: bottom right;
-  background-repeat: no-repeat; }
+  background-repeat: no-repeat;
+  flex: 0 0 auto; }
 
 .footer__logo-text-1 {
   font-family: "Roboto", sans-serif;

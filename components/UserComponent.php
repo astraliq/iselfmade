@@ -70,9 +70,9 @@ class UserComponent extends BaseComponent {
 
     public function sendConfirmCuratorEmailMail(User $user) :bool {
         $auth = \Yii::$app->auth;
-        if ($user->curators_email_confirm == 0) {
+        if ($user->mentor_email_confirm == 0) {
             $confirmation_token = $auth->generateConfirmationEmailToken();
-            $user->curators_access_token = $confirmation_token;
+            $user->mentor_access_token = $confirmation_token;
             $user->grade_token = $auth->generateUserGradeToken();
             if ($user->save()) {
                 $message = \Yii::$app->mailer->compose(
@@ -83,8 +83,8 @@ class UserComponent extends BaseComponent {
                     ]
                 )
                     ->setFrom('hello@iselfmade.ru')
-                    ->setTo($user->curators_emails)
-                    ->setSubject('iselfmade - Подтверждение куратора')
+                    ->setTo($user->mentor_email)
+                    ->setSubject('iselfmade - Подтверждение наставника')
                     ->send();
                 return true;
             } else {
@@ -95,10 +95,10 @@ class UserComponent extends BaseComponent {
     }
 
     public function confirmCuratorsEmail(User $user, $confirmation_token) :bool {
-        if ($user->curators_access_token === $confirmation_token) {
-            $user->curators_access_token = null;
-            $user->curators_email_confirm = 1;
-            $user->curators_access_token = null;
+        if ($user->mentor_access_token === $confirmation_token) {
+            $user->mentor_access_token = null;
+            $user->mentor_email_confirm = 1;
+            $user->mentor_access_token = null;
             $user->scenario = 'confirmationCuratorsEmail';
             if ($user->save()) {
                 return true;

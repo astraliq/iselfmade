@@ -28,8 +28,8 @@ class CuratorsEmailConfirmAction extends Action {
         \Yii::$app->response->format = Response::FORMAT_JSON;
         if (\Yii::$app->request->isPost) {
             $postData = \Yii::$app->request->post();
-            if ($postData['User']['curators_emails']) {
-                $user->curators_emails = $postData['User']['curators_emails'];
+            if ($postData['User']['mentor_email']) {
+                $user->mentor_email = $postData['User']['mentor_email'];
 
                 if ($comp->updateUser($user)) {
                     if ($comp->sendConfirmCuratorEmailMail($user)) {

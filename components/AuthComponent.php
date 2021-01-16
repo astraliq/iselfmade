@@ -110,10 +110,12 @@ class AuthComponent extends Component
     public function confirmEmail(User $model) :bool {
         $user = new User();
         $user = $user->getUserByEmailAndConfirmToken($model->email, $model->confirmation_token);
-        $user->confirmation_token = null;
-        $user->confirm_email = 1;
-        if ($user->save()) {
-            return true;
+        if ($user) {
+            $user->confirmation_token = null;
+            $user->confirm_email = 1;
+            if ($user->save()) {
+                return true;
+            }
         }
         return false;
     }

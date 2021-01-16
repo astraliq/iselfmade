@@ -28,7 +28,7 @@ class Tasks {
         this.aim_id = null;
         this.goal_id = null;
         this.hashtags = null;
-        this.curator_emails = null;
+        this.mentor_email = null;
         this.finished = 0;
         this.deleted = 0;
         this.repeat_type_id = null;
@@ -177,7 +177,7 @@ class Tasks {
                 'goal_id': this.goal_id,
                 'hashtags': this.hashtags,
                 'date_calculate': '',
-                'curator_emails': this.curator_emails,
+                'mentor_email': this.mentor_email,
                 'finished': this.finished,
                 'repeat_type_id': this.repeat_type_id,
                 'repeat_by_id': this.repeat_by_id,
@@ -218,7 +218,7 @@ class Tasks {
                 'goal_id': this.goal_id,
                 'hashtags': this.hashtags,
                 'date_calculate': '',
-                'curator_emails': this.curator_emails,
+                'mentor_email': this.mentor_email,
                 'finished': this.finished,
                 'repeat_type_id': this.repeat_type_id,
                 'repeat_by_id': this.repeat_by_id,
@@ -257,7 +257,7 @@ class Tasks {
                     'goal_id': task.goal_id,
                     'hashtags': task.hashtags,
                     'date_calculate': task.date_calculate,
-                    'curator_emails': task.curator_emails,
+                    'mentor_email': task.mentor_email,
                     'finished': task.finished,
                     'repeat_type_id': task.repeat_type_id,
                     'repeat_by_id': this.repeat_by_id,
@@ -275,7 +275,7 @@ class Tasks {
                     'goal_id': task.goal_id,
                     'hashtags': task.hashtags,
                     'date_calculate': task.date_calculate,
-                    'curator_emails': task.curator_emails,
+                    'mentor_email': task.mentor_email,
                     'finished': task.finished,
                     'deleted': task.deleted,
                     'repeat_type_id': task.repeat_type_id,
@@ -750,7 +750,7 @@ class Task extends Tasks {
         this.aim_id = task.aim_id;
         this.goal_id = task.goal_id;
         this.hashtags = task.hashtags;
-        this.curator_emails = task.curator_emails;
+        this.mentor_email = task.mentor_email;
         this.finished = task.finished;
         this.deleted = task.deleted;
         this.repeat_type_id = task.repeat_type_id;
@@ -867,7 +867,7 @@ class User {
         this.sex = '';
         this.birthday = '';
         this.balance = null;
-        this.curators_emails = '';
+        this.mentor_email = '';
         this.btnConfirmCuratorId = 'curators_emails_btn_conf';
         this.iconConfirmCuratorId = 'curators_emails_confirm';
         this.curatorsEmailsClass = '.curators_emails';
@@ -889,21 +889,21 @@ class User {
     _getFormData() {
         let curatorEmailInput = document.querySelector(this.curatorsEmailsClass);
         if (curatorEmailInput) {
-            this.curators_emails = curatorEmailInput.value;
+            this.mentor_email = curatorEmailInput.value;
         }
         return true;
     }
 
     _sendCuratorsEmailConfirm(btn) {
         this._getFormData();
-        if (!validateEmail(this.curators_emails)) {
+        if (!validateEmail(this.mentor_email)) {
             console.log('Ошибка валидации электронной почты куратора.');
             return false;
         }
         btn.classList.add('hidden_block');
         let sendData = {
             'User': {
-                'curators_emails': this.curators_emails,
+                'mentor_email': this.mentor_email,
             }
         };
 
@@ -917,11 +917,11 @@ class User {
                     iconConfirm.classList.remove('success_icon');
                 }
                 let dateCookie = new Date(Date.now() + 3600e3).toUTCString();
-                document.cookie = 'curator_email_send=1; expires=' + dateCookie;
+                document.cookie = 'mentor_email_send=1; expires=' + dateCookie;
             })
             .catch(error => {
                 btn.classList.remove('hidden_block');
-                document.cookie = 'curator_email_send=0';
+                document.cookie = 'mentor_email_send=0';
             });
     }
 
@@ -945,7 +945,7 @@ class User {
                 });
 
                 let iconCuratorConfirm = document.getElementById(this.iconConfirmCuratorId);
-                if (get_cookie('curator_email_send') != 1 && !iconCuratorConfirm.classList.contains('success_icon') && this.curators_emails) {
+                if (get_cookie('mentor_email_send') != 1 && !iconCuratorConfirm.classList.contains('success_icon') && this.curator_email) {
                     this._showBtn(btnCuratorsEmailConfirm);
                 } else {
                     this._hideBtn(btnCuratorsEmailConfirm);
@@ -953,7 +953,7 @@ class User {
             }
 
             curatorEmailInput.addEventListener('input', (e) => {
-                if (this.curators_emails === curatorEmailInput.value) {
+                if (this.mentor_email === curatorEmailInput.value) {
                     this._hideBtn(btnCuratorsEmailConfirm);
                 } else {
                     this._showBtn(btnCuratorsEmailConfirm);
@@ -972,7 +972,7 @@ class ArchiveTasks extends Tasks{
         super();
         this.archiveListClass = '.archive__list';
         this.calendarId = 'calendar_block';
-        this.archiveHTMLId = 'archive-0';
+        this.archiveHTMLId = 'tasks_list-0';
         this.day = '';
         this.month = '';
         this.year = '';
@@ -998,6 +998,7 @@ class ArchiveTasks extends Tasks{
         this.day = btn.innerText;
         this.day = this.day.length === 1 ? `0${this.day}` : this.day;
         this.month = Number(table.dataset.month) + 1;
+        this.month = this.month < 10 ? `0${this.month}` : this.month;
         this.year =  table.dataset.year;
     }
 
@@ -1009,6 +1010,7 @@ class ArchiveTasks extends Tasks{
     }
 
     renderHTML(html) {
+        console.log('asda');
         return $(document.getElementById(this.archiveHTMLId)).replaceWith(html);
     }
 

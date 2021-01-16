@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Html;
 
-if ($user->curators_email_confirm != 1) {
+if ($user->mentor_email_confirm != 1) {
     $confirmCuratorBtnClass = '';
     $confirmCuratorClass = 'failure_icon';
 } else {
@@ -9,11 +9,11 @@ if ($user->curators_email_confirm != 1) {
     $confirmCuratorClass = 'success_icon';
 }
 
-if ($user->curators_access_token != null) {
+if ($user->mentor_access_token != null) {
     $confirmCuratorBtnClass = 'hidden_block';
 }
 
-if (!$user->curators_emails) {
+if (!$user->mentor_email) {
     $confirmCuratorBtnClass = 'hidden_block';
     $confirmCuratorClass = '';
 }
@@ -36,10 +36,10 @@ if (!$user->curators_emails) {
         <?=$form->field($user,'timezone')->dropDownList($timezones, ['options' => [ $user->timezoneKeyNumber => ['Selected' => true]]]);?>
         <?=$form->field($user,'avaReal')->fileInput(['multiple' => false,]);?>
         <div class="user_profile-curator">
-            <?=$form->field($user,'curators_emails')->input('text',['class' => 'form-control curators_emails']);?>
+            <?=$form->field($user,'mentor_email')->input('text',['class' => 'form-control curators_emails']);?>
             <span class="<?=$confirmCuratorClass?>" id="curators_emails_confirm"></span>
             <button class="<?=$confirmCuratorBtnClass?>" id="curators_emails_btn_conf" <?=$confirmCuratorBtnActive?>>Подтвердить</button>
-            <?=$form->field($user,'curators_email_repeat')->dropDownList($user::REPEAT_CURATOR, ['options' => [ '1' => ['Selected' => true]], 'autocomplete' => 'sex']);?>
+            <?=$form->field($user,'mentor_email_repeat')->dropDownList($user::REPEAT_CURATOR, ['options' => [ '1' => ['Selected' => true]], 'autocomplete' => 'sex']);?>
         </div>
         <div class="user_profile-psw">
             <?=$form->field($user,'password',['enableClientValidation'=>false])->passwordInput(['type' => 'password', 'autocomplete' => 'new-password'])->label('Новый пароль');?>

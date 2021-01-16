@@ -9,6 +9,8 @@ use yii\base\Action;
 
 class GradeResultAction extends Action {
     public function run($result) {
+        $this->controller->layout = 'error_base';
+
         $modelSignIn = new User([
             'scenario' => 'signIn'
         ]);

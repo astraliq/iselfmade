@@ -7,7 +7,7 @@ namespace app\components;
 use app\base\BaseComponent;
 use app\models\Tasks;
 use app\models\User;
-use app\models\UsersGrades;
+use app\models\UsersReports;
 use phpDocumentor\Reflection\Types\False_;
 use yii\db\ActiveRecord;
 use yii\db\conditions\BetweenCondition;
@@ -81,7 +81,7 @@ class TasksComponent extends BaseComponent {
             ])
             ->andWhere(['AND',
 //                ['>=', 'date_start', (new \DateTime(date('d.m.Y')  . ' 00:00:00'))->format('Y-m-d H:i:s')],
-                ['<=', 'date_start', (new \DateTime(date('d.M.Y') . ' 23:59:59'))->format('Y-m-d H:i:s')]
+                ['<=', 'date_start', (new \DateTime(date('d.m.Y') . ' 23:59:59'))->format('Y-m-d H:i:s')]
             ])
             ->orderBy(['date_create' => SORT_ASC])
             ->all();
@@ -647,8 +647,8 @@ class TasksComponent extends BaseComponent {
             $model->main_img = $task->main_img;
             $model->buddy_ids = $task->buddy_ids;
             $model->group_id = $task->group_id;
-            $model->curators_ids = $task->curators_ids;
-            $model->curators_emails = $task->curators_emails;
+            $model->curator_id = $task->curator_id;
+            $model->mentor_email = $task->mentor_email;
             $model->hashtags = $task->hashtags;
             $model->deleted = $task->deleted;
             $model->repeat_type_id = null;
@@ -671,8 +671,8 @@ class TasksComponent extends BaseComponent {
             $model->main_img = $task->main_img;
             $model->buddy_ids = $task->buddy_ids;
             $model->group_id = $task->group_id;
-            $model->curators_ids = $task->curators_ids;
-            $model->curators_emails = $task->curators_emails;
+            $model->curator_id = $task->curator_id;
+            $model->mentor_email = $task->mentor_email;
             $model->hashtags = $task->hashtags;
             $model->deleted = $task->deleted;
             $model->repeat_type_id = null;
@@ -859,20 +859,20 @@ class TasksComponent extends BaseComponent {
 
         $users = User::find()
             ->where([
-                'curators_email_confirm' => 1,
+                'mentor_email_confirm' => 1,
 //                'finished' => 0,
             ])
-            ->andWhere(['not', ['curators_emails' => null]])
+            ->andWhere(['not', ['mentor_email' => null]])
             ->all();
         $reportsToSend = [];
 
         foreach ($users as $user) {
             // отправка ежедневно
-            if ($user->curators_email_repeat == 1) {
+            if ($user->mentor_email_repeat == 1) {
                 $tasks = $this->getTasksByDateAndUserId($user->id, $yesterday);
                 $userReports =[
                     'type' => 1,
-                    'email' => $user->curators_emails,
+                    'email' => $user->mentor_email,
                     'userName' => $user->name,
                     'userSurname' => $user->surname,
                     'userId' => $user->id,
@@ -887,11 +887,11 @@ class TasksComponent extends BaseComponent {
                 ];
             }
             // отправка раз в неделю
-//            if ($user->curators_email_repeat == 5) {
-            if ($user->curators_email_repeat == 5 && $dayOfWeek == 1) {
+//            if ($user->mentor_email_repeat == 5) {
+            if ($user->mentor_email_repeat == 5 && $dayOfWeek == 1) {
                 $userReports =[
                     'type' => 5,
-                    'email' => $user->curators_emails,
+                    'email' => $user->mentor_email,
                     'userName' => $user->name,
                     'userSurname' => $user->surname,
                     'userId' => $user->id,
@@ -932,7 +932,7 @@ class TasksComponent extends BaseComponent {
                 'token' => $sendingReport['token'],
             ])
                 ->setFrom('hello@iselfmade.ru')
-                ->setTo($user->curators_emails)
+                ->setTo($user->mentor_email)
                 ->setSubject($sendingReport['userName'] . ' - ' . $type)
                 ->send();
             if (!$message) {
@@ -944,6 +944,14 @@ class TasksComponent extends BaseComponent {
     }
 
     public function getTasksByDateAndUserId($userId, $date) {
+        // преобразование даты в формат БД
+        $d = \DateTime::createFromFormat('Y-m-d', $date);
+        if ($d && $d->format('Y-m-d') === $date) {
+            $formatDate = $date;
+        } else {
+            $formatDate = (new \DateTime($date))->format('Y-m-d');
+        }
+
         $tasks = Tasks::find()
             ->where([
                 'user_id' => $userId,
@@ -951,12 +959,12 @@ class TasksComponent extends BaseComponent {
 //                'finished' => 0,
             ])
             ->andWhere(['AND',
-                ['>=', 'date_calculate', (new \DateTime(date($date)))->format('Y-m-d H:i:s')],
-                ['<=', 'date_calculate', (new \DateTime($date . ' 23:59:59'))->format('Y-m-d H:i:s')]
+                ['>=', 'date_calculate', $formatDate],
+                ['<=', 'date_calculate', $formatDate . ' 23:59:59']
             ])
             ->andWhere(['AND',
-                ['>=', 'date_start', (new \DateTime($date  . ' 00:00:00'))->format('Y-m-d H:i:s')],
-                ['<=', 'date_start', (new \DateTime($date . ' 23:59:59'))->format('Y-m-d H:i:s')]
+                ['>=', 'date_start', $formatDate  . ' 00:00:00'],
+                ['<=', 'date_start', $formatDate . ' 23:59:59']
             ])
             ->orderBy(['date_create' => SORT_ASC])
             ->all();
@@ -1001,7 +1009,6 @@ class TasksComponent extends BaseComponent {
             ])
             ->orderBy(['date_create' => SORT_ASC])
             ->all();
-
         if ($tasks) {
             return $tasks;
         } else {
@@ -1021,9 +1028,9 @@ class TasksComponent extends BaseComponent {
 
         switch ($period) {
             case 1:
-                $userGrade = new UsersGrades();
+                $userGrade = new UsersReports();
                 $userGrade->user_id = $userId;
-                $userGrade->grade = $grade;
+                $userGrade->mentor_grade = $grade;
                 $userGrade->date = (new \DateTime(date($date1)))->format('Y-m-d');
                 if ($userGrade->save()) {
                     return true;
@@ -1034,9 +1041,9 @@ class TasksComponent extends BaseComponent {
             case 5:
                 $res = false;
                 for ($i = 0; $i <= 6; $i++) {
-                    $userGrade = new UsersGrades();
+                    $userGrade = new UsersReports();
                     $userGrade->user_id = $userId;
-                    $userGrade->grade = $grade;
+                    $userGrade->mentor_grade = $grade;
                     if ($i == 0) {
                         $userGrade->date = (new \DateTime(date($date1)))->format('Y-m-d');
                     } else {
@@ -1056,6 +1063,5 @@ class TasksComponent extends BaseComponent {
                 return false;
         }
     }
-
 
 }

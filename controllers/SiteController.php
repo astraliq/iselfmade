@@ -49,6 +49,7 @@ class SiteController extends Controller {
      * {@inheritdoc}
      */
     public function actions() {
+
         return [
             'error' => ['class' => ErrorAction::class],
             'captcha' => [
@@ -56,7 +57,7 @@ class SiteController extends Controller {
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
             'confirm-curator-email' => ['class' => ConfirmCuratorEmailAction::class],
-            'grade-result' => ['class' => GradeResultAction::class],
+            'grade-result' => ['class' => GradeResultAction::class, ],
         ];
     }
 

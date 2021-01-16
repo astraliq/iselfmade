@@ -22,6 +22,7 @@ $config = [
         'auth' => ['class' => \app\components\AuthComponent::class],
         'authManager' => ['class' => 'yii\rbac\DbManager'],
         'dao' => ['class' => \app\components\DAOComponent::class],
+        'reports' => ['class' => \app\components\ReportsComponent::class],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'eI-IGl_zVxsnssjqFoUUedH5VSkgfBiV',
@@ -113,12 +114,12 @@ $config = [
                 'report'=>'task/report/',
                 'archive'=>'task/archive/',
                 'repeated'=>'task/repeated/',
-                'check-reports'=>'task/check-reports/',
                 'profile'=>'user/update/',
                 'task/img/'=>'img/',
                 'profile/<id:\d+>'=>'user/update/',
                 'confirm-curator-email'=>'site/confirm-curator-email',
                 'grade-result'=>'site/grade-result',
+                'check-reports'=>'report/check-reports/',
                 [
                     'class'=>yii\rest\UrlRule::class,
                     'controller'=>'user-rest-api',

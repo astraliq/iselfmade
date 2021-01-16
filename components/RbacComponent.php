@@ -149,6 +149,33 @@ class RbacComponent extends BaseComponent {
 
     }
 
+    public function addMentorRole() {
+        $manager = $this->getManager();
+
+        $mentor = $manager->createRole('mentor');
+        $manager->add($mentor);
+
+        $manager->addChild($mentor, $manager->getPermission('createTasks'));
+        $manager->addChild($mentor, $manager->getPermission('updateOwnTasks'));
+        $manager->addChild($mentor, $manager->getPermission('viewOwnTasks'));
+        $manager->addChild($mentor, $manager->getPermission('deleteOwnTasks'));
+        $manager->addChild($mentor, $manager->getPermission('viewOwnProfile'));
+        $manager->addChild($mentor, $manager->getPermission('updateOwnProfile'));
+        $manager->addChild($mentor, $manager->getPermission('viewUserProfile'));
+        $manager->addChild($mentor, $manager->getPermission('viewUserTasks'));
+
+    }
+
+    public function addModeratorChildes() {
+        $manager = $this->getManager();
+
+        $mentor = $manager->getRole('mentor');
+        $moderator = $manager->getRole('moderator');
+
+        $manager->addChild($moderator, $mentor);
+
+    }
+
     public function setAllRolesToUser() {
         $users = \Yii::$app->dao->getUsersList();
         $manager = $this->getManager();

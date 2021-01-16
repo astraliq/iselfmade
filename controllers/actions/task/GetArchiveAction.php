@@ -7,7 +7,7 @@ namespace app\controllers\actions\task;
 use app\components\TasksComponent;
 use app\components\UserComponent;
 use app\models\Tasks;
-use app\models\UsersGrades;
+use app\models\UsersReports;
 use app\widgets\tasks\ArchiveTasksWidget;
 use yii\base\Action;
 use yii\web\HttpException;
@@ -46,7 +46,7 @@ class GetArchiveAction extends Action {
 
         $dateUTC = (new \DateTime(date($date)))->format('Y-m-d');
         $archiveTasks = $comp->getArchiveTasksByDate($date);
-        $gradeModel = new UsersGrades();
+        $gradeModel = new UsersReports();
         $userGrade = $gradeModel->findOne(['user_id' => \Yii::$app->user->getId(), 'date' => $dateUTC])->grade;
         if ($archiveTasks) {
             return [

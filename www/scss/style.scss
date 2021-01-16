@@ -34,6 +34,49 @@ body {
     flex-direction: column;
     //height: 100%;
 }
+
+input[type="search"] {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+input[type="radio"],
+input[type="checkbox"] {
+    margin: 4px 0 0;
+    margin-top: 1px \9;
+    line-height: normal;
+}
+input[type="radio"][disabled],
+input[type="checkbox"][disabled],
+input[type="radio"].disabled,
+input[type="checkbox"].disabled,
+fieldset[disabled] input[type="radio"],
+fieldset[disabled] input[type="checkbox"] {
+    cursor: not-allowed;
+}
+input[type="file"] {
+    display: block;
+}
+input[type="range"] {
+    display: block;
+    width: 100%;
+}
+select[multiple],
+select[size] {
+    height: auto;
+}
+input[type="file"]:focus,
+input[type="radio"]:focus,
+input[type="checkbox"]:focus {
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+}
+
+
+
 .container {
     margin: 0 0 0 0;
     padding: 0 0 0 0;
@@ -557,9 +600,14 @@ body {
     background-color: $main_background_color;
     width: 25px;
     height: 20px;
-    left: -26px;
-    top: 0;
+    left: -39px;
+    top: -9px;
     font-size: 16px;
+    box-shadow: none;
+    color: darkgray;
+    &:active {
+        box-shadow: none;
+    }
 }
 
 .saving_tasks {
@@ -618,7 +666,6 @@ body {
         outline: none;
         border-radius: 5px;
         font-size: 15px;
-        line-height: 30px;
         font-weight: 600;
         cursor: default;
         margin: 20px 0 0 0;
@@ -646,11 +693,13 @@ body {
         background-color: transparent;
         color: #373737;
         border: none;
+        box-shadow: none;
         transform: rotate(45deg);
         &:active {
             transform: scale(0.99);
             transform: rotate(45deg);
             color: $color-blue;
+            box-shadow: none;
         }
     }
 
@@ -986,3 +1035,164 @@ body {
         opacity: 1;
     }
 }
+
+.error_block {
+    width: 90%;
+    margin: 0 auto;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    & .error_desc {
+        width: 500px;
+    }
+
+    & .error_text {
+        text-align: center;
+        font-size: 25px;
+    }
+
+    & .error_title {
+        font-size: 28px;
+        text-align: center;
+    }
+
+    & .error_alert {
+        font-size: 22px;
+        text-align: center;
+    }
+
+    & p {
+        font-size: 15px;
+    }
+}
+
+button {
+    font-size: 17px;
+    min-width: 32px;
+    padding: 5px;
+    margin: 5px;
+    background-color: $color-blue-light;
+    border-radius: 5px;
+    color: whitesmoke;
+    border: none;
+    &:active {
+        transform: scale(0.98);
+        box-shadow: 2px 2px 8px 1px #b1b1b1;
+    }
+}
+
+.check {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
+    &-content {
+        min-width: 400px;
+        width: min-content;
+        padding: 10px 10px 10px 20px;
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flex;
+        display: -o-flex;
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        border: 1px solid $color-blue;
+        border-radius: 10px;
+    }
+
+    &-user_data {
+        width: 100%;
+
+        & h3 {
+            font-size: 15px;
+        }
+
+        & td {
+            font-size: 13px;
+        }
+
+        &-options {
+            font-weight: 700;
+        }
+
+        &-data {
+            padding: 0 0 0 10px;
+        }
+    }
+
+    &-title {
+        text-transform: uppercase;
+        width: 100%;
+        font-size: 20px;
+        color: $color-blue;
+        margin: 20px 0;
+        & .count_reports {
+            font-size: inherit;
+            text-transform: lowercase;
+        }
+    }
+
+    &-grade_btn {
+        border-radius: 16px;
+    }
+
+    &-buttons {
+        width: 100%;
+        margin: 10px 0;
+    }
+    &-grades {
+        width: 100%;
+        margin: 20px 0 10px 0;
+
+        & p {
+            font-size: 17px;
+            padding: 0 0 5px 0;
+        }
+
+        & input {
+            display: none;
+        }
+
+        & label {
+            display: inline-block;
+            text-align: center;
+            font-size: 17px;
+            min-width: 32px;
+            height: 32px;
+            padding: 5px 11px;
+            margin: 5px;
+            background-color: $color-blue-light;
+            border-radius: 16px;
+            color: whitesmoke;
+            box-shadow: 3px 3px 8px 1px #b1b1b1;
+        }
+
+        & input:checked + label {
+            background-color: $color-blue;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

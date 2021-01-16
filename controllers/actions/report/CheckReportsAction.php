@@ -1,7 +1,7 @@
 <?php
 
 
-namespace app\controllers\actions\task;
+namespace app\controllers\actions\report;
 
 
 use app\components\ReportsComponent;
@@ -35,7 +35,8 @@ class CheckReportsAction extends Action {
         $report = $comp->getFirstUserReport();
         $reportUser = $modelUsers->findOne(['id' => $report->user_id]);
         $userReportTasks = $compTasks->getTasksByDateAndUserId($reportUser->id, $report->date);
-        $reportsCount = $comp->getCountReportsToCheck() - 1;
+        $count =  $comp->getCountReportsToCheck();
+        $reportsCount = $count == 0 ? 0 : $count -1;
         if (\Yii::$app->request->isAjax) {
             \Yii::$app->response->format=Response::FORMAT_JSON;
             return $tasks;
@@ -54,4 +55,5 @@ class CheckReportsAction extends Action {
         ]);
 
     }
+
 }

@@ -77,4 +77,15 @@ class TimeZoneComponent {
         $dt = new \DateTime('now', new \DateTimeZone('UTC'));
         return $dt->setTimeZone(new \DateTimeZone($tz))->getOffset() / 3600;
     }
+
+    public function transformDateToBdFormat($date) {
+        // преобразование даты в формат БД
+        $d = \DateTime::createFromFormat('Y-m-d', $date);
+        if ($d && $d->format('Y-m-d') === $date) {
+            $formatDate = $date;
+        } else {
+            $formatDate = (new \DateTime($date))->format('Y-m-d');
+        }
+        return $formatDate;
+    }
 }
