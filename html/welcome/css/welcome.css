@@ -29,6 +29,10 @@ body {
   .date__numb {
     color: #4C91F8; }
 
+.stiky {
+  position: sticky;
+  top: 40px; }
+
 .date-numb {
   display: flex;
   align-items: flex-end; }
@@ -123,3 +127,45 @@ body {
 
 .user__img {
   border-radius: 50%; }
+
+.welcome__title {
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  font-size: 5rem;
+  line-height: 95%;
+  color: #000;
+  padding-bottom: 10px; }
+.welcome__chapter {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 3rem;
+  line-height: 4rem;
+  color: #000;
+  padding-top: 25px; }
+.welcome__text {
+  width: 700px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 1.9rem;
+  line-height: 2.4rem;
+  color: #000;
+  padding-bottom: 10px; }
+.welcome__link {
+  color: #4C91F8; }
+  .welcome__link:hover {
+    text-decoration: none;
+    color: #000; }
+
+.soc__items {
+  width: 200px;
+  padding: 10px 0 20px 0;
+  display: flex;
+  justify-content: space-between; }
+
+.soc__item {
+  width: 40px;
+  height: 40px;
+  fill: #000; }
+  .soc__item:hover {
+    cursor: pointer;
+    fill: #4C91F8; }

@@ -38,6 +38,11 @@ body {
     }
 }
 
+.stiky {
+    position: sticky;
+    top: 40px;
+}
+
 .date-numb {
     display: flex;
     align-items: flex-end;
@@ -93,7 +98,6 @@ body {
 }
 
 .main {
-    // .main__style
     &__style {
         width: 100%;
         padding-left: 50px;
@@ -154,5 +158,63 @@ body {
 .user {
     &__img {
         border-radius: 50%;
+    }
+}
+
+.welcome {
+    &__title {
+        font-family: $font_main-text;
+        font-weight: 600;
+        font-size: 5rem;
+        line-height: 95%;
+        color: $color-black;
+        padding-bottom: 10px;
+    }
+    &__chapter {
+        font-family: $font_main-text;
+        font-weight: 400;
+        font-size: 3rem;
+        line-height: 4rem;
+        color: $color-black;
+        padding-top: 25px;
+    }
+    &__text {
+        width: 700px;
+        font-family: $font_main-text;
+        font-weight: 400;
+        font-size: 1.9rem;
+        line-height: 2.4rem;
+        color: $color-black;
+        padding-bottom: 10px;
+    }
+    &__link {
+        color: $color-blue;
+        &:hover {
+            text-decoration: none;
+            color: $color-black;
+        }
+    }
+}
+
+.welcome {
+    &__soc {}
+}
+
+.soc {
+    &__items {
+        width: 200px;
+        padding: 10px 0 20px 0;
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.soc__item {
+    width: 40px;
+    height: 40px;
+    fill: $color-black;
+    &:hover {
+        cursor: pointer;
+        fill: $color-blue;
     }
 }
