@@ -220,9 +220,66 @@ body {
     }
 }
 
-.grid-wrapper {
-    display: grid;
-    grid-template-columns: 20px 50px 60px 45px;
-    grid-template-rows: 50px 50px;
-    border: 1px solid;
+.archive {
+    width: 72%;
+    display: flex;
+    justify-content: space-between;
+    &__header {
+        width: 530px;
+        background-color: $color-blue-light;
+        font-family: $font_main-text;
+        font-size: 1.7rem;
+        // text-transform: uppercase;
+        font-weight: 400;
+        color: $color-white;
+        display: flex;
+        height: 50px;
+        align-items: center;
+        text-align: center;
+        border-radius: 10px 10px 0 0;
+        border: 1px solid $color-blue-light;
+    }
+    &__numb {
+        padding-left: 10px;
+        width: 60px;
+    }
+    &__date {
+        width: 140px;
+    }
+    &__status {
+        width: 180px;
+    }
+    // .archive__data
+    &__data {
+        border: 1px solid $color-blue-light;
+        border-top: none;
+        font-family: $font_main-text;
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: $color-black;
+        display: flex;
+        height: 30px;
+        align-items: center;
+        text-align: center;
+        &:last-of-type {
+            border-radius: 0 0 10px 10px;
+        }
+    }
+    // .archive__numb-data
+    &__numb-data {
+        width: 50px;
+    }
+    // .archive__date-data
+    &__date-data {
+        width: 150px;
+    }
+    // .archive__status-data
+    &__status-data {}
+    &__calend {
+        width: 150px;
+    }
+    // .archive__input
+    &__input {
+        width: 100%;
+    }
 }
