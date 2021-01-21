@@ -179,7 +179,7 @@ body {
   display: flex;
   justify-content: space-between; }
   .archive__header {
-    width: 530px;
+    width: 550px;
     background-color: #609df8;
     font-family: "Roboto", sans-serif;
     font-size: 1.7rem;
@@ -199,7 +199,7 @@ body {
   .archive__status {
     width: 180px; }
   .archive__data {
-    border: 1px solid #609df8;
+    border: 1px solid #4C91F8;
     border-top: none;
     font-family: "Roboto", sans-serif;
     font-size: 1.5rem;
@@ -211,6 +211,8 @@ body {
     text-align: center; }
     .archive__data:last-of-type {
       border-radius: 0 0 10px 10px; }
+    .archive__data:hover {
+      background-color: #c2ddff; }
   .archive__numb-data {
     width: 50px; }
   .archive__date-data {

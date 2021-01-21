@@ -225,11 +225,10 @@ body {
     display: flex;
     justify-content: space-between;
     &__header {
-        width: 530px;
+        width: 550px;
         background-color: $color-blue-light;
         font-family: $font_main-text;
         font-size: 1.7rem;
-        // text-transform: uppercase;
         font-weight: 400;
         color: $color-white;
         display: flex;
@@ -249,9 +248,8 @@ body {
     &__status {
         width: 180px;
     }
-    // .archive__data
     &__data {
-        border: 1px solid $color-blue-light;
+        border: 1px solid $color-blue;
         border-top: none;
         font-family: $font_main-text;
         font-size: 1.5rem;
@@ -264,21 +262,20 @@ body {
         &:last-of-type {
             border-radius: 0 0 10px 10px;
         }
+        &:hover {
+            background-color: $color-blue-light2;
+        }
     }
-    // .archive__numb-data
     &__numb-data {
         width: 50px;
     }
-    // .archive__date-data
     &__date-data {
         width: 150px;
     }
-    // .archive__status-data
     &__status-data {}
     &__calend {
         width: 150px;
     }
-    // .archive__input
     &__input {
         width: 100%;
     }
