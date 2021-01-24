@@ -106,7 +106,7 @@ http://iselfmade.ru
 </header>
 
 <div class="container">
-    <div class="modal invisible" id="modal">
+    <div class="modal hide_modal d-none" id="modal">
         <div class="modal__close" id="close">×</div>
 
         <div class="modal__style" id="mwindow-login">

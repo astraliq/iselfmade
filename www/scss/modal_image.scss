@@ -1,0 +1,20 @@
+@import '_param';
+
+.modal_image {
+  position: fixed;
+  z-index: 9999;
+
+  & .modal_img {
+    object-fit: contain;
+  }
+
+  &-close {
+    transform:rotate(45deg);
+    font-size: 60px;
+    font-weight: 700;
+    position: absolute;
+    top: -20px;
+    right: -40px;
+    color: $color-blue;
+  }
+}

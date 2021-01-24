@@ -7,6 +7,7 @@ use app\components\TimeZoneComponent;
 use app\controllers\actions\site\ConfirmCuratorEmailAction;
 use app\controllers\actions\site\ErrorAction;
 use app\controllers\actions\site\GradeResultAction;
+use app\controllers\actions\site\UpdateDataAction;
 use app\models\RegistrationForm;
 use app\models\User;
 use Yii;
@@ -49,6 +50,7 @@ class SiteController extends Controller {
      * {@inheritdoc}
      */
     public function actions() {
+
         return [
             'error' => ['class' => ErrorAction::class],
             'captcha' => [
@@ -56,7 +58,8 @@ class SiteController extends Controller {
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
             'confirm-curator-email' => ['class' => ConfirmCuratorEmailAction::class],
-            'grade-result' => ['class' => GradeResultAction::class],
+            'grade-result' => ['class' => GradeResultAction::class, ],
+            'update-data' => ['class' => UpdateDataAction::class, ],
         ];
     }
 

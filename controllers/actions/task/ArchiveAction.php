@@ -7,7 +7,7 @@ namespace app\controllers\actions\task;
 use app\components\TasksComponent;
 use app\components\UserComponent;
 use app\models\Tasks;
-use app\models\UsersGrades;
+use app\models\UsersReports;
 use yii\base\Action;
 use yii\web\HttpException;
 use yii\web\Response;
@@ -31,7 +31,7 @@ class ArchiveAction extends Action {
         $yesterdayTasks = $comp->getTasksByDateAndUserId($userId, $yesterdayDate);
         $beforeYesterdayTasks = $comp->getTasksByDateAndUserId($userId, $beforeYesterdayDate);
 
-        $gradeModel = new UsersGrades();
+        $gradeModel = new UsersReports();
         $yesterdayGrade = $gradeModel->findOne(['user_id' => $userId, 'date' => $yesterdayUTC])->grade;
 
         // архив задач за последний месяц

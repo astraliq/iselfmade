@@ -73,10 +73,6 @@ body {
     box-sizing: border-box;
 }
 
-.invisible {
-    display: none;
-}
-
 .input_error {
     border: 1px solid red;
 }
@@ -106,9 +102,15 @@ body {
 
 .header {
     &__style {
-        padding-top: 20px;
-        width: 96%;
+        padding: 20px 30px 0 30px;
+        width: 100%;
         margin: 0 auto;
+    }
+    &__style_error {
+        padding: 20px 30px 0 30px;
+        width: 100%;
+        margin: 0 auto;
+        border-bottom: 3px solid $color-blue-black;
     }
     &__top {
         display: flex;
@@ -226,6 +228,16 @@ body {
         margin: 0 auto;
         padding-bottom: 25px;
     }
+    &__title2 {
+        max-width: 1100px;
+        font-family: "Roboto", sans-serif;
+        font-weight: 600;
+        font-size: 35px;
+        line-height: 48px;
+        text-align: center;
+        color: #000;
+        margin: 0 130px;
+    }
     &__text,
     &__text strong {
         max-width: 985px;
@@ -253,6 +265,7 @@ strong {
 
 .modal {
     display: block;
+    animation: showBlock $anim_showblocks ease-in forwards;
     width: 100%;
     height: 100vh;
     background-color: transparent;
@@ -455,6 +468,7 @@ strong {
 }
 .modal2 {
     display: block;
+    animation: showBlock $anim_showblocks ease-in forwards;
     width: 100%;
     height: 400px;
     background-color: transparent;
@@ -470,7 +484,7 @@ strong {
         z-index: 3;
     }
     &__style {
-        position: relative;
+        position: absolute;
         width: inherit;
         min-height: 360px;
         background-color: #fff;
@@ -492,7 +506,7 @@ strong {
     &__form {
         width: 100%;
         height: 230px;
-        //padding: 10px 0 75px 0;
+        padding: 10px 0 30px 0;
         display: -webkit-flex;
         display: -moz-flex;
         display: -ms-flex;
@@ -507,6 +521,10 @@ strong {
             width: 100%;
             height: 190px;
             padding: 10px 0 280px 0;
+            display: -webkit-flex;
+            display: -moz-flex;
+            display: -ms-flex;
+            display: -o-flex;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -517,16 +535,40 @@ strong {
             width: 100%;
             height: 355px;
             padding: 10px 0 30px 0;
+            display: -webkit-flex;
+            display: -moz-flex;
+            display: -ms-flex;
+            display: -o-flex;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
             margin: 0;
         }
+        &-sign_in {
+            width: 100%;
+            padding: 10px 0 30px 0;
+            display: -webkit-flex;
+            display: -moz-flex;
+            display: -ms-flex;
+            display: -o-flex;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0;
+            & .form-group {
+                margin: 0 0 22px 0;
+            }
+        }
         &-restore {
             width: 100%;
             height: 355px;
             padding: 10px 0 30px 0;
+            display: -webkit-flex;
+            display: -moz-flex;
+            display: -ms-flex;
+            display: -o-flex;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -627,7 +669,15 @@ strong {
         font-weight: 400;
         font-size: 1.8rem;
         line-height: 2.3rem;
+        margin: 0;
         border: none;
+        background-color: $color-white;
+        color: $color-blue;
+        box-shadow: none;
+        &:active {
+            transform: none;
+            box-shadow: none;
+        }
         &:hover {
             background-color: $color-blue !important;
             color: $color-white;
@@ -712,7 +762,6 @@ strong {
     }
     &__center {
         width: 1100px;
-        margin: 0 auto;
     }
     &__center-text {
         font-family: $font_main-text;
@@ -801,6 +850,7 @@ strong {
         justify-content: center;
         align-items: center;
         font-size: 2.5rem;
+        margin: 0;
         width: 65px;
         height: 65px;
         border-radius: 50%;
@@ -1040,6 +1090,7 @@ strong {
     &__items {
         display: flex;
         justify-content: space-around;
+        padding-bottom: 70px;
     }
     &__item {
         width: 240px;
@@ -1203,130 +1254,6 @@ strong {
     }
 }
 
-.footer {
-    &__style {
-        width: 100%;
-        min-height: 300px;
-        background-color: #032251;
-        padding: 60px 0 0 60px;
-        display: flex;
-        justify-content: flex-start;
-        background-image: url(../img/rhino-footer-bg.png);
-        background-position: bottom right;
-        background-repeat: no-repeat;
-    }
-    &__logo {}
-    &__logo-text-1 {
-        font-family: $font_main-text;
-        font-weight: 300;
-        font-size: 2rem;
-        line-height: 2rem;
-        color: $color-white;
-        padding-left: 8px;
-    }
-    &__logo-text-2 {
-        font-family: $font_main-text;
-        font-weight: 300;
-        font-size: 1.65rem;
-        line-height: 1.65rem;
-        color: $color-white;
-        padding-left: 8px;
-    }
-    &__logo-text-3 {
-        font-family: $font_main-text;
-        font-weight: 300;
-        font-size: 3.5rem;
-        line-height: 3.5rem;
-        color: $color-white;
-        padding-left: 8px;
-    }
-    &__logo-text-4 {
-        font-family: $font_main-text;
-        font-weight: 300;
-        font-size: 1.2rem;
-        line-height: 1rem;
-        color: $color-white;
-        padding-left: 10px;
-    }
-    &__soc {
-        padding-top: 35px;
-        padding-left: 230px;
-    }
-    &__soc-title {
-        font-family: $font_main-text;
-        font-weight: 300;
-        font-size: 1.8rem;
-        line-height: 2.5rem;
-        color: $color-white;
-    }
-    &__soc-text {
-        display: block;
-        font-family: $font_main-text;
-        font-weight: 300;
-        font-size: 1.8rem;
-        line-height: 2.5rem;
-        color: $color-gray;
-        text-decoration: underline;
-        &:hover {
-            color: $color-white;
-            text-decoration: none;
-        }
-    }
-    &__sub {
-        padding-top: 35px;
-        padding-left: 230px;
-        width: 505px;
-    }
-    &__sub-text {
-        font-family: $font_main-text;
-        font-weight: 400;
-        font-size: 2rem;
-        line-height: 2.5rem;
-        color: $color-white;
-        text-transform: uppercase;
-        padding-bottom: 20px;
-    }
-    &__form {
-        display: flex;
-        justify-content: space-between;
-        width: 450px;
-    }
-    &__input {
-        width: 250px;
-        height: 35px;
-        background: #92B8F1;
-        border-radius: 10px;
-        padding: 8px 0 8px 15px;
-        font-family: $font_main-text;
-        font-weight: 400;
-        font-size: 1.7rem;
-        line-height: 1.7rem;
-        color: $color-black;
-        border: none;
-        outline: none;
-    }
-    &__btn {
-        width: 150px;
-        height: 35px;
-        background: #3876D2;
-        border-radius: 10px;
-        border: none;
-        outline: none;
-        font-family: $font_main-text;
-        font-weight: 400;
-        font-size: 1.5rem;
-        line-height: 2rem;
-        color: $color-white;
-        &:hover {
-            cursor: pointer;
-            background: $color-blue-light;
-        }
-        &:active {
-            transform: scale(0.95);
-        }
-    }
-}
-
 .div_center {
     display: -webkit-flex;
     display: -moz-flex;
@@ -1390,4 +1317,32 @@ strong {
         z-index: 2;
         display: none;
     }
+}
+
+.invisible {
+    visibility: hidden;
+}
+.hide-modal {
+    animation: hideBlock $anim_showblocks ease-in forwards !important;
+}
+
+@keyframes hideBlock {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+@keyframes showBlock {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.d-none {
+    display: none;
 }

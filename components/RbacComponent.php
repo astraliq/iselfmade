@@ -5,8 +5,11 @@ namespace app\components;
 
 
 use app\base\BaseComponent;
+use app\models\ReportComments;
 use app\models\Tasks;
 use app\models\User;
+use app\models\UsersReports;
+use app\rules\AddReportCommentRule;
 use app\rules\OwnerTaskRule;
 use app\rules\ViewUserProfileRule;
 use yii\console\ExitCode;
@@ -146,6 +149,53 @@ class RbacComponent extends BaseComponent {
 
         $manager->addChild($admin,$moderator);
         $manager->addChild($admin,$deleteUser);
+
+    }
+
+    public function addMentorRole() {
+        $manager = $this->getManager();
+
+        $mentor = $manager->createRole('mentor');
+        $manager->add($mentor);
+
+        $manager->addChild($mentor, $manager->getPermission('createTasks'));
+        $manager->addChild($mentor, $manager->getPermission('updateOwnTasks'));
+        $manager->addChild($mentor, $manager->getPermission('viewOwnTasks'));
+        $manager->addChild($mentor, $manager->getPermission('deleteOwnTasks'));
+        $manager->addChild($mentor, $manager->getPermission('viewOwnProfile'));
+        $manager->addChild($mentor, $manager->getPermission('updateOwnProfile'));
+        $manager->addChild($mentor, $manager->getPermission('viewUserProfile'));
+        $manager->addChild($mentor, $manager->getPermission('viewUserTasks'));
+
+    }
+
+    public function addReportPermission() {
+        $manager = $this->getManager();
+        $curator = $manager->getRole('curator');
+        $moderator = $manager->getRole('moderator');
+        $user = $manager->getRole('user');
+
+        $addReportCommentRule = new AddReportCommentRule();
+        $manager->add($addReportCommentRule);
+
+        $addReportComment = $manager->createPermission('addReportComment');
+        $addReportComment->description = 'Добавление комментария в отчет';
+        $addReportComment->ruleName = $addReportCommentRule->name;
+        $manager->add($addReportComment);
+
+        $manager->addChild($curator, $addReportComment);
+        $manager->addChild($user, $addReportComment);
+
+
+    }
+
+    public function addModeratorChildes() {
+        $manager = $this->getManager();
+
+        $mentor = $manager->getRole('mentor');
+        $moderator = $manager->getRole('moderator');
+
+        $manager->addChild($moderator, $mentor);
 
     }
 
@@ -323,13 +373,29 @@ class RbacComponent extends BaseComponent {
     }
 
     public function canViewUserProfile(User $user):bool {
-        if (\Yii::$app->user->can('admin')) {
+        if (\Yii::$app->user->can('modarator')) {
+            return true;
+        }
+        if (\Yii::$app->user->can('curator')) {
             return true;
         }
 
         if (\Yii::$app->user->can('viewUserProfile', ['user' => $user])) {
             return true;
         }
+        return false;
+    }
+
+    public function canAddReportComment(UsersReports $report):bool {
+
+        if (\Yii::$app->user->can('curator')) {
+            return true;
+        }
+
+        if (\Yii::$app->user->can('addReportComment', ['report' => $report])) {
+            return true;
+        }
+
         return false;
     }
 

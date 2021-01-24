@@ -21,21 +21,23 @@ use Yii;
  * @property float $balance
  * @property string|null $buddy_ids Бадди - пользователи взявшие ответственность вместе с исполнителем
  * @property int|null $group_id ID группы поддержки
- * @property string|null $curators_ids
- * @property string|null $curators_emails
+ * @property string|null $curator_id
+ * @property int|null $mentor_id id ментора
+ * @property string|null $mentor_email
  * @property string|null $date_create
  * @property string|null $city Город нахождения
  * @property string|null $timezone Часовой пояс
  * @property int|null $offset_UTC Смещение времени от UTC
  * @property int|null $confirm_email Подтверждение почты
  * @property string|null $confirmation_token Подтверждающий почту токен
- * @property int|null $curators_email_repeat Регулярность отправки отчетов на почту
- * @property int|null $curators_email_confirm Подтверждение почты куратора
- * @property string|null $curators_access_token Токен подтверждения почты куратора
+ * @property int|null $mentor_email_repeat Регулярность отправки отчетов на почту
+ * @property int|null $mentor_email_confirm Подтверждение почты куратора
+ * @property string|null $mentor_access_token Токен подтверждения почты куратора
  * @property string|null $grade_token Токен для установки оценок за выполнение задач
  *
  * @property MissionTasks[] $missionTasks
- * @property Periods $curatorsEmailRepeat
+ * @property Periods $mentorEmailRepeat
+ * @property UsersReports[] $usersGrades
  */
 class UserBase extends \yii\db\ActiveRecord
 {
@@ -54,12 +56,12 @@ class UserBase extends \yii\db\ActiveRecord
     {
         return [
             [['email', 'pass_hash'], 'required'],
-            [['sex', 'group_id', 'offset_UTC', 'confirm_email', 'curators_email_repeat', 'curators_email_confirm'], 'integer'],
+            [['sex', 'group_id', 'mentor_id', 'offset_UTC', 'confirm_email', 'mentor_email_repeat', 'mentor_email_confirm'], 'integer'],
             [['birthday', 'date_create'], 'safe'],
             [['balance'], 'number'],
-            [['email', 'phone_number', 'pass_hash', 'auth_key', 'access_token', 'name', 'surname', 'avatar', 'buddy_ids', 'curators_ids', 'curators_emails', 'confirmation_token', 'curators_access_token', 'grade_token'], 'string', 'max' => 255],
+            [['email', 'phone_number', 'pass_hash', 'auth_key', 'access_token', 'name', 'surname', 'avatar', 'buddy_ids', 'curator_id', 'mentor_email', 'confirmation_token', 'mentor_access_token', 'grade_token'], 'string', 'max' => 255],
             [['city', 'timezone'], 'string', 'max' => 64],
-            [['curators_email_repeat'], 'exist', 'skipOnError' => true, 'targetClass' => Periods::className(), 'targetAttribute' => ['curators_email_repeat' => 'id']],
+            [['mentor_email_repeat'], 'exist', 'skipOnError' => true, 'targetClass' => Periods::className(), 'targetAttribute' => ['mentor_email_repeat' => 'id']],
         ];
     }
 
@@ -83,17 +85,18 @@ class UserBase extends \yii\db\ActiveRecord
             'balance' => Yii::t('app', 'Balance'),
             'buddy_ids' => Yii::t('app', 'Бадди - пользователи взявшие ответственность вместе с исполнителем'),
             'group_id' => Yii::t('app', 'ID группы поддержки'),
-            'curators_ids' => Yii::t('app', 'Curators Ids'),
-            'curators_emails' => Yii::t('app', 'Curators Emails'),
+            'curator_id' => Yii::t('app', 'Curator ID'),
+            'mentor_id' => Yii::t('app', 'id ментора'),
+            'mentor_email' => Yii::t('app', 'Mentor Email'),
             'date_create' => Yii::t('app', 'Date Create'),
             'city' => Yii::t('app', 'Город нахождения'),
             'timezone' => Yii::t('app', 'Часовой пояс'),
             'offset_UTC' => Yii::t('app', 'Смещение времени от UTC'),
             'confirm_email' => Yii::t('app', 'Подтверждение почты'),
             'confirmation_token' => Yii::t('app', 'Подтверждающий почту токен'),
-            'curators_email_repeat' => Yii::t('app', 'Регулярность отправки отчетов на почту'),
-            'curators_email_confirm' => Yii::t('app', 'Подтверждение почты куратора'),
-            'curators_access_token' => Yii::t('app', 'Токен подтверждения почты куратора'),
+            'mentor_email_repeat' => Yii::t('app', 'Регулярность отправки отчетов на почту'),
+            'mentor_email_confirm' => Yii::t('app', 'Подтверждение почты куратора'),
+            'mentor_access_token' => Yii::t('app', 'Токен подтверждения почты куратора'),
             'grade_token' => Yii::t('app', 'Токен для установки оценок за выполнение задач'),
         ];
     }
@@ -109,12 +112,22 @@ class UserBase extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[CuratorsEmailRepeat]].
+     * Gets query for [[MentorEmailRepeat]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getCuratorsEmailRepeat()
+    public function getMentorEmailRepeat()
     {
-        return $this->hasOne(Periods::className(), ['id' => 'curators_email_repeat']);
+        return $this->hasOne(Periods::className(), ['id' => 'mentor_email_repeat']);
+    }
+
+    /**
+     * Gets query for [[UsersReports]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsersGrades()
+    {
+        return $this->hasMany(UsersReports::className(), ['user_id' => 'id']);
     }
 }

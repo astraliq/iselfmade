@@ -13,12 +13,13 @@ font-family: 'Scada',
 sans-serif;*/
 
 $main_background_color: #ffffff;
-//$color-blue: #4C91F8;
-$color-blue: #1D68D8;
+$color-blue: #4C91F8;
+//$color-blue: #1D68D8;
 $color-blue-black: #30458a;
 $color-blue2: #00a3c6;
 $color-blue-light: #609df8;
 $color-blue-light2: #c2ddff;
+$color-blue-for-scroll: #c2ddff;
 $color-menu: #3876D2;
 $color-black: #000;
 $color-white: #fff;
@@ -35,3 +36,4 @@ $height2-textarea: 20px; // высота блока задачи
 $height-chapter: 160px; // высота блока задачи
 $anim_transition_tasks: 0.5s;
 $anim_transition_chapters: 0.8s;
+$anim_showblocks: 0.1s;

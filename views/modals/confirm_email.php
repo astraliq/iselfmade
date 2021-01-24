@@ -1,7 +1,7 @@
 <?php
 if ($notifConfEmail) {
     echo '<div class="email_confirmation">
-        <button class="email_confirmation_close">X</button>
+        <button class="email_confirmation_close">+</button>
         <h4>Подтверждение электронной почты</h4>
         <p>После регистрации на Вашу электронную почту отправлено письмо со ссылкой подтверждения.</p>
         <p>Просим Вас в ближайшее время подтвердить электронную почту для полноценного использования сервиса.</p>

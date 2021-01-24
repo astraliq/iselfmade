@@ -160,7 +160,9 @@ body {
 
 .user {
     // .user__img
-    &__img {}
+    &__img {
+        border-radius: 5px;
+    }
 }
 
 .goals {
@@ -467,7 +469,7 @@ body {
     }
 }
 
-.invisible {
+.invisible_block {
     display: none;
     transition: 1s;
 }

@@ -151,7 +151,8 @@ class MainPage {
     renderModal(type=0) {
         this.strModal = '';
         let modal = document.getElementById('modal');
-        modal.classList.remove('invisible');
+        modal.classList.remove('hide-modal');
+        modal.classList.remove('d-none');
         switch (type) {
             case 1:
                 this.loginWindow.classList.remove('invisible');
@@ -186,7 +187,8 @@ class MainPage {
     renderModal2(type=0) {
         this.strModal = '';
         let modal = document.getElementById('modal2');
-        modal.classList.remove('invisible');
+        modal.classList.remove('hide-modal');
+        modal.classList.remove('d-none');
         let loginbtn2 = document.getElementById('loginbtn2');
         let regbtn2 = document.getElementById('regbtn2');
         switch (type) {
@@ -215,7 +217,10 @@ class MainPage {
     }
 
     closeModal(modal) {
-        modal.classList.add('invisible');
+        modal.classList.add('hide-modal');
+        setTimeout(function(){
+            modal.classList.add('d-none');
+        }, 200);
     }
 
     checkEmailMask(value) {

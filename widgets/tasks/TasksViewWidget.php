@@ -17,6 +17,7 @@ class TasksViewWidget extends Widget {
     public $nextPeriod;
     public $renewLast;
     public $block_id;
+    public $disabled;
 
 
     public function run() {
@@ -30,6 +31,7 @@ class TasksViewWidget extends Widget {
             'renewLast' => $this->renewLast,
             'model' => $this->model,
             'block_id' => $this->block_id,
+            'disabled' => $this->disabled,
             ]);
     }
 

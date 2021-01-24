@@ -92,7 +92,7 @@
         <div class="chapter">
             <h2 class="chapter__title">Работы с ментором</h2>
             <p class="chapter__text">Если у вас есть ментор, то укажите его почту, чтобы и он получал сводный отчёт ваших успехов.</p>
-            <p class="chapter__text">Если же ментора нет, то вы можете найти его в нашем списке менторов. Мы тчательно состовляем этот список, поэтому совершенно уверены в профессионализме каждого, кто там указан.</p>
+            <p class="chapter__text">Если же ментора нет, то вы можете найти его в нашем списке менторов. Мы тщательно составляем этот список, поэтому совершенно уверены в профессионализме каждого, кто там указан.</p>
         </div>
         <div class="chapter">
             <h2 class="chapter__title">Группа поддержки</h2>
@@ -229,8 +229,8 @@
                 <p class="rates__plus">+</p>
                 <p class="rates__minus">–</p>
                 <div class="rates__button">
-                    <!-- <button class="rates__btn" id="btn_start_result" disabled>Начать</button> -->
-                    <p class="rates__name">Доступен с 01.03.2021</p>
+                     <button class="rates__btn" id="btn_start_result">Начать</button>
+<!--                    <p class="rates__name">Доступен с 01.03.2021</p>-->
                 </div>
             </div>
             <div class="rates__item rates-break">
@@ -247,13 +247,21 @@
                 <p class="rates__minus">–</p>
                 <p class="rates__plus">+</p>
                 <div class="rates__button">
-                    <!-- <button class="rates__btn" id="btn_start_break" disabled>Начать</button> -->
-                    <p class="rates__name">Доступен с 01.03.2021</p>
+                     <button class="rates__btn" id="btn_start_break">Начать</button>
+<!--                    <p class="rates__name">Доступен с 01.03.2021</p>-->
                 </div>
             </div>
         </div>
+        <div class="section_container">
+            <div class="chapter">
+                <h2 class="chapter__title">Пользоваться системой бесплатно</h2>
+                <p class="chapter__text">На тарифе &laquo;Стандарт&raquo; первые <strong>3 месяца абсолютно бесплатны</strong>.<strong> Всегда</strong>.</p>
+                <p class="chapter__text">Но и по истечении 3–х месяцев вы можете пользоваться системой бесплатно, если будете выполнять следующие условия: писать отчёты <strong>каждый рабочий день</strong> и коэффициент выполнения будет <strong>не ниже 80%</strong>. Выполняете
+                    эти условия в течении месяца, в следующем для вас будет бонусная скидка 100%.</p>
+            </div>
+        </div>
     </section>
-    <div class="modal2 invisible" id="modal2">
+    <div class="modal2 hide-modal d-none" id="modal2">
         <div class="modal2_group">
             <div class="modal2__close" id="close2">×</div>
             <button class="modal2__btn_mark modal2__mark_login" id="loginbtn2">Войти</button>
@@ -269,7 +277,7 @@
                     'action' => '/auth/sign-in',
                     'options' => [
                         'id' => 'form-login2',
-                        'class' => 'modal2__form'
+                        'class' => 'modal2__form-sign_in'
                     ]
                 ]); ?>
                 <?=$form->field($this->params['signIn'],'email',['validateOnChange' => false])->textInput(['class' => 'modal2__input', 'id' => 'login2-user-email', 'type' => 'email', 'autocomplete' => 'username'])->error(false)?>

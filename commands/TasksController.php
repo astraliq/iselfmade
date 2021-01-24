@@ -57,7 +57,7 @@ class TasksController extends BaseConsoleController {
     }
 
     /**
-     * запускает скрипт рассылки отчетов на электронную почту кураторам
+     * запускает скрипт рассылки отчетов на электронную почту менторам
      */
     public function actionCuratorReports() {
         $comp = \Yii::createObject(['class' => TasksComponent::class,'modelClass' => Tasks::class]);

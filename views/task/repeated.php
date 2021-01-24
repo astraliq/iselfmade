@@ -8,7 +8,7 @@ use yii\helpers\Html;
 ?>
 <div class="tasks-all repeated-all">
     <div class="tasks__list" id="tasks__list-0" data-type="0">
-        <h3 class="main__data_title repeated_title">Повторяющиеся задачи</h3>
+        <h3 class="main__data_title repeated_title">Повторяющиеся дела</h3>
         <span class="saving_tasks">Сохранено</span>
         <ol class="text__list_items">
             <?php

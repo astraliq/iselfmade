@@ -12,6 +12,16 @@ class RbacController extends Controller {
 
     public function actionGen() {
         \Yii::$app->rbac->generateRbac();
+        \Yii::$app->rbac->addMentorRole();
+    }
+    public function actionAddMentorRole() {
+        \Yii::$app->rbac->addMentorRole();
+    }
+    public function actionAddReportPermission() {
+        \Yii::$app->rbac->addReportPermission();
+    }
+    public function actionAddModeratorChildes() {
+        \Yii::$app->rbac->addModeratorChildes();
     }
 
     public function actionSetAllRolesToUser() {
