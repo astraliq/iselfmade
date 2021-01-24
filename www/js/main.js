@@ -136,14 +136,15 @@ class Tasks {
             parentBlock.addClass(this.finishClass.slice(1));
             btn.removeClass('icon-check-empty');
             btn.addClass('icon-check');
-            if (finishBtn[0].innerText === 'Показать завершенные') {
-                clearTimeout(this.timerLastFinishTask);
-                this.tasksToHide.push(parentBlock[0]);
-                this.timerLastFinishTask = setTimeout( () => {
-                    this._hideTasks(this.tasksToHide);
-                }, 2000)
+            if (finishBtn[0]) {
+                if (finishBtn[0].dataset.show == 0) {
+                    clearTimeout(this.timerLastFinishTask);
+                    this.tasksToHide.push(parentBlock[0]);
+                    this.timerLastFinishTask = setTimeout( () => {
+                        this._hideTasks(this.tasksToHide);
+                    }, 2000)
+                }
             }
-
         }
     }
 
@@ -582,7 +583,7 @@ class Tasks {
         }, 2000)
     }
 
-     setCaretPosition(elem, caretPos) {
+    setCaretPosition(elem, caretPos) {
         elem.value = elem.value;
         if(elem != null) {
             if(elem.createTextRange) {
@@ -633,12 +634,12 @@ class Tasks {
 
         let showFinishedTasksBtn = document.querySelectorAll(this.tasksFinishedClass);
         if (showFinishedTasksBtn) {
-            let parent = showFinishedTasksBtn[0].parentNode;
-            let tasksBlock = parent.querySelector('ol');
             showFinishedTasksBtn.forEach( (btn) => {
+                let parent = btn.parentNode;
+                let tasksBlock = parent.querySelector('ol');
                 btn.addEventListener('click', (e) => {
                     e.preventDefault();
-                    if (btn.innerText === 'Скрыть завершенные') {
+                    if (btn.dataset.show == 1) {
                         this._hideFinished(tasksBlock, btn);
                     } else {
                         this._showFinished(tasksBlock, btn);
@@ -715,8 +716,9 @@ class Tasks {
                 task.style.display = 'none';
             }
         });
-        btn.textContent = 'Показать завершенные';
+        btn.textContent = '(Показать завершенные)';
         document.cookie = 'show_finished=1';
+        btn.dataset.show = 0;
     }
 
     _hideTasks(tasks) {
@@ -733,8 +735,9 @@ class Tasks {
                 task.style.display = 'list-item';
             }
         });
-        btn.textContent = 'Скрыть завершенные';
+        btn.textContent = '(Скрыть завершенные)';
         document.cookie = 'show_finished=0';
+        btn.dataset.show = 1;
     }
 
 }
@@ -1073,6 +1076,14 @@ class ArchiveTasks extends Tasks{
 }
 let archive = new ArchiveTasks();
 
+class Calendar {
+    constructor() {
+
+
+    }
+
+}
+
 function createCalendar(elem, year, month, day) {
     let now = new Date();
     let nowDay = now.getDate();
@@ -1173,3 +1184,5 @@ let now = new Date();
 let calendar = $('#calendar_block');
 createCalendar(calendar, now.getFullYear(), now.getMonth(), now.getDate());
 
+let calendar = new Calendar();
+calendar.create();

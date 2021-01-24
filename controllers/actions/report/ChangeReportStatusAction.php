@@ -4,12 +4,15 @@
 namespace app\controllers\actions\report;
 
 
+use app\components\ReportCommentsComponent;
 use app\components\ReportsComponent;
 use app\components\TasksComponent;
 use app\components\UserComponent;
+use app\models\ReportComments;
 use app\models\Tasks;
 use app\models\User;
 use app\models\UsersReports;
+use app\widgets\comments\CommentsWidget;
 use app\widgets\tasks\CheckReportsWidget;
 use yii\base\Action;
 use yii\web\HttpException;
@@ -32,6 +35,7 @@ class ChangeReportStatusAction extends Action {
         $modelTasks = $compTasks->getModel();
         $compUsers = \Yii::createObject(['class' => UserComponent::class,'modelClass' => User::class]);
         $modelUsers = $compUsers->getModel();
+        $compComments = \Yii::createObject(['class' => ReportCommentsComponent::class,'modelClass' => ReportComments::class]);
 
         $userId = \Yii::$app->request->post()['user_id'] ?? null;
         $date = \Yii::$app->request->post()['date'] ?? null;
@@ -42,12 +46,13 @@ class ChangeReportStatusAction extends Action {
         }
 
         $change = $comp->changeReportStatus($userId, $date, $status);
-        $nextReport = $comp->getFirstUserReport();
-        $reportUser = $modelUsers->findOne(['id' => $nextReport->user_id]);
-        $userReportTasks = $compTasks->getTasksByDateAndUserId($reportUser->id, $nextReport->date);
-        $reportsCount = $comp->getCountReportsToCheck() - 1;
 
         if ($change) {
+            $nextReport = $comp->getFirstUserReport();
+            $reportUser = $modelUsers->findOne(['id' => $nextReport->user_id]);
+            $userReportTasks = $compTasks->getTasksByDateAndUserId($reportUser->id, $nextReport->date);
+            $reportsCount = $comp->getCountReportsToCheck() - 1;
+            $comments = $compComments->getReportCommentsByReportID($nextReport->id);
             return [
                 'result' => true,
                 'nextReport' => CheckReportsWidget::widget([
@@ -55,8 +60,14 @@ class ChangeReportStatusAction extends Action {
                     'tasks' => $userReportTasks,
                     'block_id' => 0,
                     'date' => (new \DateTime($nextReport->date))->format('d.m.Y'),
+                    'userReport' => $nextReport,
                 ]),
                 'reportsCount' => $reportsCount,
+                'comments' => CommentsWidget::widget([
+                    'comments' => $comments,
+                    'self' => \Yii::$app->user->getIdentity(),
+                    'report' => $nextReport,
+                ]),
             ];
         } else {
             return ['result' => false];

@@ -4,6 +4,15 @@
 
 use yii\helpers\Html;
 
+if ($userReport->files) {
+    $uploadedFiles = explode('/', $userReport->files);
+    foreach ($uploadedFiles as $file) {
+        $files .= '<img class="input_img" src="/users/report_files/' . $user->id . '/' . $file . '" alt="' . $file . '" title="' . $file . '" data-name="' . $file . '">';
+    };
+} else {
+    $files = '';
+}
+
 ?>
 <div class="check-content" id="report_data" data-id="<?=$user->id?>" data-date="<?=$date?>">
     <div class="check-user_data">
@@ -15,11 +24,11 @@ use yii\helpers\Html;
             </tr>
             <tr>
                 <td class="check-user_data-options">Имя:</td>
-                <td class="check-user_data-data"><?=$user->name?></td>
+                <td class="check-user_data-data"><?=Html::encode($user->name)?></td>
             </tr>
             <tr>
                 <td class="check-user_data-options">Фамилия:</td>
-                <td class="check-user_data-data"><?=$user->surname?></td>
+                <td class="check-user_data-data"><?=Html::encode($user->surname)?></td>
             </tr>
             <tr>
                 <td class="check-user_data-options">День рождения:</td>
@@ -31,7 +40,7 @@ use yii\helpers\Html;
             </tr>
         </table>
     </div>
-    <button class="check-chat_btn" id="chat" data-id="<?=$user->id?>">Открыть чат</button>
+<!--    <button class="check-chat_btn" id="chat" data-id="--><?//=$user->id?><!--">Открыть комментарии</button>-->
 
     <div class="tasks-form">
         <div class="tasks-all">
@@ -44,6 +53,10 @@ use yii\helpers\Html;
             ]); ?>
         </div>
     </div>
+    <div id="user_id" style="display: none" data-user_id="<?=$user->id?>"></div>
+    <div class="check_uploaded_files" id="check_uploaded_files"><?=$files?></div>
+    <p class="check_report_data">Личная оценка дня: <?=$userReport->self_grade?></p>
+    <p class="check_report_data">Общее впечатление дня: <?=nl2br(Html::encode($userReport->comment))?></p>
     <!--    <div class="check-grades">-->
     <!--        <p>Оценить отчет:</p>-->
     <!--        <input type="radio" id="grade1" name="report_grade" value="1">-->

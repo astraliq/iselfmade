@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,400;0,700;1,200&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,400;0,700;1,200&family=Source+Sans+Pro:wght@200;400;600;700;900&display=swap");
+/*font-family: 'Caveat',
+cursive;
+font-family: 'Fira Sans',
+sans-serif;
+font-family: 'Scada',
+sans-serif;*/
+.modal_image {
+  position: fixed;
+  z-index: 9999; }
+  .modal_image .modal_img {
+    object-fit: contain; }
+  .modal_image-close {
+    transform: rotate(45deg);
+    font-size: 60px;
+    font-weight: 700;
+    position: absolute;
+    top: -20px;
+    right: -40px;
+    color: #4C91F8; }

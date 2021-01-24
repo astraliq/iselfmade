@@ -47,7 +47,7 @@ class GetArchiveAction extends Action {
         $dateUTC = (new \DateTime(date($date)))->format('Y-m-d');
         $archiveTasks = $comp->getArchiveTasksByDate($date);
         $gradeModel = new UsersReports();
-        $userGrade = $gradeModel->findOne(['user_id' => \Yii::$app->user->getId(), 'date' => $dateUTC])->grade;
+        $userGrade = $gradeModel->findOne(['user_id' => \Yii::$app->user->getId(), 'date' => $dateUTC])->mentor_grade;
         if ($archiveTasks) {
             return [
                 'result' => true,

@@ -4,11 +4,13 @@
 namespace app\components;
 
 
+use app\base\BaseComponent;
 use app\models\UsersReports;
 use yii\base\Component;
 use yii\db\Expression;
+use yii\web\UploadedFile;
 
-class ReportsComponent extends Component {
+class ReportsComponent extends BaseComponent {
     public $modelClass;
 
     public function init() {
@@ -20,35 +22,35 @@ class ReportsComponent extends Component {
     }
 
     public function getFirstUserReport() {
-        $todayUTC = date('Y-m-d');
-        $report = UsersReports::find()
-            ->andWhere(['OR',
-                ['IS', 'status', null],
-                ['=', 'status', 1],
-            ])
-            ->orderBy([
-                'views' => SORT_ASC,
-                'date' => SORT_ASC,
-            ])
-            ->one();
+                $todayUTC = date('Y-m-d');
+                $report = UsersReports::find()
+                    ->andWhere(['OR',
+                        ['IS', 'status', null],
+                        ['=', 'status', 1],
+                    ])
+                    ->orderBy([
+                        'views' => SORT_ASC,
+                        'date' => SORT_ASC,
+                    ])
+                    ->one();
 
-        if (!$report) {
-            $report = UsersReports::find()
-                ->where([
-                'status' => 2,
-            ])
-                ->orderBy([
-                    'views' => SORT_ASC,
-                    'date' => SORT_ASC,
-                ])
-                ->one();
-        }
-        if (!$report) {
-            $report = UsersReports::find()
-                ->where([
-                'status' => 3,
-            ])
-                ->orderBy([
+                if (!$report) {
+                    $report = UsersReports::find()
+                        ->where([
+                            'status' => 2,
+                        ])
+                        ->orderBy([
+                            'views' => SORT_ASC,
+                            'date' => SORT_ASC,
+                        ])
+                        ->one();
+                }
+                if (!$report) {
+                    $report = UsersReports::find()
+                        ->where([
+                            'status' => 3,
+                        ])
+                        ->orderBy([
                     'views' => SORT_ASC,
                     'date' => SORT_ASC,
                 ])
@@ -107,6 +109,36 @@ class ReportsComponent extends Component {
         if ($report->save()) {
             return true;
         }
+        return false;
+    }
+
+    public function updateReport(UsersReports $report) :bool {
+        $userId = \Yii::$app->user->getId();
+
+        $report->uploadFiles = UploadedFile::getInstancesByName('UsersReports[uploadFiles]');
+        $fileSaver = \Yii::createObject(['class' => FileSaverComponent::class]);
+        $fileArr = [];
+        if ($report->validate()) {
+            if ($report->uploadFiles) {
+                foreach ($report->uploadFiles as $file) {
+                    $file = $fileSaver->saveReportFile($file, $userId);
+                    array_push($fileArr, $file);
+                    if (!$file) {
+                        return false;
+                    }
+                }
+                $report->files = join('/', $fileArr);
+            }
+
+            if ($report->save(false)) {
+                return true;
+            }
+
+            \Yii::error($report->getErrors());
+            return false;
+        }
+
+        //валидация файлов не прошла
         return false;
     }
 

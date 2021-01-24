@@ -33,7 +33,7 @@ if ($repeatTypeId) {
     $repeatTypeSelect[0] = 'selected';
 }
 
-if ($task->repeated_by_id) {
+if ($task->repeated_by_id || $type_id == 2 || $type_id == 3) {
     $disableRepeateAttr = 'disabled';
     $disableRepeatClass = 'disabled_repeat';
     $disableRepeatTitle = 'Для изменения повтора данной задачи передите в раздел <Повторяющиеся задачи>';
@@ -53,6 +53,15 @@ foreach ($weekdaysIds as $id) {
     $weekdaysCheckedInputs[$id] = 'checked';
 }
 
+if ($disabled) {
+    $disabled_text = 'disabled_text';
+    $displayNone = 'style="display: none"';
+    $disableEdit = 'disabled';
+} else {
+    $disabled_text = '';
+    $displayNone = '';
+    $disableEdit = '';
+}
 
 $createdTaskClass = $newTask == 0 ? 'created_tasks' : '';
 $newInputClass = $newTask == 1 ? 'new_input_task' : '';
@@ -62,9 +71,9 @@ $typeId = $newTask == 1 ? $type_id : $task->type_id;
 ?>
 <li class="text__list_item <?=$createdTaskClass?> <?=$finished?>" data-next_period="<?=$nextPeriod?>" data-type="<?=$task->type_id?>" data-private_id="<?=$task->private_id?>">
     <div class="task__input_block">
-        <textarea class="task__input <?=$newInputClass?>" data-type="<?=$typeId?>" data-next_period="<?=$nextPeriod?>" data-finished="<?=$task->finished?>" data-deleted="<?=$task->deleted?>" data-id="<?=$task->id?>" data-repeated_by_id="<?=$task->repeated_by_id?>" type="text" maxlength="70"><?=Html::encode($task->task)?></textarea>
+        <textarea class="task__input <?=$newInputClass?>" data-type="<?=$typeId?>" data-next_period="<?=$nextPeriod?>" data-finished="<?=$task->finished?>" data-deleted="<?=$task->deleted?>" data-id="<?=$task->id?>" data-repeated_by_id="<?=$task->repeated_by_id?>" type="text" maxlength="70" <?=$disableEdit?>><?=nl2br(Html::encode($task->task))?></textarea>
         <?php
-        if ($newTask == 0 && !$repeatedTask) {
+        if ($newTask == 0 && !$repeatedTask && !$disabled) {
             echo '<button class="check_btn icon-' . $check . '"></button>';
         }
         if ($repeatedTask) {
@@ -85,7 +94,7 @@ $typeId = $newTask == 1 ? $type_id : $task->type_id;
             </div>
             <div class="select_block">
                 <div class="label_block">
-                    <span>Повтор:</span>
+                    <label for="repeated_by_id">Повтор:</label>
                 </div>
                 <select name="repeated_by_id" class="repeated_by_id <?=$disableRepeatClass?>" <?=$disableRepeateAttr?> title="<?=$disableRepeatTitle?>">
                     <option value="0" <?=$repeatTypeSelect[0]?>>Без повтора</option>

@@ -88,91 +88,138 @@ http://iselfmade.ru
     <?php $this->head() ?>
 </head>
 <body>
+<!--    <div class="custom_light">-->
+<!--        <div class="">-->
+<!--            <img class="user_img" src="--><?//= Html::encode($avatarImage) ?><!--" width="60" height="60">-->
+<!--        </div>-->
+<!--    </div>-->
 <?php $this->beginBody() ?>
 <div class="container">
-    <div class="custom_light">
-        <div class="">
-            <img class="user_img" src="<?= Html::encode($avatarImage) ?>" width="60" height="60">
-        </div>
-    </div>
-    <div class="menu">
+    <menu class="top-menu">
+        <a class="top-menu__link" href="#">Антислив</a>
+        <a class="top-menu__link" href="#">Рейтинг</a>
+        <span class="notification" >
+                    <svg class="bell" id="Layer_2" enable-background="new 0 0 24 24" height="22" viewBox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><g><path class="bell"  d="m13.5 4.18c-.276 0-.5-.224-.5-.5v-1.68c0-.551-.449-1-1-1s-1 .449-1 1v1.68c0 .276-.224.5-.5.5s-.5-.223-.5-.5v-1.68c0-1.103.897-2 2-2s2 .897 2 2v1.68c0 .277-.224.5-.5.5z"/></g><g><path class="bell"  d="m12 24c-1.93 0-3.5-1.57-3.5-3.5 0-.276.224-.5.5-.5s.5.224.5.5c0 1.378 1.122 2.5 2.5 2.5s2.5-1.122 2.5-2.5c0-.276.224-.5.5-.5s.5.224.5.5c0 1.93-1.57 3.5-3.5 3.5z"/></g><g><path class="bell"  d="m20.5 21h-17c-.827 0-1.5-.673-1.5-1.5 0-.439.191-.854.525-1.14 1.576-1.332 2.475-3.27 2.475-5.322v-3.038c0-3.86 3.14-7 7-7 3.86 0 7 3.14 7 7v3.038c0 2.053.899 3.99 2.467 5.315.342.293.533.708.533 1.147 0 .827-.672 1.5-1.5 1.5zm-8.5-17c-3.309 0-6 2.691-6 6v3.038c0 2.348-1.028 4.563-2.821 6.079-.115.098-.179.237-.179.383 0 .276.224.5.5.5h17c.276 0 .5-.224.5-.5 0-.146-.064-.285-.175-.38-1.796-1.519-2.825-3.735-2.825-6.082v-3.038c0-3.309-2.691-6-6-6z"/></g></svg>
+            <span id="info-bell" style="display: none"></span>
+        </span>
+
+        <img class="user__img" src="<?= Html::encode($avatarImage) ?>" width="40" height="40" alt="Моё фото">
+    </menu>
+    <div class="left-menu">
         <div class="date">
-            <span class="date__day"><?php echo date('d') ?></span>
-            <span class="date__month">.<?php echo date('m') ?></span>
-            <p class="date__weekday"><?php echo \Yii::$app->formatter->asDate(date('Y-m-d'), 'php: l')?></p>
+            <div class="date-numb">
+                <p class="number"><?= date('d') ?></p>
+                <p class="month"><?= \Yii::$app->params['monthsShort'][\Yii::$app->formatter->asDate(date('d.m.Y'), 'M')];?>.</p>
+            </div>
+            <p class="date__text"><?= \Yii::$app->formatter->asDate(date('Y-m-d'), 'php: l')?></p>
+            <p class="date__text">Неделя: <span class="date__numb"><?= date('W') ?>/<?= date('W',mktime(0,0,0,12,31,date('Y')));?></span></p>
+            <p class="date__text">День: <span class="date__numb"><?=date('z')+1?>/<?=date('L')?366:365?></span></p>
         </div>
-        <div class="menu__list">
+        <div class="line"></div>
+
+        <div class="menu">
             <?php
             $url = \Yii::$app->request->url;
             echo Nav::widget([
                 'options' => ['class' => 'menu__items'],
                 'items' => [
-                    (['label' => 'Отчет',
+                    (['label' => 'Доска эффективности',
+                        'url' => ['/board'],
+                        'options' => ['class' => $url=='/board' ? 'menu__item_selected' : ''],
+                        'linkOptions' => ['class' => 'menu__item'],
+                    ]),
+                    (['label' => 'Отчёт',
                         'url' => ['/report'],
-                        'options' => ['class' => $url=='/report' ? 'main_menu-selected' : ''],
+                        'options' => ['class' => $url=='/report' ? 'menu__item_selected' : ''],
+                        'linkOptions' => ['class' => 'menu__item'],
+                    ]),
+                    (['label' => 'Повторяющиеся дела',
+                        'url' => ['/repeated'],
+                        'options' => ['class' => $url=='/repeated' ? 'menu__item_selected' : ''],
+                        'linkOptions' => ['class' => 'menu__item'],
+                    ]),
+                    (['label' => 'Будущие дела',
+                        'url' => ['/future'],
+                        'options' => ['class' => $url=='/future' ? 'menu__item_selected' : ''],
                         'linkOptions' => ['class' => 'menu__item'],
                     ]),
                     (['label' => 'Мои обещания',
                         'url' => ['/promises'],
-                        'options' => ['class' => $url=='/promises' ? 'main_menu-selected' : ''],
+                        'options' => ['class' => $url=='/promises' ? 'menu__item_selected' : ''],
                         'linkOptions' => ['class' => 'menu__item'],
                     ]),
-//                    (['label' => 'Статистика',
-//                        'url' => ['/statistics'],
-//                        'options' => ['class' => $url=='/statistics' ? 'main_menu-selected' : ''],
-//                        'linkOptions' => ['class' => 'menu__item'],
-//                    ]),
-//                    (['label' => 'Категории',
-//                        'url' => ['/category'],
-//                        'options' => ['class' => $url=='/category' ? 'main_menu-selected' : ''],
-//                        'linkOptions' => ['class' => 'menu__item'],
-//                    ]),
-                    (['label' => 'Повторяющиеся задачи',
-                        'url' => ['/repeated'],
-                        'options' => ['class' => $url=='/repeats' ? 'main_menu-selected' : ''],
+                    (['label' => 'Возможные дела',
+                        'url' => ['/possible'],
+                        'options' => ['class' => $url=='/possible' ? 'menu__item_selected' : ''],
                         'linkOptions' => ['class' => 'menu__item'],
                     ]),
-                    (['label' => 'Архив отчетов',
+                    (['label' => 'Группа поддержки',
+                        'url' => ['/group'],
+                        'options' => ['class' => $url=='/group' ? 'menu__item_selected' : ''],
+                        'linkOptions' => ['class' => 'menu__item'],
+                    ]),
+                    (['label' => 'Архив отчётов',
                         'url' => ['/archive'],
-                        'options' => ['class' => $url=='/archive' ? 'main_menu-selected' : ''],
+                        'options' => ['class' => $url=='/archive' ? 'menu__item_selected' : ''],
                         'linkOptions' => ['class' => 'menu__item'],
                     ]),
-                    (['label' => 'Личный кабинет',
-                        'url' => ['/profile'],
-                        'options' => ['class' => $url=='/profile' ? 'main_menu-selected' : ''],
+                    (['label' => 'Остальные сервисы',
+                        'url' => ['/others'],
+                        'options' => ['class' => $url=='/others' ? 'menu__item_selected' : ''],
                         'linkOptions' => ['class' => 'menu__item'],
                     ]),
-                    $mentorCan ? ((['label' => 'Проверка отчетов',
-                        'url' => ['/check-reports'],
-                        'options' => ['class' => $url=='/check-reports' ? 'main_menu-selected' : ''],
-                        'linkOptions' => ['class' => 'menu__item'],
-                    ])) : (''),
-                    (
-                        '<li class="menu__logout">'
-                        . Html::beginForm(['/site/logout'], 'post')
-                        . Html::submitButton(
-                            'Выход (' . Yii::$app->user->identity->email . ')',
-                            ['class' => 'btn btn-link logout']
-                        )
-                        . Html::endForm()
-                        . '</li>'
-                    ),
                 ],
             ]);
             ?>
+            <div class="dop-menu">
+                <?php
+                $url = \Yii::$app->request->url;
+                echo Nav::widget([
+                    'options' => ['class' => 'menu__items'],
+                    'items' => [
+                        (['label' => 'Настройки',
+                            'url' => ['/profile'],
+                            'options' => ['class' => $url=='/profile' ? 'menu__item_selected' : ''],
+                            'linkOptions' => ['class' => 'menu__item'],
+                        ]),
+                    (['label' => 'Помощь',
+                        'url' => ['/help'],
+                        'options' => ['class' => $url=='/help' ? 'menu__item_selected' : ''],
+                        'linkOptions' => ['class' => 'menu__item'],
+                    ]),
+                        $mentorCan ? ((['label' => 'Проверка отчетов',
+                            'url' => ['/check-reports'],
+                            'options' => ['class' => $url=='/check-reports' ? 'menu__item_selected' : ''],
+                            'linkOptions' => ['class' => 'menu__item'],
+                        ])) : (''),
+                        (
+                            '<li class="menu__logout">'
+                            . Html::beginForm(['/site/logout'], 'post')
+                            . Html::submitButton(
+                                'Выход (' . Yii::$app->user->identity->email . ')',
+                                ['class' => 'btn btn-link logout']
+                            )
+                            . Html::endForm()
+                            . '</li>'
+                        ),
+                    ],
+                ]);
+                ?>
+            </div>
         </div>
     </div>
     <div class="main__data">
         <?= $content ?>
     </div>
+
 </div>
 
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; <?= Yii::$app->name . ' ' . date('Y') ?></p>
-        <p class="pull-right"> Разработано PlanB </p>
-    </div>
-</footer>
+<!--<footer class="footer">-->
+<!--    <div class="container">-->
+<!--        <p class="pull-left">&copy; --><?//= Yii::$app->name . ' ' . date('Y') ?><!--</p>-->
+<!--        <p class="pull-right"> Разработано PlanB </p>-->
+<!--    </div>-->
+<!--</footer>-->
 
 <?php $this->endBody() ?>
 </body>

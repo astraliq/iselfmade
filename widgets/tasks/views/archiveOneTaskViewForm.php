@@ -11,5 +11,5 @@ if ($task->finished == 1) {
 
 ?>
 <li class="text__list_item <?=$finished?>" data-private_id="<?=$task->private_id?>" data-id="<?=$task->id?>" data-finished="<?=$task->finished?>" data-repeated_by_id="<?=$task->repeated_by_id?>">
-    <?=Html::encode($task->task)?>
+    <?=nl2br(Html::encode($task->task))?>
 </li>

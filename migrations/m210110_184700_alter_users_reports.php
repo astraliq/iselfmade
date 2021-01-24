@@ -12,7 +12,7 @@ class m210110_184700_alter_users_reports extends Migration
      */
     public function safeUp() {
         $this->renameTable('users_grades','users_reports');
-        $this->addColumn('users_reports', 'files', $this->string(255)->comment('список файлов через ;'));
+        $this->addColumn('users_reports', 'files', $this->string(255)->comment('список файлов через /'));
         $this->addColumn('users_reports', 'self_grade', $this->tinyInteger()->comment('личная оценка дня'));
         $this->addColumn('users_reports', 'status', $this->tinyInteger()->comment('1-ожидает,2-просмотрен,3-под вопросом,4-проверен')->defaultValue(1));
         $this->addColumn('users_reports', 'curator_grade', $this->tinyInteger()->comment('оценка куратора'));

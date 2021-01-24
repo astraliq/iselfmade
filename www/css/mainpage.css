@@ -57,7 +57,7 @@ body {
   .header-logo-link:hover {
     text-decoration: none; }
     .header-logo-link:hover .header-logo-text {
-      color: #1D68D8; }
+      color: #4C91F8; }
     .header-logo-link:hover .header-logo-text-self {
       color: #000; }
 
@@ -71,7 +71,7 @@ body {
     font-size: 1.58rem; }
 
 .header-logo-text-self {
-  color: #1D68D8; }
+  color: #4C91F8; }
 
 .header__logo {
   font-family: "Roboto", sans-serif;
@@ -82,11 +82,11 @@ body {
   .header__logo_black {
     color: #000; }
     .header__logo_black:hover {
-      color: #1D68D8; }
+      color: #4C91F8; }
       .header__logo_black:hover .header__logo_blue {
         color: #000; }
   .header__logo_blue {
-    color: #1D68D8; }
+    color: #4C91F8; }
   .header__logo-link {
     text-decoration: none; }
     .header__logo-link:hover {
@@ -108,12 +108,12 @@ body {
   line-height: 2.5rem;
   color: #000; }
   .header__menu-active {
-    color: #1D68D8; }
+    color: #4C91F8; }
   .header__menu-link {
     color: #000;
     text-decoration: underline; }
     .header__menu-link:hover {
-      color: #1D68D8;
+      color: #4C91F8;
       text-decoration: none;
       cursor: pointer; }
 
@@ -121,7 +121,7 @@ body {
   height: 50px;
   width: 200px;
   border-radius: 10px;
-  background-color: #1D68D8;
+  background-color: #4C91F8;
   color: #fff;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
@@ -169,7 +169,7 @@ body {
   font-size: 4rem; }
 
 .header__text_color-blue {
-  color: #1D68D8;
+  color: #4C91F8;
   font-weight: 600; }
 
 strong {
@@ -263,7 +263,7 @@ strong {
   .modal__btn {
     width: 150px;
     height: 50px;
-    background: #1D68D8;
+    background: #4C91F8;
     border-radius: 10px;
     color: #fff;
     font-family: "Roboto", sans-serif;
@@ -293,7 +293,7 @@ strong {
       text-decoration: underline;
       color: #000; }
       .modal__sign-text_link:hover {
-        color: #1D68D8;
+        color: #4C91F8;
         cursor: pointer;
         text-decoration: none; }
   .modal__link {
@@ -303,7 +303,7 @@ strong {
     font-size: 1.6rem;
     line-height: 2rem;
     text-decoration-line: underline;
-    color: #1D68D8; }
+    color: #4C91F8; }
     .modal__link:hover {
       text-decoration: none;
       color: #609df8;
@@ -321,16 +321,16 @@ strong {
     .modal__reg:hover {
       background-color: #f7f5f7; }
     .modal__reg_white {
-      border: 1px solid #1D68D8;
+      border: 1px solid #4C91F8;
       color: #000;
       background-color: #fff; }
     .modal__reg_blue {
       color: #fff;
-      background-color: #1D68D8; }
+      background-color: #4C91F8; }
   .modal__close {
     width: 40px;
     height: 40px;
-    background-color: #1D68D8;
+    background-color: #4C91F8;
     position: absolute;
     top: 85px;
     right: 440px;
@@ -472,7 +472,7 @@ strong {
   .modal2__btn {
     width: 120px;
     height: 50px;
-    background: #1D68D8;
+    background: #4C91F8;
     border-radius: 10px;
     color: #fff;
     font-family: "Roboto", sans-serif;
@@ -503,7 +503,7 @@ strong {
       text-decoration: underline;
       color: #000; }
       .modal2__sign-text_link:hover {
-        color: #1D68D8;
+        color: #4C91F8;
         cursor: pointer;
         text-decoration: none; }
   .modal2__link {
@@ -513,7 +513,7 @@ strong {
     font-size: 1.6rem;
     line-height: 2rem;
     text-decoration-line: underline;
-    color: #1D68D8; }
+    color: #4C91F8; }
     .modal2__link:hover {
       text-decoration: none;
       color: #609df8;
@@ -533,13 +533,13 @@ strong {
     margin: 0;
     border: none;
     background-color: #fff;
-    color: #1D68D8;
+    color: #4C91F8;
     box-shadow: none; }
     .modal2__btn_mark:active {
       transform: none;
       box-shadow: none; }
     .modal2__btn_mark:hover {
-      background-color: #1D68D8 !important;
+      background-color: #4C91F8 !important;
       color: #fff; }
   .modal2__mark_reg {
     position: absolute;
@@ -562,7 +562,7 @@ strong {
   .modal2__close {
     width: 40px;
     height: 40px;
-    background-color: #1D68D8;
+    background-color: #4C91F8;
     position: absolute;
     top: 50px;
     right: -40px;
@@ -650,7 +650,7 @@ strong {
   font-weight: 600;
   font-size: 5rem;
   line-height: 75px;
-  color: #1D68D8;
+  color: #4C91F8;
   text-transform: uppercase;
   padding-bottom: 25px;
   width: 1000px;
@@ -692,7 +692,7 @@ strong {
     border-radius: 50%;
     padding-left: 5px;
     border: none;
-    background-color: #1D68D8;
+    background-color: #4C91F8;
     color: #fff; }
     .curator__sound-round:hover {
       background-color: #609df8;
@@ -703,7 +703,7 @@ strong {
     font-weight: 400;
     font-size: 1.5rem;
     line-height: 1.9rem;
-    color: #1D68D8; }
+    color: #4C91F8; }
   .curator__img {
     width: 555px;
     padding: 40px 0;
@@ -819,7 +819,7 @@ strong {
   .other__btn {
     width: 300px;
     height: 60px;
-    background: #1D68D8;
+    background: #4C91F8;
     border-radius: 15px;
     font-family: "Roboto", sans-serif;
     font-weight: 500;
@@ -947,7 +947,7 @@ strong {
     font-size: 4rem;
     line-height: 4rem;
     text-align: center;
-    color: #1D68D8;
+    color: #4C91F8;
     padding-bottom: 7px; }
   .rates__minus {
     font-family: "Roboto", sans-serif;
@@ -966,7 +966,7 @@ strong {
   .rates__btn {
     width: 230px;
     height: 65px;
-    background: #1D68D8;
+    background: #4C91F8;
     border-radius: 15px;
     font-family: "Roboto", sans-serif;
     font-weight: 400;
@@ -1019,124 +1019,6 @@ strong {
     font-size: 3rem;
     line-height: 140%;
     color: #fff; }
-
-.footer__style {
-  width: 100%;
-  min-height: 300px;
-  background-color: #032251;
-  padding: 60px 0 0 60px;
-  display: flex;
-  justify-content: flex-start;
-  background-image: url(../img/rhino-footer-bg.png);
-  background-position: bottom right;
-  background-repeat: no-repeat;
-  flex: 0 0 auto; }
-
-.footer__logo-text-1 {
-  font-family: "Roboto", sans-serif;
-  font-weight: 300;
-  font-size: 2rem;
-  line-height: 2rem;
-  color: #fff;
-  padding-left: 8px; }
-
-.footer__logo-text-2 {
-  font-family: "Roboto", sans-serif;
-  font-weight: 300;
-  font-size: 1.65rem;
-  line-height: 1.65rem;
-  color: #fff;
-  padding-left: 8px; }
-
-.footer__logo-text-3 {
-  font-family: "Roboto", sans-serif;
-  font-weight: 300;
-  font-size: 3.5rem;
-  line-height: 3.5rem;
-  color: #fff;
-  padding-left: 8px; }
-
-.footer__logo-text-4 {
-  font-family: "Roboto", sans-serif;
-  font-weight: 300;
-  font-size: 1.2rem;
-  line-height: 1rem;
-  color: #fff;
-  padding-left: 10px; }
-
-.footer__soc {
-  padding-top: 35px;
-  padding-left: 230px; }
-
-.footer__soc-title {
-  font-family: "Roboto", sans-serif;
-  font-weight: 300;
-  font-size: 1.8rem;
-  line-height: 2.5rem;
-  color: #fff; }
-
-.footer__soc-text {
-  display: block;
-  font-family: "Roboto", sans-serif;
-  font-weight: 300;
-  font-size: 1.8rem;
-  line-height: 2.5rem;
-  color: #b1b1b1;
-  text-decoration: underline; }
-  .footer__soc-text:hover {
-    color: #fff;
-    text-decoration: none; }
-
-.footer__sub {
-  padding-top: 35px;
-  padding-left: 230px;
-  width: 505px; }
-
-.footer__sub-text {
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-size: 2rem;
-  line-height: 2.5rem;
-  color: #fff;
-  text-transform: uppercase;
-  padding-bottom: 20px; }
-
-.footer__form {
-  display: flex;
-  justify-content: space-between;
-  width: 450px; }
-
-.footer__input {
-  width: 250px;
-  height: 35px;
-  background: #92B8F1;
-  border-radius: 10px;
-  padding: 8px 0 8px 15px;
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-size: 1.7rem;
-  line-height: 1.7rem;
-  color: #000;
-  border: none;
-  outline: none; }
-
-.footer__btn {
-  width: 150px;
-  height: 35px;
-  background: #3876D2;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-size: 1.5rem;
-  line-height: 2rem;
-  color: #fff; }
-  .footer__btn:hover {
-    cursor: pointer;
-    background: #609df8; }
-  .footer__btn:active {
-    transform: scale(0.95); }
 
 .div_center {
   display: -webkit-flex;

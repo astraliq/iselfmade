@@ -10,10 +10,11 @@ class ReportsAsset extends AssetBundle {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-//        'css/mainpage.css',
+        'css/modal_image.css',
     ];
     public $js = [
         'js/reports.js',
+        'js/modal_img.js',
     ];
 
 }

@@ -11,6 +11,7 @@ class CheckReportsWidget extends Widget {
     public $tasks;
     public $block_id;
     public $date;
+    public $userReport;
 
 
     public function run() {
@@ -19,6 +20,7 @@ class CheckReportsWidget extends Widget {
             'tasks' => $this->tasks,
             'block_id' => $this->block_id,
             'date' => $this->date,
+            'userReport' => $this->userReport,
         ]);
     }
 }

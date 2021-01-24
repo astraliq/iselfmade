@@ -10,7 +10,7 @@ use Yii;
  * @property int $id
  * @property int $user_id
  * @property string $date
- * @property int $mentor_grade
+ * @property int|null $mentor_grade
  * @property string|null $comment
  * @property string|null $date_create
  * @property string|null $date_update
@@ -38,7 +38,7 @@ class UsersReportsBase extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'user_id', 'date', 'mentor_grade'], 'required'],
+            [['id', 'user_id', 'date'], 'required'],
             [['id', 'user_id', 'mentor_grade', 'self_grade', 'status', 'curator_grade', 'views'], 'integer'],
             [['date', 'date_create', 'date_update'], 'safe'],
             [['comment', 'files'], 'string', 'max' => 255],

@@ -273,8 +273,7 @@ class TasksComponent extends BaseComponent {
         return $tasks;
     }
 
-    public function addTask(Tasks $task)
-    {
+    public function addTask(Tasks $task) {
 //        $task->filesReal = UploadedFile::getInstances($task, 'filesReal');
 //        $fileSaver = \Yii::createObject(['class' => FileSaverComponent::class]);
         if (!$task->user_id) {
@@ -645,10 +644,7 @@ class TasksComponent extends BaseComponent {
             $model->goal_id = $task->goal_id;
             $model->task = $task->task;
             $model->main_img = $task->main_img;
-            $model->buddy_ids = $task->buddy_ids;
-            $model->group_id = $task->group_id;
-            $model->curator_id = $task->curator_id;
-            $model->mentor_email = $task->mentor_email;
+//            $model->group_id = $task->group_id;
             $model->hashtags = $task->hashtags;
             $model->deleted = $task->deleted;
             $model->repeat_type_id = null;
@@ -669,10 +665,7 @@ class TasksComponent extends BaseComponent {
             $model->goal_id = $task->goal_id;
             $model->task = $task->task;
             $model->main_img = $task->main_img;
-            $model->buddy_ids = $task->buddy_ids;
-            $model->group_id = $task->group_id;
-            $model->curator_id = $task->curator_id;
-            $model->mentor_email = $task->mentor_email;
+//            $model->group_id = $task->group_id;
             $model->hashtags = $task->hashtags;
             $model->deleted = $task->deleted;
             $model->repeat_type_id = null;

@@ -5,6 +5,8 @@ namespace app\controllers;
 
 
 use app\base\BaseController;
+use app\controllers\actions\report\AddCommentAction;
+use app\controllers\actions\report\AddReportAction;
 use app\controllers\actions\report\ChangeReportStatusAction;
 use app\controllers\actions\report\CheckReportsAction;
 use app\controllers\actions\report\SkipReportAction;
@@ -18,6 +20,8 @@ class ReportController extends BaseController {
         return [
             'check-reports' => ['class' => CheckReportsAction::class],
             'change-report-status' => ['class' => ChangeReportStatusAction::class],
+            'add-report' => ['class' => AddReportAction::class],
+            'add-comment' => ['class' => AddCommentAction::class],
         ];
 
     }
