@@ -75,6 +75,10 @@ body {
       text-decoration: none;
       color: #000; }
 
+.submenu__item {
+  display: block;
+  padding-left: 20px; }
+
 .dop-menu {
   padding-top: 30px; }
 
@@ -169,3 +173,51 @@ body {
   .soc__item:hover {
     cursor: pointer;
     fill: #4C91F8; }
+
+.archive {
+  width: 72%;
+  display: flex;
+  justify-content: space-between; }
+  .archive__header {
+    width: 550px;
+    background-color: #609df8;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.7rem;
+    font-weight: 400;
+    color: #fff;
+    display: flex;
+    height: 50px;
+    align-items: center;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+    border: 1px solid #609df8; }
+  .archive__numb {
+    padding-left: 10px;
+    width: 60px; }
+  .archive__date {
+    width: 140px; }
+  .archive__status {
+    width: 180px; }
+  .archive__data {
+    border: 1px solid #4C91F8;
+    border-top: none;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #000;
+    display: flex;
+    height: 30px;
+    align-items: center;
+    text-align: center; }
+    .archive__data:last-of-type {
+      border-radius: 0 0 10px 10px; }
+    .archive__data:hover {
+      background-color: #c2ddff; }
+  .archive__numb-data {
+    width: 50px; }
+  .archive__date-data {
+    width: 150px; }
+  .archive__calend {
+    width: 150px; }
+  .archive__input {
+    width: 100%; }

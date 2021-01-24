@@ -41,7 +41,7 @@ http://iselfmade.ru
     <meta property="og:type" content="website" />
     <meta property="og:description" content="НОСОРОГ — система достижения целей." />
     <meta name="description" content="НОСОРОГ — система достижения целей. Заходи и сделай то, что планируешь уже давно." />
-    <link rel="stylesheet" href="css/welcome.css">
+    <link rel="stylesheet" href="css/goals.css">
     <link rel="image_src" href="../img/covers/cover-og.png">
     <meta property="og:url" content="https://iselfmade.ru/" />
     <link rel="canonical" href="https://iselfmade.ru/">
@@ -79,17 +79,21 @@ http://iselfmade.ru
                 <div class="line"></div>
                 <div class="menu">
                     <a class="menu__item menu__item-link" href="">Доска эффективности</a>
-                    <a class="menu__item menu__item-link" href="">Отчёт</a>
+                    <a class="menu__item menu__item-link" href="../report/">Отчёт за сегодня</a>
+                </div>
+                <div class="dop-menu">
                     <a class="menu__item menu__item-link" href="">Повторяющиеся дела</a>
                     <a class="menu__item menu__item-link" href="">Будущие дела</a>
                     <a class="menu__item menu__item-link" href="">Возможные дела</a>
                     <a class="menu__item menu__item-link" href="">Мои обещания</a>
                     <a class="menu__item menu__item-link" href="">Группа поддержки</a>
-                    <a class="menu__item menu__item-link" href="">Архив отчётов</a>
+                    <a class="menu__item menu__item-link" href="">Прошлые отчёты</a>
                     <a class="menu__item menu__item-link" href="">Остальные сервисы</a>
                 </div>
                 <div class="dop-menu">
-                    <a class="menu__item menu__item-link" href="">Настройки</a>
+                    <p class="menu__item" href="">Настройки</p>
+                    <a class="menu__item submenu__item" href="">Цели и задачи</a>
+                    <a class="menu__item menu__item-link submenu__item" href="">Наставник</a>
                     <a class="menu__item menu__item-link" href="">Помощь</a>
                 </div>
             </div>
@@ -97,6 +101,7 @@ http://iselfmade.ru
         </div>
         <main class="main__style">
             <menu class="top-menu">
+                <a class="top-menu__link" href="#">Библиотека</a>
                 <a class="top-menu__link" href="#">Антислив</a>
                 <a class="top-menu__link" href="#">Рейтинг</a>
                 <span class="notification" id="info-bell">
@@ -107,32 +112,56 @@ http://iselfmade.ru
                 </a>
             </menu>
             <section class="welcome">
-                <h1 class="welcome__title">Хорошо, что ты теперь с нами!</h1>
-                <p class="welcome__chapter">С чего начать</p>
+                <h1 class="welcome__title">Цели и задачи</h1>
+                <p class="welcome__chapter"></p>
                 <p class="welcome__text">
-                    Заполни свои <a class="welcome__link" href="../goals/">цели на год и задачи</a> на ближайший месяц. Они всегда будут доступны тебе в разделе «Отчёт». Их в любой момент можно там отредактировать.
-                </p>
-                <p class="welcome__text">
-                    Мы используем такие формулировки и определения. Цель&nbsp;&#151; что–то глобальное, &laquo;большое&raquo;. Как правило то, что планируешь достигнуть в течении года (не обязательно календарного). Чтобы её достичь, мы разбиваем цель на задачи. Примерный
-                    срок выполнения задачи&nbsp;&#151; месяц. Задачи же состоят из дел, которые мы выполняем каждый день.
+                    Мы используем такие формулировки и определения.<br>Цель&nbsp;&#151; что–то глобальное, &laquo;большое&raquo;. Как правило то, что планируешь достигнуть в течении года (не обязательно календарного). Чтобы её достичь, мы разбиваем цель
+                    на задачи. Примерный срок выполнения задачи&nbsp;&#151; месяц. Задачи же состоят из дел, которые мы выполняем каждый день.
                 </p>
                 <p class="welcome__text">Цель &#10144; Задача &#10144; Дело</p>
-                <p class="welcome__text">После целей и задач заполни <a class="welcome__link" href="#">свой профиль</a>. Твоё имя и фото нужны для наставника, ментора и работе в группе поддержки.</p>
-                <p class="welcome__chapter">Антислив</p>
+                <p class="welcome__text">В этом разделе ты прописываешь только цели и задачи. Ежедневные дела ты будешь планировать в разделе &laquo;<a class="welcome__link" href="../report/">Отчёт</a>&raquo;.</p>
+                <p class="welcome__chapter">Знаю чего хочу</p>
                 <p class="welcome__text">
-                    Мы поняли, что основная сложность не в том, чтобы начать что–то делать, а в том, чтобы продолжать делать то, что уже начали каждый день.
+                    Если ты уже знаешь свои цели и задачи, то можешь сразу записывать их тут.
+                </p>
+                <section class="goals">
+                    <p class="title">Цели на год</p>
+                    <p>1. Цель №1</p>
+                </section>
+                <section class="tasks">
+                    <p class="title roll-unroll">Задачи на апрель</p>
+                    <p>1. Задача №1</p>
+                </section>
+                <p class="welcome__chapter">Рекомендации по постановке целей и задач</p>
+                <p class="welcome__text">
+                    Самое главное, что нужно учитывать в постановке целей&nbsp;&#151; цели должны <strong>быть личными</strong>, идти изнутри. Вне зависимости от того, что другие думают по этому поводу. Пусть кому–то цель может показаться &laquo;мелкой&raquo;,
+                    незначительной&nbsp;&#151; не важно. Если это важно для тебя и именно <strong>ТЫ этого хочешь</strong>, то смело <strong>ставь эту цель</strong>.
                 </p>
                 <p class="welcome__text">
-                    Именно для этого мы придумали дополнительные сервисы и раздел &laquo;<a class="welcome__link" href="#">Антислив</a>&raquo;. Там полезные материалы, чтобы пролдолжать и продолжать делать то, что у тебя в планах.
+                    Самая известная схема постановки целей считается <a class="welcome__link" href="https://ru.wikipedia.org/wiki/SMART" target="_blank">SMART</a>.
+                </p>
+                <p class="welcome__text">S&nbsp;&#151; specific (конкретная).</p>
+                <p class="welcome__text">M&nbsp;&#151; measurable (измеримая).</p>
+                <p class="welcome__text">A&nbsp;&#151; attainable (достижимая).</p>
+                <p class="welcome__text">R&nbsp;&#151; realistic (реалистичная).</p>
+                <p class="welcome__text">S&nbsp;&#151; time–bound (ограниченная во времени).</p>
+                <p class="welcome__text">
+                    Именно её чаще всего цитируют и используют для постановки целей.
+                </p>
+                <p class="welcome__chapter">Что почитать про постановку целей</p>
+                <p class="welcome__text">
+                    Вот несколько ссылок, где говориться про SMART и вообще про эффективную постановку целей.
                 </p>
                 <p class="welcome__text">
-                    У тебя будет персональный куратор. Его основная задача проверять твой отчёт каждый день, в течении 24–х часов. А в <a class="welcome__link" href="#">тарифах «Результат» и «Прорыв»</a>, куратор ещё и звонит тебе по телефону, чтобы узнать
-                    как много дел уже выполнено.
+                    <a class="welcome__link" href="https://lifehacker.ru/goals/" target="_blank">Статья в Лайфхакере</a> &laquo;Как правильно поставить цель и достичь её: инструкция с примерами&raquo;.
                 </p>
                 <p class="welcome__text">
-                    Наставник&nbsp;&#151; человек, перед которым тебе будет очень стыдно облажаться и не выполнить свои дела. Система так настроена, что ему на почту будет приходить отчёт о твоей эффективности. Но для этого, <a class="welcome__link" href="#">укажи почту наставника</a>                    в соответствующих настройках. И выполняй всё, что записано в твоём плане&nbsp;&#151; не расстраивай своего Наставника.
+                    В блоге издательства &laquo;Манн, Иванов и Фербер&raquo; размещена статья &laquo;<a class="welcome__link" href="https://blog.mann-ivanov-ferber.ru/2020/01/09/kak-pravilno-stavit-celi/" target="_blank">Как правильно ставить цели?</a>&raquo;
                 </p>
-                <p class="welcome__chapter">Чат поддержки и соцсети</p>
+                <p class="welcome__text">
+                    В Reminder интересный материал &laquo;<a class="welcome__link" href="https://reminder.media/post/surprising-science-of-goal-setting" target="_blank">Когда цели вредят и как формулировать их правильно.</a>&raquo;
+                </p>
+                <!-- <p class="welcome__chapter">Чат поддержки и соцсети</p>
                 <p class="welcome__text">
                     Подписывайся на наши официальные аккаунты в соцсетях и получай интересную и полезную информацию там, где тебе удобнее всего.
                 </p>
@@ -172,18 +201,7 @@ http://iselfmade.ru
                 </div>
                 <p class="welcome__text">Общий
                     <a class="welcome__link" href="https://t.me/joinchat/WAi-c9XitRYBK6k3" target="_blank">чат поддержки в телеграм</a> для всех участников.<br> Присоединяйся, задавай вопросы, поддерживай других и делись своими успехами.
-                </p>
-                <p class="welcome__chapter">Напоследок</p>
-                <p class="welcome__text">
-                    Всю необходимую информацию о работе сервиса ты всегда сможешь прочитать в разделе &laquo;<a class="welcome__link" href="#">Помощь</a>&raquo;. А если там нет ответа на твой вопрос, то смело пиши нам <a class="welcome__link" href="#">любым из этих способов</a>.
-                </p>
-                <p class="welcome__chapter">Мне всё понятно</p>
-                <p class="welcome__text">
-                    Отлично.<br>Тогда давай начинать.
-                </p>
-                <p class="welcome__text">
-                    Заполняй свои <a class="welcome__link" href="#">цели на год и задачи</a> на ближайший месяц.
-                </p>
+                </p> -->
             </section>
         </main>
     </div>

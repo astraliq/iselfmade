@@ -93,6 +93,11 @@ body {
     }
 }
 
+.submenu__item {
+    display: block;
+    padding-left: 20px;
+}
+
 .dop-menu {
     padding-top: 30px;
 }
@@ -196,10 +201,6 @@ body {
     }
 }
 
-.welcome {
-    &__soc {}
-}
-
 .soc {
     &__items {
         width: 200px;
@@ -216,5 +217,66 @@ body {
     &:hover {
         cursor: pointer;
         fill: $color-blue;
+    }
+}
+
+.archive {
+    width: 72%;
+    display: flex;
+    justify-content: space-between;
+    &__header {
+        width: 550px;
+        background-color: $color-blue-light;
+        font-family: $font_main-text;
+        font-size: 1.7rem;
+        font-weight: 400;
+        color: $color-white;
+        display: flex;
+        height: 50px;
+        align-items: center;
+        text-align: center;
+        border-radius: 10px 10px 0 0;
+        border: 1px solid $color-blue-light;
+    }
+    &__numb {
+        padding-left: 10px;
+        width: 60px;
+    }
+    &__date {
+        width: 140px;
+    }
+    &__status {
+        width: 180px;
+    }
+    &__data {
+        border: 1px solid $color-blue;
+        border-top: none;
+        font-family: $font_main-text;
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: $color-black;
+        display: flex;
+        height: 30px;
+        align-items: center;
+        text-align: center;
+        &:last-of-type {
+            border-radius: 0 0 10px 10px;
+        }
+        &:hover {
+            background-color: $color-blue-light2;
+        }
+    }
+    &__numb-data {
+        width: 50px;
+    }
+    &__date-data {
+        width: 150px;
+    }
+    &__status-data {}
+    &__calend {
+        width: 150px;
+    }
+    &__input {
+        width: 100%;
     }
 }
