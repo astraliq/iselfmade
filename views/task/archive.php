@@ -2,30 +2,29 @@
 
 /* @var $this yii\web\View */
 
-$month = \Yii::$app->params['monthsImenit'][\Yii::$app->formatter->asDate(date('Y-m-d'), 'M')];
-
 use yii\helpers\Html;
 
 ?>
+<section class="welcome">
+    <h1 class="welcome__title">Прошлые отчёты</h1>
+</section>
 
-<div class="tasks-form">
-    <div class="tasks-all">
-        <?= \app\widgets\tasks\ArchiveTasksWidget::widget([
-            'title' => 'Вчера',
-            'date' => $yesterdayDate,
-            'tasks' => $yesterday,
-            'grade' => $yesterdayGrade,
-            'block_id' => 0,
-        ]); ?>
-<!--        --><?//= \app\widgets\tasks\ArchiveTasksWidget::widget([
-//            'title' => 'Позавчера' ,
-//            'date' => $beforeYesterdayDate,
-//            'tasks' => $beforeYesterday,
-//            'block_id' => 1,
-//        ]); ?>
-    </div>
-</div>
-<div class="calendar" id="calendar_block"></div>
+<?= \app\widgets\tasks\ArchiveTasksListWidget::widget([
+    'reports' => $reports,
+    'tasksCountReports' => $tasksCountReports,
+]); ?>
+
+<?= \app\widgets\reports\ArchiveReportWidget::widget([
+        'title' => 'Вчера',
+        'report' => $yesterdayReport,
+        'date' => $yesterdayDate,
+        'tasks' => $yesterdayTasks,
+        'grade' => $yesterdayGrade,
+        'self' => $self,
+        'comments' => $comments,
+])
+    ?>
+
 
 <?= $this->render('/modals/confirm_email',['notifConfEmail' => $notifConfEmail]); ?>
 

@@ -93,7 +93,6 @@ class ReportCommentsComponent extends BaseComponent {
             }
         }
         return true;
-
     }
 
 }

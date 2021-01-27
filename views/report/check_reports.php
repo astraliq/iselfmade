@@ -30,6 +30,11 @@ use yii\helpers\Html;
     </div>
 </div>
 <?php
+
+
+// РАЗОБРАТЬСЯ КАК СЮДА ПОПАДАЮТ $comments
+
+
 echo \app\widgets\comments\CommentsWidget::widget([
             'comments' => $comments,
             'self' => $self,
