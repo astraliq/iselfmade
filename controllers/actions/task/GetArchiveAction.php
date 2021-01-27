@@ -4,10 +4,14 @@
 namespace app\controllers\actions\task;
 
 
+use app\components\ReportCommentsComponent;
+use app\components\ReportsComponent;
 use app\components\TasksComponent;
 use app\components\UserComponent;
+use app\models\ReportComments;
 use app\models\Tasks;
 use app\models\UsersReports;
+use app\widgets\reports\ArchiveReportWidget;
 use app\widgets\tasks\ArchiveTasksWidget;
 use yii\base\Action;
 use yii\web\HttpException;
@@ -27,6 +31,9 @@ class GetArchiveAction extends Action {
 
         $comp = \Yii::createObject(['class' => TasksComponent::class,'modelClass' => Tasks::class]);
         $model = $comp->getModel();
+        $compReports = \Yii::createObject(['class' => ReportsComponent::class,'modelClass' => UsersReports::class]);
+        $compComments = \Yii::createObject(['class' => ReportCommentsComponent::class,'modelClass' => ReportComments::class]);
+
 
         $yesterdayDate = date('d.m.Y', strtotime( "-1 day"));
         $beforeYesterdayDate = date('d.m.Y', strtotime( "-2 day"));
@@ -46,17 +53,23 @@ class GetArchiveAction extends Action {
 
         $dateUTC = (new \DateTime(date($date)))->format('Y-m-d');
         $archiveTasks = $comp->getArchiveTasksByDate($date);
-        $gradeModel = new UsersReports();
-        $userGrade = $gradeModel->findOne(['user_id' => \Yii::$app->user->getId(), 'date' => $dateUTC])->mentor_grade;
+        $reportsModel = new UsersReports();
+        $mentorGrade = $reportsModel->findOne(['user_id' => \Yii::$app->user->getId(), 'date' => $dateUTC])->mentor_grade;
+
+        $report = $compReports->getUserReportsByDatesArr($dateUTC)[0];
+        $comments = $compComments->getReportCommentsByReportID($report->id);
+
         if ($archiveTasks) {
             return [
                 'result' => true,
-                'html' => ArchiveTasksWidget::widget([
+                'html' => ArchiveReportWidget::widget([
                     'title' => $title,
+                    'report' => $report,
                     'date' => $date,
                     'tasks' => $archiveTasks,
-                    'block_id' => 0,
-                    'grade' => $userGrade,
+                    'grade' => $mentorGrade,
+                    'self' => \Yii::$app->user->getIdentity(),
+                    'comments' => $comments,
                 ]),
                 ];
         } else {

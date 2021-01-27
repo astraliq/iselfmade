@@ -1570,6 +1570,13 @@ section {
     display: flex;
     flex-direction: column;
 
+    & .calend_title {
+        font-size: 14px;
+        width: 216px;
+        text-align: center;
+        margin: 0 0 5px 0;
+    }
+
     & .message {
         width: 87%;
         font-size: 12px;
@@ -1597,6 +1604,24 @@ section {
     display: block;
     width: 216px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+
+    & .report_rejected {
+        color: black !important;
+        background-image: linear-gradient(to bottom, #ff7663 0%, #e51600 60%, #7e0010 100%) !important;
+    }
+    & .report_checked {
+        color: black !important;
+        background-image: linear-gradient(to bottom, #b7eab0 0%, #7ee560 60%, #2d7b2b 100%) !important;
+    }
+    & .report_waiting {
+        color: black !important;
+        background-image: linear-gradient(to bottom, #9ec0e2 0%, #7ea0e5 60%, #718ede 100%) !important;
+    }
+    & .tasks_exist {
+        color: black !important;
+        background-image: linear-gradient(to bottom, #ffffff 0%, #cfd4ff 60%, #c7d1ff 100%) !important;
+    }
+
     & a {
         text-decoration: none;
     }
@@ -1606,7 +1631,7 @@ section {
         font-weight: bold;
         color: whitesmoke;
         text-align: center;
-        text-shadow: 0 -1px #000000;
+        //text-shadow: 0 -1px #000000;
         background: $color-blue;
         border-top: 1px solid $color-blue-black;
         border-bottom: 1px solid $color-blue-black;
@@ -1641,7 +1666,7 @@ section {
     & td {
         width: 30px;
         text-align: center;
-        text-shadow: 0 1px rgba(255, 255, 255, 0.8);
+        //text-shadow: 0 1px rgba(255, 255, 255, 0.8);
     }
     & th:first-child,
     & td:first-child {
@@ -1684,11 +1709,13 @@ section {
         & a:active {
             margin: 0;
             color: #f3f3f3;
-            text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+            //text-shadow: 0 1px rgba(0, 0, 0, 0.3);
             background: #B32800;
             border: 0px solid #598b94;
             box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
         }
+
+
 
         &.active:first-child a,
         &:first-child a:active {
@@ -1705,14 +1732,15 @@ section {
         & .active,
         & a:active {
             margin: 0;
-            color: black;
-            text-shadow: 0 1px rgba(0, 0, 0, 0.3);
-            background: #F5C527;
+            color: black !important;
+            //text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+            background: #F5C527 !important;
             border: 0px solid #598b94;
             box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
         }
 
     }
+
     & tr:last-child td.active a,
     & tr:last-child td a:active {
         border-bottom: 0;
@@ -1728,6 +1756,7 @@ section {
             //border: 1px solid $color-blue-light;
         }
     }
+
 }
 
 .grade_text {
@@ -2045,15 +2074,21 @@ button {
         width: 150px;
     }
     &__status-data {}
-    &__calend {
-        width: 150px;
-    }
     &__input {
         width: 100%;
     }
 }
 
+.welcome {
+    width: 100%;
+    margin: 0 0 5px 0;
 
+    &__title {
+        font-size: 22px;
+        color: $color-blue;
+    }
+
+}
 
 
 

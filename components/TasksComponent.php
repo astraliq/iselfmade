@@ -986,16 +986,33 @@ class TasksComponent extends BaseComponent {
         return $tasks;
     }
 
+    public function getUserTasksByTypeIdBetweenTwoDates($userId, $date1, $date2, $typeId) {
+        $tasks = Tasks::find()
+            ->where([
+                'user_id' => $userId,
+                'deleted' => 0,
+                'type_id' => $typeId,
+            ])
+            ->andWhere(['AND',
+                ['>=', 'date_start', (new \DateTime($date1  . ' 00:00:00'))->format('Y-m-d H:i:s')],
+                ['<=', 'date_start', (new \DateTime($date2 . ' 23:59:59'))->format('Y-m-d H:i:s')]
+            ])
+            ->orderBy(['date_create' => SORT_ASC])
+            ->all();
+
+        return $tasks;
+    }
+
     public function getArchiveTasksByDate($date) {
         $tasks = Tasks::find()
             ->where([
                 'user_id' => \Yii::$app->user->getId(),
                 'deleted' => 0,
             ])
-            ->andWhere(['AND',
-                ['>=', 'date_calculate', (new \DateTime(date($date)))->format('Y-m-d 00:00:00')],
-                ['<=', 'date_calculate', (new \DateTime($date . ' 23:59:59'))->format('Y-m-d H:i:s')]
-            ])
+//            ->andWhere(['AND',
+//                ['>=', 'date_calculate', (new \DateTime(date($date)))->format('Y-m-d 00:00:00')],
+//                ['<=', 'date_calculate', (new \DateTime($date . ' 23:59:59'))->format('Y-m-d H:i:s')]
+//            ])
             ->andWhere(['AND',
                 ['>=', 'date_start', (new \DateTime($date  . ' 00:00:00'))->format('Y-m-d H:i:s')],
                 ['<=', 'date_start', (new \DateTime($date . ' 23:59:59'))->format('Y-m-d H:i:s')]
@@ -1055,6 +1072,69 @@ class TasksComponent extends BaseComponent {
             default:
                 return false;
         }
+    }
+
+    public function getMonthsTasks($month, $year) {
+        $compReports = \Yii::createObject(['class' => ReportsComponent::class,'modelClass' => UsersReports::class]);
+
+        $userId = \Yii::$app->user->getId();
+        $monthNumb = $month < 10 ? '0' . ($month + 1) : ($month + 1);
+        $date1 = '01.' . $monthNumb . '.' . $year;
+        $lastNumb = date('t', $date1);
+        $date2 = $lastNumb . '.' . $monthNumb . '.' . $year;
+
+        $tasksData = [];
+        $dates = [];
+        $datesStart = [];
+
+        // получаем задачи за месяц
+        $tasksInMonth = $this->getUserTasksByTypeIdBetweenTwoDates($userId, $date1, $date2, 1);
+        // создаем массив дат старта этих задач
+        foreach ($tasksInMonth as $task) {
+            array_push($datesStart, \Yii::$app->formatter->asDateTime($task->date_start, 'php:Y-m-d'));
+        }
+        // отбираем только уникальные даты
+        $dates = array_unique($datesStart);
+        // получаем массив уникальных чисел в месяце с задачами
+        foreach ($dates as $date) {
+            array_push($tasksData, \Yii::$app->formatter->asDateTime($date, 'php:d'));
+        }
+        // получаем массив с числами месяца с отчетами иих статусами
+        $reports = $compReports->getUserReportsByDatesArr($dates);
+        // преобразуем в объект формата: число => статус
+        $reportsData = [];
+        foreach ($reports as $report) {
+            $report->date = \Yii::$app->formatter->asDateTime($report->date, 'php:d');
+            $reportsData[$report->date] = $report->status;
+        }
+
+
+        return [
+            'reports' => $reportsData,
+            'tasks' => $tasksData,
+        ];
+    }
+
+    public function getCountsTasksForReports($reports) {
+        $userId = \Yii::$app->user->getId();
+        $current = 0;
+        $finishedCount = 0;
+        $tasks = [];
+        foreach ($reports as $report) {
+            $finishedCount = 0;
+            $current = $this->getTasksByDateAndUserId($userId, $report->date);
+            foreach ($current as $task) {
+                if ($task->finished == 1) {
+                    $finishedCount++;
+                }
+            }
+            $tasks[$report->date] = [
+                'tasks' => $current,
+                'finishedCount' => $finishedCount,
+                'totalCount' => count($current),
+            ];
+        }
+        return $tasks;
     }
 
 }

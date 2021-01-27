@@ -12,6 +12,7 @@ use app\controllers\actions\task\CreateAction;
 use app\controllers\actions\task\DeleteAction;
 use app\controllers\actions\task\FinishAction;
 use app\controllers\actions\task\GetArchiveAction;
+use app\controllers\actions\task\GetMonthsArchiveDataAction;
 use app\controllers\actions\task\NextRepeatDateAction;
 use app\controllers\actions\task\RepeatedAction;
 use app\controllers\actions\task\SetGradeAction;
@@ -46,6 +47,7 @@ class TaskController extends BaseController {
             'get-archive' => ['class' => GetArchiveAction::class],
             'set-grade' => ['class' => SetGradeAction::class],
             'check-reports' => ['class' => CheckReportsAction::class],
+            'get-months-archive-data' => ['class' => GetMonthsArchiveDataAction::class],
         ];
 
     }

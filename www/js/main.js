@@ -975,7 +975,7 @@ class ArchiveTasks extends Tasks{
         super();
         this.archiveListClass = '.archive__list';
         this.calendarId = 'calendar_block';
-        this.archiveHTMLId = 'tasks_list-0';
+        this.archiveHTMLId = 'archive_block';
         this.day = '';
         this.month = '';
         this.year = '';
@@ -1013,7 +1013,6 @@ class ArchiveTasks extends Tasks{
     }
 
     renderHTML(html) {
-        console.log('asda');
         return $(document.getElementById(this.archiveHTMLId)).replaceWith(html);
     }
 
@@ -1056,6 +1055,7 @@ class ArchiveTasks extends Tasks{
                 if (data.result === true) {
                     this.renderHTML(data.html);
                     this.changeDateColor(calendar, btn);
+                    comment.init();
                 } else {
                     this.renderMessage(data.message);
                     this.timerMessage = setTimeout(() => {
@@ -1082,107 +1082,193 @@ class Calendar {
 
     }
 
-}
-
-function createCalendar(elem, year, month, day) {
-    let now = new Date();
-    let nowDay = now.getDate();
-    let nowMonth = now.getMonth();
-    let nowYear = now.getFullYear();
-
-    let months = {
-        0: 'Январь',
-        1: 'Февраль',
-        2: 'Март',
-        3: 'Апрель',
-        4: 'Май',
-        5: 'Июнь',
-        6: 'Июль',
-        7: 'Август',
-        8: 'Сентябрь',
-        9: 'Октябрь',
-        10: 'Ноябрь',
-        11: 'Декабрь',
-    };
-    let mon = month; // месяцы в JS идут от 0 до 11, а не от 1 до 12
-    let d = new Date(year, mon);
-    //	console.log('d--> ' +d);
-    let previousMonth = (mon === 0) ? 11 : month - 1;
-    let nextMonth = (mon === 11) ? 0 : month + 1;
-    let previousYear = (mon === 0) ? year - 1 : year;
-    let nextYear = (mon === 11) ? year + 1 : year;
-
-    let table = `<table class="cal" data-date="${day}" data-month="${mon}" data-year="${year}"><caption><span class="prev" onclick="createCalendar(calendar, ${previousYear}, ${previousMonth}, ${day})">←</span><span class="next" onclick="createCalendar(calendar, ${nextYear}, ${nextMonth}, ${day})">→</span><a href="">${months[month]} ${year}</a></caption>`;
-
-    table += '<thead><tr><th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th><th>Сб</th><th>Вс</th></tr></thead><tbody><tr>';
-
-    // пробелы для первого ряда
-    // с понедельника до первого дня месяца
-    // * * * 1  2  3  4
-    for (let i = 0; i < getDay(d); i++) {
-        table += '<td class="off"></td>';
+    _get(url, data) {
+        return $.get({
+            url: url,
+            data: data,
+            success: function (data) {
+                if (!data.result) {
+                    console.log('ERROR_GET_DATA');
+                }
+            }
+        })
     }
 
-    // <td> ячейки календаря с датами
-    while (d.getMonth() == mon) {
-        if (d.getDate() == nowDay && d.getMonth() == nowMonth && d.getFullYear() == nowYear) {
-            // сегодня
-            table += `<td class="today" title="сегодня"><a class="calend_cell today">${d.getDate()}</a></td>`;
-        } else if (ifDayIsActive(d, activitiesArr) || (d.getDate() == (nowDay - 1) && d.getMonth() == nowMonth && d.getFullYear() == nowYear)) {
-            // активная дата
-            table += `<td class=""><a class="calend_cell active">${d.getDate()}</a></td>`;
-        } else {
-            // обычная дата
-            table += '<td class=""><a class="calend_cell">' + d.getDate() + '</a></td>';
-        }
-
-
-        if (getDay(d) % 7 == 6) { // вс, последний день - перевод строки
-            table += '</tr><tr>';
-        }
-
-        d.setDate(d.getDate() + 1);
+    getDay(date) { // получить номер дня недели, от 0 (пн) до 6 (вс)
+        let day = date.getDay();
+        if (day == 0) day = 7; // сделать воскресенье (0) последним днем
+        return day - 1;
     }
 
-    // добить таблицу пустыми ячейками, если нужно
-    // 29 30 31 * * * *
-    if (getDay(d) != 0) {
-        for (let i = getDay(d); i < 7; i++) {
+    ifDayIsActive(date, activities) {
+
+        for (let i = 0; i < activities.length; i++) {
+            let activityDate = new Date(activities[i].dateStart.replace(/(\d{2})\.(\d{2})\.(\d{4})/, '$3-$2-$1'));
+            if (date.getDate() === activityDate.getDate() && date.getMonth() === activityDate.getMonth() && date.getFullYear() === activityDate.getFullYear()) {
+                return true;
+            }
+        }
+    }
+
+    _renderCalendar(elem, year, month, day, monthArchive) {
+        let now = new Date();
+        let nowDay = now.getDate();
+        let nowMonth = now.getMonth();
+        let nowYear = now.getFullYear();
+
+        let months = {
+            0: 'Январь',
+            1: 'Февраль',
+            2: 'Март',
+            3: 'Апрель',
+            4: 'Май',
+            5: 'Июнь',
+            6: 'Июль',
+            7: 'Август',
+            8: 'Сентябрь',
+            9: 'Октябрь',
+            10: 'Ноябрь',
+            11: 'Декабрь',
+        };
+        let mon = month; // месяцы в JS идут от 0 до 11, а не от 1 до 12
+        let d = new Date(year, mon);
+        //	console.log('d--> ' +d);
+        let previousMonth = (mon === 0) ? 11 : month - 1;
+        let nextMonth = (mon === 11) ? 0 : month + 1;
+        let previousYear = (mon === 0) ? year - 1 : year;
+        let nextYear = (mon === 11) ? year + 1 : year;
+
+        let table = `<table class="cal" data-date="${day}" data-month="${mon}" data-year="${year}"><caption><span class="prev" onclick="calendar.create($('#calendar_block'), ${previousYear}, ${previousMonth}, ${day})">←</span><span class="next" onclick="calendar.create($('#calendar_block'), ${nextYear}, ${nextMonth}, ${day})">→</span><a href="">${months[month]} ${year}</a></caption>`;
+
+        table += '<thead><tr><th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th><th>Сб</th><th>Вс</th></tr></thead><tbody><tr>';
+
+        // пробелы для первого ряда
+        // с понедельника до первого дня месяца
+        // * * * 1  2  3  4
+        for (let i = 0; i < this.getDay(d); i++) {
             table += '<td class="off"></td>';
         }
-    }
 
-    // закрыть таблицу
-    table += '</tr></tbody></table>';
-    let oldTable = $('.cal');
-    if (oldTable) {
-        oldTable.detach();
-    }
-    elem.prepend(table);
+        // <td> ячейки календаря с датами
+        while (d.getMonth() == mon) {
 
-    archive.init();
-}
+            if (d.getDate() == nowDay && d.getMonth() == nowMonth && d.getFullYear() == nowYear) {
+                // сегодня
+                table += `<td class="today" title="сегодня"><a class="calend_cell today">${d.getDate()}</a></td>`;
+            // } else if (this.ifDayIsActive(d, activitiesArr) || (d.getDate() == (nowDay - 1) && d.getMonth() == nowMonth && d.getFullYear() == nowYear)) {
+            //     // активная (выбранная) дата
+            //     table += `<td class=""><a class="calend_cell active">${d.getDate()}</a></td>`;
+            } else if (this.ifReportIsChecked(d, monthArchive.reports)) {
+                // дата с проверенным отчетами
+                table += '<td class=""><a class="calend_cell report_checked">' + d.getDate() + '</a></td>';
+            } else if (this.ifReportIsRejected(d, monthArchive.reports)) {
+                // дата с непроверенным отчетами или без отчета
+                table += '<td class=""><a class="calend_cell report_rejected">' + d.getDate() + '</a></td>';
+            } else if (this.ifReportIsWaiting(d, monthArchive.reports)) {
+                // дата с непроверенным отчетами или без отчета
+                table += '<td class=""><a class="calend_cell report_waiting">' + d.getDate() + '</a></td>';
+            } else if (this.ifExistTasks(d, monthArchive.tasks)) {
+                // дата с непроверенным отчетами или без отчета
+                table += '<td class=""><a class="calend_cell tasks_exist">' + d.getDate() + '</a></td>';
+            } else {
+                // пустая дата
+                table += '<td class=""><a class="calend_cell">' + d.getDate() + '</a></td>';
+            }
 
-function ifDayIsActive(date, activities) {
 
-    for (let i = 0; i < activities.length; i++) {
-        let activityDate = new Date(activities[i].dateStart.replace(/(\d{2})\.(\d{2})\.(\d{4})/, '$3-$2-$1'));
-        if (date.getDate() === activityDate.getDate() && date.getMonth() === activityDate.getMonth() && date.getFullYear() === activityDate.getFullYear()) {
-            return true;
+            if (this.getDay(d) % 7 == 6) { // вс, последний день - перевод строки
+                table += '</tr><tr>';
+            }
+
+            d.setDate(d.getDate() + 1);
         }
-    }
-}
 
-function getDay(date) { // получить номер дня недели, от 0 (пн) до 6 (вс)
-    let day = date.getDay();
-    if (day == 0) day = 7; // сделать воскресенье (0) последним днем
-    return day - 1;
+        // добить таблицу пустыми ячейками, если нужно
+        // 29 30 31 * * * *
+        if (this.getDay(d) != 0) {
+            for (let i = this.getDay(d); i < 7; i++) {
+                table += '<td class="off"></td>';
+            }
+        }
+
+        // закрыть таблицу
+        table += '</tr></tbody></table>';
+        let oldTable = $('.cal');
+        if (oldTable) {
+            oldTable.detach();
+        }
+
+        let title = '<p class="calend_title">Выбрать дату отчёта</p>';
+        elem.prepend(title);
+        elem.append(table);
+
+    }
+
+    async create(elem, year, month, day) {
+        let monthArchive = await this.getMonthArchive(month, year);
+        this._renderCalendar(elem, year, month, day, monthArchive);
+        archive.init();
+    }
+
+
+    async getMonthArchive(month, year) {
+        let sendData = {
+            'month': month,
+            'year': year,
+        };
+        let promise = new Promise((resolve, reject) => {
+            this._get('/task/get-months-archive-data', sendData)
+                .then(data => {
+                    if (data.result) {
+                        resolve(data.archive);
+                    } else {
+                        resolve(false);
+                    }
+                })
+                .catch(error => {
+                    resolve(false);
+                });
+        });
+
+        return await promise.then(archive => {
+            return archive;
+        });
+    }
+
+    ifReportIsChecked(d, reports) {
+        let dNumber = d.getDate();
+        let reportKey =  Object.keys(reports).find( (number) => {
+            return dNumber == number;
+        });
+        return reports[reportKey] == 4;
+    }
+
+    ifExistTasks(d, tasks) {
+        let dNumber = d.getDate();
+        return tasks.find( (number) => {
+            return dNumber == number;
+        });
+    }
+
+    ifReportIsRejected(d, reports) {
+        let dNumber = d.getDate();
+        let reportKey =  Object.keys(reports).find( (number) => {
+            return dNumber == number;
+        });
+        return reports[reportKey] == 3;
+    }
+
+    ifReportIsWaiting(d, reports) {
+        let dNumber = d.getDate();
+        let reportKey =  Object.keys(reports).find( (number) => {
+            return dNumber == number;
+        });
+        return reports[reportKey] == 1 || reports[reportKey] == 2;
+    }
 }
 
 let activitiesArr = [];
 let now = new Date();
-let calendar = $('#calendar_block');
-createCalendar(calendar, now.getFullYear(), now.getMonth(), now.getDate());
 
 let calendar = new Calendar();
-calendar.create();
+calendar.create($('#calendar_block'), now.getFullYear(), now.getMonth(), now.getDate());

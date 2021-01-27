@@ -1,32 +1,33 @@
 <?php
 
 
-namespace app\widgets\tasks;
+namespace app\widgets\reports;
 
 
 use yii\base\Widget;
 
-class ArchiveTasksWidget extends Widget {
+class ArchiveReportWidget extends Widget {
+
     public $title;
+    public $report;
     public $tasks;
-    public $block_id;
     public $date;
     public $grade;
     public $comments;
     public $self;
-    public $report;
-
 
     public function run() {
-        return $this->render('archiveTasksViewForm',[
+
+        return $this->render('archiveReportViewForm',[
             'title' => $this->title,
-            'date' => $this->date,
+            'report' => $this->report,
             'tasks' => $this->tasks,
-            'block_id' => $this->block_id,
+            'date' => $this->date,
             'grade' => $this->grade,
+            'userId' => \Yii::$app->user->getId(),
             'comments' => $this->comments,
             'self' => $this->self,
-            'report' => $this->report,
         ]);
     }
+
 }

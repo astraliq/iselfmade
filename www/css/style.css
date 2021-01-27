@@ -1225,6 +1225,11 @@ section .show-end {
   display: -o-flex;
   display: flex;
   flex-direction: column; }
+  #calendar_block .calend_title {
+    font-size: 14px;
+    width: 216px;
+    text-align: center;
+    margin: 0 0 5px 0; }
   #calendar_block .message {
     width: 87%;
     font-size: 12px;
@@ -1248,6 +1253,18 @@ section .show-end {
   display: block;
   width: 216px;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4); }
+  .cal .report_rejected {
+    color: black !important;
+    background-image: linear-gradient(to bottom, #ff7663 0%, #e51600 60%, #7e0010 100%) !important; }
+  .cal .report_checked {
+    color: black !important;
+    background-image: linear-gradient(to bottom, #b7eab0 0%, #7ee560 60%, #2d7b2b 100%) !important; }
+  .cal .report_waiting {
+    color: black !important;
+    background-image: linear-gradient(to bottom, #9ec0e2 0%, #7ea0e5 60%, #718ede 100%) !important; }
+  .cal .tasks_exist {
+    color: black !important;
+    background-image: linear-gradient(to bottom, #ffffff 0%, #cfd4ff 60%, #c7d1ff 100%) !important; }
   .cal a {
     text-decoration: none; }
   .cal caption {
@@ -1256,7 +1273,6 @@ section .show-end {
     font-weight: bold;
     color: whitesmoke;
     text-align: center;
-    text-shadow: 0 -1px #000000;
     background: #4C91F8;
     border-top: 1px solid #30458a;
     border-bottom: 1px solid #30458a;
@@ -1285,8 +1301,7 @@ section .show-end {
   .cal th,
   .cal td {
     width: 30px;
-    text-align: center;
-    text-shadow: 0 1px rgba(255, 255, 255, 0.8); }
+    text-align: center; }
   .cal th:first-child,
   .cal td:first-child {
     border-left: 0; }
@@ -1322,7 +1337,6 @@ section .show-end {
     .cal td a:active {
       margin: 0;
       color: #f3f3f3;
-      text-shadow: 0 1px rgba(0, 0, 0, 0.3);
       background: #B32800;
       border: 0px solid #598b94;
       box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05); }
@@ -1337,9 +1351,8 @@ section .show-end {
     .cal td .active,
     .cal td a:active {
       margin: 0;
-      color: black;
-      text-shadow: 0 1px rgba(0, 0, 0, 0.3);
-      background: #F5C527;
+      color: black !important;
+      background: #F5C527 !important;
       border: 0px solid #598b94;
       box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05); }
   .cal tr:last-child td.active a,
@@ -1597,7 +1610,12 @@ button {
     width: 50px; }
   .archive__date-data {
     width: 150px; }
-  .archive__calend {
-    width: 150px; }
   .archive__input {
     width: 100%; }
+
+.welcome {
+  width: 100%;
+  margin: 0 0 5px 0; }
+  .welcome__title {
+    font-size: 22px;
+    color: #4C91F8; }
