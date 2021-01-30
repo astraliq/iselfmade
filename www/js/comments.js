@@ -13,9 +13,16 @@ class Comments {
     }
 
     _post(url, data) {
-        return $.post({
+        return $.ajax({
             url: url,
+            type: 'POST',
             data: data,
+            cache: false,
+            dataType: 'json',
+            // отключаем обработку передаваемых данных, пусть передаются как есть
+            processData: false,
+            // отключаем установку заголовка типа запроса. Так jQuery скажет серверу что это строковой запрос
+            contentType: false,
             success: function (data) {
                 //data приходят те данные, который прислал на сервер
                 if (data.result !== true) {
@@ -28,7 +35,7 @@ class Comments {
     getFormData(commentsSection, commentInput) {
         this.comment = commentInput.value;
         this.report_id = commentsSection.dataset.report_id;
-        this.files;
+        this.files = userReport.files;
     }
 
     checkComment(comment) {
@@ -97,17 +104,23 @@ class Comments {
 
     addComment(commentsBlock, commentsSection, commentInput) {
         this.getFormData(commentsSection, commentInput);
-        if (!this.checkComment(this.comment)) {
+        if (!this.checkComment(this.comment) && !this.files) {
             console.log('Комментарий не может быть пустой.');
             return false;
         }
-        let sendData = {
-            'ReportComments': {
-                'comment': this.comment,
-                'report_id': this.report_id,
-                'files': null,
-            }
-        };
+
+        let sendData = new FormData();
+        if (this.files) {
+            let counter = 0;
+            this.files.forEach( (file, index) => {
+                if (file ) {
+                    sendData.append(`ReportComments[uploadFiles][${counter}]`, userReport.realFileList[index]);
+                    counter++;
+                }
+            });
+        }
+        sendData.append('ReportComments[comment]', this.comment);
+        sendData.append('ReportComments[report_id]', this.report_id);
 
         this._post('/report/add-comment', sendData)
             .then(data => {
@@ -115,7 +128,10 @@ class Comments {
                     this._renderComment(commentsBlock, data.comment);
                     commentInput.value = '';
                     this._scrollCommentsDown(commentsBlock);
+                    this._clearFiles();
                     autosize.update($(commentInput));
+                    let newModals = new ModalImg(`comments__uploaded_files-${data.comment_id}`, '.input_img');
+                    newModals.init();
                 } else {
                     console.log('false');
                 }
@@ -146,6 +162,12 @@ class Comments {
 
     _scrollCommentsDown(commentsBlock) {
         $(commentsBlock).scrollTop( $(commentsBlock).prop('scrollHeight'));
+    }
+
+    _clearFiles() {
+        this.files = [];
+        userReport.realFileList = [];
+        document.getElementById(userReport.fileListId).innerHTML = '';
     }
 
     _renderComment(commentsBlock, comment) {

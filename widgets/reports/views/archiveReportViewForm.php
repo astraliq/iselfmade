@@ -5,13 +5,13 @@
 /* @var $tasks  */
 /* @var $date  */
 /* @var $grade  */
+$files = '';
+
 if ($report->files) {
     $uploadedFiles = explode('/', $report->files);
     foreach ($uploadedFiles as $file) {
         $files .= '<img class="input_img" src="/users/report_files/' . $self->id . '/' . $file . '" alt="' . $file . '" title="' . $file . '" data-name="' . $file . '">';
     };
-} else {
-    $files = '';
 }
 
 ?>

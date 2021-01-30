@@ -45,17 +45,17 @@ class ReportsComponent extends BaseComponent {
                         ])
                         ->one();
                 }
-                if (!$report) {
-                    $report = UsersReports::find()
-                        ->where([
-                            'status' => 3,
-                        ])
-                        ->orderBy([
-                    'views' => SORT_ASC,
-                    'date' => SORT_ASC,
-                ])
-                ->one();
-        }
+//                if (!$report) {
+//                    $report = UsersReports::find()
+//                        ->where([
+//                            'status' => 3,
+//                        ])
+//                        ->orderBy([
+//                    'views' => SORT_ASC,
+//                    'date' => SORT_ASC,
+//                ])
+//                ->one();
+//                }
         if ($report) {
             if (!$report->views) {
                 $report->views = 1;
@@ -77,7 +77,7 @@ class ReportsComponent extends BaseComponent {
 //            ])
             ->andWhere(['OR',
                 ['IS', 'status', null],
-                ['<', 'status', 4],
+                ['<', 'status', 3],
             ])
             ->orderBy(['date' => SORT_ASC])
             ->one();
@@ -93,7 +93,7 @@ class ReportsComponent extends BaseComponent {
 //            ])
             ->andWhere(['OR',
                 ['IS', 'status', null],
-                ['<', 'status', 4],
+                ['<', 'status', 3],
             ])
             ->count();
         return $reportsCount;

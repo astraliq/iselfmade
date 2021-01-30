@@ -1056,6 +1056,10 @@ class ArchiveTasks extends Tasks{
                     this.renderHTML(data.html);
                     this.changeDateColor(calendar, btn);
                     comment.init();
+                    modalImg2.init();
+                    userReport.init();
+                    let modalImg = new ModalImg('comments', '.input_img');
+                    modalImg.init();
                 } else {
                     this.renderMessage(data.message);
                     this.timerMessage = setTimeout(() => {

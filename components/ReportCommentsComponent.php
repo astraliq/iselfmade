@@ -7,6 +7,7 @@ namespace app\components;
 use app\base\BaseComponent;
 use app\models\ReportComments;
 use app\models\UsersReports;
+use yii\web\UploadedFile;
 
 class ReportCommentsComponent extends BaseComponent {
     public $modelClass;
@@ -58,24 +59,31 @@ class ReportCommentsComponent extends BaseComponent {
     }
 
     public function addReportComment(ReportComments $comment) {
-        if (!$comment->files) {
-            $comment->files = null;
+        $userId = \Yii::$app->user->getId();
+
+        $comment->uploadFiles = UploadedFile::getInstancesByName('ReportComments[uploadFiles]');
+        $fileSaver = \Yii::createObject(['class' => FileSaverComponent::class]);
+        $comment->user_id = $userId;
+        $fileArr = [];
+        if ($comment->uploadFiles) {
+            $comment->comment = $comment->comment ? $comment->comment : 'yii2_null';
         }
-//        $comment->uploadFiles = UploadedFile::getInstances($comment, 'uploadFiles');
-//        $fileSaver = \Yii::createObject(['class' => FileSaverComponent::class]);
-        $comment->user_id = \Yii::$app->user->getId();
-
         if ($comment->validate()) {
-//            foreach ($comment->uploadFiles as &$file) {
-//                $file = $fileSaver->saveFile($file);
-//                if (!$file) {
-//                    return false;
-//                }
-//            }
-//            $task->files = implode('/',$task->filesReal);
+            if ($comment->uploadFiles) {
+                $comment->comment = $comment->comment === 'yii2_null' ? ' ' : $comment->comment;
+                foreach ($comment->uploadFiles as $file) {
+                    $file = $fileSaver->saveReportFile($file, $userId);
+                    array_push($fileArr, $file);
+                    if (!$file) {
+                        return false;
+                    }
+                }
+                $comment->files = join('/', $fileArr);
+            } else {
+                $comment->files = null;
+            }
 
-            // валидация + сохранение активности
-            if ($comment->save()) {
+            if ($comment->save(false)) {
                 return $comment;
             }
             \Yii::error($comment->getErrors());

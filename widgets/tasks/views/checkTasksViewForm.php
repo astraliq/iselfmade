@@ -3,7 +3,7 @@
  * @var $title - заголовок */
 
 use yii\helpers\Html;
-
+$files = '';
 if ($userReport->files) {
     $uploadedFiles = explode('/', $userReport->files);
     foreach ($uploadedFiles as $file) {

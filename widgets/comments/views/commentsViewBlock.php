@@ -11,6 +11,7 @@
                 echo \app\widgets\comments\OneCommentWidget::widget([
                     'comment' => $comment,
                     'self' => $self,
+                    'today' => $today,
                 ]);
             }
         } else {

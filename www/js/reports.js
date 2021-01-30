@@ -2,6 +2,7 @@
 
 class Reports {
     constructor() {
+        this.rejectBtnID = 'reject_report';
         this.skipBtnID = 'skip_report';
         this.nextBtnID = 'next_report';
         this.reportDataBlockID = 'report_data';
@@ -33,7 +34,8 @@ class Reports {
             '<p>Все отчеты проверены</p>' +
             '</div>';
         $('#' + this.countReports).text(0);
-        return $('#' + this.reportDataBlockID).replaceWith(html);
+        $('#' + this.reportDataBlockID).replaceWith(html);
+        return $('#comments').remove();
     }
 
     _scrollCommentsDown(commentsBlock) {
@@ -83,6 +85,13 @@ class Reports {
                 this._changeReportStatus(2);
             })
         }
+        let rejectBtn = document.getElementById(this.rejectBtnID);
+        if (rejectBtn) {
+            rejectBtn.addEventListener('click', (e) => {
+                this.getData();
+                this._changeReportStatus(3);
+            })
+        }
     }
 }
 
@@ -112,7 +121,7 @@ class UserReport {
         Array.from(files).forEach((file, index) => {
             html += `<div class="input_file" id="file-${index}">
             <img class="input_img" src="" alt="${file.name}" title="${file.name}" id="upload_file-${index}">
-                <span class="delete_file" data-id="${index}">x</span>
+                <span class="delete_file" data-id="${index}">+</span>
                 </div>`;
             let reader = new FileReader();
             reader.onload = function(e) {
@@ -132,11 +141,23 @@ class UserReport {
                 e.preventDefault();
                 delete this.files[index];
                 document.getElementById('file-'+ index).remove();
-                if (fileList.innerHTML === '') {
+                if (fileList.innerHTML === '' && !fileList.classList.contains('comments__img-miniatures')) {
                     fileList.innerText = 'Ничего не выбрано';
                 }
             });
         });
+    }
+
+    _renderError(ifErr) {
+        let input = document.getElementById(this.inputFileID);
+        if (ifErr) {
+            input.parentElement.insertAdjacentHTML('beforeEnd','<p class="error_alert">Максимальное количество файлов 5.</p>');
+        } else {
+            let err = input.parentElement.querySelector('.error_alert');
+            if (err) {
+                err.remove();
+            }
+        }
     }
 
     disableReportForm() {
@@ -145,6 +166,10 @@ class UserReport {
         let reportForm = document.getElementById(this.reportFormID);
         let sendReport = document.getElementById(this.sendReportBtnID);
         sendReport.setAttribute('disabled','disabled');
+    }
+
+    checkFileList() {
+        return this.realFileList.length <= 5;
     }
 
     init() {
@@ -156,7 +181,12 @@ class UserReport {
             fileInput.addEventListener('change', (e) => {
                 this.files = [...fileInput.files];
                 this.realFileList = fileInput.files;
-                this._renderInputFiles(this.files);
+                if (this.checkFileList()) {
+                    this._renderInputFiles(this.files);
+                    this._renderError(false);
+                } else {
+                    this._renderError(true);
+                }
 
             });
         }
