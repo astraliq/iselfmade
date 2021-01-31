@@ -10,6 +10,13 @@ body {
     box-sizing: border-box;
 }
 
+a {
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .35s ease;
+    -ms-transition: all .3s ease;
+}
+
 .wrapper {
     width: 100%;
     display: flex;
@@ -202,7 +209,7 @@ body {
 
 .soc {
     &__items {
-        width: 200px;
+        width: 250px;
         padding: 10px 0 20px 0;
         display: flex;
         justify-content: space-between;
@@ -217,4 +224,8 @@ body {
         cursor: pointer;
         fill: $color-blue;
     }
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .35s ease;
+    -ms-transition: all .3s ease;
 }

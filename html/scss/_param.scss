@@ -10,6 +10,7 @@ $color-menu: #3876D2;
 $color-black: #000;
 $color-white: #fff;
 $color-gray: #b1b1b1;
+$color-shadow: #b1b1b1;
 $color-red: #ff0000;
 $color-green: #00ff95;
 $color-icons: rgb(136, 201, 255);
@@ -18,4 +19,6 @@ $color-disable2: grey;
 $width-textarea: 450px; // ширина текстового блока задачи
 $height-textarea: 17px; // высота строки задачи
 $height2-textarea: 20px; // высота блока задачи
+$height-chapter: 40px;
 $anim_transition_tasks: 0.5s;
+$anim_transition_chapters: 0.5s;
