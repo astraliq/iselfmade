@@ -3,7 +3,7 @@
 /* @var $this yii\web\View */
 
 use yii\helpers\Html;
-
+\app\assets\ReportsAsset::register($this);
 ?>
 <section class="welcome">
     <h1 class="welcome__title">Прошлые отчёты</h1>
@@ -15,7 +15,7 @@ use yii\helpers\Html;
 ]); ?>
 
 <?= \app\widgets\reports\ArchiveReportWidget::widget([
-        'title' => 'Вчера',
+        'title' => $title,
         'report' => $yesterdayReport,
         'date' => $yesterdayDate,
         'tasks' => $yesterdayTasks,

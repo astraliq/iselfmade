@@ -58,8 +58,7 @@ class MainPage {
         });
         let modal = document.getElementById('modal');
         modal.addEventListener('mousedown', (e) => {
-            let target = e.target;
-            if (!target.closest('.modal__style')) {
+            if (!e.target.closest('.modal__style')) {
                 mainPageStart.closeModal(modal);
             }
         });
@@ -108,8 +107,7 @@ class MainPage {
 
         let modal2 = document.getElementById('modal2');
         modal2.addEventListener('mousedown', (e) => {
-            let target = e.target;
-            if (!target.closest('.modal2_group')) {
+            if (!e.target.closest('.modal2_group')) {
                 mainPageStart.closeModal(modal2);
             }
         });
@@ -218,7 +216,7 @@ class MainPage {
 
     closeModal(modal) {
         modal.classList.add('hide-modal');
-        setTimeout(function(){
+        setTimeout(()=>{
             modal.classList.add('d-none');
         }, 200);
     }

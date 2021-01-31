@@ -32,6 +32,10 @@ class UpdateDataAction extends Action {
                 ];
         }
 
-        return ['result' => false];
+        return [
+            'result' => false,
+            'new_comments' => $newComments,
+            'notif_count' => count($newComments),
+        ];
     }
 }

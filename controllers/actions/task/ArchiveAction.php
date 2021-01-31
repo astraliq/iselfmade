@@ -16,7 +16,7 @@ use yii\web\HttpException;
 use yii\web\Response;
 
 class ArchiveAction extends Action {
-    public function run() {
+    public function run($id=null) {
         $admin = false;
 
         if (\Yii::$app->user->isGuest || !\Yii::$app->rbac->canViewOwnTask()) {
@@ -35,6 +35,7 @@ class ArchiveAction extends Action {
         $beforeYesterdayTasks = $comp->getTasksByDateAndUserId($userId, $beforeYesterdayDate);
 
         $compReports = \Yii::createObject(['class' => ReportsComponent::class,'modelClass' => UsersReports::class]);
+        $modelReport = $compReports->getModel();
         $compComments = \Yii::createObject(['class' => ReportCommentsComponent::class,'modelClass' => ReportComments::class]);
 
 
@@ -50,28 +51,42 @@ class ArchiveAction extends Action {
             return $tasks;
         }
 
+        if ($id) {
+            $report = $modelReport->findOne(['id' => $id]);
+            if (\Yii::$app->rbac->canViewReport($report)) {
+                $date = \Yii::$app->formatter->asDateTime($report->date, 'php:d.m.Y');
+                $title = '';
+            } else {
+                goto def;
+            }
+        } else {
+            def:
+            $report = $compReports->getUserReportsByDatesArr($yesterdayUTC)[0];
+            $date = $yesterdayDate;
+            $title = 'Вчера';
+        }
+
         $reports = $compReports->getLastReports(7);
-        $yesterdayReport = $compReports->getUserReportsByDatesArr($yesterdayUTC)[0];
-
-        $comments = $compComments->getReportCommentsByReportID($yesterdayReport->id);
+        $comments = $compComments->getReportCommentsByReportID($report->id);
         $tasksCountReports = $comp->getCountsTasksForReports($reports);
-
+        $compComments->updateViews($comments);
         $userComp = \Yii::createObject(['class' => UserComponent::class]);
         $notifConfEmail = $userComp->checkConfirmationEmail();
 
         return $this->controller->render('archive', [
 //            'archiveTasks' => $archiveTasks,
             'yesterdayTasks' => $yesterdayTasks,
-            'yesterdayDate' => $yesterdayDate,
+            'yesterdayDate' => $date,
             'beforeYesterday' => $beforeYesterdayTasks,
             'beforeYesterdayDate' => $beforeYesterdayDate,
             'yesterdayGrade' => $yesterdayMentorGrade,
             'reports' => $reports,
-            'yesterdayReport' => $yesterdayReport,
+            'yesterdayReport' => $report,
             'comments' => $comments,
             'tasksCountReports' => $tasksCountReports,
             'self' => \Yii::$app->user->getIdentity(),
             'notifConfEmail' => $notifConfEmail,
+            'title' => $title,
         ]);
 
     }

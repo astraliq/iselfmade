@@ -7,6 +7,7 @@ namespace app\components;
 use app\base\BaseComponent;
 use app\models\ReportComments;
 use app\models\UsersReports;
+use yii\web\UploadedFile;
 
 class ReportCommentsComponent extends BaseComponent {
     public $modelClass;
@@ -36,7 +37,7 @@ class ReportCommentsComponent extends BaseComponent {
 //                ['IS', 'status', null],
 //                ['<', 'status', 4],
 //            ])
-            ->orderBy(['date_create' => SORT_ASC])
+            ->orderBy(['`report_comments`.`date_create`' => SORT_DESC])
             ->limit(10)
             ->all();
         return $comments;
@@ -45,37 +46,58 @@ class ReportCommentsComponent extends BaseComponent {
     public function getNewComments() {
         $user_id = \Yii::$app->user->getId();
 
-        $comments = ReportComments::find()
-            ->where([
-                'viewed' => null,
-            ])
-            ->andWhere(['not', ['`report_comments`.user_id' => $user_id]])
-            ->joinWith('report')
-            ->where(['`users_reports`.user_id' => $user_id])
-            ->orderBy(['date_create' => SORT_ASC])
-            ->all();
+        if (!\Yii::$app->user->can('curator')) {
+            $comments = ReportComments::find()
+                ->where([
+                    'viewed' => null,
+                ])
+                ->joinWith('report')
+                ->andWhere(['not', ['`report_comments`.`user_id`' => $user_id]])
+                ->andWhere(['`users_reports`.`user_id`' => $user_id])
+                ->orderBy(['date_create' => SORT_ASC])
+                ->all();
+        } else {
+            $comments = ReportComments::find()
+                ->where([
+                    'viewed' => null,
+                ])
+                ->joinWith('report')
+                ->andWhere(['not', ['`report_comments`.`user_id`' => $user_id]])
+//                ->andWhere(['`users_reports`.`user_id`' => $user_id])
+                ->orderBy(['date_create' => SORT_ASC])
+                ->all();
+        }
+
+
         return $comments;
     }
 
     public function addReportComment(ReportComments $comment) {
-        if (!$comment->files) {
-            $comment->files = null;
+        $userId = \Yii::$app->user->getId();
+
+        $comment->uploadFiles = UploadedFile::getInstancesByName('ReportComments[uploadFiles]');
+        $fileSaver = \Yii::createObject(['class' => FileSaverComponent::class]);
+        $comment->user_id = $userId;
+        $fileArr = [];
+        if ($comment->uploadFiles) {
+            $comment->comment = $comment->comment ? $comment->comment : 'yii2_null';
         }
-//        $comment->uploadFiles = UploadedFile::getInstances($comment, 'uploadFiles');
-//        $fileSaver = \Yii::createObject(['class' => FileSaverComponent::class]);
-        $comment->user_id = \Yii::$app->user->getId();
-
         if ($comment->validate()) {
-//            foreach ($comment->uploadFiles as &$file) {
-//                $file = $fileSaver->saveFile($file);
-//                if (!$file) {
-//                    return false;
-//                }
-//            }
-//            $task->files = implode('/',$task->filesReal);
+            if ($comment->uploadFiles) {
+                $comment->comment = $comment->comment === 'yii2_null' ? ' ' : $comment->comment;
+                foreach ($comment->uploadFiles as $file) {
+                    $file = $fileSaver->saveReportFile($file, $userId);
+                    array_push($fileArr, $file);
+                    if (!$file) {
+                        return false;
+                    }
+                }
+                $comment->files = join('/', $fileArr);
+            } else {
+                $comment->files = null;
+            }
 
-            // валидация + сохранение активности
-            if ($comment->save()) {
+            if ($comment->save(false)) {
                 return $comment;
             }
             \Yii::error($comment->getErrors());

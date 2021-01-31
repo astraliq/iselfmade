@@ -25,21 +25,22 @@ use yii\helpers\Html;
     }
     ?>
     <div class="check-buttons">
-        <button id="skip_report">Пропустить</button>
+        <button id="reject_report">Отклонить</button>
+        <button id="skip_report">Пропустить (следующий)</button>
         <button id="next_report">Принять отчет</button>
     </div>
 </div>
 <?php
 
-
-// РАЗОБРАТЬСЯ КАК СЮДА ПОПАДАЮТ $comments
-
-
-echo \app\widgets\comments\CommentsWidget::widget([
+if ($report) {
+    echo \app\widgets\comments\CommentsWidget::widget(
+        [
             'comments' => $comments,
             'self' => $self,
             'report' => $report,
-        ]);
+        ]
+    );
+}
 ?>
 
 <?= $this->render('/modals/confirm_email',['notifConfEmail' => $notifConfEmail]); ?>

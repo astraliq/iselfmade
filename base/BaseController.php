@@ -3,6 +3,7 @@
 
 namespace app\base;
 
+use app\components\NotificationsComponent;
 use yii\web\Controller;
 use yii\web\HttpException;
 
@@ -23,6 +24,11 @@ class BaseController extends Controller
 //        if (!\Yii::$app->request->isPost) {
 //            \Yii::$app->session->addFlash('lastPage',\Yii::$app->request->referrer);
 //        }
+        if (!\Yii::$app->user->isGuest) {
+            $compNotifs = \Yii::createObject(['class' => NotificationsComponent::class]);
+            $this->view->params['notifs'] = $compNotifs->getAllNotifications();
+        }
+
 
         return parent::beforeAction($action);
     }

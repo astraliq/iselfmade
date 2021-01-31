@@ -27,6 +27,7 @@ class AppAsset extends AssetBundle {
         'css/fontello-embedded.css',
         'css/fontello-ie7.css',
         'css/fontello-ie7-codes.css',
+        'css/modal_image.css',
     ];
     public $js = [
 //        'js/jquery-3.5.1.min.js',
@@ -34,6 +35,7 @@ class AppAsset extends AssetBundle {
         'js/main.js',
         'js/comments.js',
         'js/update_data.js',
+        'js/modal_img.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

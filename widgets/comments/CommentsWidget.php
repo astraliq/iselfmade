@@ -12,7 +12,6 @@ class CommentsWidget extends Widget {
     public $report;
 
     public function run() {
-
         return $this->render('commentsViewBlock', [
             'comments' => $this->comments,
             'self' => $this->self,

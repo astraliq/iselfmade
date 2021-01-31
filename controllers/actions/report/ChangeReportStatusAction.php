@@ -53,6 +53,7 @@ class ChangeReportStatusAction extends Action {
             $userReportTasks = $compTasks->getTasksByDateAndUserId($reportUser->id, $nextReport->date);
             $reportsCount = $comp->getCountReportsToCheck() - 1;
             $comments = $compComments->getReportCommentsByReportID($nextReport->id);
+            $compComments->updateViews($comments);
             return [
                 'result' => true,
                 'nextReport' => CheckReportsWidget::widget([

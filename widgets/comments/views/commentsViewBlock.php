@@ -7,6 +7,7 @@
     <div class="comments__block">
         <?php
         if ($comments) {
+            $comments = array_reverse($comments, true);
             foreach ($comments as $comment) {
                 echo \app\widgets\comments\OneCommentWidget::widget([
                     'comment' => $comment,
@@ -19,10 +20,10 @@
         ?>
     </div>
         <?php
+        if ($report->status < 3)
         echo \app\widgets\comments\CreateCommentWidget::widget([
                 'self' => $self,
             ]
         );
-
         ?>
 </section>

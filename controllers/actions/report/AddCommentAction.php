@@ -36,17 +36,20 @@ class AddCommentAction extends Action {
             $comment->load(\Yii::$app->request->post());
             $report = $report->findOne(['id' => $comment->report_id]);
 
-
             if (!\Yii::$app->rbac->canAddReportComment($report)) {
                 throw new HttpException(403, 'Нет доступа' );
             }
 
             if ($compComments->addReportComment($comment)) {
+                $comment->date_create = gmdate('Y-m-d H:i:s');
                 if (\Yii::$app->request->isAjax) {
-                    return ['result' => true, 'comment' => OneCommentWidget::widget([
-                        'comment' => $comment,
-                        'self' => \Yii::$app->user->getIdentity(),
-                    ])];
+                    return ['result' => true,
+                        'comment' => OneCommentWidget::widget([
+                            'comment' => $comment,
+                            'self' => \Yii::$app->user->getIdentity(),
+                        ]),
+                        'comment_id' => $comment->id,
+                    ];
                 }
             } else {
                 return ['result' => false];

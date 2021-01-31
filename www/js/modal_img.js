@@ -1,14 +1,13 @@
 'use strict';
 
-let user_id = document.getElementById('user_id').dataset.user_id;
-
 class ModalImg {
-    constructor(listId, imgClass, imgFolder) {
+    constructor(listId, imgClass) {
         this.listId = listId; // блок с картинками
         this.imgClass = imgClass; // класс с картинок
-        this.imgFolder = imgFolder; // папка с файлами картинок
+        this.imgFolder = ''; // папка с файлами картинок
         this.listBlock;
         this.images;
+        this.userId;
     }
 
     _renderModal(name, img) {
@@ -54,6 +53,11 @@ class ModalImg {
         //         this._closeModal();
         //     }
         // });
+        if (document.getElementById('user_id')) {
+            this.userId = document.getElementById('user_id').dataset.user_id;
+            this.imgFolder = '/users/report_files/' + this.userId + '/';
+        }
+
         this.listBlock = document.getElementById(this.listId);
         if (this.listBlock) {
             this.images = this.listBlock.querySelectorAll(this.imgClass);
@@ -82,7 +86,9 @@ class ModalImg {
 
 }
 
-let modalImg = new ModalImg('file_list', '.input_img', '/users/report_files/' + user_id + '/');
+let modalImg = new ModalImg('file_list', '.input_img');
 modalImg.init();
-let modalImg2 = new ModalImg('check_uploaded_files', '.input_img', '/users/report_files/' + user_id + '/');
+let modalImg2 = new ModalImg('check_uploaded_files', '.input_img');
 modalImg2.init();
+let modalImg3 = new ModalImg('comments', '.input_img');
+modalImg3.init();
