@@ -124,7 +124,7 @@ http://iselfmade.ru
 
         <div class="menu">
             <?php
-            $url = \Yii::$app->request->url;
+            $url = explode('?', \Yii::$app->request->getUrl())[0];
             echo Nav::widget([
                 'options' => ['class' => 'menu__items'],
                 'items' => [

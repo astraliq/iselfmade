@@ -12,6 +12,7 @@ use app\models\UsersReports;
 use app\rules\AddReportCommentRule;
 use app\rules\OwnerTaskRule;
 use app\rules\ViewUserProfileRule;
+use app\rules\ViewUserReportRule;
 use yii\console\ExitCode;
 use yii\db\Exception;
 use yii\helpers\Console;
@@ -185,8 +186,6 @@ class RbacComponent extends BaseComponent {
 
         $manager->addChild($curator, $addReportComment);
         $manager->addChild($user, $addReportComment);
-
-
     }
 
     public function addModeratorChildes() {
@@ -196,7 +195,24 @@ class RbacComponent extends BaseComponent {
         $moderator = $manager->getRole('moderator');
 
         $manager->addChild($moderator, $mentor);
+    }
 
+    public function viewUserReportPermission() {
+        $manager = $this->getManager();
+        $curator = $manager->getRole('curator');
+        $moderator = $manager->getRole('moderator');
+        $user = $manager->getRole('user');
+
+        $viewUserReportRule = new ViewUserReportRule();
+        $manager->add($viewUserReportRule);
+
+        $viewUserReport = $manager->createPermission('viewUserReport');
+        $viewUserReport->description = 'Просмотр отчета пользователя';
+        $viewUserReport->ruleName = $viewUserReportRule->name;
+        $manager->add($viewUserReport);
+
+        $manager->addChild($curator, $viewUserReport);
+        $manager->addChild($user, $viewUserReport);
     }
 
     public function setAllRolesToUser() {
@@ -393,6 +409,19 @@ class RbacComponent extends BaseComponent {
         }
 
         if (\Yii::$app->user->can('addReportComment', ['report' => $report])) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function canViewReport(UsersReports $report):bool {
+
+        if (\Yii::$app->user->can('curator')) {
+            return true;
+        }
+
+        if (\Yii::$app->user->can('viewUserReport', ['report' => $report])) {
             return true;
         }
 

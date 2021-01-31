@@ -51,18 +51,22 @@ class ArchiveAction extends Action {
             return $tasks;
         }
 
-        $reports = $compReports->getLastReports(7);
-
         if ($id) {
             $report = $modelReport->findOne(['id' => $id]);
-            $date = \Yii::$app->formatter->asDateTime($report->date, 'php:d.m.Y');
-            $title = '';
+            if (\Yii::$app->rbac->canViewReport($report)) {
+                $date = \Yii::$app->formatter->asDateTime($report->date, 'php:d.m.Y');
+                $title = '';
+            } else {
+                goto def;
+            }
         } else {
+            def:
             $report = $compReports->getUserReportsByDatesArr($yesterdayUTC)[0];
             $date = $yesterdayDate;
             $title = 'Вчера';
         }
 
+        $reports = $compReports->getLastReports(7);
         $comments = $compComments->getReportCommentsByReportID($report->id);
         $tasksCountReports = $comp->getCountsTasksForReports($reports);
         $compComments->updateViews($comments);

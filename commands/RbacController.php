@@ -23,6 +23,9 @@ class RbacController extends Controller {
     public function actionAddModeratorChildes() {
         \Yii::$app->rbac->addModeratorChildes();
     }
+    public function actionAddViewReportPermission() {
+        \Yii::$app->rbac->viewUserReportPermission();
+    }
 
     public function actionSetAllRolesToUser() {
         if (!\Yii::$app->rbac->setAllRolesToUser()) {
