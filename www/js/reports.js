@@ -56,6 +56,8 @@ class Reports {
                     this._scrollCommentsDown(document.querySelector('.comments__block'));
                     modalImg2.init();
                     comment.init();
+                    let modalImg = new ModalImg('comments', '.input_img');
+                    modalImg.init();
                 } else {
                     this._renderEnd();
                 }

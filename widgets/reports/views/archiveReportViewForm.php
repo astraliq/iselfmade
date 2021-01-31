@@ -15,7 +15,7 @@ if ($report->files) {
 }
 
 ?>
-<div class="archive_block" id="archive_block">
+<div class="archive__block" id="archive_block">
     <div class="tasks-form">
         <div class="tasks-all">
             <?= \app\widgets\tasks\ArchiveTasksWidget::widget([

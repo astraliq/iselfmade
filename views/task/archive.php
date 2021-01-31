@@ -15,7 +15,7 @@ use yii\helpers\Html;
 ]); ?>
 
 <?= \app\widgets\reports\ArchiveReportWidget::widget([
-        'title' => 'Вчера',
+        'title' => $title,
         'report' => $yesterdayReport,
         'date' => $yesterdayDate,
         'tasks' => $yesterdayTasks,

@@ -14,7 +14,7 @@ $files = '';
 if ($comment->files) {
     $uploadedFiles = explode('/', $comment->files);
     foreach ($uploadedFiles as $file) {
-        $files .= '<img class="input_img" src="/users/report_files/' . $self->id . '/' . $file . '" alt="' . $file . '" title="' . $file . '" data-name="' . $file . '" height="100">';
+        $files .= '<img class="input_img" src="/users/report_files/' . $comment->user_id . '/' . $file . '" alt="' . $file . '" title="' . $file . '" data-name="' . $file . '" height="100">';
     };
 }
 
@@ -23,6 +23,7 @@ if ($comment->user->avatar) {
 } else {
     $avatar = '/img/user_img.jpg';
 }
+$today = gmdate('d.m.Y');
 $date = \Yii::$app->formatter->asDateTime($comment->date_create, 'php:d.m.Y');
 $realDate = '';
 if ($date == $today) {

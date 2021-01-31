@@ -12,12 +12,10 @@ class CommentsWidget extends Widget {
     public $report;
 
     public function run() {
-        $today = date('d.m.Y');
         return $this->render('commentsViewBlock', [
             'comments' => $this->comments,
             'self' => $this->self,
             'report' => $this->report,
-            'today' => $today,
         ]);
     }
 }

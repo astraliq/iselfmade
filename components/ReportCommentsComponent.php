@@ -37,7 +37,7 @@ class ReportCommentsComponent extends BaseComponent {
 //                ['IS', 'status', null],
 //                ['<', 'status', 4],
 //            ])
-            ->orderBy(['date_create' => SORT_ASC])
+            ->orderBy(['`report_comments`.`date_create`' => SORT_DESC])
             ->limit(10)
             ->all();
         return $comments;
@@ -46,15 +46,29 @@ class ReportCommentsComponent extends BaseComponent {
     public function getNewComments() {
         $user_id = \Yii::$app->user->getId();
 
-        $comments = ReportComments::find()
-            ->where([
-                'viewed' => null,
-            ])
-            ->andWhere(['not', ['`report_comments`.user_id' => $user_id]])
-            ->joinWith('report')
-            ->where(['`users_reports`.user_id' => $user_id])
-            ->orderBy(['date_create' => SORT_ASC])
-            ->all();
+        if (!\Yii::$app->user->can('curator')) {
+            $comments = ReportComments::find()
+                ->where([
+                    'viewed' => null,
+                ])
+                ->joinWith('report')
+                ->andWhere(['not', ['`report_comments`.`user_id`' => $user_id]])
+                ->andWhere(['`users_reports`.`user_id`' => $user_id])
+                ->orderBy(['date_create' => SORT_ASC])
+                ->all();
+        } else {
+            $comments = ReportComments::find()
+                ->where([
+                    'viewed' => null,
+                ])
+                ->joinWith('report')
+                ->andWhere(['not', ['`report_comments`.`user_id`' => $user_id]])
+//                ->andWhere(['`users_reports`.`user_id`' => $user_id])
+                ->orderBy(['date_create' => SORT_ASC])
+                ->all();
+        }
+
+
         return $comments;
     }
 

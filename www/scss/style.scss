@@ -1,4 +1,9 @@
 @import '_param';
+
+html {
+    overflow-y: scroll;
+}
+
 *,
 body {
     margin: 0 0 0 0;
@@ -84,7 +89,6 @@ input[type="checkbox"]:focus {
     width: 100% !important;
     padding: 0 !important;
     flex-wrap: wrap;
-    overflow-y: scroll;
 }
 
 .custom_light {
@@ -192,6 +196,149 @@ input[type="checkbox"]:focus {
     &:hover {
         cursor: pointer;
     }
+
+    &__link {
+        text-decoration: none;
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flex;
+        display: -o-flex;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    &__elem {
+        padding: 15px;
+        border-bottom: 1px solid grey;
+        color: $color-blue-light;
+        text-decoration: none;
+
+        //&:first-child {
+        //    border-radius: 5px 5px 0 0;
+        //}
+        //
+        //&:last-child {
+        //    border-radius: 0 0 5px 5px;
+        //}
+
+
+        &:hover {
+            background-color: #f8f8f8;
+        }
+
+        & .title {
+            width: 100%;
+            color: inherit;
+            font-size: 16px;
+            text-decoration: inherit;
+            margin: 0 0 5px 0;
+        }
+
+        & .user__bio {
+            width: 150px;
+            margin: 0 5px 0 0;
+            display: -webkit-flex;
+            display: -moz-flex;
+            display: -ms-flex;
+            display: -o-flex;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            flex-wrap: nowrap;
+        }
+
+        & .user__name {
+            color: inherit;
+            font-size: 14px;
+            text-decoration: inherit;
+        }
+
+        & .user__bio-ava {
+            width: 40px;
+            margin: 0 10px 0 0;
+        }
+
+        & .user__img {
+            width: 40px;
+        }
+
+        & .content {
+            color: inherit;
+            font-size: 14px;
+            text-decoration: inherit;
+        }
+
+        & .date {
+            width: 100%;
+            color: grey;
+            font-size: 11px;
+            text-decoration: inherit;
+            padding: 0;
+            margin: 5px 0 0 0;
+        }
+
+
+
+    }
+
+    &__block {
+        max-height: 550px;
+        position: absolute;
+        width: 400px;
+        height: auto;
+        background-color: white;
+        border: 1px solid grey;
+        //border-radius: 5px;
+        box-shadow: 5px 5px 8px 1px $color-gray;
+        top: 35px;
+        opacity: 1;
+        right: -10px;
+        transition: all $anim_transition_tasks ease;
+        overflow-y: scroll;
+        z-index: 99;
+
+        &::-webkit-scrollbar {
+            width: 6px; /* ширина для вертикального скролла */
+            background-color: $color-blue-for-scroll;
+        }
+
+        &::-webkit-scrollbar-button:vertical:start:decrement {
+            display: none;
+        }
+
+        &::-webkit-scrollbar-button:vertical:end:increment {
+            display: none;
+        }
+
+        //&:after {
+        //    content: '';
+        //    position: absolute;
+        //    width: 20px;
+        //    height: 20px;
+        //    background-color: transparent;
+        //    transform: rotate(45deg);
+        //    top: -11px;
+        //    right: 30px;
+        //    border-left: 1px solid grey;
+        //    border-top: 1px solid grey;
+        //}
+    }
+
+    & .d-none {
+        display: none;
+    }
+
+    & .invisible {
+        transition: all $anim_transition_tasks ease;
+        opacity: 0;
+        top: 15px;
+    }
+
 }
 
 .bell {
@@ -1106,7 +1253,7 @@ input[type="checkbox"]:focus {
             font-style: italic;
             margin: 0 50px 0 0;
             position: relative;
-            text-align: end;
+            text-align: start;
 
             &:before {
                 content: '';
@@ -1151,6 +1298,7 @@ input[type="checkbox"]:focus {
         .user__comment {
             order: 1;
             margin: 0 0 0 100px;
+            text-align: end;
             &:before{
                 display: none;
             }
@@ -1664,6 +1812,7 @@ section {
         width: 216px;
         text-align: center;
         margin: 0 0 5px 0;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
     }
 
     & .message {
@@ -1692,7 +1841,7 @@ section {
 .cal {
     display: block;
     width: 216px;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.4);
 
     & .report_rejected {
         color: black !important;
@@ -2119,6 +2268,11 @@ button {
     width: 72%;
     display: flex;
     justify-content: space-between;
+
+    &__block {
+        width: 100%;
+    }
+
     &__header {
         width: 550px;
         background-color: $color-blue-light;

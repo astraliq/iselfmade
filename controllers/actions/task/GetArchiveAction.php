@@ -58,6 +58,7 @@ class GetArchiveAction extends Action {
 
         $report = $compReports->getUserReportsByDatesArr($dateUTC)[0];
         $comments = $compComments->getReportCommentsByReportID($report->id);
+        $compComments->updateViews($comments);
 
         if ($archiveTasks) {
             return [

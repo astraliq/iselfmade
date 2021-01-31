@@ -9,8 +9,7 @@ use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 use yii\base\Component;
 use yii\db\Exception;
 
-class AuthComponent extends Component
-{
+class AuthComponent extends Component {
 
     public function signIn(User $model) :bool {
         if (!$model->validate()){

@@ -148,16 +148,18 @@ class Comments {
         }
         let btn = document.getElementById(this.commentsSendBtnID);
         let commentInput = document.getElementById(this.commentInputID);
-        let commentsBlock = commentsSection.querySelector('.comments__block');
-        let comments = commentsSection.querySelectorAll(this.commentClass);
-        
-        this.updateAutoresize(commentInput);
-        this._scrollCommentsDown(commentsBlock);
-        this._addEventsToInput(commentsBlock, commentsSection, commentInput);
+        if (commentInput) {
+            let commentsBlock = commentsSection.querySelector('.comments__block');
+            let comments = commentsSection.querySelectorAll(this.commentClass);
 
-        btn.addEventListener('click', (e) => {
-           this.addComment(commentsBlock, commentsSection, commentInput);
-        });
+            this.updateAutoresize(commentInput);
+            this._scrollCommentsDown(commentsBlock);
+            this._addEventsToInput(commentsBlock, commentsSection, commentInput);
+
+            btn.addEventListener('click', (e) => {
+                this.addComment(commentsBlock, commentsSection, commentInput);
+            });
+        }
     }
 
     _scrollCommentsDown(commentsBlock) {

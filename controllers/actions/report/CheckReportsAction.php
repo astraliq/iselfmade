@@ -52,7 +52,7 @@ class CheckReportsAction extends Action {
         $notifConfEmail = $userComp->checkConfirmationEmail();
 
         $comments = $compComments->getReportCommentsByReportID($report->id);
-
+        $compComments->updateViews($comments);
         return $this->controller->render('check_reports', [
             'user' => $reportUser,
             'tasks' => $userReportTasks,
