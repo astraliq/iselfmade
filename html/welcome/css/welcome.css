@@ -7,6 +7,12 @@ body {
   padding: 0 0 0 0;
   box-sizing: border-box; }
 
+a {
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -o-transition: all .35s ease;
+  -ms-transition: all .3s ease; }
+
 .wrapper {
   width: 100%;
   display: flex; }
@@ -157,7 +163,7 @@ body {
     color: #000; }
 
 .soc__items {
-  width: 200px;
+  width: 250px;
   padding: 10px 0 20px 0;
   display: flex;
   justify-content: space-between; }
@@ -165,7 +171,11 @@ body {
 .soc__item {
   width: 40px;
   height: 40px;
-  fill: #000; }
+  fill: #000;
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -o-transition: all .35s ease;
+  -ms-transition: all .3s ease; }
   .soc__item:hover {
     cursor: pointer;
     fill: #4C91F8; }

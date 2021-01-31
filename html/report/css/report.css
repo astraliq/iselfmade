@@ -127,6 +127,9 @@ body {
   .bell:hover {
     color: #000; }
 
+.user__img {
+  border-radius: 5px; }
+
 .goals {
   width: 100%; }
 
@@ -371,7 +374,7 @@ body {
       cursor: pointer;
       background-color: #609df8; }
 
-.invisible {
+.invisible_block {
   display: none;
   transition: 1s; }
 
