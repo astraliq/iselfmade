@@ -14,7 +14,7 @@ $files = '';
 if ($comment->files) {
     $uploadedFiles = explode('/', $comment->files);
     foreach ($uploadedFiles as $file) {
-        $files .= '<img class="input_img" src="/users/report_files/' . $comment->user_id . '/' . $file . '" alt="' . $file . '" title="' . $file . '" data-name="' . $file . '" height="100">';
+        $files .= '<img class="input_img" src="/users/report_files/' . $comment->user_id . '/' . $file . '" alt="' . $file . '" title="' . $file . '" data-name="' . $file . '" height="100" data-user_id="' . $comment->user_id . '">';
     };
 }
 
@@ -40,7 +40,7 @@ use yii\helpers\Html;
 
 ?>
 
-<div class="comments__item">
+<div class="comments__item" data-id="<?=$comment->id?>">
     <div class="user <?=$self_user?>">
         <div class="user__bio">
             <div class="user__bio-ava">

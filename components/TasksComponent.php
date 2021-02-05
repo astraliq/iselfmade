@@ -1078,7 +1078,7 @@ class TasksComponent extends BaseComponent {
         $compReports = \Yii::createObject(['class' => ReportsComponent::class,'modelClass' => UsersReports::class]);
 
         $userId = \Yii::$app->user->getId();
-        $monthNumb = $month < 10 ? '0' . ($month + 1) : ($month + 1);
+        $monthNumb = $month < 9 ? '0' . ($month + 1) : ($month + 1);
         $date1 = '01.' . $monthNumb . '.' . $year;
         $lastNumb = date('t', $date1);
         $date2 = $lastNumb . '.' . $monthNumb . '.' . $year;

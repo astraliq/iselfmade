@@ -481,16 +481,19 @@ class Tasks {
                 })
             }
 
-            // события появления найтроек повтора по дням недели
+            // события появления настроек повтора по дням недели
             let elemRepeatSettings = $(el).parents(this.inputTaskBlockClass).find(this.repeatedByIdClass);
-            elemRepeatSettings[0].addEventListener('change', (e) => {
-                let weekends = elemRepeatSettings.parents(this.inputSettingsClass).find(this.weekendsBlockClass);
-                if (elemRepeatSettings[0].value == 8) {
-                    weekends[0].classList.remove('hidden_block_anim');
-                } else {
-                    weekends[0].classList.add('hidden_block_anim');
-                }
-            });
+            if (elemRepeatSettings[0]) {
+                elemRepeatSettings[0].addEventListener('change', (e) => {
+                    let weekends = elemRepeatSettings.parents(this.inputSettingsClass).find(this.weekendsBlockClass);
+                    if (elemRepeatSettings[0].value == 8) {
+                        weekends[0].classList.remove('hidden_block_anim');
+                    } else {
+                        weekends[0].classList.add('hidden_block_anim');
+                    }
+                });
+            }
+
 
             // события сохранения измененных задач
             if ($(el).parents(this.taskListItemClass).hasClass(this.createdTasksClass.slice(1))) {
@@ -1202,6 +1205,10 @@ class Calendar {
         if (oldTable) {
             oldTable.detach();
         }
+        let oldTitle = $('.calend_title');
+        if (oldTitle) {
+            oldTitle.detach();
+        }
 
         let title = '<p class="calend_title">Выбрать дату отчёта</p>';
         elem.prepend(title);
@@ -1277,3 +1284,4 @@ let now = new Date();
 
 let calendar = new Calendar();
 calendar.create($('#calendar_block'), now.getFullYear(), now.getMonth(), now.getDate());
+

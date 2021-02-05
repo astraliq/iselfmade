@@ -10,6 +10,8 @@ use yii\helpers\Html;
 
 
 if ($userReport) {
+    $fileListIdReport = 'file_list2';
+    $fileInputIdReport = 'files_input2';
     $disabled = 'disabled';
     $disabled_text = 'disabled_text';
     $placeHolder = '';
@@ -18,7 +20,7 @@ if ($userReport) {
     $uploadedFiles = explode('/', $userReport->files);
     if ($userReport->files) {
         foreach ($uploadedFiles as $file) {
-            $files .= '<img class="input_img" src="/users/report_files/' . $userId . '/' . $file . '" alt="' . $file . '" title="' . $file . '" data-name="' . $file . '">';
+            $files .= '<img class="input_img" src="/users/report_files/' . $userId . '/' . $file . '" alt="' . $file . '" title="' . $file . '" data-name="' . $file . '"  data-user_id="' . $userId . '">';
         };
     } else {
         $files = 'файлы не прикреплены';
@@ -26,6 +28,8 @@ if ($userReport) {
     $comment = $userReport->comment ? $userReport->comment : 'не указано';
 
 } else {
+    $fileListIdReport = 'file_list';
+    $fileInputIdReport = 'files_input';
     $disabled = '';
     $disabled_text = '';
     $placeHolder = 'Это никак не влияет на вашу статистику или эффективность. Это ещё одна возможность посмотреть на себя со стороны и лучше понимать что происходит в вашей жизни.';
@@ -96,9 +100,9 @@ if ($userReport->self_grade) {
         <section class="files">
             <p class="title <?=$disabled_text?>">Загрузить файлы <span class="show-end">(по необходимости)</span></p>
             <div class="field__wrapper">
-                <input name="file" type="file" id="files_input" class="field field__file" multiple accept="image/jpeg,image/png,audio/mpeg3,audio/x-mpeg-3" <?=$disabled?>>
-                <label class="field__file-wrapper" for="files_input">
-                    <div class="field__file-fake <?=$disabled?>" id="file_list" data-userid="<?=$userId?>"><?=$files?></div>
+                <input name="file" type="file" id="<?=$fileInputIdReport?>" class="field field__file" multiple accept="image/jpeg,image/png,audio/mpeg3,audio/x-mpeg-3" <?=$disabled?>>
+                <label class="field__file-wrapper" for="<?=$fileInputIdReport?>">
+                    <div class="field__file-fake <?=$disabled?>" id="<?=$fileListIdReport?>" data-userid="<?=$userId?>"><?=$files?></div>
 
                     <div class="field__file-button <?=$disabled?>">Выбрать</div>
                 </label>

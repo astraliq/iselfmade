@@ -7,7 +7,7 @@ $files = '';
 if ($userReport->files) {
     $uploadedFiles = explode('/', $userReport->files);
     foreach ($uploadedFiles as $file) {
-        $files .= '<img class="input_img" src="/users/report_files/' . $user->id . '/' . $file . '" alt="' . $file . '" title="' . $file . '" data-name="' . $file . '">';
+        $files .= '<img class="input_img" src="/users/report_files/' . $user->id . '/' . $file . '" alt="' . $file . '" title="' . $file . '" data-name="' . $file . '" data-user_id="' . $user->id . '">';
     };
 } else {
     $files = '';

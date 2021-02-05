@@ -183,5 +183,5 @@ class Comments {
 
 }
 
-let comment = new Comments('comments', 'send_comment','comments__item', 'comment_text');
+let comment = new Comments('comments', 'send_comment','.comments__item', 'comment_text');
 comment.init();

@@ -48,16 +48,6 @@ class ModalImg {
     }
 
     init() {
-        // document.querySelector('body').addEventListener('click', (e) => {
-        //     if (e.target != document.getElementById('modal_image')) {
-        //         this._closeModal();
-        //     }
-        // });
-        if (document.getElementById('user_id')) {
-            this.userId = document.getElementById('user_id').dataset.user_id;
-            this.imgFolder = '/users/report_files/' + this.userId + '/';
-        }
-
         this.listBlock = document.getElementById(this.listId);
         if (this.listBlock) {
             this.images = this.listBlock.querySelectorAll(this.imgClass);
@@ -75,6 +65,7 @@ class ModalImg {
             if (this.listBlock) {
                 this.images.forEach( (img) => {
                     img.addEventListener('click', (e) => {
+                        this.imgFolder = '/users/report_files/' + img.dataset.user_id + '/';
                         this._renderModal(img.dataset.name, img);
                     });
                 });

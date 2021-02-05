@@ -107,8 +107,15 @@ http://iselfmade.ru
                 ])?>
             </div>
         </span>
+        <div class="user_menu">
+            <img class="user__img" id="user__img" src="<?= Html::encode($avatarImage) ?>" width="40" height="40" alt="Моё фото">
+            <div class="user_menu__block invisible d-none" id="user_menu">
+                <?php echo \app\widgets\menu\MainMenuWidget::widget([
+                    'user' => $this->params['user'],
+                ])?>
+            </div>
+        </div>
 
-        <img class="user__img" src="<?= Html::encode($avatarImage) ?>" width="40" height="40" alt="Моё фото">
     </menu>
     <div class="left-menu">
         <div class="date">
@@ -197,16 +204,6 @@ http://iselfmade.ru
                             'options' => ['class' => $url=='/check-reports' ? 'menu__item_selected' : ''],
                             'linkOptions' => ['class' => 'menu__item'],
                         ])) : (''),
-                        (
-                            '<li class="menu__logout">'
-                            . Html::beginForm(['/site/logout'], 'post')
-                            . Html::submitButton(
-                                'Выход (' . Yii::$app->user->identity->email . ')',
-                                ['class' => 'btn btn-link logout']
-                            )
-                            . Html::endForm()
-                            . '</li>'
-                        ),
                     ],
                 ]);
                 ?>
