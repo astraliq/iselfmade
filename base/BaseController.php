@@ -28,7 +28,7 @@ class BaseController extends Controller
             $compNotifs = \Yii::createObject(['class' => NotificationsComponent::class]);
             $this->view->params['notifs'] = $compNotifs->getAllNotifications();
         }
-
+        $this->view->params['user'] = \Yii::$app->user->getIdentity();
 
         return parent::beforeAction($action);
     }

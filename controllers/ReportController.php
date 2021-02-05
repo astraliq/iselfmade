@@ -9,6 +9,7 @@ use app\controllers\actions\report\AddCommentAction;
 use app\controllers\actions\report\AddReportAction;
 use app\controllers\actions\report\ChangeReportStatusAction;
 use app\controllers\actions\report\CheckReportsAction;
+use app\controllers\actions\report\GetNewCommentsAction;
 use app\controllers\actions\report\SkipReportAction;
 
 class ReportController extends BaseController {
@@ -22,6 +23,7 @@ class ReportController extends BaseController {
             'change-report-status' => ['class' => ChangeReportStatusAction::class],
             'add-report' => ['class' => AddReportAction::class],
             'add-comment' => ['class' => AddCommentAction::class],
+            'get-new-comments' => ['class' => GetNewCommentsAction::class],
         ];
 
     }

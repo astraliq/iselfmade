@@ -239,7 +239,7 @@ input[type="checkbox"]:focus {
     top: 35px;
     opacity: 1;
     right: -10px;
-    transition: all 0.5s ease;
+    transition: all 0.25s ease;
     overflow-y: scroll;
     z-index: 99; }
     .notification__block::-webkit-scrollbar {
@@ -253,7 +253,41 @@ input[type="checkbox"]:focus {
   .notification .d-none {
     display: none; }
   .notification .invisible {
-    transition: all 0.5s ease;
+    transition: all 0.25s ease;
+    opacity: 0;
+    top: 15px; }
+
+.user_menu {
+  padding: 0 20px;
+  position: relative; }
+  .user_menu:hover {
+    cursor: pointer; }
+  .user_menu a {
+    text-align: right;
+    font-size: 15px; }
+  .user_menu button {
+    text-align: right;
+    font-size: 15px;
+    margin: 0; }
+    .user_menu button:hover {
+      text-decoration: none;
+      background-color: #eeeeee; }
+  .user_menu__block {
+    max-height: 550px;
+    position: absolute;
+    height: auto;
+    background-color: white;
+    border: 1px solid grey;
+    box-shadow: 5px 5px 8px 1px #b1b1b1;
+    top: 45px;
+    opacity: 1;
+    right: -10px;
+    transition: all 0.25s ease;
+    z-index: 99; }
+  .user_menu .d-none {
+    display: none; }
+  .user_menu .invisible {
+    transition: all 0.25s ease;
     opacity: 0;
     top: 15px; }
 
@@ -476,7 +510,6 @@ input[type="checkbox"]:focus {
   background-color: #ffffff;
   display: none;
   width: 300px;
-  height: 130px;
   box-shadow: none;
   border: 1px solid #609df8;
   border-radius: 10px;
@@ -606,7 +639,8 @@ input[type="checkbox"]:focus {
   cursor: pointer;
   position: absolute;
   top: 5px;
-  right: -5px; }
+  right: -5px;
+  transform: rotate(45deg); }
 
 .files label {
   position: relative; }
@@ -1634,7 +1668,6 @@ button {
     box-shadow: 2px 2px 8px 1px #b1b1b1; }
 
 .check {
-  max-width: 450px;
   display: -webkit-flex;
   display: -moz-flex;
   display: -ms-flex;

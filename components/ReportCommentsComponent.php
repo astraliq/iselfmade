@@ -43,32 +43,63 @@ class ReportCommentsComponent extends BaseComponent {
         return $comments;
     }
 
-    public function getNewComments() {
+    public function getNewComments($reportId=null) {
         $user_id = \Yii::$app->user->getId();
-
-        if (!\Yii::$app->user->can('curator')) {
-            $comments = ReportComments::find()
-                ->where([
-                    'viewed' => null,
-                ])
-                ->joinWith('report')
-                ->andWhere(['not', ['`report_comments`.`user_id`' => $user_id]])
-                ->andWhere(['`users_reports`.`user_id`' => $user_id])
-                ->orderBy(['date_create' => SORT_ASC])
-                ->all();
-        } else {
-            $comments = ReportComments::find()
-                ->where([
-                    'viewed' => null,
-                ])
-                ->joinWith('report')
-                ->andWhere(['not', ['`report_comments`.`user_id`' => $user_id]])
+        if ($reportId) {
+            if (!\Yii::$app->user->can('curator')) {
+                $comments = ReportComments::find()
+                    ->where(
+                        [
+                            'viewed' => null,
+                        ]
+                    )
+                    ->joinWith('report')
+                    ->andWhere(['not', ['`report_comments`.`user_id`' => $user_id]])
+                    ->andWhere(['`report_comments`.`report_id`' => $reportId])
+                    ->andWhere(['`users_reports`.`user_id`' => $user_id])
+                    ->orderBy(['date_create' => SORT_ASC])
+                    ->all();
+            } else {
+                $comments = ReportComments::find()
+                    ->where(
+                        [
+                            'viewed' => null,
+                        ]
+                    )
+                    ->joinWith('report')
+                    ->andWhere(['not', ['`report_comments`.`user_id`' => $user_id]])
+                    ->andWhere(['`report_comments`.`report_id`' => $reportId])
 //                ->andWhere(['`users_reports`.`user_id`' => $user_id])
-                ->orderBy(['date_create' => SORT_ASC])
-                ->all();
+                    ->orderBy(['date_create' => SORT_ASC])
+                    ->all();
+            }
+        } else {
+            if (!\Yii::$app->user->can('curator')) {
+                $comments = ReportComments::find()
+                    ->where(
+                        [
+                            'viewed' => null,
+                        ]
+                    )
+                    ->joinWith('report')
+                    ->andWhere(['not', ['`report_comments`.`user_id`' => $user_id]])
+                    ->andWhere(['`users_reports`.`user_id`' => $user_id])
+                    ->orderBy(['date_create' => SORT_ASC])
+                    ->all();
+            } else {
+                $comments = ReportComments::find()
+                    ->where(
+                        [
+                            'viewed' => null,
+                        ]
+                    )
+                    ->joinWith('report')
+                    ->andWhere(['not', ['`report_comments`.`user_id`' => $user_id]])
+//                ->andWhere(['`users_reports`.`user_id`' => $user_id])
+                    ->orderBy(['date_create' => SORT_ASC])
+                    ->all();
+            }
         }
-
-
         return $comments;
     }
 

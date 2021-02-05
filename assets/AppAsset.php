@@ -34,7 +34,7 @@ class AppAsset extends AssetBundle {
         'js/autosize.js',
         'js/main.js',
         'js/comments.js',
-        'js/update_data.js',
+        'js/main_menu.js',
         'js/modal_img.js',
     ];
     public $depends = [
