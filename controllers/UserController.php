@@ -7,6 +7,7 @@ use app\base\BaseController;
 use app\controllers\actions\site\ErrorAction;
 use app\controllers\actions\user\ConfirmationCuratorsEmailAction;
 use app\controllers\actions\user\CuratorsEmailConfirmAction;
+use app\controllers\actions\user\MentorAction;
 use app\controllers\actions\user\UpdateAction;
 use app\controllers\actions\user\ViewAction;
 
@@ -21,6 +22,7 @@ class UserController extends BaseController {
             'error' => ['class' => ErrorAction::class],
             'curators-email-confirm' => ['class' => CuratorsEmailConfirmAction::class],
             'confirmation-curators-email' => ['class' => ConfirmationCuratorsEmailAction::class],
+            'mentor' => ['class' => MentorAction::class],
         ];
 
     }

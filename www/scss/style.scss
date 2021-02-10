@@ -358,6 +358,8 @@ input[type="checkbox"]:focus {
         text-align: right;
         font-size: 15px;
         margin: 0;
+        padding: 10px 15px !important;
+        line-height: inherit !important;
         &:hover {
             text-decoration: none;
             background-color: #eeeeee;
@@ -877,6 +879,13 @@ input[type="checkbox"]:focus {
     }
 }
 
+#report_data {
+    & .error_alert {
+        font-size: 16px;
+        color: red;
+    }
+}
+
 .drag_drop {
     position: absolute;
     width: 100%;
@@ -897,6 +906,11 @@ input[type="checkbox"]:focus {
     position: relative;
     margin: 15px 0;
     text-align: center;
+
+    & .error_alert {
+        color: red;
+        font-size: 16px;
+    }
 }
 
 .field__file {
@@ -1828,7 +1842,12 @@ section {
     }
 }
 
-.user_profile-curator,
+.user_profile-curator {
+    margin: 10px 0 0 0;
+    padding: 10px 0 0 0;
+    position: relative;
+}
+
 .user_profile-psw {
     border-top: 1px gray solid;
     margin: 10px 0 0 0;
@@ -2402,7 +2421,72 @@ button {
 
 }
 
+.welcome {
+    &__title {
+        font-family: $font_main-text;
+        font-weight: 600;
+        font-size: 4rem;
+        line-height: 95%;
+        //color: $color-black;
+        color: $color-blue;
+        padding-bottom: 10px;
+    }
+    &__chapter {
+        font-family: $font_main-text;
+        font-weight: 400;
+        font-size: 3rem;
+        line-height: 4rem;
+        color: $color-black;
+        padding-top: 25px;
+    }
+    &__text {
+        width: 700px;
+        font-family: $font_main-text;
+        font-weight: 400;
+        font-size: 1.9rem;
+        line-height: 2.4rem;
+        color: $color-black;
+        padding-bottom: 10px;
+    }
+    &__link {
+        color: $color-blue;
+        &:hover {
+            text-decoration: none;
+            color: $color-black;
+        }
+    }
 
+    & a {
+        font-size: inherit;
+    }
+    & strong {
+        font-size: inherit;
+        font-weight: bold;
+    }
+}
+
+.soc {
+    &__items {
+        width: 250px;
+        padding: 10px 0 20px 0;
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.soc__item {
+    width: 40px;
+    height: 40px;
+    fill: $color-black;
+    &:hover {
+        cursor: pointer;
+        fill: $color-blue;
+    }
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .35s ease;
+    -ms-transition: all .3s ease;
+}
 
 
 

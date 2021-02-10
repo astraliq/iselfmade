@@ -153,7 +153,7 @@ class UserReport {
     _renderError(ifErr) {
         let input = document.getElementById(this.inputFileID);
         if (ifErr) {
-            input.parentElement.insertAdjacentHTML('beforeEnd','<p class="error_alert">Максимальное количество файлов 5.</p>');
+            input.parentElement.insertAdjacentHTML('beforeEnd','<p class="error_alert">Можно загрузить не более 5 файлов.</p>');
         } else {
             let err = input.parentElement.querySelector('.error_alert');
             if (err) {
@@ -172,6 +172,15 @@ class UserReport {
 
     checkFileList() {
         return this.realFileList.length <= 5;
+    }
+
+    _renderErrorSend(err) {
+        let form = document.getElementById(this.reportFormID);
+        let errorHtml = `<p class="error_alert">${err}</p>`;
+        $(form).append(errorHtml);
+        setTimeout(() => {
+            $(form).children('.error_alert').remove();
+        }, 3000)
     }
 
     init() {
@@ -219,6 +228,13 @@ class UserReport {
             sendReport.addEventListener('click', (e) => {
                 e.stopPropagation(); // остановка всех текущих JS событий
                 e.preventDefault();  // остановка дефолтного события для текущего элемента - клик для <a> тега
+
+                let confirmSend = confirm('Подтвердите отправку отчета.');
+
+                if (!confirmSend) {
+                    return false;
+                }
+                
                 let userComment = $('#'+this.userCommentID).val();
                 let dayRating = $('#'+this.selectDayRatingID).val();
                 let data = new FormData();
@@ -252,6 +268,7 @@ class UserReport {
                         }
                         //data приходят те данные, который прислал на сервер
                         if (!data.result) {
+                            this._renderErrorSend(data.error_text);
                             console.log('ERROR_POST_DATA');
                         }
                     }

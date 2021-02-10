@@ -28,10 +28,16 @@ class AuthController extends Controller {
         ];
     }
 
+    // регистрация
     public function actionSignUp(){
 
         if (!\Yii::$app->user->isGuest) {
-            return $this->redirect(['/report']);
+            $user = \Yii::$app->user->getIdentity();
+            if ($user->welcome_view == 0) {
+                return $this->redirect(['/welcome']);
+            } else {
+                return $this->redirect(['/report']);
+            }
         }
 
         $model = new User([
@@ -43,7 +49,7 @@ class AuthController extends Controller {
             if ($this->auth->signUp($model)) {
                 $this->auth->sendConfirmationMail($model);
                 if ($this->auth->signIn($model)) {
-                    return $this->redirect(['/profile']);
+                    return $this->redirect(['/welcome']);
                 }
             }
         }
@@ -59,10 +65,16 @@ class AuthController extends Controller {
 //        return $this->render('signup',['model'=>$model]);
     }
 
+    // авторизация
     public function actionSignIn(){
 
         if (!\Yii::$app->user->isGuest) {
-            return $this->redirect(['/report']);
+            $user = \Yii::$app->user->getIdentity();
+            if ($user->welcome_view == 0) {
+                return $this->redirect(['/welcome']);
+            } else {
+                return $this->redirect(['/report']);
+            }
         }
 
         $model = new User([
@@ -90,10 +102,16 @@ class AuthController extends Controller {
 //        return $this->render('signin',['model'=>$model]);
     }
 
+    // восстановление пароля
     public function actionRemindPassword(){
 
         if (!\Yii::$app->user->isGuest) {
-            return $this->redirect(['/report']);
+            $user = \Yii::$app->user->getIdentity();
+            if ($user->welcome_view == 0) {
+                return $this->redirect(['/welcome']);
+            } else {
+                return $this->redirect(['/report']);
+            }
         }
 
         $model = new User([
@@ -128,10 +146,16 @@ class AuthController extends Controller {
 
     }
 
+    // валидация для восстановления пароля
     public function actionValidateRemindPassword(){
 
         if (!\Yii::$app->user->isGuest) {
-            return $this->redirect(['/report']);
+            $user = \Yii::$app->user->getIdentity();
+            if ($user->welcome_view == 0) {
+                return $this->redirect(['/welcome']);
+            } else {
+                return $this->redirect(['/report']);
+            }
         }
         $model = new User([
             'scenario' => 'remindPass'
@@ -156,9 +180,15 @@ class AuthController extends Controller {
         }
     }
 
+    // изменение пароля
     public function actionRestorePassword($email=null,$token=null){
         if (!\Yii::$app->user->isGuest) {
-            return $this->redirect(['/report']);
+            $user = \Yii::$app->user->getIdentity();
+            if ($user->welcome_view == 0) {
+                return $this->redirect(['/welcome']);
+            } else {
+                return $this->redirect(['/report']);
+            }
         }
         $model = new User([
             'scenario' => 'restorePass'
@@ -214,6 +244,7 @@ class AuthController extends Controller {
 
     }
 
+    // Подтверждение почты
     public function actionConfirmationEmail($email=null,$confirmation_token=null){
 //        if (\Yii::$app->user->isGuest) {
 //            return $this->redirect(['/']);
@@ -251,6 +282,7 @@ class AuthController extends Controller {
         return $this->redirect('/');
     }
 
+    // Запрос на отправку письма на почту с подтверждение адреса почты пользователя
     public function actionSendConfirmationEmail(){
         if (\Yii::$app->user->isGuest || !\Yii::$app->request->isPost) {
             throw new HttpException(403,'нет доступа');
@@ -271,9 +303,15 @@ class AuthController extends Controller {
         return ['result' => false];
     }
 
+    // валидация пользователя для авторизации
     public function actionValidateSignIn(){
         if (!\Yii::$app->user->isGuest) {
-            return $this->redirect(['/report']);
+            $user = \Yii::$app->user->getIdentity();
+            if ($user->welcome_view == 0) {
+                return $this->redirect(['/welcome']);
+            } else {
+                return $this->redirect(['/report']);
+            }
         }
 
         $model = new User([

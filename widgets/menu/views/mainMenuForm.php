@@ -20,6 +20,11 @@ echo Nav::widget([
             'options' => ['class' => 'user_menu__option'],
             'linkOptions' => ['class' => 'user_menu__item'],
         ]),
+        (['label' => 'Помощь',
+            'url' => ['/help'],
+            'options' => ['class' => 'user_menu__option'],
+            'linkOptions' => ['class' => 'user_menu__item'],
+        ]),
         (
             '<li class="user_menu__option">'
             . Html::beginForm(['/site/logout'], 'post')

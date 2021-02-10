@@ -35,12 +35,6 @@ if (!$user->mentor_email) {
         <?=$form->field($user,'phone_number')->input('phone');?>
         <?=$form->field($user,'timezone')->dropDownList($timezones, ['options' => [ $user->timezoneKeyNumber => ['Selected' => true]]]);?>
         <?=$form->field($user,'avaReal')->fileInput(['multiple' => false,]);?>
-        <div class="user_profile-curator">
-            <?=$form->field($user,'mentor_email')->input('text',['class' => 'form-control curators_emails']);?>
-            <span class="<?=$confirmCuratorClass?>" id="curators_emails_confirm"></span>
-            <button class="<?=$confirmCuratorBtnClass?>" id="curators_emails_btn_conf" <?=$confirmCuratorBtnActive?>>Подтвердить</button>
-            <?=$form->field($user,'mentor_email_repeat')->dropDownList($user::REPEAT_CURATOR, ['options' => [ '1' => ['Selected' => true]], 'autocomplete' => 'sex']);?>
-        </div>
         <div class="user_profile-psw">
             <?=$form->field($user,'password',['enableClientValidation'=>false])->passwordInput(['type' => 'password', 'autocomplete' => 'new-password'])->label('Новый пароль');?>
             <?=$form->field($user,'repeat_password',['enableClientValidation'=>false])->passwordInput(['type' => 'password', 'autocomplete' => 'new-password'])->label('Повтор нового пароля');?>

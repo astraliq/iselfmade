@@ -403,15 +403,24 @@ class Tasks {
         // настройки задачи
         this.private_id = settings.find('.private_id').val();
         let repeatIdValue = settings.find('.repeated_by_id').val();
-        this.repeat_type_id = repeatIdValue == 0 ? null : repeatIdValue;
-        let weekdaysInputs = settings.find('.repeat_weekdays')[0].querySelectorAll('input');
-        let weekdayData = [];
-        weekdaysInputs.forEach( (input) => {
-            if (input.checked) {
-                weekdayData.push(input.dataset.id);
-            }
-        });
-        this.repeated_weekdays = weekdayData.join(',');
+        if (repeatIdValue) {
+            this.repeat_type_id = repeatIdValue == 0 ? null : repeatIdValue;
+        } else {
+            this.repeat_type_id = null;
+        }
+        let repeatWeekdays = settings.find('.repeat_weekdays')[0];
+        if (repeatWeekdays) {
+            let weekdaysInputs = repeatWeekdays.querySelectorAll('input');
+            let weekdayData = [];
+            weekdaysInputs.forEach( (input) => {
+                if (input.checked) {
+                    weekdayData.push(input.dataset.id);
+                }
+            });
+            this.repeated_weekdays = weekdayData.join(',');
+        } else {
+            this.repeated_weekdays = null;
+        }
         return true;
     }
 
@@ -629,11 +638,13 @@ class Tasks {
 
         // события кнопки трансфера прошлых задач
         let tranferBtns = document.querySelectorAll(this.transferBtn);
-        tranferBtns.forEach((btn) => {
-            btn.addEventListener('click', (e) => {
-                this._tranferTasks(btn, btn.dataset.type);
-            })
-        });
+        if (tranferBtns)  {
+            tranferBtns.forEach((btn) => {
+                btn.addEventListener('click', (e) => {
+                    this._tranferTasks(btn, btn.dataset.type);
+                })
+            });
+        }
 
         let showFinishedTasksBtn = document.querySelectorAll(this.tasksFinishedClass);
         if (showFinishedTasksBtn) {

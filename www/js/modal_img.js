@@ -83,3 +83,5 @@ let modalImg2 = new ModalImg('check_uploaded_files', '.input_img');
 modalImg2.init();
 let modalImg3 = new ModalImg('comments', '.input_img');
 modalImg3.init();
+let modalImg4 = new ModalImg('file_list2', '.input_img');
+modalImg4.init();
