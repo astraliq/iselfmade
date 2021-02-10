@@ -34,10 +34,12 @@ use Yii;
  * @property int|null $mentor_email_confirm Подтверждение почты куратора
  * @property string|null $mentor_access_token Токен подтверждения почты куратора
  * @property string|null $grade_token Токен для установки оценок за выполнение задач
+ * @property int|null $welcome_view флаг просмотра welcome страницы
  *
  * @property MissionTasks[] $missionTasks
+ * @property ReportComments[] $reportComments
  * @property Periods $mentorEmailRepeat
- * @property UsersReports[] $usersGrades
+ * @property UsersReports[] $usersReports
  */
 class UserBase extends \yii\db\ActiveRecord
 {
@@ -56,7 +58,7 @@ class UserBase extends \yii\db\ActiveRecord
     {
         return [
             [['email', 'pass_hash'], 'required'],
-            [['sex', 'group_id', 'mentor_id', 'offset_UTC', 'confirm_email', 'mentor_email_repeat', 'mentor_email_confirm'], 'integer'],
+            [['sex', 'group_id', 'mentor_id', 'offset_UTC', 'confirm_email', 'mentor_email_repeat', 'mentor_email_confirm', 'welcome_view'], 'integer'],
             [['birthday', 'date_create'], 'safe'],
             [['balance'], 'number'],
             [['email', 'phone_number', 'pass_hash', 'auth_key', 'access_token', 'name', 'surname', 'avatar', 'buddy_ids', 'curator_id', 'mentor_email', 'confirmation_token', 'mentor_access_token', 'grade_token'], 'string', 'max' => 255],
@@ -98,6 +100,7 @@ class UserBase extends \yii\db\ActiveRecord
             'mentor_email_confirm' => Yii::t('app', 'Подтверждение почты куратора'),
             'mentor_access_token' => Yii::t('app', 'Токен подтверждения почты куратора'),
             'grade_token' => Yii::t('app', 'Токен для установки оценок за выполнение задач'),
+            'welcome_view' => Yii::t('app', 'флаг просмотра welcome страницы'),
         ];
     }
 
@@ -108,7 +111,17 @@ class UserBase extends \yii\db\ActiveRecord
      */
     public function getMissionTasks()
     {
-        return $this->hasMany(MissionTasks::className(), ['user_id' => 'id']);
+        return $this->hasMany(Tasks::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[ReportComments]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getReportComments()
+    {
+        return $this->hasMany(ReportComments::className(), ['user_id' => 'id']);
     }
 
     /**
@@ -126,7 +139,7 @@ class UserBase extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getUsersGrades()
+    public function getUsersReports()
     {
         return $this->hasMany(UsersReports::className(), ['user_id' => 'id']);
     }

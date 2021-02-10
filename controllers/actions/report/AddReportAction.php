@@ -5,7 +5,9 @@ namespace app\controllers\actions\report;
 
 
 use app\components\ReportsComponent;
+use app\components\TasksComponent;
 use app\components\UserComponent;
+use app\models\Tasks;
 use app\models\User;
 use app\models\UsersReports;
 use yii\base\Action;
@@ -24,6 +26,9 @@ class AddReportAction extends Action {
         $userId = \Yii::$app->user->getId();
         $user = $user->findOne(['id' => $userId]);
 
+        $compTasks = \Yii::createObject(['class' => TasksComponent::class,'modelClass' => Tasks::class]);
+        $tasks = $compTasks->getTodayUserTasks();
+
         $compReports = \Yii::createObject(['class' => ReportsComponent::class,'modelClass' => UsersReports::class]);
         $report = $compReports->getModel();
 
@@ -37,12 +42,30 @@ class AddReportAction extends Action {
             $report->user_id = $userId;
             $report->load($postData);
 
+            if (count($tasks) == 0) {
+                return [
+                    'result' => false,
+                    'error_text' => 'Нельзя отправлять отчет с пустым списком задач.',
+                ];
+            }
+
+            if (!$report->validate()) {
+                $var = array_keys($report->errors);
+                return [
+                    'result' => false,
+                    'error_text' => $report->errors[$var[0]],
+                ];
+            }
+
             if ($compReports->updateReport($report)) {
                 return ['result' => true];
             }
 
         }
 
-        return ['result' => false];
+        return [
+            'result' => false,
+            'error_text' => 'Ошибка.',
+        ];
     }
 }
