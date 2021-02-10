@@ -234,7 +234,7 @@ class UserReport {
                 if (!confirmSend) {
                     return false;
                 }
-                
+
                 let userComment = $('#'+this.userCommentID).val();
                 let dayRating = $('#'+this.selectDayRatingID).val();
                 let data = new FormData();

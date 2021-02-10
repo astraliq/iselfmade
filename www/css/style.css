@@ -268,9 +268,7 @@ input[type="checkbox"]:focus {
   .user_menu button {
     text-align: right;
     font-size: 15px;
-    margin: 0;
-    padding: 10px 15px !important;
-    line-height: inherit !important; }
+    margin: 0; }
     .user_menu button:hover {
       text-decoration: none;
       background-color: #eeeeee; }
@@ -647,10 +645,6 @@ input[type="checkbox"]:focus {
 .files label {
   position: relative; }
 
-#report_data .error_alert {
-  font-size: 16px;
-  color: red; }
-
 .drag_drop {
   position: absolute;
   width: 100%;
@@ -668,9 +662,6 @@ input[type="checkbox"]:focus {
   position: relative;
   margin: 15px 0;
   text-align: center; }
-  .field__wrapper .error_alert {
-    color: red;
-    font-size: 16px; }
 
 .field__file {
   opacity: 0;
@@ -1392,11 +1383,7 @@ section .show-end {
   .user_profile option {
     font-size: 13px; }
 
-.user_profile-curator {
-  margin: 10px 0 0 0;
-  padding: 10px 0 0 0;
-  position: relative; }
-
+.user_profile-curator,
 .user_profile-psw {
   border-top: 1px gray solid;
   margin: 10px 0 0 0;
@@ -1832,59 +1819,3 @@ button {
   .welcome__title {
     font-size: 22px;
     color: #4C91F8; }
-
-.welcome__title {
-  font-family: "Roboto", sans-serif;
-  font-weight: 600;
-  font-size: 4rem;
-  line-height: 95%;
-  color: #4C91F8;
-  padding-bottom: 10px; }
-
-.welcome__chapter {
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-size: 3rem;
-  line-height: 4rem;
-  color: #000;
-  padding-top: 25px; }
-
-.welcome__text {
-  width: 700px;
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-size: 1.9rem;
-  line-height: 2.4rem;
-  color: #000;
-  padding-bottom: 10px; }
-
-.welcome__link {
-  color: #4C91F8; }
-  .welcome__link:hover {
-    text-decoration: none;
-    color: #000; }
-
-.welcome a {
-  font-size: inherit; }
-
-.welcome strong {
-  font-size: inherit;
-  font-weight: bold; }
-
-.soc__items {
-  width: 250px;
-  padding: 10px 0 20px 0;
-  display: flex;
-  justify-content: space-between; }
-
-.soc__item {
-  width: 40px;
-  height: 40px;
-  fill: #000;
-  -webkit-transition: all .3s ease;
-  -moz-transition: all .3s ease;
-  -o-transition: all .35s ease;
-  -ms-transition: all .3s ease; }
-  .soc__item:hover {
-    cursor: pointer;
-    fill: #4C91F8; }
