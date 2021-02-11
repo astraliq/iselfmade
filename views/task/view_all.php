@@ -110,7 +110,7 @@ if ($userReport->self_grade) {
         </section>
         <section class="impress">
             <p class="title <?=$disabled_text?>">Общее впечатление дня</p>
-            <textarea name="text" type="text" class="impress__text" placeholder="<?=$placeHolder?>" id="user_comment" <?=$disabled?>><?=$comment?></textarea>
+            <textarea name="text" type="text" class="impress__text" id="impress__text" placeholder="<?=$placeHolder?>" id="user_comment" <?=$disabled?>><?=$comment?></textarea>
         </section>
         <section class="day-rating" id="allstars">
             <p class="title <?=$disabled_text?>">Личная оценка дня</p>

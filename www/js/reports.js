@@ -6,6 +6,7 @@ class Reports {
         this.skipBtnID = 'skip_report';
         this.nextBtnID = 'next_report';
         this.reportDataBlockID = 'report_data';
+        this.impressTextareaID = 'impress__text';
         this.countReports = 'count_reports';
         this.userId;
         this.date;
@@ -92,6 +93,13 @@ class Reports {
             rejectBtn.addEventListener('click', (e) => {
                 this.getData();
                 this._changeReportStatus(3);
+            })
+        }
+        let impressArea = document.getElementById(this.impressTextareaID);
+        if (impressArea) {
+            impressArea.addEventListener('keydown', (e) => {
+                autosize.destroy($(impressArea));
+                autosize($(impressArea));
             })
         }
     }

@@ -143,10 +143,38 @@ input[type="checkbox"]:focus {
             }
         }
     }
+
+    &__link_sett {
+        padding: 0 0 0 20px !important;
+    }
 }
 
 .dop-menu {
     padding-top: 30px;
+
+    & .settings__items {
+        transition: all $anim_transition_modals_menu ease;
+
+        & .menu__set {
+            transition: all $anim_transition_modals_menu ease;
+            height: 30px;
+            font-size: 8px;
+        }
+    }
+
+    & .d-none {
+        display: none;
+    }
+
+    & .invisible {
+        transition: all $anim_transition_modals_menu ease;
+        opacity: 0;
+        top: 15px;
+        & .menu__set {
+            height: 5px;
+            font-size: 8px;
+        }
+    }
 }
 
 .top-menu {
@@ -881,6 +909,7 @@ input[type="checkbox"]:focus {
 
 #report_data {
     & .error_alert {
+        margin: 5px;
         font-size: 16px;
         color: red;
     }
@@ -990,7 +1019,7 @@ input[type="checkbox"]:focus {
 .impress {
     &__text {
         width: 500px;
-        height: 150px;
+        min-height: 70px;
         border: 1px solid $color-blue-light;
         border-radius: 10px;
         outline: none;

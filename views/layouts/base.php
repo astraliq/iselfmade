@@ -196,18 +196,23 @@ http://iselfmade.ru
                         ])) : (''),
                         (['label' => 'Настройки',
                             'url' => [''],
-                            'options' => ['class' => $url=='' ? 'menu__item_selected' : ''],
+                            'options' => ['class' => 'menu__settings', 'id' => 'menu__settings'],
                             'linkOptions' => ['class' => 'menu__item'],
                         ]),
+                    ],
+                ]);
+                echo Nav::widget([
+                    'options' => ['class' => $url=='/goals' || $url=='/mentor' ? 'settings__items' : 'settings__items d-none invisible', 'id' => 'settings__items'],
+                    'items' => [
                         (['label' => 'Цели и задачи',
                             'url' => ['/goals'],
-                            'options' => ['class' => $url=='/goals' ? 'menu__item_selected' : ''],
-                            'linkOptions' => ['class' => 'menu__item'],
+                            'options' => ['class' => $url=='/goals' ? 'menu__item_selected menu__set' : ' menu__set'],
+                            'linkOptions' => ['class' => 'menu__item menu__link_sett'],
                         ]),
                         (['label' => 'Наставник',
                             'url' => ['/mentor'],
-                            'options' => ['class' => $url=='/mentor' ? 'menu__item_selected' : ''],
-                            'linkOptions' => ['class' => 'menu__item'],
+                            'options' => ['class' => $url=='/mentor' ? 'menu__item_selected menu__set' : ' menu__set'],
+                            'linkOptions' => ['class' => 'menu__item menu__link_sett'],
                         ]),
 
                     ],

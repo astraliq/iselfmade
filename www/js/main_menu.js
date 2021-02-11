@@ -7,6 +7,8 @@ class Update {
         this.notif_list;
         this.notifBlockId = 'notification__block';
         this.notifsId = 'notifications';
+        this.settingsId = 'menu__settings';
+        this.settingsItemsId = 'settings__items';
     }
 
     _get(url, data) {
@@ -118,7 +120,7 @@ class Update {
         elem.classList.remove('d-none');
         setTimeout(()=>{
             elem.classList.remove('invisible');
-        }, 1);
+        }, 10);
     }
 
     hideNotifs(elemId) {
@@ -137,6 +139,14 @@ class Update {
             this.getNotifs(this.notifBlockId);
             this.showNotifs(this.notifBlockId);
         });
+        let settingsBtn = document.getElementById(this.settingsId);
+        settingsBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.showNotifs(this.settingsItemsId);
+        });
+        // settingsBtn.addEventListener('click', (e) => {
+        //     this.hideNotifs(this.settingsId);
+        // });
         document.querySelector('.container').addEventListener('click', (e) => {
             if (!e.target.closest('.notification')) {
                 this.hideNotifs(this.notifBlockId);
