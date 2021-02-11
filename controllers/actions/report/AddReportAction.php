@@ -45,7 +45,7 @@ class AddReportAction extends Action {
             if (count($tasks) == 0) {
                 return [
                     'result' => false,
-                    'error_text' => 'Нельзя отправлять отчет с пустым списком задач.',
+                    'error_text' => 'Список дел на сегодня пуст.',
                 ];
             }
 

@@ -913,7 +913,7 @@ class TasksComponent extends BaseComponent {
         $sendResult = true;
         foreach ($reportsToSend as $sendingReport) {
             $type = $sendingReport['type'] == 1 ? 'Ежедневный отчет' : 'Еженедельный отчет';
-            $message = \Yii::$app->mailer->compose('curators_report',[
+            $message = \Yii::$app->mailer->compose('mentors_report',[
                 'email' => $sendingReport['email'],
                 'name' => $sendingReport['userName'],
                 'surname' => $sendingReport['userSurname'],
