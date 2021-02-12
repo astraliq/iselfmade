@@ -22,40 +22,40 @@ class ReportsComponent extends BaseComponent {
     }
 
     public function getFirstUserReport() {
-                $todayUTC = date('Y-m-d');
-                $report = UsersReports::find()
-                    ->andWhere(['OR',
-                        ['IS', 'status', null],
-                        ['=', 'status', 1],
-                    ])
-                    ->orderBy([
-                        'views' => SORT_ASC,
-                        'date' => SORT_ASC,
-                    ])
-                    ->one();
+        $todayUTC = date('Y-m-d');
+        $report = UsersReports::find()
+            ->andWhere(['OR',
+                ['IS', 'status', null],
+                ['=', 'status', 1],
+            ])
+            ->orderBy([
+                'views' => SORT_ASC,
+                'date' => SORT_ASC,
+            ])
+            ->one();
 
-                if (!$report) {
-                    $report = UsersReports::find()
-                        ->where([
-                            'status' => 2,
-                        ])
-                        ->orderBy([
-                            'views' => SORT_ASC,
-                            'date' => SORT_ASC,
-                        ])
-                        ->one();
-                }
-//                if (!$report) {
-//                    $report = UsersReports::find()
-//                        ->where([
-//                            'status' => 3,
-//                        ])
-//                        ->orderBy([
-//                    'views' => SORT_ASC,
-//                    'date' => SORT_ASC,
+        if (!$report) {
+            $report = UsersReports::find()
+                ->where([
+                    'status' => 2,
+                ])
+                ->orderBy([
+                    'views' => SORT_ASC,
+                    'date' => SORT_ASC,
+                ])
+                ->one();
+        }
+//        if (!$report) {
+//            $report = UsersReports::find()
+//                ->where([
+//                    'status' => 3,
 //                ])
-//                ->one();
-//                }
+//                ->orderBy([
+//            'views' => SORT_ASC,
+//            'date' => SORT_ASC,
+//        ])
+//        ->one();
+//        }
         if ($report) {
             if (!$report->views) {
                 $report->views = 1;
@@ -69,7 +69,7 @@ class ReportsComponent extends BaseComponent {
     }
 
     public function getNextUserReport() {
-        $todayUTC = date('Y-m-d');
+//        $todayUTC = date('Y-m-d');
         $report = UsersReports::find()
 //            ->where([
 //                'date' => $todayUTC,
@@ -79,7 +79,19 @@ class ReportsComponent extends BaseComponent {
                 ['IS', 'status', null],
                 ['<', 'status', 3],
             ])
-            ->orderBy(['date' => SORT_ASC])
+            ->one();
+        return $report;
+    }
+
+    public function getUserReportById($id) {
+        $report = UsersReports::find()
+            ->where([
+                'id' => $id,
+            ])
+            ->andWhere(['OR',
+                ['IS', 'status', null],
+                ['<', 'status', 3],
+            ])
             ->one();
         return $report;
     }

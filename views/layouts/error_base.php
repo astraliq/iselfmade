@@ -83,47 +83,46 @@ http://iselfmade.ru
 </head>
 <body>
 <?php $this->beginBody() ?>
-<header class="header__style_error">
-    <div class="header__top">
-        <a class="header-logo-link" href="http://iselfmade.ru">
-            <div class="header__logo">
-                <img src="img/logo.png" width="150" height="auto" alt="НОСОРОГ">
-                <p class="header-logo-text">i<span class="header-logo-text-self">self</span>made.ru</p>
-            </div>
-        </a>
-        <h1 class="header__title2">&laquo;НОСОРОГ&raquo; &#151; система достижения целей, помогающая дойти до конца</h1>
-<!--        <div class="header__button">-->
-<!--            <button class="header__btn btn__shadow" id="login">Вход/Регистрация</button>-->
-<!--        </div>-->
-    </div>
-
-</header>
-
 <div class="container">
+    <header class="header__style_error">
+        <div class="header__top">
+            <a class="header-logo-link" href="http://iselfmade.ru">
+                <div class="header__logo">
+                    <img src="img/logo.png" width="150" height="auto" alt="НОСОРОГ">
+                    <p class="header-logo-text">i<span class="header-logo-text-self">self</span>made.ru</p>
+                </div>
+            </a>
+            <h1 class="header__title2">&laquo;НОСОРОГ&raquo; &#151; система достижения целей, помогающая дойти&nbspдо&nbspконца</h1>
+            <!--        <div class="header__button">-->
+            <!--            <button class="header__btn btn__shadow" id="login">Вход/Регистрация</button>-->
+            <!--        </div>-->
+        </div>
+
+    </header>
     <?= $content ?>
-    <footer class="footer__style">
-        <div class="footer__logo">
-            <img src="img/rhino-footer.png" width="100" height="50" alt="Проще сделать, чем не сделать">
-            <p class="footer__logo-text-1">ПРОЩЕ</p>
-            <p class="footer__logo-text-2">СДЕЛАТЬ,</p>
-            <p class="footer__logo-text-3">ЧЕМ</p>
-            <p class="footer__logo-text-4">НЕ СДЕЛАТЬ</p>
-        </div>
-        <div class="footer__soc">
-            <p class="footer__soc-title">Следи за нами</p>
-            <a class="footer__soc-text" href="https://vk.com/iselfmaderu">Вконтакте</a>
-            <a class="footer__soc-text" href="https://www.instagram.com/iselfmade.ru/">Инстаграм</a>
-            <a class="footer__soc-text" href="https://t.me/iselfmaderu">Телеграм&#150;канал</a>
-        </div>
-        <div class="footer__sub">
-            <p class="footer__sub-text">Полезная еженедельная рассылка</p>
-            <div class="footer__form">
-                <input class="footer__input" type="text" placeholder="email">
-                <button class="footer__btn">Подписаться</button>
-            </div>
-        </div>
-    </footer>
 </div>
+<footer class="footer__style">
+    <div class="footer__logo">
+        <img src="img/rhino-footer.png" width="100" height="50" alt="Проще сделать, чем не сделать">
+        <p class="footer__logo-text-1">ПРОЩЕ</p>
+        <p class="footer__logo-text-2">СДЕЛАТЬ,</p>
+        <p class="footer__logo-text-3">ЧЕМ</p>
+        <p class="footer__logo-text-4">НЕ СДЕЛАТЬ</p>
+    </div>
+    <div class="footer__soc">
+        <p class="footer__soc-title">Следи за нами</p>
+        <a class="footer__soc-text" href="https://vk.com/iselfmaderu">Вконтакте</a>
+        <a class="footer__soc-text" href="https://www.instagram.com/iselfmade.ru/">Инстаграм</a>
+        <a class="footer__soc-text" href="https://t.me/iselfmaderu">Телеграм&#150;канал</a>
+    </div>
+    <div class="footer__sub">
+        <p class="footer__sub-text">Полезная еженедельная рассылка</p>
+        <div class="footer__form">
+            <input class="footer__input" type="text" placeholder="email">
+            <button class="footer__btn">Подписаться</button>
+        </div>
+    </div>
+</footer>
 
 <?php $this->endBody() ?>
 </body>
