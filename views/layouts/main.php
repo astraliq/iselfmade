@@ -98,7 +98,7 @@ http://iselfmade.ru
             <button class="header__btn btn__shadow" id="login">Вход/Регистрация</button>
         </div>
     </div>
-    <h1 class="header__title">&laquo;НОСОРОГ&raquo; &#151; система достижения целей, помогающая дойти до конца</h1>
+    <h1 class="header__title">&laquo;НОСОРОГ&raquo; &#151; система достижения целей, помогающая дойти&nbspдо&nbspконца</h1>
     <p class="header__text">
         Наша задача сделать так, чтобы завтра вы <strong>сделали</strong> то, <strong>что запланировали</strong>, находясь в ситуации, когда <span class="header__text_color-blue">проще сделать, чем не сделать</span>.</p>
     <p class="header__text padding-top_20">И так каждый день.</p>

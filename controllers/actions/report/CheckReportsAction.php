@@ -17,7 +17,7 @@ use yii\web\HttpException;
 use yii\web\Response;
 
 class CheckReportsAction extends Action {
-    public function run() {
+    public function run($id=null) {
         $admin = false;
         if (\Yii::$app->user->isGuest || !\Yii::$app->user->can('curator')) {
             throw new HttpException(403, 'Нет доступа' );
@@ -34,8 +34,12 @@ class CheckReportsAction extends Action {
         $today = date('d.m.Y');
         $todayUTC = date('Y-m-d');
 
-        // первый отчет
-        $report = $comp->getFirstUserReport();
+        // первый отчет пользователя
+        if ($id) {
+            $report = $comp->getUserReportById($id);
+        } else {
+            $report = $comp->getFirstUserReport();
+        }
         $reportUser = $modelUsers->findOne(['id' => $report->user_id]);
 
         $selfUser = $modelUsers->findOne(['id' => \Yii::$app->user->getId()]);

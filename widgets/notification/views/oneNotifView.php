@@ -16,6 +16,12 @@ if ($notif->user->avatar) {
     $avatar = '/img/user_img.jpg';
 }
 
+if ($notif->report->user_id != \Yii::$app->user->getId()) {
+    $notifLink = '/check-reports?id=' . $notif->report_id;
+} else {
+    $notifLink = '/archive?id=' . $notif->report_id;
+}
+
 /* @var $this \yii\web\View */
 /* @var $notif  */
 
@@ -25,7 +31,7 @@ use yii\helpers\Html;
 
 
 <div class="notification__elem">
-    <a class="notification__link" href="/archive?id=<?=$notif->report_id?>">
+    <a class="notification__link" href="<?=$notifLink?>">
         <h5 class="title">Новый комментарий</h5>
         <div class="user__bio">
             <div class="user__bio-ava">

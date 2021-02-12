@@ -2,6 +2,7 @@
 
 html {
     overflow-y: scroll;
+    height: 100%;
 }
 
 *,
@@ -13,6 +14,9 @@ body {
     font-size: 10px;
 }
 
+header {
+    flex: 1 0 auto;
+}
 
 :disabled {
     color: $color-disable2;
@@ -37,7 +41,7 @@ body {
 body {
     display: flex;
     flex-direction: column;
-    //height: 100%;
+    height: 100%;
 }
 
 input[type="search"] {
@@ -89,6 +93,7 @@ input[type="checkbox"]:focus {
     width: 100% !important;
     padding: 0 !important;
     flex-wrap: wrap;
+    flex: 1 0 auto;
 }
 
 .custom_light {
@@ -1576,9 +1581,9 @@ section {
 //}
 
 .footer {
-    flex: 0 0 auto;
     padding: 0;
     flex: 0 0 auto;
+
     &__style {
         width: 100%;
         min-height: 300px;
@@ -2196,7 +2201,6 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
 
     & .error_desc {
         width: 500px;

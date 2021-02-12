@@ -8,7 +8,8 @@ sans-serif;
 font-family: 'Scada',
 sans-serif;*/
 html {
-  overflow-y: scroll; }
+  overflow-y: scroll;
+  height: 100%; }
 
 *,
 body {
@@ -17,6 +18,9 @@ body {
   box-sizing: border-box;
   outline: none;
   font-size: 10px; }
+
+header {
+  flex: 1 0 auto; }
 
 :disabled {
   color: grey; }
@@ -35,7 +39,8 @@ body {
 
 body {
   display: flex;
-  flex-direction: column; }
+  flex-direction: column;
+  height: 100%; }
 
 input[type="search"] {
   -webkit-box-sizing: border-box;
@@ -84,7 +89,8 @@ input[type="checkbox"]:focus {
   align-items: flex-start;
   width: 100% !important;
   padding: 0 !important;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+  flex: 1 0 auto; }
 
 .custom_light {
   width: 70px;
@@ -1181,7 +1187,6 @@ section .show-end {
   color: grey; }
 
 .footer {
-  flex: 0 0 auto;
   padding: 0;
   flex: 0 0 auto; }
   .footer__style {
@@ -1669,8 +1674,7 @@ section .show-end {
   display: -o-flex;
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100%; }
+  align-items: center; }
   .error_block .error_desc {
     width: 500px; }
   .error_block .error_text {
