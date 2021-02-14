@@ -113,7 +113,7 @@ class UserReport {
         this.reportFormID = 'report_data';
         this.dragDropID = 'drag_drop';
         this.inputFileID = 'files_input';
-        this.userCommentID = 'user_comment';
+        this.userCommentID = 'impress__text';
         this.selectDayRatingID = 'day_rating';
         this.fileListId = 'file_list';
         this.sendReportBtnID = 'sendreport';

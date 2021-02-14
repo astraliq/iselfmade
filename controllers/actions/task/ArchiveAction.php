@@ -53,9 +53,13 @@ class ArchiveAction extends Action {
 
         if ($id) {
             $report = $modelReport->findOne(['id' => $id]);
-            if (\Yii::$app->rbac->canViewReport($report)) {
-                $date = \Yii::$app->formatter->asDateTime($report->date, 'php:d.m.Y');
-                $title = '';
+            if ($report) {
+                if (\Yii::$app->rbac->canViewReport($report)) {
+                    $date = \Yii::$app->formatter->asDateTime($report->date, 'php:d.m.Y');
+                    $title = '';
+                } else {
+                    goto def;
+                }
             } else {
                 goto def;
             }

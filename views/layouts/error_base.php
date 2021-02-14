@@ -14,6 +14,8 @@ use app\assets\AppAsset;
 
 AppAsset::register($this);
 \app\assets\AuthAsset::register($this);
+\app\assets\ErrorsAsset::register($this);
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

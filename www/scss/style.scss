@@ -2,7 +2,6 @@
 
 html {
     overflow-y: scroll;
-    height: 100%;
 }
 
 *,
@@ -93,7 +92,6 @@ input[type="checkbox"]:focus {
     width: 100% !important;
     padding: 0 !important;
     flex-wrap: wrap;
-    flex: 1 0 auto;
 }
 
 .custom_light {
@@ -2363,6 +2361,13 @@ button {
     }
     & #reject_report {
         background-color: #bf1700;
+    }
+
+    & .report_success {
+        width: 100%;
+        color: green;
+        font-size: 20px;
+        margin: 10px;
     }
 
 }

@@ -88,10 +88,6 @@ class ReportsComponent extends BaseComponent {
             ->where([
                 'id' => $id,
             ])
-            ->andWhere(['OR',
-                ['IS', 'status', null],
-                ['<', 'status', 3],
-            ])
             ->one();
         return $report;
     }

@@ -23,12 +23,17 @@ use yii\helpers\Html;
         echo '<p>Все отчеты проверены</p>';
         echo '</div>';
     }
-    ?>
-    <div class="check-buttons">
+    if ($report->status < 4) {
+        echo '<div class="check-buttons">
         <button id="reject_report">Отклонить</button>
         <button id="skip_report">Пропустить (следующий)</button>
         <button id="next_report">Принять отчет</button>
-    </div>
+    </div>';
+    } else {
+        echo '<p class="report_success">Отчет принят</p>';
+    }
+
+    ?>
 </div>
 <?php
 
