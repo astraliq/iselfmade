@@ -1,9 +1,9 @@
 <?php
 
 $params = require __DIR__ . '/params.php';
-$db = file_exists(__DIR__ . '/db.php') ?
-    (require __DIR__ . '/db.php') :
-    (require __DIR__ . '/db_real.php');
+$db = file_exists(__DIR__ . '/db_real.php') ?
+    (require __DIR__ . '/db_real.php') :
+    (require __DIR__ . '/db.php');
 
 $config = [
     'id' => 'basic',
