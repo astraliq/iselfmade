@@ -201,8 +201,9 @@ http://iselfmade.ru
             <?=$form->field($this->params['signUp'],'email',['validateOnChange' => true])->textInput(['class' => 'modal__input', 'id' => 'reg-user-email', 'type' => 'email', 'autocomplete' => 'username']);?>
             <?=$form->field($this->params['signUp'],'password')->passwordInput(['class' => 'modal__input', 'id' => 'reg-user-password', 'type' => 'password', 'autocomplete' => 'new-password'])?>
             <?=$form->field($this->params['signUp'],'repeat_password')->passwordInput(['class' => 'modal__input', 'id' => 'reg-user-repeat_password', 'type' => 'password', 'autocomplete' => 'new-password']);?>
-            <p class="modal__sign-text">Нажимая на кнопку, вы соглашаетесь с <a class="modal__sign-text_link" href="#">нашими правилами</a>
-                и <a class="modal__sign-text_link" href="#">политикой конфиденциальности</a></p>
+            <p class="modal__sign-text">Нажимая на кнопку, вы соглашаетесь с
+<!--                <a class="modal__sign-text_link" href="#">нашими правилами</a>-->
+                <a class="modal__sign-text_link" target="_blank" href="policy">политикой конфиденциальности</a></p>
             <div class="modal__sub">
                 <button type="submit" class="modal__btn modal__btn-sign">Зарегистрироваться</button>
             </div>

@@ -124,6 +124,7 @@ $config = [
                 'goals'=>'task/goals/',
                 'mentor'=>'user/mentor/',
                 'statistics'=>'user/statistics/',
+                'policy'=>'site/policy/',
                 [
                     'class'=>yii\rest\UrlRule::class,
                     'controller'=>'user-rest-api',
