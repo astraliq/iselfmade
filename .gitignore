@@ -4,7 +4,6 @@ protected/runtime/*
 protected/data/*.db
 themes/classic/views/
 config/db_real.php
-config/db.php
 /.idea/
 
 .idea/workspace.xml
@@ -14,3 +13,4 @@ config/db.php
 *.xml
 .idea/workspace.xml
 /.idea/
+config/web.php
