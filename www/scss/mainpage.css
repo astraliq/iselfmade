@@ -667,13 +667,16 @@ strong {
     width: 65px;
     height: 65px;
     border-radius: 50%;
-    padding-left: 5px;
+    padding: 2px 0 0 3px;
     border: none;
     background-color: #4C91F8;
     color: #fff; }
     .curator__sound-round:hover {
       background-color: #609df8;
       cursor: pointer; }
+    .curator__sound-round:active {
+      transform: scale(1) !important;
+      box-shadow: none !important; }
   .curator__sound-text {
     padding-left: 20px;
     font-family: "Roboto", sans-serif;
@@ -885,7 +888,9 @@ strong {
     font-size: 2rem;
     line-height: 2.5rem;
     color: #000;
-    padding-left: 30px; }
+    padding-left: 30px;
+    width: 100%;
+    text-align: center; }
   .rates__price {
     font-family: "Roboto", sans-serif;
     font-weight: 400;
@@ -939,7 +944,8 @@ strong {
     padding: 20px 0;
     display: flex;
     justify-content: center;
-    align-items: center; }
+    align-items: center;
+    flex-wrap: wrap; }
   .rates__btn {
     width: 230px;
     height: 65px;

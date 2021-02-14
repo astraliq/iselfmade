@@ -32,7 +32,7 @@ if (!$user->mentor_email) {
         <?=$form->field($user,'surname')->textInput(['autocomplete' => 'family-name']);?>
         <?=$form->field($user,'birthday')->input('date');?>
         <?=$form->field($user,'sex')->dropDownList($user::SEX, ['options' => [ '1' => ['Selected' => true]], 'autocomplete' => 'sex']);?>
-        <?=$form->field($user,'phone_number')->input('phone');?>
+        <?=$form->field($user,'phone_number')->input('phone', ['placeholder' => '+7 (___) ___-__-__']);?>
         <?=$form->field($user,'timezone')->dropDownList($timezones, ['options' => [ $user->timezoneKeyNumber => ['Selected' => true]]]);?>
         <?=$form->field($user,'avaReal')->fileInput(['multiple' => false,]);?>
         <div class="user_profile-psw">

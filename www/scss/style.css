@@ -8,8 +8,7 @@ sans-serif;
 font-family: 'Scada',
 sans-serif;*/
 html {
-  overflow-y: scroll;
-  height: 100%; }
+  overflow-y: scroll; }
 
 *,
 body {
@@ -89,8 +88,7 @@ input[type="checkbox"]:focus {
   align-items: flex-start;
   width: 100% !important;
   padding: 0 !important;
-  flex-wrap: wrap;
-  flex: 1 0 auto; }
+  flex-wrap: wrap; }
 
 .custom_light {
   width: 70px;
@@ -107,9 +105,13 @@ input[type="checkbox"]:focus {
   border-radius: 50%; }
 
 .left-menu {
+  position: relative;
   margin: -20px 0 0 0;
   width: 260px;
   padding: 0 0 0 30px; }
+  .left-menu .sticky {
+    position: fixed;
+    top: 40px; }
 
 .menu {
   padding-top: 25px; }
@@ -638,6 +640,8 @@ input[type="checkbox"]:focus {
 
 .report_data {
   position: relative; }
+  .report_data section .title {
+    font-size: 2em; }
 
 .files__input {
   width: 108px;
@@ -1113,7 +1117,6 @@ input[type="checkbox"]:focus {
 section .title {
   font-family: "Roboto", sans-serif;
   font-weight: 500;
-  font-size: 2rem;
   line-height: 2.5rem;
   text-transform: uppercase;
   color: #609df8;
@@ -1588,7 +1591,7 @@ section .show-end {
   background-repeat: no-repeat;
   background-size: contain;
   right: -25px;
-  top: 38px; }
+  top: 31px; }
 
 .success_icon {
   display: block;
@@ -1607,19 +1610,18 @@ section .show-end {
 
 #curators_emails_btn_conf {
   width: 80px;
-  height: 23px;
+  height: 25px;
   background-color: #4C91F8;
   color: white;
   border: none;
   outline: none;
   border-radius: 5px;
   font-size: 10px;
-  line-height: 23px;
   font-weight: 600;
   cursor: default;
   position: absolute;
   right: 7px;
-  top: 38px; }
+  top: 25px; }
   #curators_emails_btn_conf:active {
     transform: scale(0.97); }
 
@@ -1669,6 +1671,12 @@ section .show-end {
     text-align: center; }
   .error_block p {
     font-size: 15px; }
+
+.message_title {
+  font-size: 23px;
+  width: 100%;
+  text-align: center;
+  color: #30458a; }
 
 button {
   font-size: 17px;
@@ -1770,6 +1778,11 @@ button {
     display: block; }
   .check #reject_report {
     background-color: #bf1700; }
+  .check .report_success {
+    width: 100%;
+    color: green;
+    font-size: 20px;
+    margin: 10px; }
 
 .archive {
   width: 72%;
@@ -1886,3 +1899,21 @@ button {
   .soc__item:hover {
     cursor: pointer;
     fill: #4C91F8; }
+
+.restore-block {
+  width: 100%;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; }
+  .restore-block .form-name {
+    font-size: 20px;
+    color: #4C91F8; }
+  .restore-block .control-label {
+    display: inline-block;
+    width: 220px;
+    font-size: 20px; }

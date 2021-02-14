@@ -1,9 +1,9 @@
 <?php
 
 $params = require __DIR__ . '/params.php';
-$db = file_exists(__DIR__ . '/db.php') ?
-    (require __DIR__ . '/db.php') :
-    (require __DIR__ . '/db_real.php');
+$db = file_exists(__DIR__ . '/db_real.php') ?
+    (require __DIR__ . '/db_real.php') :
+    (require __DIR__ . '/db.php');
 
 $config = [
     'id' => 'basic',
@@ -61,7 +61,7 @@ $config = [
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
-            'useFileTransport' => true,
+            'useFileTransport' => file_exists(__DIR__ . '/db_real.php') ? false : true,
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -117,12 +117,13 @@ $config = [
                 'profile'=>'user/update/',
                 'task/img/'=>'img/',
                 'profile/<id:\d+>'=>'user/update/',
-                'confirm-curator-email'=>'site/confirm-curator-email',
+                'confirm-mentor-email'=>'site/confirm-mentor-email',
                 'grade-result'=>'site/grade-result',
                 'check-reports'=>'report/check-reports/',
                 'welcome'=>'task/welcome/',
                 'goals'=>'task/goals/',
                 'mentor'=>'user/mentor/',
+                'statistics'=>'user/statistics/',
                 [
                     'class'=>yii\rest\UrlRule::class,
                     'controller'=>'user-rest-api',

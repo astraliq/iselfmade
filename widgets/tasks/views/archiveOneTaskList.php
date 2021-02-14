@@ -22,7 +22,7 @@ switch ($report->status) {
 <div class="archive__data">
     <div class="archive__numb archive__numb-data"><?=$number?></div>
     <div class="archive__date archive__date-data">
-        <a class="" href=""><?=$report->date?></a>
+        <a class="" href="archive?id=<?=$report->id?>"><?=$report->date?></a>
     </div>
     <div class="archive__status archive__status-data"><?=$status?></div>
     <div class="archive__done archive__done-data"><?=$finishedTasksCount?> из <?=$tasksCount?></div>

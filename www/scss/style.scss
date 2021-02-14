@@ -2,7 +2,6 @@
 
 html {
     overflow-y: scroll;
-    height: 100%;
 }
 
 *,
@@ -93,7 +92,6 @@ input[type="checkbox"]:focus {
     width: 100% !important;
     padding: 0 !important;
     flex-wrap: wrap;
-    flex: 1 0 auto;
 }
 
 .custom_light {
@@ -113,9 +111,14 @@ input[type="checkbox"]:focus {
 }
 
 .left-menu {
+    position: relative;
     margin: -20px 0 0 0;
     width: 260px;
     padding: 0 0 0 30px;
+    & .sticky {
+        position: fixed;
+        top: 40px;
+    }
 }
 
 .menu {
@@ -875,6 +878,9 @@ input[type="checkbox"]:focus {
 
 .report_data {
     position: relative;
+    & section .title {
+        font-size: 2em;
+    }
 }
 
 .files {
@@ -1477,7 +1483,6 @@ section {
     & .title {
         font-family: $font_main-text;
         font-weight: 500;
-        font-size: 2rem;
         line-height: 2.5rem;
         text-transform: uppercase;
         color: $color-blue-light;
@@ -2122,7 +2127,7 @@ section {
     background-repeat: no-repeat;
     background-size: contain;
     right: -25px;
-    top: 38px;
+    top: 31px;
 }
 
 .success_icon {
@@ -2144,19 +2149,19 @@ section {
 
 #curators_emails_btn_conf {
     width: 80px;
-    height: 23px;
+    height: 25px;
     background-color: #4C91F8;
     color: white;
     border: none;
     outline: none;
     border-radius: 5px;
     font-size: 10px;
-    line-height: 23px;
     font-weight: 600;
     cursor: default;
     position: absolute;
     right: 7px;
-    top: 38px;
+    top: 25px;
+
     &:active {
         transform: scale(0.97);
     }
@@ -2224,6 +2229,13 @@ section {
     & p {
         font-size: 15px;
     }
+}
+
+.message_title {
+    font-size: 23px;
+    width: 100%;
+    text-align: center;
+    color: $color-blue-black;
 }
 
 button {
@@ -2363,6 +2375,13 @@ button {
     }
     & #reject_report {
         background-color: #bf1700;
+    }
+
+    & .report_success {
+        width: 100%;
+        color: green;
+        font-size: 20px;
+        margin: 10px;
     }
 
 }
@@ -2520,7 +2539,27 @@ button {
     -ms-transition: all .3s ease;
 }
 
+.restore-block {
+    width: 100%;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    & .form-name {
+        font-size: 20px;
+        color: $color-blue;
+    }
 
+    & .control-label {
+        display: inline-block;
+        width: 220px;
+        font-size: 20px;
+    }
+}
 
 
 

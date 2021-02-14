@@ -182,6 +182,7 @@ class AuthController extends Controller {
 
     // изменение пароля
     public function actionRestorePassword($email=null,$token=null){
+        $this->layout = 'error_base';
         if (!\Yii::$app->user->isGuest) {
             $user = \Yii::$app->user->getIdentity();
             if ($user->welcome_view == 0) {

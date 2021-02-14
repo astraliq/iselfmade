@@ -1,5 +1,15 @@
 'use strict';
 
+let userPhoneInput = document.getElementById('user-phone_number');
+if (userPhoneInput) {
+    $(userPhoneInput).mask('+7 (999) 999-99-99', {placeholder: '_' });
+    userPhoneInput.addEventListener('mouseup', (e) => {
+        if (userPhoneInput.value === '+7 (___) ___-__-__') {
+            userPhoneInput.setSelectionRange(4, 4);
+        }
+    });
+}
+
 function get_cookie (cookie_name) {
     let results = document.cookie.match ( '(^|;) ?' + cookie_name + '=([^;]*)(;|$)' );
     if ( results )
@@ -1228,9 +1238,11 @@ class Calendar {
     }
 
     async create(elem, year, month, day) {
-        let monthArchive = await this.getMonthArchive(month, year);
-        this._renderCalendar(elem, year, month, day, monthArchive);
-        archive.init();
+        if (elem[0]) {
+            let monthArchive = await this.getMonthArchive(month, year);
+            this._renderCalendar(elem, year, month, day, monthArchive);
+            archive.init();
+        }
     }
 
 

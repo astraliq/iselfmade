@@ -31,11 +31,13 @@ class AppAsset extends AssetBundle {
     ];
     public $js = [
 //        'js/jquery-3.5.1.min.js',
+        'js/jquery.maskedinput.min.js',
         'js/autosize.js',
         'js/main.js',
         'js/comments.js',
         'js/main_menu.js',
         'js/modal_img.js',
+
     ];
     public $depends = [
         'yii\web\YiiAsset',

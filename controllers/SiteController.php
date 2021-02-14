@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use app\components\DAOComponent;
 use app\components\TimeZoneComponent;
-use app\controllers\actions\site\ConfirmCuratorEmailAction;
+use app\controllers\actions\site\ConfirmMentorEmailAction;
 use app\controllers\actions\site\ErrorAction;
 use app\controllers\actions\site\GetNotifsAction;
 use app\controllers\actions\site\GradeResultAction;
@@ -58,7 +58,7 @@ class SiteController extends Controller {
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
-            'confirm-curator-email' => ['class' => ConfirmCuratorEmailAction::class],
+            'confirm-mentor-email' => ['class' => ConfirmMentorEmailAction::class],
             'grade-result' => ['class' => GradeResultAction::class, ],
             'update-data' => ['class' => UpdateDataAction::class, ],
             'get-notifs' => ['class' => GetNotifsAction::class, ],

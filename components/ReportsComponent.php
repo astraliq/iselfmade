@@ -88,16 +88,22 @@ class ReportsComponent extends BaseComponent {
             ->where([
                 'id' => $id,
             ])
-            ->andWhere(['OR',
-                ['IS', 'status', null],
-                ['<', 'status', 3],
-            ])
             ->one();
         return $report;
     }
 
+    public function getLastReportDate() {
+        $report = UsersReports::find()
+//            ->where([
+//                'id' => $id,
+//            ])
+            ->orderBy(['date_create' => SORT_DESC])
+            ->one();
+        return $report->date_create;
+    }
+
     public function getCountReportsToCheck() {
-        $todayUTC = date('Y-m-d');
+//        $todayUTC = date('Y-m-d');
         $reportsCount = UsersReports::find()
 //            ->where([
 //                'date' => $todayUTC,
@@ -117,8 +123,9 @@ class ReportsComponent extends BaseComponent {
         $this->modelClass = UsersReports::class;
         $model = $this->getModel();
         $report = $model->findOne(['user_id' => $userId, 'date' => $d]);
+
         $report->status = $status;
-        if ($report->save()) {
+        if ($report->save(false)) {
             return true;
         }
         return false;

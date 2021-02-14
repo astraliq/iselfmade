@@ -13,3 +13,5 @@ config/db_real.php
 *.xml
 .idea/workspace.xml
 /.idea/
+config/web.php
+www/index.php
