@@ -91,6 +91,14 @@ body {
             color: $color-black;
         }
     }
+    &__item-not-allowed {
+        display: block;
+        color: $color-gray;
+        text-decoration: none;
+        &:hover {
+            cursor: not-allowed;
+        }
+    }
 }
 
 .submenu__item {
