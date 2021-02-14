@@ -24,14 +24,14 @@ if ($comment->user->avatar) {
     $avatar = '/img/user_img.jpg';
 }
 $today = gmdate('d.m.Y');
-$date = \Yii::$app->formatter->asDateTime($comment->date_create, 'php:d.m.Y');
+$date = \Yii::$app->formatter->asDateTime($comment->realDateCreate, 'php:d.m.Y');
 $realDate = '';
 if ($date == $today) {
-    $realDate = \Yii::$app->formatter->asDateTime($comment->date_create, 'php:H:i:s');
+    $realDate = \Yii::$app->formatter->asDateTime($comment->realDateCreate, 'php:H:i:s');
 } elseif ($date == ($today - 1)) {
-    $realDate = \Yii::$app->formatter->asDateTime($comment->date_create, 'php:Вчера, H:i:s');
+    $realDate = \Yii::$app->formatter->asDateTime($comment->realDateCreate, 'php:Вчера, H:i:s');
 } else {
-    $realDate = \Yii::$app->formatter->asDateTime($comment->date_create, 'php:d F Y, H:i:s');
+    $realDate = \Yii::$app->formatter->asDateTime($comment->realDateCreate, 'php:d F Y, H:i:s');
 }
 
 
