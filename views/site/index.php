@@ -36,20 +36,21 @@
                 У вас будет <strong>персональный куратор</strong>. Он будет проверять каждый отчёт, который вы заполняете в системе. А в тарифах &laquo;Результат&raquo; и &laquo;Прорыв&raquo;, куратор ещё и <strong>звонит вам по телефону</strong>,
                 чтобы узнать как много дел вы уже выполнили сегодня.
             </p>
-            <div class="curator__sound">
-                <audio id="audio" src=""></audio>
-                <div class="curator__sound-oval audio-controls">
-                    <button class="curator__sound-round play">►</button>
-                    <button class="curator__sound-round pause">&#10074;&#10074;</button>
-                    <div class="audio-track">
-                        <div class="time"></div>
-                    </div>
-                    <p class="curator__sound-text track-name">Фрагмент разговора с куратором</p>
-                    <div class="track-volume">
-                        <input type="range" class="volume" name="volume" min="0" max="10" value="1">
-                    </div>
-                </div>
-            </div>
+            <br> <br>
+<!--            <div class="curator__sound">-->
+<!--                <audio id="audio" src=""></audio>-->
+<!--                <div class="curator__sound-oval audio-controls">-->
+<!--                    <button class="curator__sound-round play">►</button>-->
+<!--                    <button class="curator__sound-round pause">&#10074;&#10074;</button>-->
+<!--                    <div class="audio-track">-->
+<!--                        <div class="time"></div>-->
+<!--                    </div>-->
+<!--                    <p class="curator__sound-text track-name">Фрагмент разговора с куратором</p>-->
+<!--                    <div class="track-volume">-->
+<!--                        <input type="range" class="volume" name="volume" min="0" max="10" value="1">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
             <p class="curator__text">
                 Для некоторых дел, которые вы указали в отчёте, вашему куратору могут потребоваться «доказательства». Например, скрин подготовленного письма или составленное резюме для поиска новой работы.
             </p>
@@ -137,19 +138,19 @@
                 <h2 class="chapter__title">Возможные дела</h2>
                 <p class="chapter__text">Всё, что вам кажется может быть придётся делать в будущем. Записывайте, чтобы не забыть.</p>
             </div>
-            <div class="other__button">
-                <input id="show_more" class="show_more" type="checkbox">
-                <label for="show_more" class="other__btn btn__shadow hide_blocks_label">Посмотреть все сервисы</label>
+<!--            <div class="other__button">-->
+<!--                <input id="show_more" class="show_more" type="checkbox">-->
+<!--                <label for="show_more" class="other__btn btn__shadow hide_blocks_label">Посмотреть все сервисы</label>-->
 <!--                СКРЫТЫЕ БЛОКИ-->
-                <div class="chapter">
-                    <h2 class="chapter__title">...........мои обещания............</h2>
-                    <p class="chapter__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores aspernatur atque autem consectetur consequuntur dolorem</p>
-                </div>
-                <div class="chapter">
-                    <h2 class="chapter__title">.............Возможные дела............</h2>
-                    <p class="chapter__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. At beatae consequuntur distinctio eius et facere labore magni numquam tempore vero!.</p>
-                </div>
-            </div>
+<!--                <div class="chapter">-->
+<!--                    <h2 class="chapter__title">...........мои обещания............</h2>-->
+<!--                    <p class="chapter__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores aspernatur atque autem consectetur consequuntur dolorem</p>-->
+<!--                </div>-->
+<!--                <div class="chapter">-->
+<!--                    <h2 class="chapter__title">.............Возможные дела............</h2>-->
+<!--                    <p class="chapter__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. At beatae consequuntur distinctio eius et facere labore magni numquam tempore vero!.</p>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
     </section>
     <section class="container_full container_full-280">
@@ -200,7 +201,7 @@
             </div>
             <div class="rates__item rates-standart">
                 <p class="rates__name">Тариф «СТАНДАРТ»</p>
-                <p class="rates__price">99 ₽/месяц</p>
+                <p class="rates__price">149 ₽/месяц</p>
                 <p class="rates__free-pay">3 месяца</p>
                 <p class="rates__work-day">5</p>
                 <p class="rates__free-day">1</p>
@@ -217,7 +218,7 @@
             </div>
             <div class="rates__item rates-result">
                 <p class="rates__name">Тариф «РЕЗУЛЬТАТ»</p>
-                <p class="rates__price">249 ₽/месяц</p>
+                <p class="rates__price">349 ₽/месяц</p>
                 <p class="rates__free-pay">&#151;</p>
                 <p class="rates__work-day">6</p>
                 <p class="rates__free-day">2</p>
@@ -229,13 +230,12 @@
                 <p class="rates__plus">+</p>
                 <p class="rates__minus">–</p>
                 <div class="rates__button">
-                     <button class="rates__btn" id="btn_start_result">Начать</button>
-<!--                    <p class="rates__name">Доступен с 01.03.2021</p>-->
+                     <button class="rates__btn" id="btn_start_result" disabled>Доступен с 01.03.2021</button>
                 </div>
             </div>
             <div class="rates__item rates-break">
                 <p class="rates__name">Тариф «ПРОРЫВ»</p>
-                <p class="rates__price">749 ₽/месяц</p>
+                <p class="rates__price">949 ₽/месяц</p>
                 <p class="rates__free-pay">&#151;</p>
                 <p class="rates__work-day">6</p>
                 <p class="rates__free-day">3</p>
@@ -247,8 +247,7 @@
                 <p class="rates__minus">–</p>
                 <p class="rates__plus">+</p>
                 <div class="rates__button">
-                     <button class="rates__btn" id="btn_start_break">Начать</button>
-<!--                    <p class="rates__name">Доступен с 01.03.2021</p>-->
+                    <button class="rates__btn" id="btn_start_result" disabled>Доступен с 01.03.2021</button>
                 </div>
             </div>
         </div>

@@ -143,7 +143,7 @@ class Comments {
     init() {
         let commentsSection = document.getElementById(this.commentsBlockID);
         if (!commentsSection) {
-            console.log('Отсутствует блок коментариев...');
+            // console.log('Отсутствует блок коментариев...');
             return false;
         }
         let btn = document.getElementById(this.commentsSendBtnID);

@@ -26,9 +26,9 @@ class ConfirmationCuratorsEmailAction extends Action {
         }
 
         if ($comp->confirmCuratorsEmail($user, $confirmation_token)) {
-            return $this->controller->redirect('/confirm-curator-email?result=1');
+            return $this->controller->redirect('/confirm-mentor-email?result=1');
         }
 
-        return $this->controller->redirect('/confirm-curator-email?result=0');
+        return $this->controller->redirect('/confirm-mentor-email?result=0');
     }
 }

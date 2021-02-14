@@ -854,13 +854,17 @@ strong {
         width: 65px;
         height: 65px;
         border-radius: 50%;
-        padding-left: 5px;
+        padding: 2px 0 0 3px;
         border: none;
         background-color: $color-blue;
         color: $color-white;
         &:hover {
             background-color: $color-blue-light;
             cursor: pointer;
+        }
+        &:active {
+            transform: scale(1) !important;
+            box-shadow: none !important;
         }
     }
     &__sound-text {
@@ -1123,6 +1127,8 @@ strong {
         line-height: 2.5rem;
         color: $color-black;
         padding-left: 30px;
+        width: 100%;
+        text-align: center;
     }
     &__price {
         font-family: $font_main-text;
@@ -1184,6 +1190,7 @@ strong {
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-wrap: wrap;
     }
     &__btn {
         width: 230px;

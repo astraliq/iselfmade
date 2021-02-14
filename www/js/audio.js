@@ -4,16 +4,16 @@ class Audio {
     constructor(audioBlock) {
         this.audioBlock = document.querySelector(audioBlock);
         this.audio = document.getElementById('audio');
-        this.audioControls  = this.audioBlock.querySelector('.audio-controls');
-        this.audioTrack  = this.audioBlock.querySelector('.audio-track');
-        this.time  = this.audioBlock.querySelector('.time');
-        this.volume  = this.audioBlock.querySelector('.volume');
-        this.btnPlay  = this.audioBlock.querySelector('.play');
-        this.btnPause  = this.audioBlock.querySelector('.pause');
+        this.audioControls  = this.audioBlock ? this.audioBlock.querySelector('.audio-controls') : null;
+        this.audioTrack  = this.audioBlock ? this.audioBlock.querySelector('.audio-track') : null;
+        this.time  = this.audioBlock ? this.audioBlock.querySelector('.time') : null;
+        this.volume  = this.audioBlock ? this.audioBlock.querySelector('.volume') : null;
+        this.btnPlay  = this.audioBlock ? this.audioBlock.querySelector('.play') : null;
+        this.btnPause  = this.audioBlock ? this.audioBlock.querySelector('.pause') : null;
         this.btnPrev;
         this.btnNext;
         this.playlist = [
-            'SLAVA MARLOW - Snova ia napivaius.mp3',
+            // СЮДА ДОБАВЛЯТЬ ТРЕКИ
         ];
         this.track = 0;
         this.audioPlay;
@@ -113,4 +113,6 @@ class Audio {
 }
 
 let curator = new Audio('.curator__sound');
-curator.init();
+if (curator.audioBlock) {
+    curator.init();
+}

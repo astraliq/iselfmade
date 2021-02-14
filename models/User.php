@@ -307,6 +307,7 @@ class User extends UserBase implements IdentityInterface
             'repeat_password' => Yii::t('app', 'Повтор пароля'),
             'token' => Yii::t('app', 'Код подтверждения'),
             'mentor_email' => Yii::t('app', 'Электронная почта наставника'),
+            'mentor_email_repeat' => Yii::t('app', 'Регулярность отправки отчетов на почту наставнику'),
 
         ]);
     }

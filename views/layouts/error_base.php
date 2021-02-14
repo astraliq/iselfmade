@@ -116,14 +116,15 @@ http://iselfmade.ru
         <a class="footer__soc-text" href="https://vk.com/iselfmaderu">Вконтакте</a>
         <a class="footer__soc-text" href="https://www.instagram.com/iselfmade.ru/">Инстаграм</a>
         <a class="footer__soc-text" href="https://t.me/iselfmaderu">Телеграм&#150;канал</a>
+        <a class="footer__soc-text" href="https://twitter.com/iselfmaderu">Twitter</a>
     </div>
-    <div class="footer__sub">
-        <p class="footer__sub-text">Полезная еженедельная рассылка</p>
-        <div class="footer__form">
-            <input class="footer__input" type="text" placeholder="email">
-            <button class="footer__btn">Подписаться</button>
-        </div>
-    </div>
+<!--    <div class="footer__sub">-->
+<!--        <p class="footer__sub-text">Полезная еженедельная рассылка</p>-->
+<!--        <div class="footer__form">-->
+<!--            <input class="footer__input" type="text" placeholder="email">-->
+<!--            <button class="footer__btn">Подписаться</button>-->
+<!--        </div>-->
+<!--    </div>-->
 </footer>
 
 <?php $this->endBody() ?>

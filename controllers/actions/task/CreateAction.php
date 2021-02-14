@@ -58,6 +58,7 @@ class CreateAction extends Action {
                 return ['result' => true, 'task' => \app\widgets\tasks\OneTaskViewWidget::widget([
                     'task' => $newTask,
                     'nextPeriod' => $task->nextPeriod,
+                    'type_id' => 1,
                 ])];
             }
         } else {

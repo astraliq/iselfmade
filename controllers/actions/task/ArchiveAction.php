@@ -31,8 +31,7 @@ class ArchiveAction extends Action {
         $yesterdayDate = date('d.m.Y', strtotime( "-1 day"));
         $yesterdayUTC = date('Y-m-d', strtotime( "-1 day"));
         $beforeYesterdayDate = date('d.m.Y', strtotime( "-2 day"));
-        $yesterdayTasks = $comp->getTasksByDateAndUserId($userId, $yesterdayDate);
-        $beforeYesterdayTasks = $comp->getTasksByDateAndUserId($userId, $beforeYesterdayDate);
+
 
         $compReports = \Yii::createObject(['class' => ReportsComponent::class,'modelClass' => UsersReports::class]);
         $modelReport = $compReports->getModel();
@@ -51,12 +50,15 @@ class ArchiveAction extends Action {
             return $tasks;
         }
 
+//        $beforeYesterdayTasks = $comp->getTasksByDateAndUserId($userId, $beforeYesterdayDate);
+
         if ($id) {
             $report = $modelReport->findOne(['id' => $id]);
             if ($report) {
                 if (\Yii::$app->rbac->canViewReport($report)) {
                     $date = \Yii::$app->formatter->asDateTime($report->date, 'php:d.m.Y');
                     $title = '';
+                    $yesterdayTasks = $comp->getArchiveTasksByDate($date);
                 } else {
                     goto def;
                 }
@@ -65,6 +67,7 @@ class ArchiveAction extends Action {
             }
         } else {
             def:
+            $yesterdayTasks = $comp->getArchiveTasksByDate($yesterdayDate);
             $report = $compReports->getUserReportsByDatesArr($yesterdayUTC)[0];
             $date = $yesterdayDate;
             $title = 'Вчера';
@@ -81,8 +84,8 @@ class ArchiveAction extends Action {
 //            'archiveTasks' => $archiveTasks,
             'yesterdayTasks' => $yesterdayTasks,
             'yesterdayDate' => $date,
-            'beforeYesterday' => $beforeYesterdayTasks,
-            'beforeYesterdayDate' => $beforeYesterdayDate,
+//            'beforeYesterday' => $beforeYesterdayTasks,
+//            'beforeYesterdayDate' => $beforeYesterdayDate,
             'yesterdayGrade' => $yesterdayMentorGrade,
             'reports' => $reports,
             'yesterdayReport' => $report,

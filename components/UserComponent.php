@@ -76,7 +76,7 @@ class UserComponent extends BaseComponent {
             $user->grade_token = $auth->generateUserGradeToken();
             if ($user->save()) {
                 $message = \Yii::$app->mailer->compose(
-                    'curators_confirm', [
+                    'mentors_confirm', [
                         'confirmation_token' => $confirmation_token,
                         'userId' => $user->id,
                         'name' => $user->name,
@@ -108,5 +108,30 @@ class UserComponent extends BaseComponent {
         } else {
             return false;
         }
+    }
+
+    public function getTotalCountUsers() {
+        return User::find()->count();
+    }
+
+    public function getLastDayCountUsers() {
+        return User::find()
+            ->andWhere(['AND',
+                ['>=', 'date_create', (new \DateTime(date('d.m.Y') . ' 00:00:00'))->format('Y-m-d H:i:s')],
+                ['<=', 'date_create', (new \DateTime(date('d.m.Y') . ' 23:59:59'))->format('Y-m-d H:i:s')],
+
+            ])
+            ->count();
+    }
+
+    public function getUsersList() {
+        return User::find()
+            ->select('*')
+//            ->andWhere(['AND',
+//                ['>=', 'date_create', (new \DateTime(date('d.m.Y') . ' 00:00:00'))->format('Y-m-d H:i:s')],
+//                ['<=', 'date_create', (new \DateTime(date('d.m.Y') . ' 23:59:59'))->format('Y-m-d H:i:s')],
+//
+//            ])
+            ->all();
     }
 }

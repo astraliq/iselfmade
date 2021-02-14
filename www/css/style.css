@@ -105,9 +105,13 @@ input[type="checkbox"]:focus {
   border-radius: 50%; }
 
 .left-menu {
+  position: relative;
   margin: -20px 0 0 0;
   width: 260px;
   padding: 0 0 0 30px; }
+  .left-menu .sticky {
+    position: fixed;
+    top: 40px; }
 
 .menu {
   padding-top: 25px; }
@@ -1604,7 +1608,7 @@ section .show-end {
   background-repeat: no-repeat;
   background-size: contain;
   right: -25px;
-  top: 38px; }
+  top: 31px; }
 
 .success_icon {
   display: block;
@@ -1623,19 +1627,18 @@ section .show-end {
 
 #curators_emails_btn_conf {
   width: 80px;
-  height: 23px;
+  height: 25px;
   background-color: #4C91F8;
   color: white;
   border: none;
   outline: none;
   border-radius: 5px;
   font-size: 10px;
-  line-height: 23px;
   font-weight: 600;
   cursor: default;
   position: absolute;
   right: 7px;
-  top: 38px; }
+  top: 25px; }
   #curators_emails_btn_conf:active {
     transform: scale(0.97); }
 
@@ -1686,6 +1689,12 @@ section .show-end {
     text-align: center; }
   .error_block p {
     font-size: 15px; }
+
+.message_title {
+  font-size: 23px;
+  width: 100%;
+  text-align: center;
+  color: #30458a; }
 
 button {
   font-size: 17px;

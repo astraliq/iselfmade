@@ -132,26 +132,32 @@ class Update {
     }
 
     init() {
-        this.sendRequest();
-        setInterval(() => {this.sendRequest()}, this.interval);
         let bell = document.getElementById(this.notifsId);
-        bell.addEventListener('click', (e) => {
-            this.getNotifs(this.notifBlockId);
-            this.showNotifs(this.notifBlockId);
-        });
+        if (bell) {
+            this.sendRequest();
+            setInterval(() => {this.sendRequest()}, this.interval);
+            bell.addEventListener('click', (e) => {
+                this.getNotifs(this.notifBlockId);
+                this.showNotifs(this.notifBlockId);
+            });
+        }
+
         let settingsBtn = document.getElementById(this.settingsId);
-        settingsBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            this.showNotifs(this.settingsItemsId);
-        });
-        // settingsBtn.addEventListener('click', (e) => {
-        //     this.hideNotifs(this.settingsId);
-        // });
-        document.querySelector('.container').addEventListener('click', (e) => {
-            if (!e.target.closest('.notification')) {
-                this.hideNotifs(this.notifBlockId);
-            }
-        });
+        if (settingsBtn) {
+            settingsBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.showNotifs(this.settingsItemsId);
+            });
+        }
+
+        if (bell && settingsBtn) {
+            document.querySelector('.container').addEventListener('click', (e) => {
+                if (!e.target.closest('.notification')) {
+                    this.hideNotifs(this.notifBlockId);
+                }
+            });
+        }
+
     }
 
 }
@@ -168,15 +174,18 @@ class UserMenu extends Update{
 
     init() {
         let ava = document.getElementById(this.userImgID);
-        ava.addEventListener('click', (e) => {
-            this.getNotifs(this.userMenuID);
-            this.showNotifs(this.userMenuID);
-        });
-        document.querySelector('.container').addEventListener('click', (e) => {
-            if (!e.target.closest('.user_menu')) {
-                this.hideNotifs(this.userMenuID);
-            }
-        });
+        if (ava) {
+            ava.addEventListener('click', (e) => {
+                this.getNotifs(this.userMenuID);
+                this.showNotifs(this.userMenuID);
+            });
+            document.querySelector('.container').addEventListener('click', (e) => {
+                if (!e.target.closest('.user_menu')) {
+                    this.hideNotifs(this.userMenuID);
+                }
+            });
+        }
+
     }
 }
 
