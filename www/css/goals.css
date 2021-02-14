@@ -74,6 +74,12 @@ body {
     .menu__item-link:hover {
       text-decoration: none;
       color: #000; }
+  .menu__item-not-allowed {
+    display: block;
+    color: #b1b1b1;
+    text-decoration: none; }
+    .menu__item-not-allowed:hover {
+      cursor: not-allowed; }
 
 .submenu__item {
   display: block;

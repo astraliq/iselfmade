@@ -42,6 +42,7 @@ class AddCommentAction extends Action {
 
             if ($compComments->addReportComment($comment)) {
                 $comment->date_create = gmdate('Y-m-d H:i:s');
+                $comment->realDateCreate = $comment->date_create;
                 if (\Yii::$app->request->isAjax) {
                     return ['result' => true,
                         'comment' => OneCommentWidget::widget([

@@ -596,6 +596,54 @@ input[type="checkbox"]:focus {
 
 }
 
+.policy {
+    margin: 10px 80px;
+    padding: 20px 0 40px 40px;
+}
+
+.main__style {
+    font-size: 18px;
+}
+
+.main__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main__img {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 30px;
+}
+
+.main__title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 2rem;
+    color: #000000;
+    text-transform: uppercase;
+}
+
+.main__text {
+    font-size: 1.8rem;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    color: #000000;
+    padding-right: 60px;
+}
+
+.main__subtitle {
+    padding: 15px 0 0 0;
+    font-weight: 600;
+    font-size: inherit;
+}
+
+.main__paragraph {
+    padding-bottom: 25px;
+    font-size: inherit;
+}
+
 .task__input_block {
     position: relative;
     display: -webkit-flex;

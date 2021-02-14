@@ -7,13 +7,18 @@ namespace app\controllers;
 use app\base\BaseController;
 use app\controllers\actions\site\ErrorAction;
 use app\controllers\actions\task\ArchiveAction;
+use app\controllers\actions\task\BoardAction;
 use app\controllers\actions\task\CreateAction;
 use app\controllers\actions\task\DeleteAction;
 use app\controllers\actions\task\FinishAction;
+use app\controllers\actions\task\FuruteAction;
 use app\controllers\actions\task\GetArchiveAction;
 use app\controllers\actions\task\GetMonthsArchiveDataAction;
 use app\controllers\actions\task\GoalsAction;
+use app\controllers\actions\task\GroupAction;
 use app\controllers\actions\task\NextRepeatDateAction;
+use app\controllers\actions\task\PossibleAction;
+use app\controllers\actions\task\PromisesAction;
 use app\controllers\actions\task\RepeatedAction;
 use app\controllers\actions\task\SetGradeAction;
 use app\controllers\actions\task\TransferAction;
@@ -50,6 +55,11 @@ class TaskController extends BaseController {
             'get-months-archive-data' => ['class' => GetMonthsArchiveDataAction::class],
             'welcome' => ['class' => WelcomeAction::class],
             'goals' => ['class' => GoalsAction::class],
+            'future' => ['class' => FuruteAction::class],
+            'possible' => ['class' => PossibleAction::class],
+            'promises' => ['class' => PromisesAction::class],
+            'group' => ['class' => GroupAction::class],
+            'board' => ['class' => BoardAction::class],
         ];
 
     }
