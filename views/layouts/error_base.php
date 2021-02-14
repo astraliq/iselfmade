@@ -90,7 +90,7 @@ http://iselfmade.ru
         <div class="header__top">
             <a class="header-logo-link" href="http://iselfmade.ru">
                 <div class="header__logo">
-                    <img src="img/logo.png" width="150" height="auto" alt="НОСОРОГ">
+                    <img src="/img/logo.png" width="150" height="auto" alt="НОСОРОГ">
                     <p class="header-logo-text">i<span class="header-logo-text-self">self</span>made.ru</p>
                 </div>
             </a>
@@ -105,7 +105,7 @@ http://iselfmade.ru
 </div>
 <footer class="footer__style">
     <div class="footer__logo">
-        <img src="img/rhino-footer.png" width="100" height="50" alt="Проще сделать, чем не сделать">
+        <img src="/img/rhino-footer.png" width="100" height="50" alt="Проще сделать, чем не сделать">
         <p class="footer__logo-text-1">ПРОЩЕ</p>
         <p class="footer__logo-text-2">СДЕЛАТЬ,</p>
         <p class="footer__logo-text-3">ЧЕМ</p>

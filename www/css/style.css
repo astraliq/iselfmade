@@ -642,6 +642,8 @@ input[type="checkbox"]:focus {
 
 .report_data {
   position: relative; }
+  .report_data section .title {
+    font-size: 2em; }
 
 .files__input {
   width: 108px;
@@ -1121,7 +1123,6 @@ input[type="checkbox"]:focus {
 section .title {
   font-family: "Roboto", sans-serif;
   font-weight: 500;
-  font-size: 2rem;
   line-height: 2.5rem;
   text-transform: uppercase;
   color: #609df8;
@@ -1922,3 +1923,21 @@ button {
   .soc__item:hover {
     cursor: pointer;
     fill: #4C91F8; }
+
+.restore-block {
+  width: 100%;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; }
+  .restore-block .form-name {
+    font-size: 20px;
+    color: #4C91F8; }
+  .restore-block .control-label {
+    display: inline-block;
+    width: 220px;
+    font-size: 20px; }
