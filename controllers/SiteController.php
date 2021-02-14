@@ -9,6 +9,7 @@ use app\controllers\actions\site\ErrorAction;
 use app\controllers\actions\site\GetNotifsAction;
 use app\controllers\actions\site\GradeResultAction;
 use app\controllers\actions\site\UpdateDataAction;
+use app\controllers\actions\user\PolicyAction;
 use app\models\RegistrationForm;
 use app\models\User;
 use Yii;
@@ -62,6 +63,7 @@ class SiteController extends Controller {
             'grade-result' => ['class' => GradeResultAction::class, ],
             'update-data' => ['class' => UpdateDataAction::class, ],
             'get-notifs' => ['class' => GetNotifsAction::class, ],
+            'policy' => ['class' => PolicyAction::class, ],
         ];
     }
 
