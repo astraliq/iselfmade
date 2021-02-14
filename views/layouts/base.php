@@ -185,11 +185,11 @@ http://iselfmade.ru
                                 'options' => ['class' => $url=='/group' ? 'menu__item_selected' : ''],
                                 'linkOptions' => ['class' => 'menu__item'],
                             ]),
-                            (['label' => 'Остальные сервисы',
-                                'url' => ['/others'],
-                                'options' => ['class' => $url=='/others' ? 'menu__item_selected' : ''],
-                                'linkOptions' => ['class' => 'menu__item'],
-                            ]),
+//                            (['label' => 'Остальные сервисы',
+//                                'url' => ['/others'],
+//                                'options' => ['class' => $url=='/others' ? 'menu__item_selected' : ''],
+//                                'linkOptions' => ['class' => 'menu__item'],
+//                            ]),
                         ],
                     ]);
                     ?>
