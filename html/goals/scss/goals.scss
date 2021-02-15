@@ -94,9 +94,10 @@ body {
     &__item-not-allowed {
         display: block;
         color: $color-gray;
-        text-decoration: none;
+        text-decoration: underline;
         &:hover {
-            cursor: not-allowed;
+            text-decoration: none;
+            color: $color-black;
         }
     }
 }
