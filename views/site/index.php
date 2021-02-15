@@ -303,8 +303,9 @@
                 <?=$form->field($this->params['signUp'],'email',['validateOnChange' => true])->textInput(['class' => 'modal2__input', 'id' => 'reg2-user-email', 'type' => 'email', 'autocomplete' => 'username']);?>
                 <?=$form->field($this->params['signUp'],'password')->passwordInput(['class' => 'modal2__input', 'id' => 'reg2-user-password', 'type' => 'password', 'autocomplete' => 'new-password'])?>
                 <?=$form->field($this->params['signUp'],'repeat_password')->passwordInput(['class' => 'modal2__input', 'id' => 'reg2-user-repeat_password', 'type' => 'password', 'autocomplete' => 'new-password']);?>
-                <p class="modal2__sign-text">Нажимая на кнопку, вы соглашаетесь с <a class="modal2__sign-text_link" href="#">нашими правилами</a>
-                    и <a class="modal2__sign-text_link" href="#">политикой конфиденциальности</a></p>
+                <p class="modal2__sign-text">Нажимая на кнопку, вы соглашаетесь с
+<!--                    <a class="modal2__sign-text_link" href="#">нашими правилами</a>-->
+                    <a class="modal2__sign-text_link" href="#">политикой конфиденциальности</a></p>
                 <div class="modal2__sub">
                     <button type="submit" class="modal2__btn modal2__btn-sign">Зарегистрироваться</button>
                 </div>
