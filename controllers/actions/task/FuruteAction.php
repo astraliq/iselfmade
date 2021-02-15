@@ -26,7 +26,7 @@ class FuruteAction extends Action {
         $userComp = \Yii::createObject(['class' => UserComponent::class]);
         $notifConfEmail = $userComp->checkConfirmationEmail();
 
-        return $this->controller->render('soon', [
+        return $this->controller->render('future', [
             'futureTasks' => '',
             'notifConfEmail' => $notifConfEmail,
         ]);
