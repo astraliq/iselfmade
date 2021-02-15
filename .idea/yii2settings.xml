@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Yii2 Support">
+    <option name="viewPathMap">
+      <map>
+        <entry key="@app/themes/*/modules" value="@app/modules" />
+        <entry key="@app/themes/*/widgets" value="@app/widgets" />
+        <entry key="@app/themes/*" value="@app/views" />
+        <entry key="@app/views/*" value="@app/views" />
+      </map>
+    </option>
     <option name="migrateCommands">
       <list>
         <MigrateCommand>

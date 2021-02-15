@@ -13,10 +13,10 @@
 
 <div class="select_block" >
     <div class="label_block">
-        <label for="repeated_by_id">Повтор:</label>
+        <label for="repeated_by_id">Повторять:</label>
     </div>
     <select name="repeated_by_id" class="repeated_by_id <?=$disableRepeatClass?>" <?=$disableRepeateAttr?> title="<?=$disableRepeatTitle?>">
-        <option value="0" <?=$repeatTypeSelect[0]?>>Без повтора</option>
+        <option value="0" <?=$repeatTypeSelect[0]?>>Нет</option>
         <option value="1" <?=$repeatTypeSelect[1]?>>Ежедневно</option>
         <option value="2" <?=$repeatTypeSelect[2]?>>Раз в месяц</option>
         <option value="3" <?=$repeatTypeSelect[3]?>>Раз в год</option>

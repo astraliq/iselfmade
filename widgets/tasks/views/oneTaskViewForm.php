@@ -13,6 +13,14 @@ if ($task->finished == 1 && !$repeatedTask) {
     $check = 'check-empty';
 }
 
+if ($type_id == 1) {
+    $privateSet = 'Приватное';
+    $no_privateSet = 'Не личное';
+} else {
+    $privateSet = 'Приватная';
+    $no_privateSet = 'Не личная';
+}
+
 
 $privateSelect = [];
 if ($task->private_id) {
@@ -83,13 +91,13 @@ $typeId = $newTask == 1 ? $type_id : $task->type_id;
         <div class="task__settings">
             <div class="select_block">
                 <div class="label_block">
-                    <label for="private_id">Видимость:</label>
+                    <label for="private_id"><?=$privateSet?>:</label>
                 </div>
                 <select name="private_id" class="private_id">
-                    <option value="1" <?=$privateSelect[1]?>>Видна всем</option>
+                    <option value="1" <?=$privateSelect[1]?>>Нет</option>
 <!--                    <option value="2" --><?//=$privateSelect[2]?><!-->Видна только бадди</option>-->
 <!--                    <option value="3" --><?//=$privateSelect[3]?><!-->Видна только куратору</option>-->
-                    <option value="4" <?=$privateSelect[4]?>>Видна только мне</option>
+                    <option value="4" <?=$privateSelect[4]?>>Да</option>
                 </select>
             </div>
             <?php
