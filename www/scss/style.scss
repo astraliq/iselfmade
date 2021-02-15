@@ -21,6 +21,10 @@ header {
     color: $color-disable2;
 }
 
+.offline {
+    color: $color-disable2 !important;
+}
+
 .logo-text {
     padding: 20px 10px 10px 15px;
     font-family: $font-logo;
@@ -561,6 +565,7 @@ input[type="checkbox"]:focus {
     margin: 0 0 80px 0;
     padding: 0 0 0 20px;
     min-width: 65%;
+    max-width: 70%;
     max-width: 70%;
     display: -webkit-flex;
     display: -moz-flex;

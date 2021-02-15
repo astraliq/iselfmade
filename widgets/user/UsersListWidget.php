@@ -3,7 +3,6 @@
 
 namespace app\widgets\user;
 
-
 use yii\base\Widget;
 
 class UsersListWidget extends Widget {
