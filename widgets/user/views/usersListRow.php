@@ -23,7 +23,7 @@ if ($users) {
         echo "<td>$user->name $user->surname</td>";
         echo "<td>$user->phone_number</td>";
         echo "<td>$user->email</td>";
-        echo '<td>' . \Yii::$app->formatter->asDateTime($user->date_create, 'php:d F Y, H:i:s') . '</td>';
+        echo '<td>' . date('d.m.Y H:i:s', strtotime($user->date_create)) . '</td>';
         echo '<td class="' . $confEmailClass . '">' . $confEmail . '</td>';
         echo '</tr>';
     }
