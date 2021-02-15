@@ -23,7 +23,7 @@ class PromisesAction extends Action {
         $userComp = \Yii::createObject(['class' => UserComponent::class]);
         $notifConfEmail = $userComp->checkConfirmationEmail();
 
-        return $this->controller->render('soon', [
+        return $this->controller->render('promises', [
             'futureTasks' => '',
             'notifConfEmail' => $notifConfEmail,
         ]);

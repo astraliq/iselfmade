@@ -6,6 +6,14 @@
 use yii\helpers\Html;
 
 ?>
+<section class="welcome">
+    <h1 class="welcome__title">Повторяющиеся дела</h1>
+    <p class="welcome__text">Если у тебя есть дело, которое ты выполняешь регулярно, то запиши его тут. Частота выполнений может быть разная, мы учли все возможные варианты.</p>
+    <p class="welcome__text">
+        После того, как ты добавишь повторяющееся дело, в нужный день оно будет включено в твой список дел на завтра (&laquo;Что я сделаю завтра&raquo;) и ты не пропустишь его.
+    </p>
+</section>
+
 <div class="tasks-all repeated-all">
     <div class="tasks__list" id="tasks__list-0" data-type="0">
         <h3 class="main__data_title repeated_title">Повторяющиеся дела</h3>

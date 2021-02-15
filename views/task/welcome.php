@@ -75,16 +75,16 @@ $month = \Yii::$app->params['monthsImenit'][\Yii::$app->formatter->asDate(date('
     <p class="welcome__text">Общий
         <a class="welcome__link" href="https://t.me/joinchat/WAi-c9XitRYBK6k3" target="_blank">чат поддержки в телеграм</a> для всех участников.<br> Присоединяйся, задавай вопросы, поддерживай других и делись своими успехами.
     </p>
-    <p class="welcome__chapter">Напоследок</p>
-    <p class="welcome__text">
-        Всю необходимую информацию о работе сервиса ты всегда сможешь прочитать в разделе &laquo;<a class="welcome__link" href="help">Помощь</a>&raquo;. А если там нет ответа на твой вопрос, то смело пиши нам <a class="welcome__link" href="#">любым из этих способов</a>.
-    </p>
+<!--    <p class="welcome__chapter">Напоследок</p>-->
+<!--    <p class="welcome__text">-->
+<!--        Всю необходимую информацию о работе сервиса ты всегда сможешь прочитать в разделе &laquo;<a class="welcome__link" href="help">Помощь</a>&raquo;. А если там нет ответа на твой вопрос, то смело пиши нам <a class="welcome__link" href="#">любым из этих способов</a>.-->
+<!--    </p>-->
     <p class="welcome__chapter">Мне всё понятно</p>
     <p class="welcome__text">
         Отлично.<br>Тогда давай начинать.
     </p>
     <p class="welcome__text">
-        Заполняй свои <a class="welcome__link" href="#">цели на год и задачи</a> на ближайший месяц.
+        Заполняй свои <a class="welcome__link" href="goals">цели на год и задачи</a> на ближайший месяц.
     </p>
 </section>
 
