@@ -26,7 +26,7 @@
                 </tr>
                 <tr>
                     <td>Дата отправки последнего отчета</td>
-                    <td><?=\Yii::$app->formatter->asDateTime($lastReportDate, 'php:d F Y, H:i:s')?></td>
+                    <td><?=date('d.m.Y H:i:s', strtotime($lastReportDate))?></td>
                 </tr>
             </tbody>
         </table>
