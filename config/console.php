@@ -54,7 +54,7 @@ $config = [
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
-            'useFileTransport' => true,
+            'useFileTransport' => file_exists(__DIR__ . '/db_real.php') ? false : true,
         ],
         'rbac' => ['class' => \app\components\RbacComponent::class],
         'db' => $db,
