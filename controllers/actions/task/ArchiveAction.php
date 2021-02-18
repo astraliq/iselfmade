@@ -17,11 +17,6 @@ use yii\web\Response;
 
 class ArchiveAction extends Action {
     public function run($id=null) {
-        $admin = false;
-
-        if (\Yii::$app->user->isGuest || !\Yii::$app->rbac->canViewOwnTask()) {
-            throw new HttpException(403, 'Нет доступа' );
-        }
 
         $comp = \Yii::createObject(['class' => TasksComponent::class,'modelClass' => Tasks::class]);
         $model = $comp->getModel();

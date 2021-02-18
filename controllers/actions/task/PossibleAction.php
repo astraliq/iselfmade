@@ -13,10 +13,6 @@ use yii\web\HttpException;
 class PossibleAction extends Action {
     public function run() {
 
-        if (\Yii::$app->user->isGuest || !\Yii::$app->rbac->canViewOwnTask()) {
-            throw new HttpException(403, 'Нет доступа' );
-        }
-
         $comp = \Yii::createObject(['class' => TasksComponent::class,'modelClass' => Tasks::class]);
         $model = $comp->getModel();
 

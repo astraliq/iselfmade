@@ -12,12 +12,11 @@ use yii\web\Response;
 
 class NextRepeatDateAction  extends Action {
     public function run() {
-        if (\Yii::$app->user->isGuest ) {
-            $this->controller->redirect(['/']);
-        }
+
         if (!\Yii::$app->request->isPost) {
             throw new HttpException(403,'Нет доступа');
         }
+
         $comp = \Yii::createObject(['class' => TasksComponent::class,'modelClass' => Tasks::class]);
         $model = $comp->getModel();
         $id = \Yii::$app->request->post()['id'] ?? null;

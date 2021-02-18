@@ -16,13 +16,6 @@ class ViewAction extends Action {
 
         return $this->controller->redirect([\Yii::$app->params['links']['report']]);
 
-        if (\Yii::$app->user->isGuest ) {
-            $this->controller->redirect(['/']);
-        }
-        if (!\Yii::$app->rbac->canViewOwnTask()) {
-            throw new HttpException(403,'Нет доступа');
-        }
-
         $admin = false;
         $comp = \Yii::createObject(['class' => TasksComponent::class,'modelClass' => Tasks::class]);
         $model = $comp->getModel();

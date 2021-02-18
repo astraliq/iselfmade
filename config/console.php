@@ -62,7 +62,7 @@ $config = [
         'task' => ['class' => \app\components\TasksComponent::class],
     ],
     'params' => array_merge($params, [
-        'serverUrl' => 'https://test.iselfmade.ru/',
+        'serverUrl' => 'https://iselfmade.ru/',
     ]),
 
     /*

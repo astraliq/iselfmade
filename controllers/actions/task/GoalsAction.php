@@ -17,7 +17,10 @@ use yii\web\Response;
 class GoalsAction extends Action {
     public function run() {
 
-        if (\Yii::$app->user->isGuest || !\Yii::$app->rbac->canViewOwnTask()) {
+        if (\Yii::$app->user->isGuest) {
+            return $this->controller->redirect('/');
+        }
+        if (!\Yii::$app->rbac->canViewOwnTask()) {
             throw new HttpException(403, 'Нет доступа' );
         }
 

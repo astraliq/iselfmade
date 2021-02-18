@@ -14,13 +14,6 @@ use yii\web\Response;
 class RepeatedAction extends Action {
     public function run() {
 
-        if (\Yii::$app->user->isGuest ) {
-            $this->controller->redirect(['/']);
-        }
-        if (!\Yii::$app->rbac->canViewOwnTask()) {
-            throw new HttpException(403,'Нет доступа');
-        }
-
         $comp = \Yii::createObject(['class' => TasksComponent::class,'modelClass' => Tasks::class]);
         $model = $comp->getModel();
 
