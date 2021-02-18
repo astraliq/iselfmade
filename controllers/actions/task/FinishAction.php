@@ -13,9 +13,6 @@ use yii\web\Response;
 class FinishAction extends Action {
     public function run() {
 
-        if (\Yii::$app->user->isGuest ) {
-            $this->controller->redirect(['/']);
-        }
         if (!\Yii::$app->request->isPost) {
             throw new HttpException(403,'Нет доступа');
         }

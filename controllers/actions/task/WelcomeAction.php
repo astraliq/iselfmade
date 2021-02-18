@@ -15,9 +15,6 @@ use yii\web\Response;
 
 class WelcomeAction extends Action {
     public function run() {
-        if (\Yii::$app->user->isGuest) {
-            return $this->controller->redirect(['/']);
-        }
 
         $user = \Yii::$app->user->getIdentity();
 

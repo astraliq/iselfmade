@@ -1029,45 +1029,73 @@ class TasksComponent extends BaseComponent {
 
     public function setUserGrades($userId, $period, $date1, $date2, $grade):bool {
         $today = date('Y-m-d');
-        $setDate = (new \DateTime(date($date1)))->format('Y-m-d');
+        $dateStart = (new \DateTime(date($date1)))->format('Y-m-d');
+        $dateEnd = (new \DateTime(date($date2)))->format('Y-m-d');
         $minDate = date('Y-m-d', strtotime("-7 day"));
 
-        if ($setDate < $minDate || $setDate >= $today) {
+        if ($dateStart < $minDate || $dateStart >= $today) {
             return false;
         }
 
         switch ($period) {
             case 1:
-                $userGrade = new UsersReports();
-                $userGrade->user_id = $userId;
-                $userGrade->mentor_grade = $grade;
-                $userGrade->date = (new \DateTime(date($date1)))->format('Y-m-d');
-                if ($userGrade->save()) {
-                    return true;
+                $userGrade = UsersReports::findOne(['user_id' => $userId, 'date' => $dateStart]);
+                if ($userGrade) {
+                    if (!$userGrade->mentor_grade) {
+                        $userGrade->mentor_grade = $grade;
+                    } else {
+                        return false;
+                    }
+                    if ($userGrade->save()) {
+                        return true;
+                    } else {
+                        return false;
+                    }
                 } else {
-                    return false;
+                    if ($this->getTasksByDateAndUserId($userId, $dateStart)) {
+                        $userGrade = new UsersReports();
+                        $userGrade->user_id = $userId;
+                        $userGrade->mentor_grade = $grade;
+                        $userGrade->date = $dateStart;
+                        if ($userGrade->save()) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
                 }
                 break;
             case 5:
                 $res = false;
                 for ($i = 0; $i <= 6; $i++) {
-                    $userGrade = new UsersReports();
-                    $userGrade->user_id = $userId;
-                    $userGrade->mentor_grade = $grade;
                     if ($i == 0) {
-                        $userGrade->date = (new \DateTime(date($date1)))->format('Y-m-d');
+                        $dateCur = (new \DateTime(date($date1)))->format('Y-m-d');
                     } else {
-                        $userGrade->date = date('Y-m-d', strtotime($date1 . '+' . $i .' day'));
+                        $dateCur = date('Y-m-d', strtotime($date1 . '+' . $i . ' day'));
                     }
-                    if ($userGrade->save()) {
-                        $res = true;
+                    $userGrade = UsersReports::findOne(['user_id' => $userId, 'date' => $dateCur]);
+                    if ($userGrade) {
+                        if (!$userGrade->mentor_grade) {
+                            $userGrade->mentor_grade = $grade;
+                            if ($userGrade->save()) {
+                                $res = true;
+                            }
+                        }
+                    } else {
+                        if ($this->getTasksByDateAndUserId($userId, $dateCur)) {
+                            $userGrade = new UsersReports();
+                            $userGrade->user_id = $userId;
+                            $userGrade->mentor_grade = $grade;
+                            $userGrade->date = $dateCur;
+                            if ($userGrade->save()) {
+                                $res = true;
+                            }
+                        }
                     }
                 }
-                if ($res) {
-                    return $res;
-                } else {
-                    return $res;
-                }
+                return $res;
                 break;
             default:
                 return false;
