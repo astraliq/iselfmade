@@ -32,16 +32,16 @@ use yii\helpers\Html;
             } else {
                 echo '<p style="font-style: italic; font-size: 12px">Список пуст</p>';
             }
-            echo \app\widgets\tasks\OneTaskViewWidget::widget(
-                [
-                    'task' => '',
-                    'type_id' => $type_id,
-                    'nextPeriod' => $nextPeriod,
-                    'newTask' => 1,
-                    'repeatedTask' => false,
-                    'disabled' => $disabled,
-                ]
-            );
+//            echo \app\widgets\tasks\OneTaskViewWidget::widget(
+//                [
+//                    'task' => '',
+//                    'type_id' => $type_id,
+//                    'nextPeriod' => $nextPeriod,
+//                    'newTask' => 1,
+//                    'repeatedTask' => false,
+//                    'disabled' => $disabled,
+//                ]
+//            );
             ?>
         </ol>
     </div>
