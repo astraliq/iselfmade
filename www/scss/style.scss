@@ -799,7 +799,7 @@ input[type="checkbox"]:focus {
 .task__settings {
     background-color: $main_background_color;
     display: none;
-    width: 300px;
+    width: 310px;
     //height: 130px;
     box-shadow: none;
     border: 1px solid $color-blue-light;
@@ -814,11 +814,11 @@ input[type="checkbox"]:focus {
     justify-content: center;
     font-weight: 400;
 
+    & .repeated_date,
     & select {
         border: none;
         border-bottom: 1px #609df8 solid;
         background-color: transparent;
-        padding: 2px 0 2px 5px;
         margin: 0;
         height: 27px;
 
@@ -832,7 +832,9 @@ input[type="checkbox"]:focus {
         text-overflow: ellipsis;
         white-space: nowrap;
         font-weight: 500;
-        width: 180px;
+        width: 165px;
+        text-align-last: end;
+        padding: 0 10px 0 0px;
     }
     & label {
         height: 27px;
@@ -847,6 +849,7 @@ input[type="checkbox"]:focus {
         font-weight: inherit;
     }
 
+    & .dates_block,
     & .weekends_block,
     & .select_block {
         margin: 7px auto;
@@ -864,15 +867,24 @@ input[type="checkbox"]:focus {
             display: -ms-flex;
             display: -o-flex;
             display: flex;
-            justify-content: flex-end;
-            width: 30%;
+            justify-content: flex-start;
+            width: 50%;
             font-size: inherit;
-            margin: 0 10px 0 0;
+            margin: 0 0 0 10px;
             line-height: 27px;
         }
+    }
 
-        & .repeated_by_id {
-            //display: none;
+    & .dates_block {
+        text-align-last: end;
+        height: 30px;
+        align-items: center;
+        transition: all $anim_transition_tasks ease;
+        opacity: 1;
+        visibility: visible;
+        & input[type="text"]::before {
+            content: ">";
+            transform: rotate(90deg);
         }
     }
 
@@ -887,6 +899,8 @@ input[type="checkbox"]:focus {
         color: black;
         font-weight: inherit;
     }
+
+
     & .weekends_block {
         height: 30px;
         align-items: center;
@@ -1925,6 +1939,7 @@ section {
 
 .repeated_title {
     display: inline-block;
+    margin: 0 0 10px 0;
 }
 
 .user_profile {
@@ -2234,6 +2249,7 @@ section {
     opacity: 0 !important;
     visibility: none !important;
     height: 0 !important;
+    margin: 0 !important;
 }
 
 .b-show {
@@ -2614,7 +2630,10 @@ button {
     }
 }
 
-
+.disabled_repeat {
+    color: $color-blue-disabled !important;
+    border-color: $color-blue-disabled !important;
+}
 
 
 

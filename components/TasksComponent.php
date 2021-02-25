@@ -73,6 +73,7 @@ class TasksComponent extends BaseComponent {
                 'user_id' => \Yii::$app->user->getId(),
                 'type_id' => 1,
                 'deleted' => 0,
+//                'repeat_created' => null,
 //                'finished' => 0,
             ])
             ->andWhere(['AND',
@@ -95,6 +96,7 @@ class TasksComponent extends BaseComponent {
                 'user_id' => \Yii::$app->user->getId(),
                 'type_id' => 1,
                 'deleted' => 0,
+//                'repeat_created' => null,
 //                'finished' => 0,
             ])
             ->andWhere(['AND',
@@ -279,7 +281,7 @@ class TasksComponent extends BaseComponent {
         if (!$task->user_id) {
             $task->user_id = \Yii::$app->user->getId();
         }
-   
+
         if ($task->validate()) {
 //            foreach ($task->filesReal as &$file) {
 //                $file = $fileSaver->saveFile($file);
@@ -488,13 +490,14 @@ class TasksComponent extends BaseComponent {
     public function createRepeatedTasks():bool {
         $this->modelClass = Tasks::class;
         $today = date('d.m.Y');
-        $tomorrow = date('d.m.Y', strtotime("+1 day"));
+//        $today = date('23.02.2021');
+        $tomorrow = date('d.m.Y', strtotime($today. ' +1 day'));
         $tasksToRepeat = Tasks::find()
-//            ->where([
+            ->where([
 //                'user_id' => \Yii::$app->user->getId(),
-//                'type_id' => 1,
-//                'deleted' => 0,
-//            ])
+                'type_id' => 1,
+                'deleted' => 0,
+            ])
             ->andWhere(['not', ['repeat_type_id' => null]])
             ->orderBy(['date_create' => SORT_ASC])
             ->all();
@@ -509,6 +512,13 @@ class TasksComponent extends BaseComponent {
         $tasksToCreateToday = [];
         $tasksToCreateNextPeriod = [];
         foreach ($tasksToRepeat as $task) {
+            if ($task->repeat_start) {
+                $dateStart = $task->repeat_start;
+            } else {
+                $dateStart = date('Y-m-d', strtotime($task->date_create));
+            }
+            $dateEnd = $task->repeat_end ? $task->repeat_end : '2100-01-01';
+
             $dateStartTask = \Yii::$app->formatter->asDateTime(
                 $task->date_start, 'php:d.m.Y'
             );
@@ -539,44 +549,46 @@ class TasksComponent extends BaseComponent {
                             }
                         }
 
-                        if ($todayAdd) {
+                        if ($todayAdd && strtotime($today) >= strtotime($dateStart) && strtotime($today) < strtotime($dateEnd)) {
                             array_push($tasksToCreateToday, $task);
                         }
-                        if ($tomorrowAdd) {
+                        if ($tomorrowAdd && strtotime($tomorrow) >= strtotime($dateStart) && strtotime($tomorrow) < strtotime($dateEnd)) {
                             array_push($tasksToCreateNextPeriod, $task);
                         }
+
                     } else {
-                        if ($dateStartTask != $today && $dateCalcTask != $today) {
+
+                        if ($dateStartTask != $today && $dateCalcTask != $today && strtotime($today) >= strtotime($dateStart) && strtotime($today) < strtotime($dateEnd)) {
                             array_push($tasksToCreateToday, $task);
                         }
-                        if ($dateStartTask != $tomorrow && $dateCalcTask != $tomorrow) {
+                        if ($dateStartTask != $tomorrow && $dateCalcTask != $tomorrow && strtotime($tomorrow) >= strtotime($dateStart) && strtotime($tomorrow) < strtotime($dateEnd)) {
                             array_push($tasksToCreateNextPeriod, $task);
                         }
                     }
                     break;
                 case 2:
-                    $nextRepeatDate = $this->getNextRepeatDatePlusMonth();
+                    $nextRepeatDate = $this->getNextRepeatDatePlusMonth($task->date_create, $dateStart);
 
                     if ($tomorrow == $nextRepeatDate && $this->checkRepeatedTasksAddedToDate($tomorrow, $findRepeatedTasksKeys, $alreadyRepeatedTasks)) {
                        array_push($tasksToCreateNextPeriod, $task);
                     }
                     break;
                 case 3:
-                    $nextRepeatDate = $this->getNextRepeatDatePlusYear();
+                    $nextRepeatDate = $this->getNextRepeatDatePlusYear($task->date_create,  $dateStart);
 
                     if ($tomorrow == $nextRepeatDate && $this->checkRepeatedTasksAddedToDate($tomorrow, $findRepeatedTasksKeys, $alreadyRepeatedTasks)) {
                         array_push($tasksToCreateNextPeriod, $task);
                     }
                     break;
                 case 4:
-                    $nextRepeatDate = $this->getNextRepeatDatePlusQuarter();
+                    $nextRepeatDate = $this->getNextRepeatDatePlusQuarter($task->date_create,  $dateStart);
 
                     if ($tomorrow == $nextRepeatDate && $this->checkRepeatedTasksAddedToDate($tomorrow, $findRepeatedTasksKeys, $alreadyRepeatedTasks)) {
                         array_push($tasksToCreateNextPeriod, $task);
                     }
                     break;
                 case 5:
-                    $nextRepeatDate = date('d.m.Y', strtotime("+1 week"));
+                    $nextRepeatDate = $this->getNextRepeatDatePlusWeek($task->date_create,  $dateStart);
                     if ($tomorrow == $nextRepeatDate && $this->checkRepeatedTasksAddedToDate($tomorrow, $findRepeatedTasksKeys, $alreadyRepeatedTasks)) {
                         array_push($tasksToCreateNextPeriod, $task);
                     }
@@ -587,18 +599,18 @@ class TasksComponent extends BaseComponent {
                         array_push($tasksToCreateToday, $task);
                     }
 
-                    $nextRepeatDate = date('d.m.Y', $this->getNextWorkday());
+                    $nextRepeatDate = date('d.m.Y', $this->getNextWorkday($dateStart));
                     if ($tomorrow == $nextRepeatDate && $this->checkRepeatedTasksAddedToDate($tomorrow, $findRepeatedTasksKeys, $alreadyRepeatedTasks) && $dateStartTask != $tomorrow && $dateCalcTask != $tomorrow) {
                         array_push($tasksToCreateNextPeriod, $task);
                     }
                     break;
                 case 7:
-                    $nextRepeatDate = date('d.m.Y', $this->getNextHoliday(true));
+                    $nextRepeatDate = date('d.m.Y', $this->getNextHoliday($dateStart));
                     if ($today == $nextRepeatDate && $this->checkRepeatedTasksAddedToDate($today, $findRepeatedTasksKeys, $alreadyRepeatedTasks) && $dateStartTask != $today && $dateCalcTask != $today) {
                         array_push($tasksToCreateToday, $task);
                     }
 
-                    $nextRepeatDate = date('d.m.Y', $this->getNextHoliday());
+                    $nextRepeatDate = date('d.m.Y', $this->getNextHoliday($dateStart));
                     if ($tomorrow == $nextRepeatDate && $this->checkRepeatedTasksAddedToDate($tomorrow, $findRepeatedTasksKeys, $alreadyRepeatedTasks) && $dateStartTask != $tomorrow && $dateCalcTask != $tomorrow) {
                         array_push($tasksToCreateNextPeriod, $task);
                     }
@@ -679,13 +691,18 @@ class TasksComponent extends BaseComponent {
         return true;
     }
 
-    private function getNextWorkday($today=null) {
+    private function getNextWorkday($dateStart, $today=null) {
         // список праздников (нерабочих дней)
         $bankHols = $this->holidays;
 
-        $nextDays = array(strtotime('+1 day'), strtotime('+2 days'), strtotime('+3 days'), strtotime('+4 days'), strtotime('+5 days'), strtotime('+6 days'), strtotime('+7 days'));
+        if ($dateStart && strtotime($dateStart) > time()) {
+            $nextDays = array(strtotime($dateStart . ' +1 day'), strtotime($dateStart . ' +2 days'), strtotime($dateStart . ' +3 days'), strtotime($dateStart . ' +4 days'), strtotime($dateStart . ' +5 days'), strtotime($dateStart . ' +6 days'), strtotime($dateStart . ' +7 days'));
+        } else {
+            $nextDays = array(strtotime('+1 day'), strtotime('+2 days'), strtotime('+3 days'), strtotime('+4 days'), strtotime('+5 days'), strtotime('+6 days'), strtotime('+7 days'));
+        }
+
         if ($today) {
-            array_unshift($nextDays, time());
+            array_unshift($nextDays, strtotime($today));
         }
         for ($i = 0; $i < count($nextDays); $i++) {
             $dayNum = (int) date('w', $nextDays[$i]);
@@ -697,13 +714,17 @@ class TasksComponent extends BaseComponent {
         return false;
     }
 
-    private function getNextHoliday($today=null) {
+    private function getNextHoliday($dateStart, $today=null) {
         // список праздников (нерабочих дней)
         $bankHols = $this->holidays;
 
-        $nextDays = array(strtotime('+1 day'), strtotime('+2 days'), strtotime('+3 days'), strtotime('+4 days'), strtotime('+5 days'), strtotime('+6 days'), strtotime('+7 days'));
+        if ($dateStart && strtotime($dateStart) > time()) {
+            $nextDays = array(strtotime($dateStart . ' +1 day'), strtotime($dateStart . ' +2 days'), strtotime($dateStart . ' +3 days'), strtotime($dateStart . ' +4 days'), strtotime($dateStart . ' +5 days'), strtotime($dateStart . ' +6 days'), strtotime($dateStart . ' +7 days'));
+        } else {
+            $nextDays = array(strtotime('+1 day'), strtotime('+2 days'), strtotime('+3 days'), strtotime('+4 days'), strtotime('+5 days'), strtotime('+6 days'), strtotime('+7 days'));
+        }
         if ($today) {
-            array_unshift($nextDays, time());
+            array_unshift($nextDays, strtotime($today));
         }
         for ($i = 0; $i < count($nextDays); $i++) {
             $dayNum = (int) date('w', $nextDays[$i]);
@@ -733,49 +754,103 @@ class TasksComponent extends BaseComponent {
         return $result;
     }
 
-    private function getNextRepeatDatePlusMonth() {
-        $the_date = time();
-        $day = date('d');
-        $month = date('m', strtotime(date('15.m.Y') . "+1 month"));
-        $year = date('Y', strtotime("+1 month"));
+    private function getNextRepeatDatePlusMonth($dateCreate, $dateStart, $the_date=null) {
+        if (!$the_date) {
+            if ($dateStart && strtotime($dateStart) > time()) {
+                $the_date = strtotime($dateStart);
+            } else {
+                $the_date = strtotime($dateCreate);
+            }
+            $day = date('d', $the_date);
+            $month = date('m', strtotime('15' . date('.m.Y', $the_date) . ' +1 month',));
+            $year = date('Y', strtotime('+1 month', $the_date));
+        } else {
+            $day = date('d', $the_date);
+            $month = date('m', $the_date);
+            $year = date('Y', $the_date);
+        }
+
         if (!checkdate(intval($month), intval($day), intval($year))) {
             $nextRepeatDate = date('d.m.Y', strtotime('last day of next month', $the_date));
         } else {
             $nextRepeatDate = date('d.m.Y', strtotime("+1 month", $the_date));
         }
 
+        if (strtotime($nextRepeatDate) <= time()) {
+            $the_date = strtotime($nextRepeatDate);
+            return $this->getNextRepeatDatePlusMonth($dateCreate, $dateStart, $the_date);
+        }
         return $nextRepeatDate;
     }
 
-    private function getNextRepeatDatePlusYear() {
-        $the_date = time();
-        $day = date('d');
-        $month = date('m', strtotime( "+1 year"));
-        $year = date('Y', strtotime("+1 year"));
+    private function getNextRepeatDatePlusYear($dateCreate, $dateStart, $the_date=null) {
+        if (!$the_date) {
+            if ($dateStart && strtotime($dateStart) > time()) {
+                $the_date = strtotime($dateStart);
+            } else {
+                $the_date = strtotime($dateCreate);
+            }
+            $day = date('d', $the_date);
+            $month = date('m', strtotime('15' . date('.m.Y', $the_date) . ' +1 year',));
+            $year = date('Y', strtotime('+1 year', $the_date));
+        } else {
+            $day = date('d', $the_date);
+            $month = date('m', $the_date);
+            $year = date('Y', $the_date);
+        }
 
         if (!checkdate(intval($month), intval($day), intval($year))) {
             $nextRepeatDate = date('28.02.Y', strtotime( "+1 year"));
         } else {
             $nextRepeatDate = date('d.m.Y', strtotime("+1 year", $the_date));
         }
+        if (strtotime($nextRepeatDate) <= time()) {
+            $the_date = strtotime($nextRepeatDate);
+            return $this->getNextRepeatDatePlusYear($dateCreate, $dateStart, $the_date);
+        }
         return $nextRepeatDate;
     }
 
-    private function getNextRepeatDatePlusQuarter() {
-        $the_date = time();
-//                    $the_date = strtotime('31.03.2020');
-        $day = date('d');
-        $month = date('m', strtotime(date('15.m.Y') . "+3 month"));
-        $year = date('Y', strtotime("+3 month"));
-        // для проверки
-//                    $day = '31';
-//                    $month = '06';
-//                    $year = '2021';
+    private function getNextRepeatDatePlusQuarter($dateCreate, $dateStart, $the_date=null) {
+        if (!$the_date) {
+            if ($dateStart && strtotime($dateStart) > time()) {
+                $the_date = strtotime($dateStart);
+            } else {
+                $the_date = strtotime($dateCreate);
+            }
+            $day = date('d', $the_date);
+            $month = date('m', strtotime('15' . date('.m.Y', $the_date) . ' +3 month'));
+            $year = date('Y', strtotime('+3 month', $the_date));
+        } else {
+            $day = date('d', $the_date);
+            $month = date('m', $the_date);
+            $year = date('Y', $the_date);
+        }
 
         if (!checkdate(intval($month), intval($day), intval($year))) {
             $nextRepeatDate = date('d.m.Y', strtotime("last day of next month", strtotime('+2 month', $the_date)));
         } else {
             $nextRepeatDate = date('d.m.Y', strtotime("+3 month", $the_date));
+        }
+        if (strtotime($nextRepeatDate) <= time()) {
+            $the_date = strtotime($nextRepeatDate);
+            return $this->getNextRepeatDatePlusYear($dateCreate, $dateStart, $the_date);
+        }
+        return $nextRepeatDate;
+    }
+
+    private function getNextRepeatDatePlusWeek($dateCreate, $dateStart, $the_date=null) {
+        if (!$the_date) {
+            if ($dateStart && strtotime($dateStart) > time()) {
+                $the_date = strtotime($dateStart);
+            } else {
+                $the_date = strtotime($dateCreate);
+            }
+        }
+        $nextRepeatDate = date('d.m.Y', strtotime("+1 week", $the_date));
+        if (strtotime($nextRepeatDate) <= time()) {
+            $the_date = strtotime($nextRepeatDate);
+            return $this->getNextRepeatDatePlusYear($dateCreate, $dateStart, $the_date);
         }
         return $nextRepeatDate;
     }
@@ -784,6 +859,7 @@ class TasksComponent extends BaseComponent {
         $tasks = Tasks::find()
             ->where([
                 'user_id' => \Yii::$app->user->getId(),
+                'deleted' => 0,
 //                'type_id' => 1,
 //                'deleted' => 0,
             ])
@@ -799,49 +875,67 @@ class TasksComponent extends BaseComponent {
     }
 
     public function getNextRepeatDate(Tasks $task) {
+        $dateCreate = date('d.m.Y', strtotime($task->date_create));
         if (!$task->repeat_type_id) {
             return false;
         }
+        $today = date('Y-m-d');
+        if ($task->repeat_start) {
+            $dateStart = $task->repeat_start;
+        } else {
+            $dateStart = date('Y-m-d', strtotime($task->date_create));
+        }
+        $dateEnd = $task->repeat_end;
         switch ($task->repeat_type_id) {
             case 1:
-                return date('d.m.Y', strtotime('+1 day'));
+                if ($dateStart == $today) {
+                    $res = date('d.m.Y', strtotime($dateStart . ' +1 day'));
+                } elseif (strtotime($dateStart) < time()) {
+                    $res = date('d.m.Y', strtotime(' +1 day'));
+                } else {
+                    $res = date('d.m.Y', strtotime($dateStart));
+                }
                 break;
             case 2:
-                return $this->getNextRepeatDatePlusMonth();
+                $res = $this->getNextRepeatDatePlusMonth($dateCreate, $dateStart);
                 break;
             case 3:
-                return $this->getNextRepeatDatePlusYear();
+                $res = $this->getNextRepeatDatePlusYear($dateCreate, $dateStart);
                 break;
             case 4:
-                return $this->getNextRepeatDatePlusQuarter();
+                $res = $this->getNextRepeatDatePlusQuarter($dateCreate, $dateStart);
                 break;
             case 5:
-                return date('d.m.Y', strtotime("+1 week"));
+                $res = $this->getNextRepeatDatePlusWeek($dateCreate, $dateStart);
                 break;
             case 6:
-                return date('d.m.Y', $this->getNextWorkday());
+                $res = date('d.m.Y', $this->getNextWorkday($dateStart));
                 break;
             case 7:
-                return date('d.m.Y', $this->getNextHoliday());
+                $res = date('d.m.Y', $this->getNextHoliday($dateStart));
                 break;
             case 8:
+                $res = false;
                 $selectedRepeats = explode(',', $task->repeated_weekdays);
                 for ($i = 0; $i < count($selectedRepeats); $i++) {
                     $selectedRepeats[$i] = $selectedRepeats[$i] == 7 ? 0 : $selectedRepeats[$i];
                 }
 
-                $nextDays = array(strtotime('+1 day'), strtotime('+2 days'), strtotime('+3 days'), strtotime('+4 days'), strtotime('+5 days'), strtotime('+6 days'), strtotime('+7 days'));
+                $nextDays = array(time(), strtotime('+1 day'), strtotime('+2 days'), strtotime('+3 days'), strtotime('+4 days'), strtotime('+5 days'), strtotime('+6 days'), strtotime('+7 days'));
                 for ($i = 0; $i < count($nextDays); $i++) {
                     $dayNum = (int) date('w', $nextDays[$i]);
 //                    $daytext = date('d.m.Y', $nextDays[$i]);
                     if ((in_array($dayNum, $selectedRepeats))) {
-                        return date('d.m.Y', $nextDays[$i]);
+                        $res = date('d.m.Y', $nextDays[$i]);
+                        break;
                     }
                 }
-                return false;
                 break;
         }
-        return false;
+        if (strtotime($res) >= strtotime($dateEnd) && $dateEnd) {
+            $res = false;
+        }
+        return $res;
     }
 
     public function sendReportsToCurators() {

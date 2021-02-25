@@ -38,7 +38,11 @@ if (!$task->repeated_by_id) {
 if ($repeatTypeId) {
     $repeatTypeSelect[$repeatTypeId] = 'selected';
 } else {
-    $repeatTypeSelect[0] = 'selected';
+    if ($repeat_created == 1) {
+        $repeatTypeSelect[1] = 'selected';
+    } else {
+        $repeatTypeSelect[0] = 'selected';
+    }
 }
 
 if ($task->repeated_by_id || $type_id == 2 || $type_id == 3) {
@@ -74,12 +78,20 @@ if ($disabled) {
 $createdTaskClass = $newTask == 0 ? 'created_tasks' : '';
 $newInputClass = $newTask == 1 ? 'new_input_task' : '';
 $weekdaysShowClass = $repeatTypeId != 8 ? 'hidden_block_anim' : '';
+if ($repeat_created == 1) {
+    $repeatDatesShowClass = '';
+} elseif ($repeatTypeId == 0) {
+    $repeatDatesShowClass = 'hidden_block_anim';
+} else {
+    $repeatDatesShowClass = '';
+}
+
 $typeId = $newTask == 1 ? $type_id : $task->type_id;
 
 ?>
 <li class="text__list_item <?=$createdTaskClass?> <?=$finished?>" data-next_period="<?=$nextPeriod?>" data-type="<?=$task->type_id?>" data-private_id="<?=$task->private_id?>">
     <div class="task__input_block">
-        <textarea class="task__input <?=$newInputClass?>" data-type="<?=$typeId?>" data-next_period="<?=$nextPeriod?>" data-finished="<?=$task->finished?>" data-deleted="<?=$task->deleted?>" data-id="<?=$task->id?>" data-repeated_by_id="<?=$task->repeated_by_id?>" type="text" maxlength="70" <?=$disableEdit?>><?=nl2br(Html::encode($task->task))?></textarea>
+        <textarea class="task__input <?=$newInputClass?>" data-type="<?=$typeId?>" data-next_period="<?=$nextPeriod?>" data-finished="<?=$task->finished?>" data-deleted="<?=$task->deleted?>" data-id="<?=$task->id?>" data-repeated_by_id="<?=$task->repeated_by_id?>" type="text" maxlength="70" <?=$disableEdit?> data-repeat_created="<?=$repeat_created?>"><?=nl2br(Html::encode($task->task))?></textarea>
         <?php
         if ($newTask == 0 && !$repeatedTask && !$disabled) {
             echo '<button class="check_btn icon-' . $check . '"></button>';
@@ -95,20 +107,21 @@ $typeId = $newTask == 1 ? $type_id : $task->type_id;
                 </div>
                 <select name="private_id" class="private_id">
                     <option value="1" <?=$privateSelect[1]?>>Нет</option>
-<!--                    <option value="2" --><?//=$privateSelect[2]?><!-->Видна только бадди</option>-->
-<!--                    <option value="3" --><?//=$privateSelect[3]?><!-->Видна только куратору</option>-->
                     <option value="4" <?=$privateSelect[4]?>>Да</option>
                 </select>
             </div>
             <?php
             if ($type_id == 1 || $repeatedTask) {
                 echo \app\widgets\tasks\RepeatSettingsWidget::widget([
+                    'task' => $task,
                     'disableRepeatClass' => $disableRepeatClass,
                     'disableRepeateAttr' => $disableRepeateAttr,
                     'disableRepeatTitle' => $disableRepeatTitle,
                     'repeatTypeSelect' => $repeatTypeSelect,
                     'weekdaysShowClass' => $weekdaysShowClass,
+                    'repeatDatesShowClass' => $repeatDatesShowClass,
                     'weekdaysCheckedInputs' => $weekdaysCheckedInputs,
+                    'repeat_created' => $repeat_created,
                 ]);
             }
             ?>

@@ -182,7 +182,7 @@ class User extends UserBase implements IdentityInterface
     public function validateTimezone() {
         $timezones = \Yii::$app->timezones->getRuTimezones('short');
         if (!array_search($this->timezone, $timezones)) {
-            $this->addError('timezone', 'Неверное имя1 часового пояса');
+            $this->addError('timezone', 'Неверное имя часового пояса');
         }
     }
 

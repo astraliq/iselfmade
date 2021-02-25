@@ -90,43 +90,88 @@ class Tasks extends TasksBase {
             $this->hashtags = null;
         }
 
-        switch ($this->type_id) {
-            case 1:
-                if ($this->nextPeriod == 1) {
-                    $addPeriod = strtotime("+1 day");
-                    $this->date_start = date('Y-m-d', $addPeriod) . ' 00:00:00';
-                    $this->date_calculate = date('Y-m-d', $addPeriod) . ' 23:59:59';
-
-                } else {
-                    if (!$this->date_calculate) {
-                        $this->date_calculate = date('Y-m-d') . ' 23:59:59';
+        if (!$this->repeat_type_id) {
+            switch ($this->type_id) {
+                case 1: // если тип задачи - дело
+                    if ($this->nextPeriod == 1) { // если задача на следующий период
+                        $addPeriod = strtotime("+1 day");
+                        $this->date_start = date('Y-m-d', $addPeriod) . ' 00:00:00';
+                        $this->date_calculate = date('Y-m-d', $addPeriod) . ' 23:59:59';
+                    } else {
+                        if (!$this->date_calculate) {
+                            $this->date_calculate = date('Y-m-d') . ' 23:59:59';
+                        }
                     }
-                }
-                break;
-            case 2:
-                if ($this->nextPeriod == 1) {
-                    $addPeriod = strtotime("+1 month");
-                    $this->date_start = date('Y-m-d', $addPeriod) . ' 00:00:00';
-                    $this->date_calculate = (new \DateTime(date('t', time()).'.'.date('m.Y', $addPeriod) . ' 23:59:59'))->format('Y-m-d H:i:s');
-                } else {
-                    if (!$this->date_calculate) {
-                        $this->date_calculate =
-                            (new \DateTime(date('t', time()) . '.' . date('m.Y') . ' 23:59:59'))->format('Y-m-d H:i:s');
+                    break;
+                case 2:
+                    if ($this->nextPeriod == 1) {
+                        $addPeriod = strtotime("+1 month");
+                        $this->date_start = date('Y-m-d', $addPeriod) . ' 00:00:00';
+                        $this->date_calculate = (new \DateTime(date('t', time()).'.'.date('m.Y', $addPeriod) . ' 23:59:59'))->format('Y-m-d H:i:s');
+                    } else {
+                        if (!$this->date_calculate) {
+                            $this->date_calculate =
+                                (new \DateTime(date('t', time()) . '.' . date('m.Y') . ' 23:59:59'))->format('Y-m-d H:i:s');
+                        }
                     }
-                }
-                break;
-            case 3:
-                if ($this->nextPeriod == 1) {
-                    $addPeriod = strtotime("+1 year");
-                    $this->date_start = date('Y-m-d', $addPeriod) . ' 00:00:00';
-                    $this->date_calculate = (new \DateTime(date('31.12.'.date('Y', $addPeriod)) . ' 23:59:59'))->format('Y-m-d H:i:s');
-                } else {
-                    if (!$this->date_calculate) {
-                        $this->date_calculate =
-                            (new \DateTime(date('31.12.' . date('Y')) . ' 23:59:59'))->format('Y-m-d H:i:s');
+                    break;
+                case 3:
+                    if ($this->nextPeriod == 1) {
+                        $addPeriod = strtotime("+1 year");
+                        $this->date_start = date('Y-m-d', $addPeriod) . ' 00:00:00';
+                        $this->date_calculate = (new \DateTime(date('31.12.'.date('Y', $addPeriod)) . ' 23:59:59'))->format('Y-m-d H:i:s');
+                    } else {
+                        if (!$this->date_calculate) {
+                            $this->date_calculate =
+                                (new \DateTime(date('31.12.' . date('Y')) . ' 23:59:59'))->format('Y-m-d H:i:s');
+                        }
                     }
-                }
-                break;
+                    break;
+            }
+        } else {
+            switch ($this->repeat_type_id) {
+                case 1: // everyday
+                case 2: // month
+                case 3: // month
+                case 4: // quarter
+                case 5: // week
+                case 6: // work days
+                case 7: // holidays
+                case 8: // weekdays
+                    if ($this->repeat_start) {
+                        $this->date_start = date('Y-m-d', strtotime($this->repeat_start)) . ' 00:00:00';
+                        $this->date_calculate = date('Y-m-d', strtotime($this->repeat_start)) . ' 23:59:59';
+                    } else {
+                        $this->date_start = $this->date_create;
+                        $this->date_calculate = date('Y-m-d', strtotime($this->date_start)) . ' 23:59:59';
+                    }
+                    break;
+//                case 6: // work days
+//                    if (!$this->date_create) {
+//                        $dCreate = date('Y-m-d');
+//                    } else {
+//                        $dCreate = $this->date_create;
+//                    }
+//                    if ($this->repeat_start) {
+//                        $nextDate = \Yii::$app->components->task->getNextWorkday($this->repeat_start);
+//                        $this->date_start = date('Y-m-d', $nextDate) . ' 00:00:00';
+//                        $this->date_calculate = date('Y-m-d', $nextDate) . ' 23:59:59';
+//                    } else {
+//                        $this->date_start = date('Y-m-d') . ' 00:00:00';
+//                        $this->date_calculate = date('Y-m-d') . ' 23:59:59';
+//                    }
+//                    break;
+                default:
+                    if ($this->nextPeriod == 1) {
+                        $addPeriod = strtotime("+1 day");
+                        $this->date_start = date('Y-m-d', $addPeriod) . ' 00:00:00';
+                        $this->date_calculate = date('Y-m-d', $addPeriod) . ' 23:59:59';
+                    } else {
+                        if (!$this->date_calculate) {
+                            $this->date_calculate = date('Y-m-d') . ' 23:59:59';
+                        }
+                    }
+            }
         }
 
         if (\Yii::$app instanceof yii\console\Application) {
@@ -153,6 +198,10 @@ class Tasks extends TasksBase {
         if (!$this->finished) {
             $this->finished = 0;
         }
+
+        $this->repeat_start = $this->repeat_start === 'При создании' ? null : $this->repeat_start;
+        $this->repeat_end = $this->repeat_end === 'Бессрочно' ? null : $this->repeat_end;
+        $this->repeat_created = $this->repeat_created == 0 ? null : $this->repeat_created;
 
         return parent::beforeValidate(); // TODO: Change the autogenerated stub
     }
@@ -253,6 +302,9 @@ class Tasks extends TasksBase {
             ['private_id', 'in', 'range' => array_keys(self::TASK_PRIVATE)],
             ['date_calculate', 'date', 'format' => 'php: Y-m-d H:i:s'],
             [['nextPeriod', 'date_create_view', 'date_calculate_view', 'parent_repeat_type', 'parent_repeated_weekdays'], 'safe'],
+            ['repeat_start', 'repeatDateStartCheck'],
+            ['repeat_end', 'repeatDateEndCheck'],
+            ['repeat_created', 'checkRepeatCreated'],
 //            ['aim_id', 'value' => null, 'when' => function($model) {
 //                return !$model->type_id == 1 || !$model->type_id == 2;
 //            }],
@@ -273,5 +325,44 @@ class Tasks extends TasksBase {
         return $labels;
     }
 
+    public function checkRepeatCreated():bool {
+        if ($this->repeat_created == 1) {
+            if (!$this->repeat_type_id) {
+                $this->addError('repeat_created', 'Задача должна повторяться.');
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public function repeatDateStartCheck():bool {
+        if (!$this->repeat_start) {
+            return true;
+        }
+        if (strtotime($this->repeat_start) > strtotime($this->repeat_end) && $this->repeat_end) {
+            $this->addError('repeat_start', 'Дата окончания не может быть раньше даты начала повтора.');
+            return false;
+        }
+        if (strtotime($this->repeat_start) < strtotime(date('d.m.Y', strtotime($this->date_create)))) {
+            $this->addError('repeat_start', 'Дата окончания не может быть раньше даты создания.');
+            return false;
+        }
+        return true;
+    }
+
+    public function repeatDateEndCheck():bool {
+        if (!$this->repeat_end) {
+            return true;
+        }
+        if (strtotime($this->repeat_end) <= strtotime(date('Y-m-d'))) {
+            $this->addError('repeat_end', 'Дата окончания не может быть раньше текущей даты.');
+            return false;
+        }
+        if (strtotime($this->repeat_start) > strtotime($this->repeat_end)  && $this->repeat_start) {
+            $this->addError('repeat_end', 'Дата окончания не может быть раньше даты начала повтора.');
+            return false;
+        }
+        return true;
+    }
 
 }
