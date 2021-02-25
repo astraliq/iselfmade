@@ -43,7 +43,8 @@ $config = [
         ],
         'user' => [
             'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
+            'enableAutoLogin' => false,
+            'authTimeout' => 60*24*60*60, // выход из системы через 60 дней, если неактивен
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -137,6 +138,9 @@ $config = [
                 ],
             ],
         ],
+//        'session'=>[
+//            'timeout' => 183*24*60*60, // время жизни сессии 6 месяцев
+//        ],
         'timezones' => ['class' => \app\components\TimeZoneComponent::class],
 
     ],

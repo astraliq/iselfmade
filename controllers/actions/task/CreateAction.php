@@ -52,8 +52,12 @@ class CreateAction extends Action {
         if ($comp->addTask($task)) {
             $newTask = $comp->getUserTask($task->id);
             if (\Yii::$app->request->isAjax) {
+                if ($task->repeat_created == 1) {
+                    $newTask->nextRepeatDate = $comp->getNextRepeatDate($newTask);
+                }
                 return ['result' => true, 'task' => \app\widgets\tasks\OneTaskViewWidget::widget([
                     'task' => $newTask,
+                    'repeatedTask' => $task->repeat_created == 1 ? true : false,
                     'nextPeriod' => $task->nextPeriod,
                     'type_id' => 1,
                 ])];

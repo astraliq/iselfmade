@@ -44,6 +44,9 @@ class Tasks {
         this.repeat_type_id = null;
         this.repeated_weekdays = null;
         this.repeat_by_id = null;
+        this.repeat_start = null;
+        this.repeat_end = null;
+        this.repeat_created = null;
         this.nextPeriod = 0;
         this.inputTaskClass = '.task__input';
         this.inputTaskBlockClass = '.task__input_block';
@@ -61,6 +64,8 @@ class Tasks {
         this.savingClass = '.saving_tasks';
         this.nextRepeatDate = '.next_repeat_date';
         this.tasksFinishedClass = '.tasks_show_finished';
+        this.repeatDateStartClass = '.rep_date_start';
+        this.repeatDateEndClass = '.rep_date_end';
         this.timerInput;
         this.timerSavind;
         this.timerLastFinishTask;
@@ -194,6 +199,9 @@ class Tasks {
                 'repeat_by_id': this.repeat_by_id,
                 'repeated_weekdays': this.repeated_weekdays,
                 'nextPeriod': this.nextPeriod,
+                'repeat_start': this.repeat_start,
+                'repeat_end': this.repeat_end,
+                'repeat_created': this.repeat_created,
             }
         };
         this._post('/task/create', sendData)
@@ -235,6 +243,8 @@ class Tasks {
                 'repeat_by_id': this.repeat_by_id,
                 'repeated_weekdays': this.repeated_weekdays,
                 'nextPeriod': this.nextPeriod,
+                'repeat_start': this.repeat_start,
+                'repeat_end': this.repeat_end,
             },
             'id': this.id,
         };
@@ -271,9 +281,11 @@ class Tasks {
                     'mentor_email': task.mentor_email,
                     'finished': task.finished,
                     'repeat_type_id': task.repeat_type_id,
-                    'repeat_by_id': this.repeat_by_id,
-                    'repeated_weekdays': this.repeated_weekdays,
+                    'repeat_by_id': task.repeat_by_id,
+                    'repeated_weekdays': task.repeated_weekdays,
                     'nextPeriod': task.nextPeriod,
+                    'repeat_start': task.repeat_start,
+                    'repeat_end': task.repeat_end,
                 });
             } else if(task.task.length == 0) {
                 task.deleted = 1;
@@ -290,9 +302,11 @@ class Tasks {
                     'finished': task.finished,
                     'deleted': task.deleted,
                     'repeat_type_id': task.repeat_type_id,
-                    'repeat_by_id': this.repeat_by_id,
-                    'repeated_weekdays': this.repeated_weekdays,
+                    'repeat_by_id': task.repeat_by_id,
+                    'repeated_weekdays': task.repeated_weekdays,
                     'nextPeriod': task.nextPeriod,
+                    'repeat_start': task.repeat_start,
+                    'repeat_end': task.repeat_end,
                 });
             } else {
                 console.log('ошибка валидации - ' + task.id);
@@ -431,6 +445,9 @@ class Tasks {
         } else {
             this.repeated_weekdays = null;
         }
+        this.repeat_start = settings.find(this.repeatDateStartClass).val();
+        this.repeat_end = settings.find(this.repeatDateEndClass).val();
+        this.repeat_created = input.dataset.repeat_created;
         return true;
     }
 
@@ -505,10 +522,20 @@ class Tasks {
             if (elemRepeatSettings[0]) {
                 elemRepeatSettings[0].addEventListener('change', (e) => {
                     let weekends = elemRepeatSettings.parents(this.inputSettingsClass).find(this.weekendsBlockClass);
+                    let datesInput = elemRepeatSettings.parents(this.inputSettingsClass).find('.dates_block');
                     if (elemRepeatSettings[0].value == 8) {
                         weekends[0].classList.remove('hidden_block_anim');
                     } else {
                         weekends[0].classList.add('hidden_block_anim');
+                    }
+                    if (elemRepeatSettings[0].value != 0) {
+                        datesInput.toArray().forEach( (elem) => {
+                            elem.classList.remove('hidden_block_anim');
+                        });
+                    } else {
+                        datesInput.toArray().forEach( (elem) => {
+                            elem.classList.add('hidden_block_anim');
+                        });
                     }
                 });
             }
@@ -781,7 +808,12 @@ class Task extends Tasks {
         this.finished = task.finished;
         this.deleted = task.deleted;
         this.repeat_type_id = task.repeat_type_id;
+        this.repeat_by_id = task.repeat_by_id;
+        this.repeated_weekdays = task.repeated_weekdays;
         this.nextPeriod = task.nextPeriod;
+        this.repeat_start = task.repeat_start;
+        this.repeat_end = task.repeat_end;
+        this.repeat_created = task.repeat_created;
     }
 
 }

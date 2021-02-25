@@ -27,12 +27,15 @@ use Yii;
  * @property string|null $secret_key
  * @property int|null $repeated_by_id Id повторяемой задачи
  * @property string|null $repeated_weekdays Id дней недели через запятую
+ * @property string|null $repeat_start дата начала повтора
+ * @property string|null $repeat_end дата конца повтора
+ * @property int|null $repeat_created создана в разделе повторов
  *
  * @property MissionCats $cat
  * @property MissionPrivate $private
  * @property Periods $repeatType
  * @property MissionTypes $type
- * @property Users $user
+ * @property User $user
  */
 class TasksBase extends \yii\db\ActiveRecord
 {
@@ -51,8 +54,8 @@ class TasksBase extends \yii\db\ActiveRecord
     {
         return [
             [['id', 'user_id', 'task'], 'required'],
-            [['id', 'user_id', 'private_id', 'type_id', 'cat_id', 'aim_id', 'goal_id', 'finished', 'deleted', 'repeat_type_id', 'repeated_by_id'], 'integer'],
-            [['date_create', 'date_start', 'date_finish', 'date_calculate'], 'safe'],
+            [['id', 'user_id', 'private_id', 'type_id', 'cat_id', 'aim_id', 'goal_id', 'finished', 'deleted', 'repeat_type_id', 'repeated_by_id', 'repeat_created'], 'integer'],
+            [['date_create', 'date_start', 'date_finish', 'date_calculate', 'repeat_start', 'repeat_end'], 'safe'],
             [['task', 'main_img', 'hashtags', 'secret_key', 'repeated_weekdays'], 'string', 'max' => 255],
             [['id', 'user_id'], 'unique', 'targetAttribute' => ['id', 'user_id']],
             [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => MissionCats::className(), 'targetAttribute' => ['cat_id' => 'id']],
@@ -89,6 +92,9 @@ class TasksBase extends \yii\db\ActiveRecord
             'secret_key' => Yii::t('app', 'Secret Key'),
             'repeated_by_id' => Yii::t('app', 'Id повторяемой задачи'),
             'repeated_weekdays' => Yii::t('app', 'Id дней недели через запятую'),
+            'repeat_start' => Yii::t('app', 'дата начала повтора'),
+            'repeat_end' => Yii::t('app', 'дата конца повтора'),
+            'repeat_created' => Yii::t('app', 'создана в разделе повторов'),
         ];
     }
 
@@ -139,6 +145,6 @@ class TasksBase extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Users::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }
