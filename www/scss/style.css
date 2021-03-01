@@ -580,7 +580,7 @@ input[type="checkbox"]:focus {
 .task__settings {
   background-color: #ffffff;
   display: none;
-  width: 300px;
+  width: 310px;
   box-shadow: none;
   border: 1px solid #609df8;
   border-radius: 10px;
@@ -593,11 +593,10 @@ input[type="checkbox"]:focus {
   flex-wrap: wrap;
   justify-content: center;
   font-weight: 400; }
-  .task__settings select {
+  .task__settings .repeated_date, .task__settings select {
     border: none;
     border-bottom: 1px #609df8 solid;
     background-color: transparent;
-    padding: 2px 0 2px 5px;
     margin: 0;
     height: 27px;
     border-radius: 2px;
@@ -609,7 +608,9 @@ input[type="checkbox"]:focus {
     text-overflow: ellipsis;
     white-space: nowrap;
     font-weight: 500;
-    width: 180px; }
+    width: 165px;
+    text-align-last: end;
+    padding: 0 10px 0 0px; }
   .task__settings label {
     height: 27px;
     line-height: 27px;
@@ -620,7 +621,7 @@ input[type="checkbox"]:focus {
   .task__settings option {
     font-size: inherit;
     font-weight: inherit; }
-  .task__settings .weekends_block, .task__settings .select_block {
+  .task__settings .dates_block, .task__settings .weekends_block, .task__settings .select_block {
     margin: 7px auto;
     width: 100%;
     font-size: inherit;
@@ -630,17 +631,27 @@ input[type="checkbox"]:focus {
     display: -o-flex;
     display: flex;
     justify-content: flex-start; }
-    .task__settings .weekends_block .label_block, .task__settings .select_block .label_block {
+    .task__settings .dates_block .label_block, .task__settings .weekends_block .label_block, .task__settings .select_block .label_block {
       display: -webkit-flex;
       display: -moz-flex;
       display: -ms-flex;
       display: -o-flex;
       display: flex;
-      justify-content: flex-end;
-      width: 30%;
+      justify-content: flex-start;
+      width: 50%;
       font-size: inherit;
-      margin: 0 10px 0 0;
+      margin: 0 0 0 10px;
       line-height: 27px; }
+  .task__settings .dates_block {
+    text-align-last: end;
+    height: 30px;
+    align-items: center;
+    transition: all 0.5s ease;
+    opacity: 1;
+    visibility: visible; }
+    .task__settings .dates_block input[type="text"]::before {
+      content: ">";
+      transform: rotate(90deg); }
   .task__settings .repeated {
     margin: 5px 0 0 0;
     width: 30px;
@@ -1445,7 +1456,8 @@ section .show-end {
     margin: 0 10px; }
 
 .repeated_title {
-  display: inline-block; }
+  display: inline-block;
+  margin: 0 0 10px 0; }
 
 .user_profile {
   width: 300px; }
@@ -1681,7 +1693,8 @@ section .show-end {
 .hidden_block_anim {
   opacity: 0 !important;
   visibility: none !important;
-  height: 0 !important; }
+  height: 0 !important;
+  margin: 0 !important; }
 
 .b-show {
   display: block;
@@ -1961,3 +1974,7 @@ button {
     display: inline-block;
     width: 220px;
     font-size: 20px; }
+
+.disabled_repeat {
+  color: #c2ddff !important;
+  border-color: #c2ddff !important; }
