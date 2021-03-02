@@ -105,17 +105,24 @@ http://iselfmade.ru
             color: #000;
         }
         
-        .repeate-data__numb {}
+        .info {
+            font-size: 2rem;
+            padding-top: 30px;
+            padding-bottom: 10px;
+            color: gray;
+        }
         
-        .repeate-data__name {}
-        
-        .repeate-data__status {}
-        
-        .repeate-data__next {}
-        
-        .repeate-data__props {}
-        
-        .repeate-data__del {}
+        .dotted {
+            width: 170px;
+            border-bottom: 2px dashed;
+            text-decoration: none;
+            display: inline-block;
+            height: 1.4em;
+            line-height: 1.0em;
+            padding-bottom: 10px;
+            color: #4C91F8;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -175,26 +182,26 @@ http://iselfmade.ru
                     Если у тебя есть дело, которое ты выполняешь регулярно, то запиши его тут. Частота выполнений может быть разная, мы учли все возможные варианты. После того, как ты добавишь повторяющееся дело, в нужный день оно будет включено в твой список дел на завтра
                     («Что я сделаю завтра») и ты не пропустишь его.
                 </p>
-                <p>Если уже есть хоть одно повторяющееся дело</p>
+                <p class="info">Если ещё нет повторяющихся дел</p>
                 <div class="repeate">
 
                     <div class="repeate-header repeate-data">
                         <p class="repeate-header__numb repeate-data__numb">1.</p>
-                        <p class="repeate-header__name repeate-data__name">Добавить первое дело</p>
+                        <a class="repeate-header__name repeate-data__name dotted">Добавить первое дело</a>
                         <p class="repeate-header__status repeate-data__status"></p>
                         <p class="repeate-header__next repeate-data__next"></p>
                         <p class="repeate-header__props repeate-data__props"></p>
                         <a class="repeate-header__del repeate-data__del" href="#"></a>
                     </div>
                 </div>
-                <p>Если уже есть хоть одно повторяющееся дело</p>
+                <p class="info">Если уже есть хоть одно повторяющееся дело</p>
                 <div class="repeate">
                     <div class="repeate-header">
                         <p class="repeate-header__numb">№<br>п/п</p>
                         <p class="repeate-header__name">Повторяющееся дело</p>
                         <p class="repeate-header__status">Статус</p>
                         <p class="repeate-header__next">След. повтор</p>
-                        <p class="repeate-header__props">Свойства</p>
+                        <p class="repeate-header__props">Параметры</p>
                         <p class="repeate-header__del">Удалить</p>
                     </div>
                     <div class="repeate-header repeate-data">
@@ -202,7 +209,7 @@ http://iselfmade.ru
                         <p class="repeate-header__name repeate-data__name">Написать отчёт</p>
                         <p class="repeate-header__status repeate-data__status">Повторяется</p>
                         <p class="repeate-header__next repeate-data__next">03.03.2021</p>
-                        <p class="repeate-header__props repeate-data__props">Ежедневно</p>
+                        <a class="repeate-header__props repeate-data__props" href="#">Ежедневно</a>
                         <a class="repeate-header__del repeate-data__del" href="#">Удалить</a>
                     </div>
                 </div>
