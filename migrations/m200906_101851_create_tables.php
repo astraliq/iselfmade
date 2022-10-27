@@ -94,15 +94,15 @@ class m200906_101851_create_tables extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('users');
-//        $this->dropTable('roles');
-        $this->dropTable('mission_types');
-        $this->dropTable('periods');
-        $this->dropTable('mission_private');
-        $this->dropTable('mission_cats');
-        $this->dropTable('mission_tasks');
-        $this->dropPrimaryKey('task_id-user_id_pk', 'mission_tasks');
         $this->dropTable('support_groups');
+        $this->dropPrimaryKey('task_id-user_id_pk', 'mission_tasks');
+        $this->dropTable('mission_tasks');
+        $this->dropTable('mission_cats');
+        $this->dropTable('mission_private');
+        $this->dropTable('periods');
+        //        $this->dropTable('roles');
+        $this->dropTable('mission_types');
+        $this->dropTable('users');
     }
 
 }

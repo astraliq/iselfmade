@@ -3,12 +3,13 @@
 namespace Tests\Behat\Gherkin\Loader;
 
 use Behat\Gherkin\Loader\YamlFileLoader;
+use PHPUnit\Framework\TestCase;
 
-class YamlFileLoaderTest extends \PHPUnit_Framework_TestCase
+class YamlFileLoaderTest extends TestCase
 {
     private $loader;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->loader = new YamlFileLoader();
     }

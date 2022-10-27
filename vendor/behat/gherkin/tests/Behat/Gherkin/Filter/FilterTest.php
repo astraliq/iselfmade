@@ -5,8 +5,9 @@ namespace Tests\Behat\Gherkin\Filter;
 use Behat\Gherkin\Keywords\ArrayKeywords;
 use Behat\Gherkin\Lexer;
 use Behat\Gherkin\Parser;
+use PHPUnit\Framework\TestCase;
 
-abstract class FilterTest extends \PHPUnit_Framework_TestCase
+abstract class FilterTest extends TestCase
 {
     protected function getParser()
     {
@@ -49,11 +50,17 @@ Feature: Long feature with outline
     When <action> occurs
     Then <outcome> should be visible
 
+    @etag1
     Examples:
       | action | outcome |
       | act#1  | out#1   |
       | act#2  | out#2   |
+      
+    @etag2
+    Examples:
+      | action | outcome |
       | act#3  | out#3   |
+
 GHERKIN;
     }
 

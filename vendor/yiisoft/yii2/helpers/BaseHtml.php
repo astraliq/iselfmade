@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license https://www.yiiframework.com/license/
  */
 
 namespace yii\helpers;
@@ -31,7 +31,7 @@ class BaseHtml
     public static $attributeRegex = '/(^|.*\])([\w\.\+]+)(\[.*|$)/u';
     /**
      * @var array list of void elements (element name => 1)
-     * @see http://www.w3.org/TR/html-markup/syntax.html#void-element
+     * @see https://html.spec.whatwg.org/multipage/syntax.html#void-element
      */
     public static $voidElements = [
         'area' => 1,
@@ -94,6 +94,13 @@ class BaseHtml
      * @since 2.0.3
      */
     public static $dataAttributes = ['aria', 'data', 'data-ng', 'ng'];
+    /**
+     * @var bool whether to removes duplicate class names in tag attribute `class`
+     * @see mergeCssClasses()
+     * @see renderTagAttributes()
+     * @since 2.0.44
+     */
+    public static $normalizeClassAttribute = false;
 
 
     /**
@@ -104,11 +111,11 @@ class BaseHtml
      * HTML entities in `$content` will not be further encoded.
      * @return string the encoded content
      * @see decode()
-     * @see https://secure.php.net/manual/en/function.htmlspecialchars.php
+     * @see https://www.php.net/manual/en/function.htmlspecialchars.php
      */
     public static function encode($content, $doubleEncode = true)
     {
-        return htmlspecialchars($content, ENT_QUOTES | ENT_SUBSTITUTE, Yii::$app ? Yii::$app->charset : 'UTF-8', $doubleEncode);
+        return htmlspecialchars((string)$content, ENT_QUOTES | ENT_SUBSTITUTE, Yii::$app ? Yii::$app->charset : 'UTF-8', $doubleEncode);
     }
 
     /**
@@ -117,7 +124,7 @@ class BaseHtml
      * @param string $content the content to be decoded
      * @return string the decoded content
      * @see encode()
-     * @see https://secure.php.net/manual/en/function.htmlspecialchars-decode.php
+     * @see https://www.php.net/manual/en/function.htmlspecialchars-decode.php
      */
     public static function decode($content)
     {
@@ -565,7 +572,7 @@ class BaseHtml
 
     /**
      * Generates an input button.
-     * @param string $label the value attribute. If it is null, the value attribute will not be generated.
+     * @param string|null $label the value attribute. If it is null, the value attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
      * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
      * If a value is null, the corresponding attribute will not be rendered.
@@ -585,7 +592,7 @@ class BaseHtml
      * Be careful when naming form elements such as submit buttons. According to the [jQuery documentation](https://api.jquery.com/submit/) there
      * are some reserved names that can cause conflicts, e.g. `submit`, `length`, or `method`.
      *
-     * @param string $label the value attribute. If it is null, the value attribute will not be generated.
+     * @param string|null $label the value attribute. If it is null, the value attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
      * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
      * If a value is null, the corresponding attribute will not be rendered.
@@ -601,7 +608,7 @@ class BaseHtml
 
     /**
      * Generates a reset input button.
-     * @param string $label the value attribute. If it is null, the value attribute will not be generated.
+     * @param string|null $label the value attribute. If it is null, the value attribute will not be generated.
      * @param array $options the attributes of the button tag. The values will be HTML-encoded using [[encode()]].
      * Attributes whose value is null will be ignored and not put in the tag returned.
      * See [[renderTagAttributes()]] for details on how attributes are being rendered.
@@ -1373,7 +1380,8 @@ class BaseHtml
 
     /**
      * If `maxlength` option is set true and the model attribute is validated by a string validator,
-     * the `maxlength` option will take the value of [[\yii\validators\StringValidator::max]].
+     * the `maxlength` option will take the max value of [[\yii\validators\StringValidator::max]] and
+     * [[\yii\validators\StringValidator::length]].
      * @param Model $model the model object
      * @param string $attribute the attribute name or expression.
      * @param array $options the tag options in terms of name-value pairs.
@@ -1384,8 +1392,8 @@ class BaseHtml
             unset($options['maxlength']);
             $attrName = static::getAttributeName($attribute);
             foreach ($model->getActiveValidators($attrName) as $validator) {
-                if ($validator instanceof StringValidator && $validator->max !== null) {
-                    $options['maxlength'] = $validator->max;
+                if ($validator instanceof StringValidator && ($validator->max !== null || $validator->length !== null)) {
+                    $options['maxlength'] = max($validator->max, $validator->length);
                     break;
                 }
             }
@@ -1405,8 +1413,9 @@ class BaseHtml
      * The following special options are recognized:
      *
      * - maxlength: integer|boolean, when `maxlength` is set true and the model attribute is validated
-     *   by a string validator, the `maxlength` option will take the value of [[\yii\validators\StringValidator::max]].
-     *   This is available since version 2.0.3.
+     *   by a string validator, the `maxlength` option will take the max value of [[\yii\validators\StringValidator::max]]
+     *   and [[\yii\validators\StringValidator::length].
+     *   This is available since version 2.0.3 and improved taking `length` into account since version 2.0.42.
      * - placeholder: string|boolean, when `placeholder` equals `true`, the attribute label from the $model will be used
      *   as a placeholder (this behavior is available since version 2.0.14).
      *
@@ -1465,8 +1474,9 @@ class BaseHtml
      * The following special options are recognized:
      *
      * - maxlength: integer|boolean, when `maxlength` is set true and the model attribute is validated
-     *   by a string validator, the `maxlength` option will take the value of [[\yii\validators\StringValidator::max]].
-     *   This option is available since version 2.0.6.
+     *   by a string validator, the `maxlength` option will take the max value of [[\yii\validators\StringValidator::max]]
+     *   and [[\yii\validators\StringValidator::length].
+     *   This is available since version 2.0.6 and improved taking `length` into account since version 2.0.42.
      * - placeholder: string|boolean, when `placeholder` equals `true`, the attribute label from the $model will be used
      *   as a placeholder (this behavior is available since version 2.0.14).
      *
@@ -1526,8 +1536,9 @@ class BaseHtml
      * The following special options are recognized:
      *
      * - maxlength: integer|boolean, when `maxlength` is set true and the model attribute is validated
-     *   by a string validator, the `maxlength` option will take the value of [[\yii\validators\StringValidator::max]].
-     *   This option is available since version 2.0.6.
+     *   by a string validator, the `maxlength` option will take the max value of [[\yii\validators\StringValidator::max]]
+     *   and [[\yii\validators\StringValidator::length].
+     *   This is available since version 2.0.6 and improved taking `length` into account since version 2.0.42.
      * - placeholder: string|boolean, when `placeholder` equals `true`, the attribute label from the $model will be used
      *   as a placeholder (this behavior is available since version 2.0.14).
      *
@@ -1741,7 +1752,6 @@ class BaseHtml
      * about attribute expression.
      * @param array $items the data item used to generate the checkboxes.
      * The array keys are the checkbox values, and the array values are the corresponding labels.
-     * Note that the labels will NOT be HTML-encoded, while the values will.
      * @param array $options options (name => config) for the checkbox list container tag.
      * The following options are specially handled:
      *
@@ -1783,7 +1793,6 @@ class BaseHtml
      * about attribute expression.
      * @param array $items the data item used to generate the radio buttons.
      * The array keys are the radio values, and the array values are the corresponding labels.
-     * Note that the labels will NOT be HTML-encoded, while the values will.
      * @param array $options options (name => config) for the radio button list container tag.
      * The following options are specially handled:
      *
@@ -1825,7 +1834,6 @@ class BaseHtml
      * about attribute expression.
      * @param array $items the data item used to generate the input fields.
      * The array keys are the input values, and the array values are the corresponding labels.
-     * Note that the labels will NOT be HTML-encoded, while the values will.
      * @param array $options options (name => config) for the input list. The supported special options
      * depend on the input type specified by `$type`.
      * @return string the generated input list
@@ -1906,7 +1914,7 @@ class BaseHtml
                 $attrs['value'] = (string) $key;
                 if (!array_key_exists('selected', $attrs)) {
                     $attrs['selected'] = $selection !== null &&
-                        (!ArrayHelper::isTraversable($selection) && !strcmp($key, $selection)
+                        (!ArrayHelper::isTraversable($selection) && ($strict ? !strcmp($key, $selection) : $selection == $key)
                         || ArrayHelper::isTraversable($selection) && ArrayHelper::isIn((string)$key, $selection, $strict));
                 }
                 $text = $encode ? static::encode($value) : $value;
@@ -1924,7 +1932,7 @@ class BaseHtml
      * Renders the HTML tag attributes.
      *
      * Attributes whose values are of boolean type will be treated as
-     * [boolean attributes](http://www.w3.org/TR/html5/infrastructure.html#boolean-attributes).
+     * [boolean attributes](https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#boolean-attributes).
      *
      * Attributes whose values are null will not be rendered.
      *
@@ -1942,7 +1950,7 @@ class BaseHtml
      * @param array $attributes attributes to be rendered. The attribute values will be HTML-encoded using [[encode()]].
      * @return string the rendering result. If the attributes are not empty, they will be rendered
      * into a string with a leading white space (so that it can be directly appended to the tag name
-     * in a tag. If there is no attribute, an empty string will be returned.
+     * in a tag). If there is no attribute, an empty string will be returned.
      * @see addCssClass()
      */
     public static function renderTagAttributes($attributes)
@@ -1980,6 +1988,11 @@ class BaseHtml
                     if (empty($value)) {
                         continue;
                     }
+                    if (static::$normalizeClassAttribute === true && count($value) > 1) {
+                        // removes duplicate classes
+                        $value = explode(' ', implode(' ', $value));
+                        $value = array_unique($value);
+                    }
                     $html .= " $name=\"" . static::encode(implode(' ', $value)) . '"';
                 } elseif ($name === 'style') {
                     if (empty($value)) {
@@ -2012,7 +2025,6 @@ class BaseHtml
      *
      * @param array $options the options to be modified.
      * @param string|array $class the CSS class(es) to be added
-     * @see mergeCssClasses()
      * @see removeCssClass()
      */
     public static function addCssClass(&$options, $class)
@@ -2047,7 +2059,7 @@ class BaseHtml
             }
         }
 
-        return array_unique($existingClasses);
+        return static::$normalizeClassAttribute ? array_unique($existingClasses) : $existingClasses;
     }
 
     /**
@@ -2303,20 +2315,33 @@ class BaseHtml
     }
 
     /**
+     * Converts input name to ID.
+     *
+     * For example, if `$name` is `Post[content]`, this method will return `post-content`.
+     *
+     * @param string $name the input name
+     * @return string the generated input ID
+     * @since 2.0.43
+     */
+    public static function getInputIdByName($name)
+    {
+        $charset = Yii::$app ? Yii::$app->charset : 'UTF-8';
+        $name = mb_strtolower($name, $charset);
+        return str_replace(['[]', '][', '[', ']', ' ', '.', '--'], ['', '-', '-', '', '-', '-', '-'], $name);
+    }
+
+    /**
      * Generates an appropriate input ID for the specified attribute name or expression.
      *
-     * This method converts the result [[getInputName()]] into a valid input ID.
-     * For example, if [[getInputName()]] returns `Post[content]`, this method will return `post-content`.
      * @param Model $model the model object
      * @param string $attribute the attribute name or expression. See [[getAttributeName()]] for explanation of attribute expression.
-     * @return string the generated input ID
+     * @return string the generated input ID.
      * @throws InvalidArgumentException if the attribute name contains non-word characters.
      */
     public static function getInputId($model, $attribute)
     {
-        $charset = Yii::$app ? Yii::$app->charset : 'UTF-8';
-        $name = mb_strtolower(static::getInputName($model, $attribute), $charset);
-        return str_replace(['[]', '][', '[', ']', ' ', '.'], ['', '-', '-', '', '-', '-'], $name);
+        $name = static::getInputName($model, $attribute);
+        return static::getInputIdByName($name);
     }
 
     /**

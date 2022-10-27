@@ -6,8 +6,9 @@ use Behat\Gherkin\Keywords\CucumberKeywords;
 use Behat\Gherkin\Lexer;
 use Behat\Gherkin\Loader\GherkinFileLoader;
 use Behat\Gherkin\Parser;
+use PHPUnit\Framework\TestCase;
 
-class GherkinFileLoaderTest extends \PHPUnit_Framework_TestCase
+class GherkinFileLoaderTest extends TestCase
 {
     /**
      * @var GherkinFileLoader
@@ -100,7 +101,7 @@ class GherkinFileLoaderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(realpath($this->featuresPath . DIRECTORY_SEPARATOR . 'multiline_name.feature'), $features[0]->getFile());
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $keywords = new CucumberKeywords(__DIR__ . '/../Fixtures/i18n.yml');
         $parser = new Parser(new Lexer($keywords));

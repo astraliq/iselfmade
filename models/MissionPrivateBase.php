@@ -11,14 +11,14 @@ use Yii;
  * @property string $title_ru
  * @property string $title_en
  *
- * @property MissionTasks[] $missionTasks
+ * @property Tasks[] $Tasks
  */
 class MissionPrivateBase extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return 'mission_private';
     }
@@ -26,7 +26,7 @@ class MissionPrivateBase extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['title_ru', 'title_en'], 'required'],
@@ -37,7 +37,7 @@ class MissionPrivateBase extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => Yii::t('app', 'ID'),
@@ -51,8 +51,8 @@ class MissionPrivateBase extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getMissionTasks()
+    public function getMissionTasks(): \yii\db\ActiveQuery
     {
-        return $this->hasMany(MissionTasks::className(), ['private_id' => 'id']);
+        return $this->hasMany(Tasks::tableName(), ['private_id' => 'id']);
     }
 }

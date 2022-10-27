@@ -4,12 +4,13 @@ namespace Tests\Behat\Gherkin\Keywords;
 
 use Behat\Gherkin\Keywords\ArrayKeywords;
 use Behat\Gherkin\Keywords\KeywordsDumper;
+use PHPUnit\Framework\TestCase;
 
-class KeywordsDumperTest extends \PHPUnit_Framework_TestCase
+class KeywordsDumperTest extends TestCase
 {
     private $keywords;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->keywords = new ArrayKeywords(array(
            'en' => array(

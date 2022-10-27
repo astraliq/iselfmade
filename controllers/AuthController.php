@@ -88,6 +88,7 @@ class AuthController extends Controller {
             } else {
                 if (\Yii::$app->request->isAjax) {
                     \Yii::$app->response->format = Response::FORMAT_JSON;
+
                     return ActiveForm::validate($model);
                 }
             }

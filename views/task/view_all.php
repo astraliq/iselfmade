@@ -37,11 +37,14 @@ if ($userReport) {
     $disableTasks = false;
     $files = 'Ничего не выбрано';
 }
-if ($userReport->self_grade) {
-    $repeatTypeSelect[$userReport->self_grade] = 'selected';
-} else {
-    $repeatTypeSelect[0] = 'selected';
+if ($userReport) {
+    if ($userReport->self_grade) {
+        $repeatTypeSelect[$userReport->self_grade] = 'selected';
+    } else {
+        $repeatTypeSelect[0] = 'selected';
+    }
 }
+
 
 
 
@@ -56,7 +59,7 @@ if ($userReport->self_grade) {
             'type_id' => 3,
             'model' => $model,
             'nextPeriod' => 0,
-            'renewLast' => $renewGoals,
+//            'renewLast' => $renewGoals,
             'block_id' => 4,
             'disabled' => false,
         ]); ?>
@@ -67,7 +70,7 @@ if ($userReport->self_grade) {
             'type_id' => 2,
             'model' => $model,
             'nextPeriod' => 0,
-            'renewLast' => $renewAims,
+//            'renewLast' => $renewAims,
             'block_id' => 3,
             'disabled' => false,
         ]); ?>
@@ -78,7 +81,7 @@ if ($userReport->self_grade) {
             'type_id' => 1,
             'model' => $model,
             'nextPeriod' => 0,
-            'renewLast' => $renewTasks,
+//            'renewLast' => $renewTasks,
             'block_id' => 2,
             'disabled' => $disableTasks,
         ]); ?>

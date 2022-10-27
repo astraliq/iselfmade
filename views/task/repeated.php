@@ -49,7 +49,7 @@ use yii\helpers\Html;
     </div>
 </div>
 <!--<div class="tasks-all">-->
-<!--    --><?//= \app\widgets\tasks\TasksViewWidget::widget([
+<!--    <?//= \app\widgets\tasks\TasksViewWidget::widget([
 //        'title' => 'Повторяющиеся задачи',
 //        'tasks' => $repeatedTasks,
 //        'del' => false,
@@ -59,6 +59,7 @@ use yii\helpers\Html;
 //        'renewLast' => $renewGoals,
 //        'block_id' => 0,
 //    ]); ?>
+-->
 <!---->
 <!--</div>-->
 <?php echo $this->render('/modals/confirm_email',['notifConfEmail' => $notifConfEmail]); ?>

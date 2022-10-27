@@ -5,15 +5,16 @@ namespace Tests\Behat\Gherkin;
 use Behat\Gherkin\Lexer;
 use Behat\Gherkin\Parser;
 use Behat\Gherkin\Keywords\ArrayKeywords;
+use PHPUnit\Framework\TestCase;
 
-class ParserExceptionsTest extends \PHPUnit_Framework_TestCase
+class ParserExceptionsTest extends TestCase
 {
     /**
      * @var Parser
      */
     private $gherkin;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $keywords       = new ArrayKeywords(array(
             'en' => array(
@@ -76,7 +77,12 @@ Feature: Behat bug test
 Scenario: bug user edit date
 GHERKIN;
 
-        $this->gherkin->parse($feature);
+        $feature = $this->gherkin->parse($feature);
+        $background = $feature->getBackground();
+        $this->assertEquals(
+            "remove X to couse bug\nStep is red form is not valid\nasd\nasd\nas\nda\nsd\nas\ndas\nd",
+            $background->getTitle()
+        );
     }
 
     public function testTextInScenario()
@@ -141,9 +147,6 @@ TEXT;
         $this->assertEquals($secondTitle, $scenarios[1]->getTitle());
     }
 
-    /**
-     * @expectedException \Behat\Gherkin\Exception\ParserException
-     */
     public function testAmbigiousLanguage()
     {
         $feature = <<<GHERKIN
@@ -156,12 +159,10 @@ Feature: Some feature
     Given something wrong
 GHERKIN;
 
+        $this->expectException("\Behat\Gherkin\Exception\ParserException");
         $this->gherkin->parse($feature);
     }
 
-    /**
-     * @expectedException \Behat\Gherkin\Exception\ParserException
-     */
     public function testEmptyOutline()
     {
         $feature = <<<GHERKIN
@@ -170,12 +171,10 @@ Feature: Some feature
     Scenario Outline:
 GHERKIN;
 
+        $this->expectException("\Behat\Gherkin\Exception\ParserException");
         $this->gherkin->parse($feature);
     }
 
-    /**
-     * @expectedException \Behat\Gherkin\Exception\ParserException
-     */
     public function testWrongTagPlacement()
     {
         $feature = <<<GHERKIN
@@ -187,12 +186,10 @@ Feature: Some feature
         Then some additional step
 GHERKIN;
 
+        $this->expectException("\Behat\Gherkin\Exception\ParserException");
         $this->gherkin->parse($feature);
     }
 
-    /**
-     * @expectedException \Behat\Gherkin\Exception\ParserException
-     */
     public function testBackgroundWithTag()
     {
         $feature = <<<GHERKIN
@@ -203,12 +200,10 @@ Feature: Some feature
         Given some step
 GHERKIN;
 
+        $this->expectException("\Behat\Gherkin\Exception\ParserException");
         $this->gherkin->parse($feature);
     }
 
-    /**
-     * @expectedException \Behat\Gherkin\Exception\ParserException
-     */
     public function testEndlessPyString()
     {
         $feature = <<<GHERKIN
@@ -220,12 +215,10 @@ Feature:
             some text
 GHERKIN;
 
+        $this->expectException("\Behat\Gherkin\Exception\ParserException");
         $this->gherkin->parse($feature);
     }
 
-    /**
-     * @expectedException \Behat\Gherkin\Exception\ParserException
-     */
     public function testWrongStepType()
     {
         $feature = <<<GHERKIN
@@ -237,12 +230,10 @@ Feature:
         Aaand some step
 GHERKIN;
 
+        $this->expectException("\Behat\Gherkin\Exception\ParserException");
         $this->gherkin->parse($feature);
     }
 
-    /**
-     * @expectedException \Behat\Gherkin\Exception\ParserException
-     */
     public function testMultipleBackgrounds()
     {
         $feature = <<<GHERKIN
@@ -255,12 +246,10 @@ Feature:
         Aaand some step
 GHERKIN;
 
+        $this->expectException("\Behat\Gherkin\Exception\ParserException");
         $this->gherkin->parse($feature);
     }
 
-    /**
-     * @expectedException \Behat\Gherkin\Exception\ParserException
-     */
     public function testMultipleFeatures()
     {
         $feature = <<<GHERKIN
@@ -269,12 +258,10 @@ Feature:
 Feature:
 GHERKIN;
 
+        $this->expectException("\Behat\Gherkin\Exception\ParserException");
         $this->gherkin->parse($feature);
     }
 
-    /**
-     * @expectedException \Behat\Gherkin\Exception\ParserException
-     */
     public function testTableWithoutRightBorder()
     {
         $feature = <<<GHERKIN
@@ -286,6 +273,7 @@ Feature:
         | 42  | 42
 GHERKIN;
 
+        $this->expectException("\Behat\Gherkin\Exception\ParserException");
         $this->gherkin->parse($feature);
     }
 }

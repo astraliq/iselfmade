@@ -10,8 +10,9 @@ use Behat\Gherkin\Node\FeatureNode;
 use Behat\Gherkin\Node\OutlineNode;
 use Behat\Gherkin\Node\ScenarioNode;
 use Behat\Gherkin\Parser;
+use PHPUnit\Framework\TestCase;
 
-abstract class KeywordsTest extends \PHPUnit_Framework_TestCase
+abstract class KeywordsTest extends TestCase
 {
     abstract protected function getKeywords();
     abstract protected function getKeywordsArray();
@@ -24,7 +25,7 @@ abstract class KeywordsTest extends \PHPUnit_Framework_TestCase
         $keywordsArray = $this->getKeywordsArray();
 
         // Remove languages with repeated keywords
-        unset($keywordsArray['en-old'], $keywordsArray['uz']);
+        unset($keywordsArray['en-old'], $keywordsArray['uz'], $keywordsArray['ne']);
 
         $data = array();
         foreach ($keywordsArray as $lang => $i18nKeywords) {
@@ -110,7 +111,7 @@ DESC
             $dumped = $dumper->dump($lang, false, true);
 
             foreach ($dumped as $num => $dumpedFeature) {
-                $data[] = array($lang, $num, $features[$num], $dumpedFeature);
+                $data[$lang . "_" . $num] = array($lang, $num, $features[$num], $dumpedFeature);
             }
         }
 

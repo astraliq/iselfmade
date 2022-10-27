@@ -12,6 +12,7 @@ use yii\db\Exception;
 class AuthComponent extends Component {
 
     public function signIn(User $model) :bool {
+
         if (!$model->validate()){
             return false;
         }

@@ -3,17 +3,11 @@
 
 namespace app\components;
 
-
+use yii;
 use app\base\BaseComponent;
 use app\models\Tasks;
 use app\models\User;
 use app\models\UsersReports;
-use phpDocumentor\Reflection\Types\False_;
-use yii\db\ActiveRecord;
-use yii\db\conditions\BetweenCondition;
-use yii\helpers\Console;
-use yii\web\UploadedFile;
-use yii\widgets\ActiveForm;
 
 class TasksComponent extends BaseComponent {
     public $modelClass;
@@ -283,6 +277,7 @@ class TasksComponent extends BaseComponent {
         }
 
         if ($task->validate()) {
+
 //            foreach ($task->filesReal as &$file) {
 //                $file = $fileSaver->saveFile($file);
 //                if (!$file) {
@@ -298,6 +293,11 @@ class TasksComponent extends BaseComponent {
             \Yii::error($task->getErrors());
             return false;
         }
+        echo 'false validate';
+        echo '<pre>';
+        print_r($task);
+        echo '</pre>';
+        exit();
         //валидация файлов не прошла
         return false;
     }
@@ -363,6 +363,7 @@ class TasksComponent extends BaseComponent {
 
             $model = $this->getModel();
             $taskToUpdate = $model->findOne(['id' => $task['id'], 'user_id' => $user_id]);
+
             $taskToUpdate->load(['Tasks' => $task]);
             $this->addTask($taskToUpdate);
         }

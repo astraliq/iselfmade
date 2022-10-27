@@ -20,10 +20,10 @@ class Tasks extends TasksBase {
     const GOAL = 3;
     const TYPE_TASK = [self::TASK => 'Дело', self::AIM => 'Задача', self::GOAL => 'Цель', ];
     const NO_PRIVATE = 1;
-    const ONLY_BUDDY = 2;
-    const ONLY_CURATOR = 3;
-    const PRIVATE = 4;
-    const TASK_PRIVATE = [self::NO_PRIVATE => 'Видна всем', self::ONLY_BUDDY => 'Видна только бадди', self::ONLY_CURATOR => 'Видна только куратору', self::PRIVATE => 'Видна только мне',];
+//    const ONLY_BUDDY = 2;
+//    const ONLY_CURATOR = 3;
+    const PRIVATE = 2;
+    const TASK_PRIVATE = [self::NO_PRIVATE => 'Видна всем', self::PRIVATE => 'Видна только мне',];
 
     public function getConstants() {
         return [
@@ -32,8 +32,8 @@ class Tasks extends TasksBase {
             'GOAL' => self::GOAL,
             'TYPE_TASK' => self::TYPE_TASK,
             'NO_PRIVATE' => self::NO_PRIVATE,
-            'ONLY_BUDDY' => self::ONLY_BUDDY,
-            'ONLY_CURATOR' => self::ONLY_CURATOR,
+//            'ONLY_BUDDY' => self::ONLY_BUDDY,
+//            'ONLY_CURATOR' => self::ONLY_CURATOR,
             'PRIVATE' => self::PRIVATE,
             'TASK_PRIVATE' => self::TASK_PRIVATE,
         ];
@@ -293,12 +293,13 @@ class Tasks extends TasksBase {
 
 
     public function rules() {
+
         return array_merge([
             ['type_id', 'in', 'range' => array_keys(self::TYPE_TASK)],
             [['task'], 'trim'],
             [['task'],'required'],
             ['task','string','min' => 2,'max' => 250],
-            [['private_id','repeat_type_id'],'integer'],
+//            [['private_id','repeat_type_id'],'integer'],
             ['private_id', 'in', 'range' => array_keys(self::TASK_PRIVATE)],
             ['date_calculate', 'date', 'format' => 'php: Y-m-d H:i:s'],
             [['nextPeriod', 'date_create_view', 'date_calculate_view', 'parent_repeat_type', 'parent_repeated_weekdays'], 'safe'],

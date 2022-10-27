@@ -4,11 +4,13 @@ namespace Tests\Behat\Gherkin;
 
 use Behat\Gherkin\Node\FeatureNode;
 use Behat\Gherkin\Lexer;
+use Behat\Gherkin\Node\ScenarioNode;
 use Behat\Gherkin\Parser;
 use Behat\Gherkin\Keywords\ArrayKeywords;
 use Behat\Gherkin\Loader\YamlFileLoader;
+use PHPUnit\Framework\TestCase;
 
-class ParserTest extends \PHPUnit_Framework_TestCase
+class ParserTest extends TestCase
 {
     private $gherkin;
     private $yaml;
@@ -20,7 +22,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         foreach (glob(__DIR__ . '/Fixtures/etalons/*.yml') as $file) {
             $testname = basename($file, '.yml');
 
-            $data[] = array($testname);
+            $data[$testname] = array($testname);
         }
 
         return $data;
@@ -36,7 +38,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $etalon = $this->parseEtalon($fixtureName . '.yml');
         $features = $this->parseFixture($fixtureName . '.feature');
 
-        $this->assertInternalType('array', $features);
+        $this->assertIsArray($features);
         $this->assertEquals(1, count($features));
         $fixture = $features[0];
 
@@ -62,6 +64,22 @@ FEATURE
         );
 
         $this->assertFalse($feature2->hasTags());
+    }
+
+    public function testSingleCharacterStepSupport()
+    {
+        $feature = $this->getGherkinParser()->parse(<<<FEATURE
+Feature:
+Scenario:
+When x
+FEATURE
+);
+
+        $scenarios = $feature->getScenarios();
+        /** @var ScenarioNode $scenario */
+        $scenario = array_shift($scenarios);
+
+        $this->assertCount(1, $scenario->getSteps());
     }
 
     protected function getGherkinParser()
@@ -143,5 +161,17 @@ FEATURE
             __DIR__ . '/Fixtures/features/' . basename($etalon, '.yml') . '.feature',
             $feature->getLine()
         );
+    }
+
+    public function testParsingManyCommentsShouldPass()
+    {
+        if (! extension_loaded('xdebug')) {
+            $this->markTestSkipped('xdebug extension must be enabled.');
+        }
+        $defaultPHPSetting = 256;
+        $this->iniSet('xdebug.max_nesting_level', $defaultPHPSetting);
+
+        $lineCount = 150; // 119 is the real threshold, higher just in case
+        $this->assertNull($this->getGherkinParser()->parse(str_repeat("# \n", $lineCount)));
     }
 }

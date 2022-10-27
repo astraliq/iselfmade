@@ -28,12 +28,13 @@ if ($report->files) {
                 'self' => $self,
                 'report' => $report,
             ]); ?>
-            <!--        --><?//= \app\widgets\tasks\ArchiveTasksWidget::widget([
+            <!--        <?//= \app\widgets\tasks\ArchiveTasksWidget::widget([
             //            'title' => 'Позавчера' ,
             //            'date' => $beforeYesterdayDate,
             //            'tasks' => $beforeYesterday,
             //            'block_id' => 1,
             //        ]); ?>
+            -->
         </div>
     </div>
     <?php

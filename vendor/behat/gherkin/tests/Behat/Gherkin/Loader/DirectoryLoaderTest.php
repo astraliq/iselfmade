@@ -3,14 +3,15 @@
 namespace Tests\Behat\Gherkin\Loader;
 
 use Behat\Gherkin\Loader\DirectoryLoader;
+use PHPUnit\Framework\TestCase;
 
-class DirectoryLoaderTest extends \PHPUnit_Framework_TestCase
+class DirectoryLoaderTest extends TestCase
 {
     private $gherkin;
     private $loader;
     private $featuresPath;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->gherkin      = $this->createGherkinMock();
         $this->loader       = new DirectoryLoader($this->gherkin);

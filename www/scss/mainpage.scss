@@ -136,12 +136,11 @@ body {
         color: $color-black;
         font-size: 1.58rem;
         padding: 5px 0 0 12px;
-        line-height: 0;
+        line-height: 1.58rem;
         & span {
             text-transform: uppercase;
             font-size: 1.58rem;
         }
-
     }
     &-logo-text-self {
         color: $color-blue;

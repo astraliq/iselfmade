@@ -20,17 +20,19 @@ class OwnerTaskRule extends Rule
      * @return bool a value indicating whether the rule permits the auth item it is associated with.
      */
     public function execute($user, $item, $params) {
-        $task = $params['task'];
-//        echo '<pre>';
-//        echo '$user - ' . $user;
-//        echo '<br>';
-//        echo '<br>';
-//        echo '$task->user_id - ' . $task->user_id;
-//        echo '<br>';
-//        echo '</pre>';
-//        exit();
-        if ($task) {
-            return $task->user_id == $user;
+        if ($params) {
+            $task = $params['task'];
+//            echo '<pre>';
+//            echo '$user - ' . $user;
+//            echo '<br>';
+//            echo '<br>';
+//            echo '$task->user_id - ' . $task->user_id;
+//            echo '<br>';
+//            echo '</pre>';
+//            exit();
+            if ($task) {
+                return $task->user_id == $user;
+            }
         }
         return true;
     }

@@ -13,6 +13,7 @@ class m201112_185230_add_items extends Migration
     public function safeUp()
     {
         $this->dropForeignKey('tasks_to_repeat_types','mission_tasks');
+        $this->dropForeignKey('types_to_periods','mission_types');
         $this->truncateTable('periods');
         $this->batchInsert('periods',
             ['title_ru', 'title_en'], [
@@ -47,5 +48,6 @@ class m201112_185230_add_items extends Migration
                 ['По выходным', 'On weekends'],
             ]);
         $this->addForeignKey('tasks_to_repeat_types','mission_tasks','repeat_type_id','periods','id','restrict','restrict');
+        $this->addForeignKey('types_to_periods','mission_types','period_id','periods','id','restrict','restrict');
     }
 }

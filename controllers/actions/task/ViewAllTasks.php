@@ -56,7 +56,11 @@ class ViewAllTasks extends Action {
         $userComp = \Yii::createObject(['class' => UserComponent::class]);
         $notifConfEmail = $userComp->checkConfirmationEmail();
 
-        $comments = $compComments->getReportCommentsByReportID($userReport->id);
+        if ($userReport) {
+            $comments = $compComments->getReportCommentsByReportID($userReport->id);
+        } else {
+            $comments = null;
+        }
 
         return $this->controller->render('view_all', [
             'tasks' => $tasks,

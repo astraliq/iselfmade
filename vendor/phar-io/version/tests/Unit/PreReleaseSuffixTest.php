@@ -1,5 +1,4 @@
-<?php
-
+<?php declare(strict_types = 1);
 namespace PharIo\Version;
 
 use PHPUnit\Framework\TestCase;
@@ -10,17 +9,13 @@ use PHPUnit\Framework\TestCase;
 class PreReleaseSuffixTest extends TestCase {
     /**
      * @dataProvider greaterThanProvider
-     *
-     * @param string $leftSuffixValue
-     * @param string $rightSuffixValue
-     * @param bool $expectedResult
      */
     public function testGreaterThanReturnsExpectedResult(
-        $leftSuffixValue,
-        $rightSuffixValue,
-        $expectedResult
-    ) {
-        $leftSuffix = new PreReleaseSuffix($leftSuffixValue);
+        string $leftSuffixValue,
+        string $rightSuffixValue,
+        bool $expectedResult
+    ): void {
+        $leftSuffix  = new PreReleaseSuffix($leftSuffixValue);
         $rightSuffix = new PreReleaseSuffix($rightSuffixValue);
 
         $this->assertSame($expectedResult, $leftSuffix->isGreaterThan($rightSuffix));
@@ -42,5 +37,40 @@ class PreReleaseSuffixTest extends TestCase {
             ['alpha.3', 'alpha2', true],
             ['alpha.3', 'alpha.2', true],
         ];
+    }
+
+    /**
+     * @dataProvider suffixProvider
+     */
+    public function testParsedValue(string $suffix): void {
+        $prs = new PreReleaseSuffix($suffix);
+        $this->assertEquals($suffix, $prs->asString());
+    }
+
+    public function suffixProvider() {
+        return [
+            ['alpha1'],
+            ['beta1'],
+            ['b1'],
+            ['dev1'],
+            ['rc1'],
+            ['patch5'],
+
+            ['alpha.1'],
+            ['beta.1'],
+            ['b.1'],
+            ['dev.1'],
+            ['rc.1'],
+            ['patch.5']
+        ];
+    }
+
+    public function testLabelCanBeRetrieved(): void {
+        $this->assertSame('rc', (new PreReleaseSuffix('rc1'))->getValue());
+    }
+
+    public function testCreatingWithUnsupportedLabelTypeThrowsException(): void {
+        $this->expectException(InvalidPreReleaseSuffixException::class);
+        (new PreReleaseSuffix('foo'));
     }
 }
