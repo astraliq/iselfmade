@@ -42,7 +42,11 @@ class ArchiveAction extends Action {
 
         if (\Yii::$app->request->isAjax) {
             \Yii::$app->response->format=Response::FORMAT_JSON;
-            return $tasks;
+            if ($id) {
+                return $modelReport->findOne(['id' => $id]);
+            } else {
+                return false;
+            }
         }
 
 //        $beforeYesterdayTasks = $comp->getTasksByDateAndUserId($userId, $beforeYesterdayDate);

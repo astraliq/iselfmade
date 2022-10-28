@@ -37,8 +37,9 @@ $config = [
             'decimalSeparator' => '',
             'thousandSeparator' => ' ',
             'currencyCode' => 'EUR',
-//            'timeZone' => 'Europe/Moscow',
-            'defaultTimeZone' => 'UTC',
+            'timeZone' => 'Europe/Moscow',
+//            'defaultTimeZone' => 'UTC',
+            'defaultTimeZone' => 'Europe/Moscow',
             'locale' => 'ru-RU',
         ],
         'user' => [

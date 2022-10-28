@@ -1296,8 +1296,8 @@ class Calendar {
                     resolve(false);
                 });
         });
-
         return await promise.then(archive => {
+            console.log(archive);
             return archive;
         });
     }
