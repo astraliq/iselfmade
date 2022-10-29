@@ -13,6 +13,9 @@ class RbacController extends Controller {
     public function actionGen() {
         \Yii::$app->rbac->generateRbac();
         \Yii::$app->rbac->addMentorRole();
+        \Yii::$app->rbac->addReportPermission();
+        \Yii::$app->rbac->addModeratorChildes();
+        \Yii::$app->rbac->viewUserReportPermission();
         $this->stdout("Done!\n", Console::BOLD);
         return ExitCode::OK;
     }

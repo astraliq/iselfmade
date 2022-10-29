@@ -1212,7 +1212,7 @@ class TasksComponent extends BaseComponent {
 
         // получаем задачи за месяц
         $tasksInMonth = $this->getUserTasksByTypeIdBetweenTwoDates($userId, $date1, $date2, 1);
-        
+
         // создаем массив дат старта этих задач
         foreach ($tasksInMonth as $task) {
             array_push($datesStart, \Yii::$app->formatter->asDateTime($task->date_start, 'php:Y-m-d'));
