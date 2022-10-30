@@ -57,7 +57,7 @@ class ArchiveAction extends Action {
                 if (\Yii::$app->rbac->canViewReport($report)) {
                     $date = \Yii::$app->formatter->asDateTime($report->date, 'php:d.m.Y');
                     $title = '';
-                    $yesterdayTasks = $comp->getArchiveTasksByDate($date);
+                    $yesterdayTasks = $comp->getArchiveTasksByDate($date, 1);
                 } else {
                     goto def;
                 }
@@ -66,7 +66,7 @@ class ArchiveAction extends Action {
             }
         } else {
             def:
-            $yesterdayTasks = $comp->getArchiveTasksByDate($yesterdayDate);
+            $yesterdayTasks = $comp->getArchiveTasksByDate($yesterdayDate, 1);
             $report = $compReports->getUserReportsByDatesArr($yesterdayUTC)[0];
             $date = $yesterdayDate;
             $title = 'Вчера';

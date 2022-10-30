@@ -55,7 +55,7 @@ class GetArchiveAction extends Action {
         }
 
         $dateUTC = (new \DateTime(date($date)))->format('Y-m-d');
-        $archiveTasks = $comp->getArchiveTasksByDate($date);
+        $archiveTasks = $comp->getArchiveTasksByDate($date, 1);
         $reportsModel = new UsersReports();
         $mentorGrade = $reportsModel->findOne(['user_id' => \Yii::$app->user->getId(), 'date' => $dateUTC])->mentor_grade;
 

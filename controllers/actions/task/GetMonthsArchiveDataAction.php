@@ -40,7 +40,7 @@ class GetMonthsArchiveDataAction extends Action {
         $tasksData = $compTasks->getMonthsTasks($month, $year);
 
         //        $dateUTC = (new \DateTime(date($date)))->format('Y-m-d');
-//        $archiveTasks = $comp->getArchiveTasksByDate($date);
+//        $archiveTasks = $comp->getArchiveTasksByDate($date, 2);
 //        $gradeModel = new UsersReports();
 //        $userGrade = $gradeModel->findOne(['user_id' => \Yii::$app->user->getId(), 'date' => $dateUTC])->mentor_grade;
         if ($tasksData) {

@@ -1098,12 +1098,21 @@ class TasksComponent extends BaseComponent {
         return $tasks;
     }
 
-    public function getArchiveTasksByDate($date) {
-        $tasks = Tasks::find()
-            ->where([
+    public function getArchiveTasksByDate($date, $typeId=null) {
+        if ($typeId) {
+            $where = [
                 'user_id' => \Yii::$app->user->getId(),
                 'deleted' => 0,
-            ])
+                'type_id' => $typeId,
+            ];
+        } else {
+            $where = [
+                'user_id' => \Yii::$app->user->getId(),
+                'deleted' => 0,
+            ];
+        }
+        $tasks = Tasks::find()
+            ->where($where)
 //            ->andWhere(['AND',
 //                ['>=', 'date_calculate', (new \DateTime(date($date)))->format('Y-m-d 00:00:00')],
 //                ['<=', 'date_calculate', (new \DateTime($date . ' 23:59:59'))->format('Y-m-d H:i:s')]
