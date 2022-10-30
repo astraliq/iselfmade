@@ -13,3 +13,4 @@ config/db.php
 config/web.php
 www/index.php
 /vendor/
+config/smtp_config.php

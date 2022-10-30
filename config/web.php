@@ -1,6 +1,7 @@
 <?php
 
 $params = require __DIR__ . '/params.php';
+$smtp_config = require __DIR__ . '/smtp_config.php';
 $db = file_exists(__DIR__ . '/db_real.php') ?
     (require __DIR__ . '/db_real.php') :
     (require __DIR__ . '/db.php');
@@ -54,12 +55,12 @@ $config = [
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
           'transport' => [
-                'class' => 'Swift_SmtpTransport',
-                'host' => 'connect.smtp.bz',
-                'username' => 'astral457@mail.ru',
-                'password' => 'NBi8JnpKvYjL',
-                'port' => '2525',
-                'encryption' => 'tls',
+                'class' => $smtp_config['class'],
+                'host' => $smtp_config['host'],
+                'username' => $smtp_config['username'],
+                'password' => $smtp_config['password'],
+                'port' => $smtp_config['port'],
+                'encryption' => $smtp_config['encryption'],
             ],
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
