@@ -16,3 +16,4 @@ config/db.php
 /.idea/
 config/web.php
 www/index.php
+/vendor/

@@ -36,7 +36,7 @@ use Yii;
  * @property string|null $grade_token Токен для установки оценок за выполнение задач
  * @property int|null $welcome_view флаг просмотра welcome страницы
  *
- * @property MissionTasks[] $missionTasks
+ * @property Tasks[] $missionTasks
  * @property ReportComments[] $reportComments
  * @property Periods $mentorEmailRepeat
  * @property UsersReports[] $usersReports

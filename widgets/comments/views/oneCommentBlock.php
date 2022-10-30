@@ -44,7 +44,7 @@ use yii\helpers\Html;
     <div class="user <?=$self_user?>">
         <div class="user__bio">
             <div class="user__bio-ava">
-                <img class="user__img" src="<?=Html::encode($avatar)?>" alt="avatar" width="60" height="auto">
+                <img class="user__img" src="<?=Html::encode($avatar)?>" alt="avatar" width="60" height="60">
             </div>
             <p class="user__name"><?=Html::encode($comment->user->name)?> <?=Html::encode($comment->user->surname)?></p>
         </div>
