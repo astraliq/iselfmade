@@ -9,6 +9,7 @@ use app\components\ArchiveTasksComponent;
 use app\components\TasksComponent;
 use app\models\ArchiveTasks;
 use app\models\Tasks;
+use yii\base\InvalidConfigException;
 use yii\console\Controller;
 use yii\console\ExitCode;
 use yii\helpers\Console;
@@ -27,6 +28,7 @@ class TasksController extends BaseConsoleController {
 
     /**
      * запускает скрипт перемещения в архивную таблицу всех заверешенных задач за предыдущий год
+     * @throws InvalidConfigException
      */
     public function actionArchive() {
         $comp = \Yii::createObject(['class' => ArchiveTasksComponent::class,'modelClass' => ArchiveTasks::class]);
@@ -42,6 +44,7 @@ class TasksController extends BaseConsoleController {
 
     /**
      * запускает скрипт создания повторяемых задач
+     * @throws InvalidConfigException
      */
     public function actionRepeat() {
         $comp = \Yii::createObject(['class' => TasksComponent::class,'modelClass' => Tasks::class]);
@@ -58,6 +61,7 @@ class TasksController extends BaseConsoleController {
 
     /**
      * запускает скрипт рассылки отчетов на электронную почту менторам
+     * @throws InvalidConfigException
      */
     public function actionCuratorReports() {
         $comp = \Yii::createObject(['class' => TasksComponent::class,'modelClass' => Tasks::class]);

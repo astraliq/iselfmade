@@ -14,6 +14,7 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
         '@tests' => '@app/tests',
+        '@migrations' => '@app/migrations',
     ],
     'components' => [
         'authManager' => ['class' => 'yii\rbac\DbManager'],
@@ -46,7 +47,7 @@ $config = [
            'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.masterhost.ru',
-                'username' => 'hello@iselfmade.ru',
+                'username' => 'hello@imade.ru',
                 'password' => 'iselfmade_gjxnf_2020',
                 'port' => '2525',
                 'encryption' => 'tls',

@@ -6,6 +6,7 @@ namespace app\components;
 
 use app\models\User;
 use phpDocumentor\Reflection\DocBlock\Tags\Return_;
+use Yii;
 use yii\base\Component;
 use yii\db\Exception;
 
@@ -60,7 +61,7 @@ class AuthComponent extends Component {
                 'email' => $user->email,
                 'username' => $user->name,
             ])
-                ->setFrom('hello@iselfmade.ru')
+                ->setFrom(\Yii::$app->params['setFromDomain'])
                 ->setTo($user->email)
                 ->setSubject('iselfmade - Восстановление пароля')
                 ->send();
@@ -84,7 +85,7 @@ class AuthComponent extends Component {
                     'email' => $user->email,
                 ]
                 )
-                    ->setFrom('hello@iselfmade.ru')
+                    ->setFrom(\Yii::$app->params['setFromDomain'])
                     ->setTo($user->email)
                     ->setSubject('iselfmade - Подтверждение электронной почты')
                     ->send();

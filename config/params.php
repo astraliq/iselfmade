@@ -4,4 +4,5 @@ return [
     'adminEmail' => 'admin@example.com',
     'senderEmail' => 'noreply@example.com',
     'senderName' => 'iselfmade',
+    'setFromDomain' => 'hello@imade.ru',
 ];

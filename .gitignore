@@ -8,12 +8,8 @@ config/db.php
 /.idea/
 
 .idea/workspace.xml
-.idea/workspace.xml
 /views/layouts/main — копия.php
-.idea/workspace.xml
 *.xml
-.idea/workspace.xml
-/.idea/
 config/web.php
 www/index.php
 /vendor/

@@ -82,7 +82,7 @@ class UserComponent extends BaseComponent {
                         'name' => $user->name,
                     ]
                 )
-                    ->setFrom('hello@iselfmade.ru')
+                    ->setFrom(\Yii::$app->params['setFromDomain'])
                     ->setTo($user->mentor_email)
                     ->setSubject('iselfmade - Подтверждение наставника')
                     ->send();

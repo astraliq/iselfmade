@@ -1019,7 +1019,7 @@ class TasksComponent extends BaseComponent {
                 'date2' => $sendingReport['date2'],
                 'token' => $sendingReport['token'],
             ])
-                ->setFrom('hello@iselfmade.ru')
+                ->setFrom(\Yii::$app->params['setFromDomain'])
                 ->setTo($user->mentor_email)
                 ->setSubject($sendingReport['userName'] . ' - ' . $type)
                 ->send();

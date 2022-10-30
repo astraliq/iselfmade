@@ -6,6 +6,7 @@ namespace app\controllers;
 use app\components\UserComponent;
 use app\controllers\actions\site\ErrorAction;
 use app\models\User;
+use yii\db\Exception;
 use yii\web\Controller;
 use yii\web\HttpException;
 use yii\web\Response;
@@ -29,6 +30,12 @@ class AuthController extends Controller {
     }
 
     // регистрация
+
+    /**
+     * @throws \Throwable
+     * @throws Exception
+     * @throws HttpException
+     */
     public function actionSignUp(){
 
         if (!\Yii::$app->user->isGuest) {
@@ -46,10 +53,17 @@ class AuthController extends Controller {
 
         if (\Yii::$app->request->isPost){
             $model->load(\Yii::$app->request->post());
+            $transaction = \Yii::$app->db->beginTransaction();
             if ($this->auth->signUp($model)) {
-                $this->auth->sendConfirmationMail($model);
-                if ($this->auth->signIn($model)) {
-                    return $this->redirect(['/welcome']);
+                try {
+                    $this->auth->sendConfirmationMail($model);
+                    $transaction->commit();
+                    if ($this->auth->signIn($model)) {
+                        return $this->redirect(['/welcome']);
+                    }
+                } catch (Exception $e) {
+                    $transaction->rollback();
+                    throw new HttpException(500,'Произошла внутренняя ошибка сервера');
                 }
             }
         }
