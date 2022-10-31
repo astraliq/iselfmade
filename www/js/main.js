@@ -66,6 +66,7 @@ class Tasks {
         this.tasksFinishedClass = '.tasks_show_finished';
         this.repeatDateStartClass = '.rep_date_start';
         this.repeatDateEndClass = '.rep_date_end';
+        this.deleteBtn = '.delete_btn';
         this.timerInput;
         this.timerSavind;
         this.timerLastFinishTask;
@@ -515,6 +516,29 @@ class Tasks {
                 el.parentNode.querySelector('.check_btn').addEventListener('click', (e) => {
                     this._initFinishTask(el);
                 })
+            }
+
+            // удаление задач по кнопке
+            let deleteBtns = $(el).parents(this.inputTaskBlockClass).find(this.deleteBtn);
+            if (deleteBtns[0]) {
+                deleteBtns[0].addEventListener('click', (e) => {
+                    let weekends = elemRepeatSettings.parents(this.inputSettingsClass).find(this.weekendsBlockClass);
+                    let datesInput = elemRepeatSettings.parents(this.inputSettingsClass).find('.dates_block');
+                    if (elemRepeatSettings[0].value == 8) {
+                        weekends[0].classList.remove('hidden_block_anim');
+                    } else {
+                        weekends[0].classList.add('hidden_block_anim');
+                    }
+                    if (elemRepeatSettings[0].value != 0) {
+                        datesInput.toArray().forEach( (elem) => {
+                            elem.classList.remove('hidden_block_anim');
+                        });
+                    } else {
+                        datesInput.toArray().forEach( (elem) => {
+                            elem.classList.add('hidden_block_anim');
+                        });
+                    }
+                });
             }
 
             // события появления настроек повтора по дням недели

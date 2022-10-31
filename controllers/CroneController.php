@@ -14,7 +14,7 @@ class CroneController extends BaseController {
      * @throws HttpException
      */
     public function actions() {
-        if (YII_ENV_DEV) {
+        if (YII_ENV === 'dev') {
             return [
                 'repeat-tasks' => ['class' => RepeatTasksAction::class],
                 'curator-reports' => ['class' => CuratorReportsAction::class],

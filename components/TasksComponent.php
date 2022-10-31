@@ -275,7 +275,10 @@ class TasksComponent extends BaseComponent {
         if (!$task->user_id) {
             $task->user_id = \Yii::$app->user->getId();
         }
-
+//        echo '<pre>';
+//        print_r($task);
+//        echo '</pre>';
+//        exit();
         if ($task->validate()) {
 
 //            foreach ($task->filesReal as &$file) {
@@ -293,11 +296,11 @@ class TasksComponent extends BaseComponent {
             \Yii::error($task->getErrors());
             return false;
         }
-        echo 'false validate';
-        echo '<pre>';
-        print_r($task);
-        echo '</pre>';
-        exit();
+//        echo 'false validate';
+//        echo '<pre>';
+//        print_r($task);
+//        echo '</pre>';
+//        exit();
         //валидация файлов не прошла
         return false;
     }
@@ -478,7 +481,7 @@ class TasksComponent extends BaseComponent {
         ];
     }
 
-    private function existRepeatTaskInArr($task, $searchArr) {
+    private function existRepeatTaskInArr($task, $searchArr):array {
         $keysArr = [];
         foreach ($searchArr as $key => $searchTask) {
             if ($searchTask['repeated_by_id'] == $task['id']) {

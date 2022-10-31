@@ -27,7 +27,7 @@ class TasksController extends BaseConsoleController {
     }
 
     /**
-     * запускает скрипт перемещения в архивную таблицу всех заверешенных задач за предыдущий год
+     * Запускает скрипт перемещения в архивную таблицу всех заверешенных задач за предыдущий год
      * @throws InvalidConfigException
      */
     public function actionArchive() {
@@ -43,29 +43,26 @@ class TasksController extends BaseConsoleController {
     }
 
     /**
-     * запускает скрипт создания повторяемых задач
+     * Запускает скрипт создания повторяемых задач
      * @throws InvalidConfigException
      */
     public function actionRepeat() {
         $comp = \Yii::createObject(['class' => TasksComponent::class,'modelClass' => Tasks::class]);
-        $model = $comp->getModel();
         $repeat = $comp->createRepeatedTasks();
         if ($repeat) {
             return ExitCode::OK;
         }
 
         echo print_r($repeat);
-
         return ExitCode::UNSPECIFIED_ERROR;
     }
 
     /**
-     * запускает скрипт рассылки отчетов на электронную почту менторам
+     * Запускает скрипт рассылки отчетов на электронную почту менторам
      * @throws InvalidConfigException
      */
     public function actionCuratorReports() {
         $comp = \Yii::createObject(['class' => TasksComponent::class,'modelClass' => Tasks::class]);
-        $model = $comp->getModel();
         $sends = $comp->sendReportsToCurators();
         if ($sends) {
             return ExitCode::OK;

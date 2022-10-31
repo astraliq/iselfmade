@@ -507,11 +507,37 @@ input[type=checkbox]:focus {
   display: block;
 }
 
+.delete_btn {
+  display: none;
+  webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  background-color: transparent;
+  color: #e51a36;
+  font-weight: bold;
+  font-size: 30px;
+  position: absolute;
+  right: -8px;
+  top: -12px;
+}
+.delete_btn:hover {
+  color: #ff0023;
+  webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  background-color: transparent;
+  box-shadow: none;
+}
+.delete_btn:active {
+  color: #e51a36;
+  webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  background-color: transparent;
+  box-shadow: none;
+}
+
 .main__data {
   margin: 0 0 80px 0;
   padding: 0 0 0 20px;
   min-width: 65%;
-  max-width: 70%;
   max-width: 70%;
   display: -webkit-flex;
   display: -moz-flex;
@@ -605,7 +631,7 @@ input[type=checkbox]:focus {
 .task__input {
   width: 450px;
   margin: 0;
-  padding: 0 8px 0 0;
+  padding: 0 20px 0 0;
   border-color: black;
   background-color: transparent;
   border: none;
@@ -614,6 +640,9 @@ input[type=checkbox]:focus {
   overflow: hidden !important;
   resize: none !important;
   transition: all 0.5s ease;
+}
+.task__input:focus + .delete_btn {
+  display: block;
 }
 .task__input:focus {
   color: #4C91F8;
@@ -2245,6 +2274,11 @@ button:active {
 }
 .archive__input {
   width: 100%;
+}
+
+.no_data {
+  font-size: 14px;
+  font-style: italic;
 }
 
 .welcome {

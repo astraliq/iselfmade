@@ -199,7 +199,7 @@ class Tasks extends TasksBase {
             $this->finished = 0;
         }
 
-        $this->repeat_start = $this->repeat_start === 'При создании' ? null : $this->repeat_start;
+        $this->repeat_start = $this->repeat_start === 'При создании' ? $this->date_start : $this->repeat_start;
         $this->repeat_end = $this->repeat_end === 'Бессрочно' ? null : $this->repeat_end;
         $this->repeat_created = $this->repeat_created == 0 ? null : $this->repeat_created;
 

@@ -4,6 +4,15 @@ $finished = '';
 $check = '';
 error_reporting(E_ALL & ~E_NOTICE);
 
+/**
+ * @var $task - задачи
+ * @var $repeatedTask - повторяемые задачи
+ * @var $type_id - тип задач
+ * @var $repeat_created - повторная задача создана?
+ * @var $nextPeriod - период задач
+ * @var $disabled - флаг заблокированной (отключенной) задачи
+ * @var $newTask - новая задача
+ */
 if ($task && $task->finished == 1 && !$repeatedTask) {
         $finished = 'text__strike';
         $check = 'check';
@@ -53,12 +62,12 @@ if ($repeatTypeId) {
 
 if ($task) {
     if ($task->repeated_by_id || $type_id == 2 || $type_id == 3) {
-        $disableRepeateAttr = 'disabled';
+        $disableRepeatAttr = 'disabled';
         $disableRepeatClass = 'disabled_repeat';
         $disableRepeatTitle = 'Для изменения повтора данной задачи передите в раздел <Повторяющиеся задачи>';
     }
 } else {
-    $disableRepeateAttr = '';
+    $disableRepeatAttr = '';
     $disableRepeatClass = '';
     $disableRepeatTitle = '';
 }
@@ -109,6 +118,9 @@ $typeId = $newTask == 1 ? $type_id : $task->type_id;
         if ($newTask == 0 && !$repeatedTask && !$disabled) {
             echo '<button class="check_btn icon-' . $check . '"></button>';
         }
+        if ($newTask == 0 && !$disabled) {
+            echo '<button class="delete_btn" data-id="' . $task->id . '">+</button>';
+        }
         if ($repeatedTask) {
             echo '<p class="next_repeat_date_row">Следующий повтор: <span class="next_repeat_date" id="repeated-' . $task->id . '" data-id="' . $task->id . '">' . $task->nextRepeatDate . '</span></p>';
         }
@@ -128,7 +140,7 @@ $typeId = $newTask == 1 ? $type_id : $task->type_id;
                 echo \app\widgets\tasks\RepeatSettingsWidget::widget([
                     'task' => $task,
                     'disableRepeatClass' => $disableRepeatClass,
-                    'disableRepeateAttr' => $disableRepeateAttr,
+                    'disableRepeateAttr' => $disableRepeatAttr,
                     'disableRepeatTitle' => $disableRepeatTitle,
                     'repeatTypeSelect' => $repeatTypeSelect,
                     'weekdaysShowClass' => $weekdaysShowClass,
@@ -138,6 +150,11 @@ $typeId = $newTask == 1 ? $type_id : $task->type_id;
                 ]);
             }
             ?>
+        </div>
+        <div class="task__settings task__settings_delete">
+            <p class="delete_q">Удалить </p>
+            <btn class="btn_confirm" data-id="<?=$task->id??null?>">Да</btn>
+            <btn class="btn_cancel"">Нет</btn>
         </div>
     </div>
 </li>

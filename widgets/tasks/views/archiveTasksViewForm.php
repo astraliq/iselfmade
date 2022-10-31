@@ -1,6 +1,9 @@
 <?php
 /**
- * @var $title - заголовок */
+ * @var $title - заголовок
+ * @var $grade - оценка наставника
+ * @var $tasks - массив задач
+ */
 
 if ($title) {
     $comma = ', ';
@@ -30,7 +33,7 @@ if ($grade) {
                 ]);
             }
         } else {
-            echo '<p>Задачи отсутствовали.</p>';
+            echo '<p class="no_data">Задачи отсутствовали.</p>';
         }
         ?>
     </ol>

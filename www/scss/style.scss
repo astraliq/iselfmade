@@ -555,9 +555,35 @@ input[type="checkbox"]:focus {
     word-wrap: break-word;
     margin: 0 0 2px 5px;
 
-
     &:hover .check_btn {
         display: block;
+    }
+}
+
+.delete_btn {
+    display: none;
+    webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    background-color: transparent;
+    color: #e51a36;
+    font-weight: bold;
+    font-size: 30px;
+    position: absolute;
+    right: -8px;
+    top: -12px;
+    &:hover {
+        color: #ff0023;
+        webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+        background-color: transparent;
+        box-shadow: none;
+    }
+    &:active {
+        color: #e51a36;
+        webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+        background-color: transparent;
+        box-shadow: none;
     }
 }
 
@@ -565,7 +591,6 @@ input[type="checkbox"]:focus {
     margin: 0 0 80px 0;
     padding: 0 0 0 20px;
     min-width: 65%;
-    max-width: 70%;
     max-width: 70%;
     display: -webkit-flex;
     display: -moz-flex;
@@ -663,7 +688,7 @@ input[type="checkbox"]:focus {
 .task__input {
     width: $width-textarea;
     margin: 0;
-    padding: 0 8px 0 0;
+    padding: 0 20px 0 0;
     border-color: black;
     background-color: transparent;
     border: none;
@@ -672,6 +697,10 @@ input[type="checkbox"]:focus {
     overflow: hidden !important;
     resize: none !important;
     transition: all $anim_transition_tasks ease;
+
+    &:focus + .delete_btn {
+        display: block;
+    }
 
     &:focus {
         color: $color-blue;
@@ -2530,6 +2559,11 @@ button {
     &__input {
         width: 100%;
     }
+}
+
+.no_data {
+    font-size: 14px;
+    font-style: italic;
 }
 
 .welcome {
