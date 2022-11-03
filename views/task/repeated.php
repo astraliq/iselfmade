@@ -25,6 +25,7 @@ use yii\helpers\Html;
                     echo \app\widgets\tasks\OneTaskViewWidget::widget(
                         [
                             'task' => $task,
+                            'type_id' => $task->type_id,
                             'repeatedTask' => true,
                             'repeat_created' => 1,
                         ]

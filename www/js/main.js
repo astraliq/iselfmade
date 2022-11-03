@@ -55,6 +55,7 @@ class Tasks {
         this.taskListItemClass = '.text__list_item';
         this.createdTasksClass = '.created_tasks';
         this.inputSettingsClass = '.task__settings';
+        this.paramsBlock = '.task__settings_params';
         this.weekendsBlockClass = '.weekends_block';
         this.repeatedByIdClass = '.repeated_by_id'; // select настроек повтора
         this.transferBtn = '.task_transfer_btn';
@@ -67,6 +68,9 @@ class Tasks {
         this.repeatDateStartClass = '.rep_date_start';
         this.repeatDateEndClass = '.rep_date_end';
         this.deleteBtn = '.delete_btn';
+        this.deleteConfirmBlock = '.task__settings_delete';
+        this.deleteBtnConfirm = '.btn_confirm';
+        this.deleteBtnCancel = '.btn_cancel';
         this.timerInput;
         this.timerSavind;
         this.timerLastFinishTask;
@@ -347,6 +351,34 @@ class Tasks {
             });
     }
 
+    _deleteTask(task) {
+
+        let sendData = {
+            'id': task.id,
+        };
+
+        this._post('/task/del', sendData)
+            .then(data => {
+                if (data.result === true) {
+                    let repeatDate = document.getElementById(`repeated-${task.id}`);
+                    if (repeatDate) {
+                        this.updateRepeatDate(repeatDate);
+                    }
+                    if (task.deleted == 1) {
+                        let tasksEl = document.querySelectorAll(this.inputTaskClass);
+                        tasksEl.forEach( (taskEl) => {
+                            if (taskEl.dataset.id == task.id) {
+                                taskEl.parentElement.parentElement.style.display = 'none';
+                            }
+                        });
+                    }
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
     _finishTask(inputBlock) {
         let sendData = {
             'id': this.id,
@@ -458,20 +490,63 @@ class Tasks {
             // let repeatDate = $(el).parent().children(this.nextRepeatDate);
             autosize.destroy($(el));
             autosize($(el));
+            let btnDel = $(el).parent().children(this.deleteBtn);
+            let elParams = $(el).parent().find(this.paramsBlock);
+            let elDeleteBlock = $(el).parent().find(this.deleteConfirmBlock);
 
             // появление настроек при фокусировке на textarea
             el.addEventListener('focus', (e) => {
                 settings.show();
+                btnDel.show();
+                $(el).addClass('focus_task__input');
                 // settings.css('display', 'flex');
 
                 // закрытие окна при клике вне окна
                 $(document).mousedown(function (e) { // событие клика по веб-документу
-                    if (!$(el).is(e.target) && !settings.is(e.target) && settings.has(e.target).length === 0) {
+                    if (!$(el).is(e.target) && !settings.is(e.target) && settings.has(e.target).length === 0 && e.target.className !== 'delete_btn') {
                         // если клик был не по нашему блоку и не по его дочерним элементам
                         settings.fadeOut(1); // скрываем его
+                        btnDel.fadeOut(1); // скрываем его
+                        $(el).removeClass('focus_task__input');
+                        elDeleteBlock.hide();
+                        elParams.show();
                     }
                 });
             });
+
+            // удаление задач по кнопке
+            let deleteBtns = $(el).parent().children(this.deleteBtn);
+            if (deleteBtns[0]) {
+                deleteBtns[0].addEventListener('click', (e) => {
+                    elParams.hide();
+                    elDeleteBlock.show();
+                });
+            }
+
+            // удаление задач по кнопке
+            let btnDeleteTaskConfirm = elDeleteBlock.find(this.deleteBtnConfirm)[0];
+            if (btnDeleteTaskConfirm) {
+                btnDeleteTaskConfirm.addEventListener('click', (e) => {
+                    settings.slideUp().hide();
+                    btnDel.fadeOut(1);
+                    $(el).removeClass('focus_task__input');
+                    elDeleteBlock.hide();
+                    elParams.show();
+                    this._deleteTaskByEvent(el);
+                });
+            }
+
+            // удаление задач по кнопке
+            let btnDeleteTaskCancel = elDeleteBlock.find(this.deleteBtnCancel)[0];
+            if (btnDeleteTaskCancel) {
+                btnDeleteTaskCancel.addEventListener('click', (e) => {
+                    settings.slideUp().hide();
+                    btnDel.fadeOut(1);
+                    $(el).removeClass('focus_task__input');
+                    elDeleteBlock.hide();
+                    elParams.show();
+                });
+            }
 
             // ctrl + enter - переход на новую строку
             el.addEventListener('keydown', (e) => {
@@ -518,28 +593,6 @@ class Tasks {
                 })
             }
 
-            // удаление задач по кнопке
-            let deleteBtns = $(el).parents(this.inputTaskBlockClass).find(this.deleteBtn);
-            if (deleteBtns[0]) {
-                deleteBtns[0].addEventListener('click', (e) => {
-                    let weekends = elemRepeatSettings.parents(this.inputSettingsClass).find(this.weekendsBlockClass);
-                    let datesInput = elemRepeatSettings.parents(this.inputSettingsClass).find('.dates_block');
-                    if (elemRepeatSettings[0].value == 8) {
-                        weekends[0].classList.remove('hidden_block_anim');
-                    } else {
-                        weekends[0].classList.add('hidden_block_anim');
-                    }
-                    if (elemRepeatSettings[0].value != 0) {
-                        datesInput.toArray().forEach( (elem) => {
-                            elem.classList.remove('hidden_block_anim');
-                        });
-                    } else {
-                        datesInput.toArray().forEach( (elem) => {
-                            elem.classList.add('hidden_block_anim');
-                        });
-                    }
-                });
-            }
 
             // события появления настроек повтора по дням недели
             let elemRepeatSettings = $(el).parents(this.inputTaskBlockClass).find(this.repeatedByIdClass);
@@ -652,6 +705,18 @@ class Tasks {
         this.timerInput = setTimeout(() => {
             this._initUpdateTasks(this.tasksForUpdate);
             this.tasksForUpdate = [];
+            el.classList.add('transition_all');
+        }, 2000)
+    }
+
+    _deleteTaskByEvent(el) {
+        // обновляем таймаут сохранения
+        clearTimeout(this.timerInput);
+        el.classList.add('transition_none');
+        this.id = el.dataset.id;
+        // устанавливаем задержку перед сохранением после последнего изменения
+        this.timerInput = setTimeout(() => {
+            this._initDeleteTask(this.id);
             el.classList.add('transition_all');
         }, 2000)
     }
@@ -775,6 +840,13 @@ class Tasks {
         // удаляем дубликаты
         blocksIds = [...new Set(blocksIds)];
         this._updateChangedTasks(tasks, blocksIds);
+    }
+
+    _initDeleteTask(idTask) {
+        this.id = idTask;
+        this.deleted = 1;
+        let task = new Task(this);
+        this._deleteTask(task);
     }
 
     _initFinishTask(elementInput) {

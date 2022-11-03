@@ -641,10 +641,8 @@ input[type=checkbox]:focus {
   resize: none !important;
   transition: all 0.5s ease;
 }
-.task__input:focus + .delete_btn {
-  display: block;
-}
-.task__input:focus {
+
+.focus_task__input {
   color: #4C91F8;
   border-bottom: 1px solid #609df8;
 }
@@ -739,6 +737,40 @@ input[type=checkbox]:focus {
   flex-wrap: wrap;
   justify-content: center;
   font-weight: 400;
+}
+.task__settings .task__settings_params {
+  font-weight: 400;
+  font-size: 15px;
+  padding: 5px 5px 5px 5px;
+}
+.task__settings .task__settings_delete {
+  display: none;
+  padding: 10px;
+  top: -40px;
+}
+.task__settings .task__settings_delete p {
+  color: #609df8;
+  font-size: 16px;
+  text-align: center;
+  margin: 0 0 15px 0;
+}
+.task__settings .task__settings_delete .task_del_btns_block {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.task__settings .task__settings_delete .btn_confirm {
+  width: 100px;
+}
+.task__settings .task__settings_delete .btn_cancel {
+  width: 100px;
+  background-color: lightgrey;
+}
+.task__settings .task__settings_delete .btn_cancel:hover {
+  background-color: #b3b3b3;
+}
+.task__settings .task__settings_delete .btn_cancel:active {
+  background-color: lightgrey;
 }
 .task__settings .repeated_date, .task__settings select {
   border: none;

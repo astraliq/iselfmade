@@ -1,5 +1,8 @@
 @import '_param';
 
+$back_color_btn_cancel_HOV: #b3b3b3;
+$back_color_btn_cancel: lightgrey;
+
 html {
     overflow-y: scroll;
 }
@@ -698,14 +701,19 @@ input[type="checkbox"]:focus {
     resize: none !important;
     transition: all $anim_transition_tasks ease;
 
-    &:focus + .delete_btn {
-        display: block;
-    }
+    //&:focus + .delete_btn {
+    //    display: block;
+    //}
 
-    &:focus {
-        color: $color-blue;
-        border-bottom: 1px solid $color-blue-light;
-    }
+    //&:focus {
+    //    color: $color-blue;
+    //    border-bottom: 1px solid $color-blue-light;
+    //}
+}
+
+.focus_task__input {
+    color: $color-blue;
+     border-bottom: 1px solid $color-blue-light;
 }
 
 .hide_input {
@@ -843,6 +851,43 @@ input[type="checkbox"]:focus {
     justify-content: center;
     font-weight: 400;
 
+    .task__settings_params {
+        font-weight: 400;
+        font-size: 15px;
+        padding: 5px 5px 5px 5px;
+
+    }
+
+    .task__settings_delete {
+        display: none;
+        padding: 10px;
+        top: -40px;
+        & p {
+            color: #609df8;
+            font-size: 16px;
+            text-align: center;
+            margin: 0 0 15px 0;
+        }
+        .task_del_btns_block {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .btn_confirm {
+            width: 100px;
+        }
+        .btn_cancel {
+            width: 100px;
+            background-color: $back_color_btn_cancel;
+            &:hover {
+                background-color: $back_color_btn_cancel_HOV;
+            }
+            &:active{
+                background-color: $back_color_btn_cancel;
+            }
+        }
+    }
+
     & .repeated_date,
     & select {
         border: none;
@@ -960,6 +1005,8 @@ input[type="checkbox"]:focus {
         }
     }
 }
+
+
 
 .tasks-form {
     width: 100%;

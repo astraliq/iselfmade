@@ -13,6 +13,21 @@ error_reporting(E_ALL & ~E_NOTICE);
  * @var $disabled - флаг заблокированной (отключенной) задачи
  * @var $newTask - новая задача
  */
+$typeNameToDelete = '';
+switch ($type_id) {
+    case 3:
+        $typeNameToDelete = 'цель';
+        break;
+    case 2:
+        $typeNameToDelete = 'задачу';
+        break;
+    case 1:
+        $typeNameToDelete = 'дело';
+        break;
+}
+
+
+
 if ($task && $task->finished == 1 && !$repeatedTask) {
         $finished = 'text__strike';
         $check = 'check';
@@ -126,35 +141,44 @@ $typeId = $newTask == 1 ? $type_id : $task->type_id;
         }
         ?>
         <div class="task__settings">
-            <div class="select_block">
-                <div class="label_block">
-                    <label for="private_id"><?=$privateSet?>:</label>
+            <div class="task__settings_params">
+                <div class="select_block">
+                    <div class="label_block">
+                        <label for="private_id"><?=$privateSet?>:</label>
+                    </div>
+                    <select name="private_id" class="private_id">
+                        <option value="1" <?=$privateSelect[1]?>>Нет</option>
+                        <option value="2" <?=$privateSelect[2]??null?>>Да</option>
+                    </select>
                 </div>
-                <select name="private_id" class="private_id">
-                    <option value="1" <?=$privateSelect[1]?>>Нет</option>
-                    <option value="2" <?=$privateSelect[2]??null?>>Да</option>
-                </select>
+
+                <?php
+                if ($type_id == 1 || $repeatedTask) {
+                    echo \app\widgets\tasks\RepeatSettingsWidget::widget([
+                        'task' => $task,
+                        'disableRepeatClass' => $disableRepeatClass,
+                        'disableRepeateAttr' => $disableRepeatAttr,
+                        'disableRepeatTitle' => $disableRepeatTitle,
+                        'repeatTypeSelect' => $repeatTypeSelect,
+                        'weekdaysShowClass' => $weekdaysShowClass,
+                        'repeatDatesShowClass' => $repeatDatesShowClass,
+                        'weekdaysCheckedInputs' => $weekdaysCheckedInputs,
+                        'repeat_created' => $repeat_created,
+                    ]);
+                }
+                ?>
             </div>
             <?php
-            if ($type_id == 1 || $repeatedTask) {
-                echo \app\widgets\tasks\RepeatSettingsWidget::widget([
-                    'task' => $task,
-                    'disableRepeatClass' => $disableRepeatClass,
-                    'disableRepeateAttr' => $disableRepeatAttr,
-                    'disableRepeatTitle' => $disableRepeatTitle,
-                    'repeatTypeSelect' => $repeatTypeSelect,
-                    'weekdaysShowClass' => $weekdaysShowClass,
-                    'repeatDatesShowClass' => $repeatDatesShowClass,
-                    'weekdaysCheckedInputs' => $weekdaysCheckedInputs,
-                    'repeat_created' => $repeat_created,
-                ]);
+            if ($newTask == 0) {
+                echo '<div class="task__settings_delete">';
+                echo '<p class="delete_q">Удалить ' .$typeNameToDelete . '?</p>';
+                echo '<div class="task_del_btns_block">';
+                echo '<btn class="btn btn-primary btn_confirm" data-id="<?=$task->id??null?>">Да</btn>';
+                echo '<btn class="btn btn-secondary btn_cancel"">Нет</btn>';
+                echo '</div>';
+                echo '</div>';
             }
             ?>
-        </div>
-        <div class="task__settings task__settings_delete">
-            <p class="delete_q">Удалить </p>
-            <btn class="btn_confirm" data-id="<?=$task->id??null?>">Да</btn>
-            <btn class="btn_cancel"">Нет</btn>
         </div>
     </div>
 </li>
