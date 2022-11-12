@@ -32,12 +32,12 @@ use yii\helpers\Url;
 <p>Регулярность писем будет зависить от настроек пользователя.</p>
 <br>
 <p>Для подтверждения получения писем перейдите по ссылке:</p>
-<a href="<?=Url::home('http') . 'user/confirmation-curators-email?user=' . $userId . '&confirmation_token=' . $confirmation_token?>">Подтвердить</a>
+<a href="<?=\Yii::$app->params['homeUrl_http'] . 'user/confirmation-curators-email?user=' . $userId . '&confirmation_token=' . $confirmation_token?>">Подтвердить</a>
 <br>
 <p>Если письмо пришло к Вам по ошибке или Вы не желаете быть наставником пользователя <?=$name?> - просто проигнорируйте это письмо.</p>
 <br>
 <br>
 <p>Это письмо отправлено роботом, отвечать на него не нужно.</p>
 <hr>
-<p>С наилучшими пожеланиями, <br>Команда <a href="<?= Url::home('https') ?>" class="logo"><span class="black_logo">i</span><span class="blue_logo">self</span><span class="black_logo">made</span></a></p>
+<p>С наилучшими пожеланиями, <br>Команда <a href="<?=\Yii::$app->params['homeUrl_http']?>" class="logo"><span class="black_logo">i</span><span class="blue_logo">self</span><span class="black_logo">made</span></a></p>
 

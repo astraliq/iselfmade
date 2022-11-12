@@ -5,6 +5,8 @@
 $month = \Yii::$app->params['monthsImenit'][\Yii::$app->formatter->asDate(date('Y-m-d'), 'M')];
 
 use yii\helpers\Html;
+use yii\helpers\Url;
+
 \app\assets\ReportsAsset::register($this);
 
 
@@ -25,7 +27,7 @@ if ($userReport) {
     } else {
         $files = 'файлы не прикреплены';
     }
-    $comment = $userReport->comment ? $userReport->comment : 'не указано';
+    $comment = $userReport->comment ? $userReport->comment : 'не заполнено';
 
 } else {
     $fileListIdReport = 'file_list';
@@ -44,7 +46,6 @@ if ($userReport) {
         $repeatTypeSelect[0] = 'selected';
     }
 }
-
 
 
 

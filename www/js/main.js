@@ -1212,7 +1212,7 @@ class ArchiveTasks extends Tasks{
                     userReport.init();
                     let modalImg = new ModalImg('comments', '.input_img');
                     modalImg.init();
-                    update.sendRequest();
+                    update.getComments();
                 } else {
                     this.renderMessage(data.message);
                     this.timerMessage = setTimeout(() => {

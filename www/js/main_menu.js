@@ -20,7 +20,7 @@ class Update {
         })
     }
 
-    _renderNotificationsCount(count, notifList) {
+    _renderNotificationsCount(count) {
         let bell = document.getElementById(this.info_bell_ID);
         if (count == 0) {
             $(bell).hide();
@@ -36,63 +36,54 @@ class Update {
         notifBlock.insertAdjacentHTML('afterbegin', html);
     }
 
-    sendRequest() {
-        let commentSection = document.getElementById(comment.commentsBlockID);
-        let commentsBlock;
+    getComments(report_ids) {
+        const commentSection = document.getElementById(comment.commentsBlockID);
         if (commentSection) {
-            commentsBlock = commentSection.querySelector('.comments__block');
-            let commentsElems = document.querySelectorAll(comment.commentClass);
-            let ids = [];
-            commentsElems.forEach( (elem) => {
-                ids.push(elem.dataset.id);
+            const sectionReportId = commentSection.dataset.report_id
+            let checkReportId = report_ids.find(id => {
+                return id == sectionReportId;
             });
-            let commentsLastElem = document.querySelector(comment.commentClass + ':last-child');
-            let lastId;
-            if (commentsLastElem) {
-                lastId = commentsLastElem.dataset.id;
-            }
-            let sendData2 = {
-                'lastCommentId': lastId,
-                'reportId': commentSection.dataset.report_id,
-            };
 
-            this._get('/report/get-new-comments', sendData2)
-                .then(data => {
-                    if (data.result) {
-                        data.new_comments.forEach( (new_comment, i) => {
-                            if (!ids.find( (realId) => {
-                                return realId == data.new_comments_ids[i];
-                            })) {
-                                comment._renderComment(commentsBlock, new_comment);
-                                comment._scrollCommentsDown(commentsBlock);
-                            }
-                            data.new_comments_ids.forEach( (id) => {
-                                let newModals = new ModalImg(`comments__uploaded_files-${id}`, '.input_img');
-                                newModals.init();
-                            });
-                        });
+            if (checkReportId) {
 
-                    }
-                })
-                .catch(error => {
+                const commentsBlock = commentSection.querySelector('.comments__block');
+                const commentsElems = document.querySelectorAll(comment.commentClass);
+                let ids = [];
+                commentsElems.forEach((elem) => {
+                    ids.push(elem.dataset.id);
                 });
-        }
-        let sendData = {
-        };
-
-        this._get('/site/update-data', sendData)
-            .then(data => {
-                if (data.result) {
-                    this.notif_list = data.new_comments;
-                    this._renderNotificationsCount(data.notif_count, data.new_comments);
-                } else {
-                    this.notif_list = data.new_comments;
-                    this._renderNotificationsCount(data.notif_count, data.new_comments);
+                const commentsLastElem = document.querySelector(comment.commentClass + ':last-child');
+                let lastId;
+                if (commentsLastElem) {
+                    lastId = commentsLastElem.dataset.id;
                 }
-            })
-            .catch(error => {
-            });
+                let sendData2 = {
+                    'lastCommentId': lastId,
+                    'reportId': commentSection.dataset.report_id,
+                };
 
+                this._get('/report/get-new-comments', sendData2)
+                    .then(data => {
+                        if (data.result) {
+                            data.new_comments.forEach((new_comment, i) => {
+                                if (!ids.find((realId) => {
+                                    return realId == data.new_comments_ids[i];
+                                })) {
+                                    comment._renderComment(commentsBlock, new_comment);
+                                    comment._scrollCommentsDown(commentsBlock);
+                                }
+                                data.new_comments_ids.forEach((id) => {
+                                    let newModals = new ModalImg(`comments__uploaded_files-${id}`, '.input_img');
+                                    newModals.init();
+                                });
+                            });
+
+                        }
+                    })
+                    .catch(error => {
+                    });
+            }
+        }
     }
 
     getNotifs() {
@@ -134,8 +125,6 @@ class Update {
     init() {
         let bell = document.getElementById(this.notifsId);
         if (bell) {
-            this.sendRequest();
-            setInterval(() => {this.sendRequest()}, this.interval);
             bell.addEventListener('click', (e) => {
                 this.getNotifs(this.notifBlockId);
                 this.showNotifs(this.notifBlockId);
@@ -162,7 +151,7 @@ class Update {
 
 }
 
-let update = new Update();
+const update = new Update();
 update.init();
 
 class UserMenu extends Update{
@@ -189,5 +178,65 @@ class UserMenu extends Update{
     }
 }
 
-let userMenu = new UserMenu();
+const userMenu = new UserMenu();
 userMenu.init();
+
+class eventsUpdate {
+    eventSource;
+    eventsLog = [];
+    update;
+    userMenu;
+
+    constructor(update, userMenu) {
+        this.update = update;
+        this.userMenu = userMenu;
+        this._init();
+    }
+
+    _init() {
+        this.eventSource = new EventSource('/site/events-update');
+
+        this.eventSource.addEventListener('open', (e) => {
+            this.eventsLog.status = 'EventSource first connection to server.';
+            console.log(this.eventsLog.status);
+        }, {once: true});
+
+        this.eventSource.addEventListener('message', (e) => {
+            e.data && console.log(e.data);
+            if (e.lastEventId === '-1') {
+                this.eventSource.close();
+                this.eventsLog.status = 'EventSource connection closed by server limit.';
+                console.log(this.eventsLog.status);
+            }
+        });
+
+        this.eventSource.addEventListener('notifCountData', (e) => {
+            const {count, report_ids} = JSON.parse(e.data);
+            this.update._renderNotificationsCount(count);
+            count > 0 && this.update.getComments(report_ids);
+            // console.log(count, report_ids);
+        })
+
+        this.eventSource.addEventListener('error', (e) => {
+            this.eventSource.close();
+            this.eventsLog.status = `EventSource error:`;
+            console.log(this.eventsLog.status);
+            // console.log(e);
+        }, {once: true});
+
+    }
+
+    closeConnection() {
+        this.eventSource.close();
+        this.eventLog.status = 'EventSource connection closed by client.'
+    }
+
+    _renderNotifications(html) {
+        let notifBlock = document.getElementById(this.notifBlockId);
+        notifBlock.innerHTML = '';
+        notifBlock.insertAdjacentHTML('afterbegin', html);
+    }
+
+}
+
+const events = new eventsUpdate(update, userMenu);

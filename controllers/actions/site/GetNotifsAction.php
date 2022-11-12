@@ -9,10 +9,16 @@ use app\components\ReportCommentsComponent;
 use app\models\ReportComments;
 use app\widgets\notification\NotificationsWidget;
 use yii\base\Action;
+use yii\base\InvalidConfigException;
 use yii\web\HttpException;
 use yii\web\Response;
 
 class GetNotifsAction extends Action {
+    /**
+     * @throws \Throwable
+     * @throws InvalidConfigException
+     * @throws HttpException
+     */
     public function run() {
         if (\Yii::$app->user->isGuest) {
             throw new HttpException(403, 'Доступ запрещен!');

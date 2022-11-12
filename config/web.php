@@ -65,7 +65,8 @@ $config = [
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
-            'useFileTransport' => file_exists(__DIR__ . '/db_real.php') ? false : true,
+            'useFileTransport' => false,
+//            'useFileTransport' => file_exists(__DIR__ . '/db_real.php') ? false : true,
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -144,6 +145,9 @@ $config = [
 //        'session'=>[
 //            'timeout' => 183*24*60*60, // время жизни сессии 6 месяцев
 //        ],
+        'response' => [
+            'formatters' => ['sse' => 'app\components\SSEFormatter'],
+        ],
         'timezones' => ['class' => \app\components\TimeZoneComponent::class],
 
     ],

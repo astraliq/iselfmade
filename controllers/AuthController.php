@@ -3,16 +3,18 @@
 
 namespace app\controllers;
 
+use app\base\BaseController;
 use app\components\UserComponent;
 use app\controllers\actions\site\ErrorAction;
 use app\models\User;
 use yii\db\Exception;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\HttpException;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 
-class AuthController extends Controller {
+class AuthController extends BaseController {
 
     public $layout = 'main';
     private $auth;
@@ -80,7 +82,13 @@ class AuthController extends Controller {
     }
 
     // авторизация
+
+    /**
+     * @throws \Throwable
+     */
     public function actionSignIn(){
+
+        \Yii::$app->request->setHostInfo(Url::toRoute('/'));
 
         if (!\Yii::$app->user->isGuest) {
             $user = \Yii::$app->user->getIdentity();
@@ -98,6 +106,7 @@ class AuthController extends Controller {
         if (\Yii::$app->request->isPost){
             $model->load(\Yii::$app->request->post());
             if ($this->auth->signIn($model)) {
+
                 return $this->redirect(['/report']);
             } else {
                 if (\Yii::$app->request->isAjax) {
@@ -118,6 +127,10 @@ class AuthController extends Controller {
     }
 
     // восстановление пароля
+
+    /**
+     * @throws \Throwable
+     */
     public function actionRemindPassword(){
 
         if (!\Yii::$app->user->isGuest) {
@@ -162,6 +175,10 @@ class AuthController extends Controller {
     }
 
     // валидация для восстановления пароля
+
+    /**
+     * @throws \Throwable
+     */
     public function actionValidateRemindPassword(){
 
         if (!\Yii::$app->user->isGuest) {
@@ -196,7 +213,11 @@ class AuthController extends Controller {
     }
 
     // изменение пароля
-    public function actionRestorePassword($email=null,$token=null){
+
+    /**
+     * @throws \Throwable
+     */
+    public function actionRestorePassword($email=null, $token=null){
         $this->layout = 'error_base';
         if (!\Yii::$app->user->isGuest) {
             $user = \Yii::$app->user->getIdentity();
@@ -261,7 +282,12 @@ class AuthController extends Controller {
     }
 
     // Подтверждение почты
-    public function actionConfirmationEmail($email=null,$confirmation_token=null){
+
+    /**
+     * @throws \Throwable
+     * @throws HttpException
+     */
+    public function actionConfirmationEmail($email=null, $confirmation_token=null){
 //        if (\Yii::$app->user->isGuest) {
 //            return $this->redirect(['/']);
 //        }
@@ -299,6 +325,11 @@ class AuthController extends Controller {
     }
 
     // Запрос на отправку письма на почту с подтверждение адреса почты пользователя
+
+    /**
+     * @throws \Throwable
+     * @throws HttpException
+     */
     public function actionSendConfirmationEmail(){
         if (\Yii::$app->user->isGuest || !\Yii::$app->request->isPost) {
             throw new HttpException(403,'нет доступа');
@@ -320,6 +351,11 @@ class AuthController extends Controller {
     }
 
     // валидация пользователя для авторизации
+
+    /**
+     * @throws \Throwable
+     * @throws HttpException
+     */
     public function actionValidateSignIn(){
         if (!\Yii::$app->user->isGuest) {
             $user = \Yii::$app->user->getIdentity();

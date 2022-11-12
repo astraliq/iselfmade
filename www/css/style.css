@@ -203,7 +203,7 @@ input[type=checkbox]:focus {
   justify-content: flex-end;
   align-items: center;
   padding: 20px 30px 0 0;
-  position: relative;
+  position: fixed;
 }
 .top-menu__link {
   font-family: "Roboto", sans-serif;
@@ -535,7 +535,7 @@ input[type=checkbox]:focus {
 }
 
 .main__data {
-  margin: 0 0 80px 0;
+  margin: 40px 0 80px 0;
   padding: 0 0 0 20px;
   min-width: 65%;
   max-width: 70%;
@@ -1141,12 +1141,12 @@ input[type=checkbox]:focus {
 
 ::-webkit-scrollbar-button:horizontal:start:decrement {
   background: linear-gradient(30deg, whitesmoke 40%, rgba(0, 0, 0, 0) 41%), linear-gradient(150deg, whitesmoke 40%, rgba(0, 0, 0, 0) 41%), linear-gradient(270deg, whitesmoke 30%, rgba(0, 0, 0, 0) 31%);
-  background-color: #c2ddff;
+  background-color: white;
 }
 
 ::-webkit-scrollbar-button:horizontal:end:increment {
   background: linear-gradient(210deg, whitesmoke 40%, rgba(0, 0, 0, 0) 41%), linear-gradient(330deg, whitesmoke 40%, rgba(0, 0, 0, 0) 41%), linear-gradient(90deg, whitesmoke 30%, rgba(0, 0, 0, 0) 31%);
-  background-color: #c2ddff;
+  background-color: white;
 }
 
 .comments {
@@ -1247,6 +1247,7 @@ input[type=checkbox]:focus {
 }
 .comments__item {
   margin: 10px;
+  z-index: -1;
 }
 .comments__disagree {
   width: 100%;
@@ -1277,7 +1278,7 @@ input[type=checkbox]:focus {
 }
 .comments__no {
   margin: 20px;
-  font-size: 20px;
+  font-size: 16px;
   font-style: italic;
 }
 .comments .user {
@@ -1302,6 +1303,7 @@ input[type=checkbox]:focus {
   line-height: 1.4rem;
   font-weight: 400;
   font-style: italic;
+  margin: 5px 0 0 0;
 }
 .comments .user__bio {
   order: 1;
@@ -1816,6 +1818,7 @@ section .show-end {
   display: -o-flex;
   display: flex;
   flex-direction: column;
+  z-index: -1;
 }
 #calendar_block .calend_title {
   font-size: 14px;

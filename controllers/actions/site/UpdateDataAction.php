@@ -8,10 +8,15 @@ use app\components\ReportCommentsComponent;
 use app\models\ReportComments;
 use app\models\User;
 use yii\base\Action;
+use yii\base\InvalidConfigException;
 use yii\web\HttpException;
 use yii\web\Response;
 
 class UpdateDataAction extends Action {
+    /**
+     * @throws HttpException
+     * @throws InvalidConfigException
+     */
     public function run() {
         if (\Yii::$app->user->isGuest) {
             throw new HttpException(400, 'Некорректный запрос');

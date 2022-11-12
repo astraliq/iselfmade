@@ -22,8 +22,8 @@ class WelcomeAction extends Action {
             return $this->controller->redirect(['/report']);
         }
 
-//        $user->welcome_view = 1;
-//        $user->save(false);
+        $user->welcome_view = 1;
+        $user->save(false);
 
 
         $comp = \Yii::createObject(['class' => TasksComponent::class,'modelClass' => Tasks::class]);

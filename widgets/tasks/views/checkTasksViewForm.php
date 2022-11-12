@@ -40,7 +40,9 @@ if ($userReport->files) {
             </tr>
         </table>
     </div>
-<!--    <button class="check-chat_btn" id="chat" data-id="--><?//=$user->id?><!--">Открыть комментарии</button>-->
+<!--    <button class="check-chat_btn" id="chat" data-id="-->
+<!--   <?//=$user->id?> -->
+    <!--">Открыть комментарии</button>-->
 
     <div class="tasks-form">
         <div class="tasks-all">
