@@ -199,6 +199,7 @@ input[type="checkbox"]:focus {
     align-items: center;
     padding: 20px 30px 0 0;
     position: fixed;
+    z-index: 100;
     &__link {
         font-family: $font_main-text;
         font-weight: 400;
@@ -343,7 +344,6 @@ input[type="checkbox"]:focus {
         right: -10px;
         transition: all $anim_transition_modals_menu ease;
         overflow-y: scroll;
-        z-index: 99;
 
         &::-webkit-scrollbar {
             width: 6px; /* ширина для вертикального скролла */
@@ -2063,7 +2063,7 @@ section {
     display: -o-flex;
     display: flex;
     flex-direction: column;
-    z-index: -1;
+    z-index: 5;
 
     & .calend_title {
         font-size: 14px;
