@@ -523,13 +523,14 @@ class Tasks {
                 });
             }
 
-            // удаление задач по кнопке
+            // подтверждение удаления задач по кнопке
             let btnDeleteTaskConfirm = elDeleteBlock.find(this.deleteBtnConfirm)[0];
             if (btnDeleteTaskConfirm) {
                 btnDeleteTaskConfirm.addEventListener('click', (e) => {
                     settings.slideUp().hide();
                     btnDel.fadeOut(1);
                     $(el).removeClass('focus_task__input');
+                    $(el).attr('disabled',true);
                     elDeleteBlock.hide();
                     elParams.show();
                     this._deleteTaskByEvent(el);

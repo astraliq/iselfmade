@@ -11,20 +11,18 @@ class RepeatTasksAction extends Action {
     /**
      * @throws InvalidConfigException
      */
-    public function run(): bool {
-//        echo '<pre>';
-//        echo 'проверка!';
-//        echo '</pre>';
-//        exit();
+    public function run() {
         $comp = \Yii::createObject(['class' => TasksComponent::class,'modelClass' => Tasks::class]);
         $repeat = $comp->createRepeatedTasks();
         if ($repeat) {
-            echo get_class($this) . ' DONE!';
-            return true;
+            return $this->controller->renderFile('@app/views/site/test.php',[
+                'title' => get_class($this),
+                'test' => get_class($this) . " DONE!",
+            ]);
         }
-        echo '<pre>';
-        print_r($repeat);
-        echo '</pre>';
-        return false;
+        return $this->controller->renderFile('@app/views/site/test.php',[
+            'title' => get_class($this),
+            'test' => get_class($this) . " FALSE!",
+        ]);
     }
 }

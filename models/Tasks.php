@@ -14,6 +14,7 @@ class Tasks extends TasksBase {
     public $parent_repeat_type;
     public $parent_repeated_weekdays;
     public $nextRepeatDate;
+    public $add_by_repeat = false;
 
     const TASK = 1;
     const AIM = 2;
@@ -42,7 +43,8 @@ class Tasks extends TasksBase {
 
     public function afterFind() {
         parent::afterFind();
-        if (\Yii::$app instanceof yii\console\Application) {
+
+        if (\Yii::$app instanceof yii\console\Application || \Yii::$app->controller->route === 'crone/repeat-tasks') {
             $user_id = $this->user_id;
         } else {
             $user_id = \Yii::$app->user->getId();
@@ -50,7 +52,6 @@ class Tasks extends TasksBase {
 
         $this->date_create_view = \Yii::$app->formatter->asDateTime($this->date_create, 'php:d F Y, H:i:s');
         $this->date_calculate_view = \Yii::$app->formatter->asDateTime($this->date_calculate, 'php:d F Y, H:i:s');
-
 
         // расшифровка задачи
         if ($this->private_id == self::PRIVATE) {
@@ -89,6 +90,7 @@ class Tasks extends TasksBase {
         if (empty($this->hashtags)){
             $this->hashtags = null;
         }
+        $this->repeat_start = $this->repeat_start === 'При создании' ? $this->date_start : $this->repeat_start;
 
         if (!$this->repeat_type_id) {
             switch ($this->type_id) {
@@ -174,14 +176,13 @@ class Tasks extends TasksBase {
             }
         }
 
-        if (\Yii::$app instanceof yii\console\Application) {
+        if (\Yii::$app instanceof yii\console\Application || $this->add_by_repeat) {
             $user_id = $this->user_id;
         } else {
             $user_id = \Yii::$app->user->getId();
         }
 
         if (!$this->id) {
-
             $max = $this->find()
                 ->andWhere(['user_id' => $user_id])
                 ->max('id');
@@ -199,7 +200,6 @@ class Tasks extends TasksBase {
             $this->finished = 0;
         }
 
-        $this->repeat_start = $this->repeat_start === 'При создании' ? $this->date_start : $this->repeat_start;
         $this->repeat_end = $this->repeat_end === 'Бессрочно' ? null : $this->repeat_end;
         $this->repeat_created = $this->repeat_created == 0 ? null : $this->repeat_created;
 
@@ -222,7 +222,7 @@ class Tasks extends TasksBase {
 
 
     public function beforeSave($insert) {
-        if (\Yii::$app instanceof yii\console\Application) {
+        if (\Yii::$app instanceof yii\console\Application || $this->add_by_repeat) {
             $user_id = $this->user_id;
         } else {
             $user_id = \Yii::$app->user->getId();

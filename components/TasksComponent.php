@@ -275,10 +275,7 @@ class TasksComponent extends BaseComponent {
         if (!$task->user_id) {
             $task->user_id = \Yii::$app->user->getId();
         }
-//        echo '<pre>';
-//        print_r($task);
-//        echo '</pre>';
-//        exit();
+
         if ($task->validate()) {
 
 //            foreach ($task->filesReal as &$file) {
@@ -368,6 +365,7 @@ class TasksComponent extends BaseComponent {
             $taskToUpdate = $model->findOne(['id' => $task['id'], 'user_id' => $user_id]);
 
             $taskToUpdate->load(['Tasks' => $task]);
+
             $this->addTask($taskToUpdate);
         }
         return true;
@@ -649,6 +647,7 @@ class TasksComponent extends BaseComponent {
             }
         }
 
+
         // создание повторных задач
         foreach ($tasksToCreateToday as $task) {
             $model = $this->getModel();
@@ -668,6 +667,7 @@ class TasksComponent extends BaseComponent {
             $model->nextPeriod = 0;
             // id основной задачи пишем в repeated_by_id
             $model->repeated_by_id = $task->id;
+            $model->add_by_repeat = true;
 
             $this->addTask($model);
         }
@@ -689,6 +689,7 @@ class TasksComponent extends BaseComponent {
             $model->nextPeriod = 1;
             // id основной задачи пишем в repeated_by_id
             $model->repeated_by_id = $task->id;
+            $model->add_by_repeat = true;
 
             $this->addTask($model);
         }
