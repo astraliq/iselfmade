@@ -59,6 +59,7 @@ class Reports {
                     comment.init();
                     let modalImg = new ModalImg('comments', '.input_img');
                     modalImg.init();
+                    userReport.initAddFiles();
                 } else {
                     this._renderEnd();
                 }
@@ -191,7 +192,7 @@ class UserReport {
         }, 3000)
     }
 
-    init() {
+    initAddFiles() {
         let fileInput = document.getElementById(this.inputFileID);
         let dragDropID = document.getElementById(this.dragDropID);
         let reportForm = document.getElementById(this.reportFormID);
@@ -231,6 +232,10 @@ class UserReport {
                 this._renderInputFiles(this.files);
             });
         }
+    }
+
+    init() {
+        this.initAddFiles();
 
         if (sendReport) {
             sendReport.addEventListener('click', (e) => {

@@ -64,15 +64,17 @@ class ModalImg {
             });
             if (this.listBlock) {
                 this.images.forEach( (img) => {
-                    img.addEventListener('click', (e) => {
-                        this.imgFolder = '/users/report_files/' + img.dataset.user_id + '/';
-                        this._renderModal(img.dataset.name, img);
-                    });
+                    this.addEventToNewImg(img);
                 });
             }
         }
+    }
 
-
+    addEventToNewImg(image) {
+        image.addEventListener('click', (e) => {
+            this.imgFolder = '/users/report_files/' + image.dataset.user_id + '/';
+            this._renderModal(image.dataset.name, image);
+        });
     }
 
 }

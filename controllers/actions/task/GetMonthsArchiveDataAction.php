@@ -37,6 +37,8 @@ class GetMonthsArchiveDataAction extends Action {
         $date = \Yii::$app->request->post()['date'] ?? null;
         $unixDate = strtotime($date);
 
+        $month++;
+
         $tasksData = $compTasks->getMonthsTasks($month, $year);
 
         //        $dateUTC = (new \DateTime(date($date)))->format('Y-m-d');

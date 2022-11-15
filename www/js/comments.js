@@ -9,6 +9,8 @@ class Comments {
         this.comment;
         this.report_id;
         this.files;
+        this.inputFileID;
+        this.dragDropID;
 
     }
 
@@ -139,6 +141,7 @@ class Comments {
             .catch(error => {
             });
     }
+
 
     init() {
         let commentsSection = document.getElementById(this.commentsBlockID);
