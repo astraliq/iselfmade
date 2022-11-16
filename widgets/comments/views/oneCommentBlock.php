@@ -27,7 +27,7 @@ $today = gmdate('d.m.Y');
 $date = \Yii::$app->formatter->asDateTime($comment->realDateCreate, 'php:d.m.Y');
 $realDate = '';
 if ($date == $today) {
-    $realDate = \Yii::$app->formatter->asDateTime($comment->realDateCreate, 'php:H:i:s');
+    $realDate = \Yii::$app->formatter->asDateTime($comment->realDateCreate, 'php:Сегодня, H:i:s');
 } elseif ($date == ($today - 1)) {
     $realDate = \Yii::$app->formatter->asDateTime($comment->realDateCreate, 'php:Вчера, H:i:s');
 } else {

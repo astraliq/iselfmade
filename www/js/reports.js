@@ -196,7 +196,6 @@ class UserReport {
         let fileInput = document.getElementById(this.inputFileID);
         let dragDropID = document.getElementById(this.dragDropID);
         let reportForm = document.getElementById(this.reportFormID);
-        let sendReport = document.getElementById(this.sendReportBtnID);
         if (fileInput) {
             fileInput.addEventListener('change', (e) => {
                 this.files = [...fileInput.files];
@@ -235,6 +234,7 @@ class UserReport {
     }
 
     init() {
+        let sendReport = document.getElementById(this.sendReportBtnID);
         this.initAddFiles();
 
         if (sendReport) {
