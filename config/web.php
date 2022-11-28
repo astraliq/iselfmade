@@ -44,6 +44,13 @@ $config = [
             'defaultTimeZone' => 'Europe/Moscow',
             'locale' => 'ru-RU',
         ],
+        'hostControl' => [
+            'class' => 'yii\filters\HostControl',
+            'allowedHosts' => [
+                $params['host'],
+            ],
+            'fallbackHostInfo' => $params['hostInfo'],
+        ],
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => false,

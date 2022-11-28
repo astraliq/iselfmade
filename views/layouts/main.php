@@ -88,7 +88,7 @@ http://iselfmade.ru
 <?php $this->beginBody() ?>
 <header class="header__style">
     <div class="header__top">
-        <a class="header-logo-link" href="http://iselfmade.ru">
+        <a class="header-logo-link" href="<?php \Yii::$app->params->homeUrl_http ?>">
             <div class="header__logo">
                 <img src="img/logo.png" width="150" height="auto" alt="НОСОРОГ">
                 <p class="header-logo-text">i<span class="header-logo-text-self">self</span>made.ru</p>

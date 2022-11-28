@@ -230,7 +230,7 @@
                 <p class="rates__plus">+</p>
                 <p class="rates__minus">–</p>
                 <div class="rates__button">
-                     <button class="rates__btn" id="btn_start_result" disabled>Доступен с 01.03.2021</button>
+                     <button class="rates__btn" id="btn_start_result" disabled>Доступен с 01.03.2023</button>
                 </div>
             </div>
             <div class="rates__item rates-break">
@@ -247,7 +247,7 @@
                 <p class="rates__minus">–</p>
                 <p class="rates__plus">+</p>
                 <div class="rates__button">
-                    <button class="rates__btn" id="btn_start_result" disabled>Доступен с 01.03.2021</button>
+                    <button class="rates__btn" id="btn_start_result" disabled>Доступен с 01.03.2023</button>
                 </div>
             </div>
         </div>

@@ -4,6 +4,7 @@
 namespace app\base;
 
 use app\components\NotificationsComponent;
+use yii\filters\HostControl;
 use yii\web\Controller;
 use yii\web\HttpException;
 
@@ -13,17 +14,16 @@ class BaseController extends Controller
 
     public function beforeAction($action) {
 
-//        if (\Yii::$app->user->isGuest) {
-//            return $this->redirect(['/'])->send();
-//        }
         $user = \Yii::$app->user->getIdentity();
         if ($user) {
             \Yii::$app->setTimeZone(\Yii::$app->user->getIdentity()->getTimezone());
         }
 
-//        if (!\Yii::$app->request->isPost) {
-//            \Yii::$app->session->addFlash('lastPage',\Yii::$app->request->referrer);
-//        }
+        header("Host: " . \Yii::$app->params['host']);
+        \Yii::$app->getUrlManager()->setHostInfo(\Yii::$app->params['hostInfo']);
+        \Yii::$app->getRequest()->setHostInfo(\Yii::$app->params['hostInfo']);
+
+
         if (!\Yii::$app->user->isGuest) {
             $compNotifs = \Yii::createObject(['class' => NotificationsComponent::class]);
             $this->view->params['notifs'] = $compNotifs->getAllNotifications();

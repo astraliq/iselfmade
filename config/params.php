@@ -7,4 +7,8 @@ return [
     'setFromDomain' => 'iselfmade@yandex.ru',
 //    'homeUrl_http' => 'http://iselfmade.test.xsph.ru/',
     'homeUrl_http' => 'http://iselfmade/',
+//    'host' => 'iselfmade.test.xsph.ru',
+    'host' => 'iselfmade',
+//    'hostInfo' => 'http://iselfmade.test.xsph.ru',
+    'hostInfo' => 'http://iselfmade',
 ];
