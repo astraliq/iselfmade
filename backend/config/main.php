@@ -1,9 +1,11 @@
 <?php
+$commonParamsLocal = __DIR__ . '/../../common/config/params-local.php';
+$paramsLocal = __DIR__ . '/params-local.php';
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
-    require __DIR__ . '/../../common/config/params-local.php',
+    file_exists($commonParamsLocal) ? require $commonParamsLocal : [],
     require __DIR__ . '/params.php',
-    require __DIR__ . '/params-local.php'
+    file_exists($paramsLocal) ? require $paramsLocal : []
 );
 
 return [
