@@ -1,13 +1,13 @@
 <?php
 
-/** @var yii\web\View $this */
-/** @var yii\bootstrap5\ActiveForm $form */
-/** @var \common\models\LoginForm $model */
+/* @var $this yii\web\View */
+/* @var $form yii\bootstrap\ActiveForm */
+/* @var $model app\models\LoginForm */
 
-use yii\bootstrap5\Html;
-use yii\bootstrap5\ActiveForm;
+use yii\helpers\Html;
+use yii\bootstrap\ActiveForm;
 
-$this->title = 'Login';
+$this->title = 'Вход';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
@@ -15,27 +15,33 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>Please fill out the following fields to login:</p>
 
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+    <?php $form = ActiveForm::begin([
+        'id' => 'login-form',
+        'layout' => 'horizontal',
+        'fieldConfig' => [
+            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
+            'labelOptions' => ['class' => 'col-lg-1 control-label'],
+        ],
+    ]); ?>
 
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+        <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
 
-                <?= $form->field($model, 'password')->passwordInput() ?>
+        <?= $form->field($model, 'password')->passwordInput() ?>
 
-                <?= $form->field($model, 'rememberMe')->checkbox() ?>
+        <?= $form->field($model, 'rememberMe')->checkbox([
+            'template' => "<div class=\"col-lg-offset-1 col-lg-3\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
+        ]) ?>
 
-                <div class="my-1 mx-0" style="color:#999;">
-                    If you forgot your password you can <?= Html::a('reset it', ['site/request-password-reset']) ?>.
-                    <br>
-                    Need new verification email? <?= Html::a('Resend', ['site/resend-verification-email']) ?>
-                </div>
-
-                <div class="form-group">
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                </div>
-
-            <?php ActiveForm::end(); ?>
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-lg-11">
+                <?= Html::submitButton('Войти', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+            </div>
         </div>
+
+    <?php ActiveForm::end(); ?>
+
+    <div class="col-lg-offset-1" style="color:#999;">
+        You may login with <strong>admin/admin</strong> or <strong>demo/demo</strong>.<br>
+        To modify the email/password, please check out the code <code>app\models\User::$users</code>.
     </div>
 </div>

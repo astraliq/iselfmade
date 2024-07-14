@@ -32,7 +32,8 @@
         "codeception/module-yii2": "1.1.10",
         "codeception/module-filesystem": "3.0.1",
         "codeception/verify": "3.0.0",
-        "symfony/browser-kit": "6.4.8"
+        "symfony/browser-kit": "6.4.8",
+        "kartik-v/yii2-widget-activeform": "1.6.4"
     },
     "autoload-dev": {
         "psr-4": {

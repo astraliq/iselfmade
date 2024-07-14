@@ -1,27 +1,23 @@
 <?php
 
-/** @var yii\web\View $this */
-/** @var string $name */
-/** @var string $message */
-/** @var Exception $exception */
+/* @var $this yii\web\View */
+/* @var $name string */
+/* @var $message string */
+/* @var $exception Exception */
 
 use yii\helpers\Html;
 
 $this->title = $name;
 ?>
-<div class="site-error">
+<div class="error_block">
+    <div class="error_desc">
+        <h1 class="error_title"><?= Html::encode($this->title) ?></h1>
 
-    <h1><?= Html::encode($this->title) ?></h1>
+        <div class="error_alert alert alert-danger">
+            <?= nl2br(Html::encode($message)) ?>
+        </div>
 
-    <div class="alert alert-danger">
-        <?= nl2br(Html::encode($message)) ?>
+        <p>Данная ошибка произошла во время обработки вашего запроса веб-сервером.</p>
+        <p>Свяжитесь с нами, если вы считаете, что это ошибка сервера. Спасибо.</p>
     </div>
-
-    <p>
-        The above error occurred while the Web server was processing your request.
-    </p>
-    <p>
-        Please contact us if you think this is a server error. Thank you.
-    </p>
-
 </div>

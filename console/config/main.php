@@ -23,6 +23,9 @@ return [
           ],
     ],
     'components' => [
+        'authManager' => ['class' => \yii\rbac\DbManager::class],
+        'rbac' => ['class' => \frontend\components\RbacComponent::class],
+        'dao' => ['class' => \common\components\DAOComponent::class],
         'log' => [
             'targets' => [
                 [

@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,400;0,700;1,200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,400;0,700;1,200&family=Source+Sans+Pro:wght@200;400;600;700;900&display=swap');
+
+$font-logo: 'Barlow', sans-serif;
+//$font_main-text: 'Source Sans Pro', sans-serif;
+$font_main-text: 'Roboto', sans-serif;
+
+/*font-family: 'Caveat',
+cursive;
+font-family: 'Fira Sans',
+sans-serif;
+font-family: 'Scada',
+sans-serif;*/
+
+$main_background_color: #ffffff;
+$color-blue: #4C91F8;
+//$color-blue: #1D68D8;
+$color-blue-black: #30458a;
+$color-blue2: #00a3c6;
+$color-blue-light: #609df8;
+$color-blue-light2: #c2ddff;
+$color-blue-for-scroll: #c2ddff;
+$color-blue-disabled: #c2ddff;
+$color-menu: #3876D2;
+$color-black: #000;
+$color-white: #fff;
+$color-gray: #b1b1b1;
+$color-red: #ff0000;
+$color-green: #00ff95;
+$color-icons: rgb(136, 201, 255);
+$color-disable: rgb(247, 245, 247);
+$color-disable2: grey;
+$color-shadow: #e0ded2;
+$width-textarea: 450px; // ширина текстового блока задачи
+$height-textarea: 17px; // высота строки задачи
+$height2-textarea: 20px; // высота блока задачи
+$height-chapter: 160px; // высота блока задачи
+$anim_transition_tasks: 0.5s;
+$anim_transition_modals_menu: 0.25s;
+$anim_transition_chapters: 0.8s;
+$anim_showblocks: 0.1s;
