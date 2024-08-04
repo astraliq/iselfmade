@@ -68,7 +68,7 @@ if ($task) {
 if ($repeatTypeId) {
     $repeatTypeSelect[$repeatTypeId] = 'selected';
 } else {
-    if ($repeat_created == 1) {
+    if ($repeat_created) {
         $repeatTypeSelect[1] = 'selected';
     } else {
         $repeatTypeSelect[0] = 'selected';
@@ -156,9 +156,9 @@ $typeId = $newTask == 1 ? $type_id : $task->type_id;
                 if ($type_id == 1 || $repeatedTask) {
                     echo \frontend\components\widgets\tasks\RepeatSettingsWidget::widget([
                         'task' => $task,
-                        'disableRepeatClass' => $disableRepeatClass,
-                        'disableRepeateAttr' => $disableRepeatAttr,
-                        'disableRepeatTitle' => $disableRepeatTitle,
+                        'disableRepeatClass' => $disableRepeatClass ?? null,
+                        'disableRepeateAttr' => $disableRepeatAttr ?? null,
+                        'disableRepeatTitle' => $disableRepeatTitle ?? null,
                         'repeatTypeSelect' => $repeatTypeSelect,
                         'weekdaysShowClass' => $weekdaysShowClass,
                         'repeatDatesShowClass' => $repeatDatesShowClass,

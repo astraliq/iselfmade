@@ -1,7 +1,11 @@
 <?php
 
-namespace frontend\models;
+namespace common\models;
 
+use frontend\models\Periods;
+use frontend\models\ReportComments;
+use frontend\models\Tasks;
+use frontend\models\UsersReports;
 use Yii;
 
 /**

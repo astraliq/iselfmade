@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use common\models\User;
 use Yii;
 
 /**
@@ -20,7 +21,7 @@ use Yii;
  * @property int|null $curator_grade оценка куратора
  * @property int|null $views количество просмотров отчета
  *
- * @property Users $user
+ * @property User $user
  */
 class UsersReportsBase extends \yii\db\ActiveRecord
 {

@@ -13,6 +13,7 @@ use frontend\models\Tasks;
 use frontend\models\UsersReports;
 use yii\base\Action;
 use yii\web\HttpException;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 class ArchiveAction extends Action {
@@ -33,8 +34,8 @@ class ArchiveAction extends Action {
         $compComments = \Yii::createObject(['class' => ReportCommentsComponent::class,'modelClass' => ReportComments::class]);
 
 
-        $reportsModel = new UsersReports();
-        $yesterdayMentorGrade = $reportsModel->findOne(['user_id' => $userId, 'date' => $yesterdayUTC])->mentor_grade;
+        $reportsModel = UsersReports::findOne(['user_id' => $userId, 'date' => $yesterdayUTC]);
+        $yesterdayMentorGrade = $reportsModel?->mentor_grade;
 
         // архив задач за последний месяц
 //        $date1 = date('d.m.Y', strtotime( "-1 month"));
@@ -67,13 +68,13 @@ class ArchiveAction extends Action {
         } else {
             def:
             $yesterdayTasks = $comp->getArchiveTasksByDate($yesterdayDate, 1);
-            $report = $compReports->getUserReportsByDatesArr($yesterdayUTC)[0];
+            $report = $compReports->getUserReportsByDatesArr($yesterdayUTC)[0] ?? null;
             $date = $yesterdayDate;
             $title = 'Вчера';
         }
 
         $reports = $compReports->getLastReports(7);
-        $comments = $compComments->getReportCommentsByReportID($report->id);
+        $comments = $compComments->getReportCommentsByReportID($report?->id);
         $tasksCountReports = $comp->getCountsTasksForReports($reports);
         $compComments->updateViews($comments);
         $userComp = \Yii::createObject(['class' => UserComponent::class]);

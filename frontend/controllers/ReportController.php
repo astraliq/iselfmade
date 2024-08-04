@@ -10,7 +10,6 @@ use frontend\controllers\actions\report\AddReportAction;
 use frontend\controllers\actions\report\ChangeReportStatusAction;
 use frontend\controllers\actions\report\CheckReportsAction;
 use frontend\controllers\actions\report\GetNewCommentsAction;
-use frontend\controllers\actions\report\SkipReportAction;
 
 class ReportController extends BaseController {
     public $layout = 'base';

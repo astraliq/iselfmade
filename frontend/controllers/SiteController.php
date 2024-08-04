@@ -10,7 +10,7 @@ use frontend\controllers\actions\site\GetNotifsAction;
 use frontend\controllers\actions\site\GradeResultAction;
 use frontend\controllers\actions\site\UpdateDataAction;
 use frontend\controllers\actions\user\PolicyAction;
-use frontend\models\User;
+use common\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Response;

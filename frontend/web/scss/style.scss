@@ -97,6 +97,7 @@ input[type="checkbox"]:focus {
     justify-content: flex-start;
     align-items: flex-start;
     width: 100% !important;
+    max-width: 100% !important;
     padding: 0 !important;
     flex-wrap: wrap;
 }
@@ -409,8 +410,8 @@ input[type="checkbox"]:focus {
         }
     }
 
-
     &__block {
+        width: 230px;
         max-height: 550px;
         position: absolute;
         height: auto;
@@ -422,6 +423,15 @@ input[type="checkbox"]:focus {
         opacity: 1;
         right: -10px;
         transition: all $anim_transition_modals_menu ease;
+        z-index: 99;
+    }
+
+    &__option {
+        background-color: white;
+        border: 1px solid grey;
+        top: 45px;
+        opacity: 1;
+        right: -10px;
         z-index: 99;
     }
 
@@ -443,8 +453,6 @@ input[type="checkbox"]:focus {
         color: $color-black;
     }
 }
-
-
 
 
 .date {

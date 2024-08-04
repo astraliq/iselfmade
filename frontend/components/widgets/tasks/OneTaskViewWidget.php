@@ -1,16 +1,13 @@
 <?php
 
-
 namespace frontend\components\widgets\tasks;
 
-
-
-
+use frontend\models\Tasks;
 use yii\base\Widget;
 
 class OneTaskViewWidget extends Widget {
 
-    public $task;
+    public ?Tasks $task;
     public $nextPeriod;
     public $newTask;
     public $type_id;
@@ -21,6 +18,7 @@ class OneTaskViewWidget extends Widget {
 
 
     public function run() {
+
         return $this->render('oneTaskViewForm',[
             'task' => $this->task,
             'nextPeriod' => $this->nextPeriod,

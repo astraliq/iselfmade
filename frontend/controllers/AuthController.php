@@ -4,13 +4,12 @@
 namespace frontend\controllers;
 
 use common\base\BaseController;
-use frontend\components\UserComponent;
+use frontend\components\AuthComponent;
 use frontend\controllers\actions\site\ErrorAction;
-use frontend\models\User;
+use common\models\User;
+use Yii;
 use yii\db\Exception;
-use yii\helpers\BaseUrl;
 use yii\helpers\Url;
-use yii\web\Controller;
 use yii\web\HttpException;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
@@ -18,7 +17,7 @@ use yii\widgets\ActiveForm;
 class AuthController extends BaseController {
 
     public $layout = 'main';
-    private $auth;
+    private AuthComponent $auth;
 
     public function __construct($id, $module, $config = [])
     {
@@ -93,8 +92,7 @@ class AuthController extends BaseController {
         ]);
 
         if (\Yii::$app->request->isPost){
-            $model->load(\Yii::$app->request->post());
-            if ($this->auth->signIn($model)) {
+            if ($model->load(Yii::$app->request->post()) && $this->auth->signIn($model)) {
 
                 return $this->redirect(['/report']);
             } else {

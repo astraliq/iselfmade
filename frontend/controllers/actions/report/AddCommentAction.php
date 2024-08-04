@@ -8,7 +8,7 @@ use frontend\components\ReportCommentsComponent;
 use frontend\components\ReportsComponent;
 use frontend\components\UserComponent;
 use frontend\models\ReportComments;
-use frontend\models\User;
+use common\models\User;
 use frontend\models\UsersReports;
 use frontend\widgets\comments\OneCommentWidget;
 use yii\base\Action;

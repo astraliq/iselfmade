@@ -35,7 +35,7 @@ use yii\helpers\Html;
     }
     if (!empty($childTasks)) {
         echo '<p> Список подзадач:</p>';
-        echo \app\widgets\tasks\ChildesViewWidget::widget([
+        echo \frontend\components\widgets\tasks\ChildesViewWidget::widget([
             'childTasks' => $childTasks,
             'aims' => $aims,
             'tasks' => $tasks,

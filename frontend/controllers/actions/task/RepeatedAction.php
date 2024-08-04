@@ -29,7 +29,7 @@ class RepeatedAction extends Action {
 
         return $this->controller->render('repeated',[
             'repeatedTasks' => $repeatedTasks,
-            'admin' => $admin,
+            'admin' => $admin ?? null,
             'notifConfEmail' => $notifConfEmail,
         ]);
     }

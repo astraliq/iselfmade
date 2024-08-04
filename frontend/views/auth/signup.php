@@ -3,7 +3,7 @@
 $this->title = 'Регистрация';
 $this->params['breadcrumbs'][] = $this->title;
 /* @var $this \yii\web\View */
-/* @var $model \app\models\User */
+/* @var $model \common\models\User */
 ?>
 
 <div class="row">

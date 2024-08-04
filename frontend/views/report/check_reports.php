@@ -11,7 +11,7 @@ use yii\helpers\Html;
     <h3 class="check-title">проверка отчетов (<span class="count_reports">осталось </span><span class="count_reports" id="count_reports"> <?=$reportsCount?></span>)</h3>
     <?php
     if ($report) {
-        echo \app\widgets\tasks\CheckReportsWidget::widget([
+        echo \frontend\components\widgets\tasks\CheckReportsWidget::widget([
             'user' => $user,
             'tasks' => $tasks,
             'block_id' => 0,
@@ -38,7 +38,7 @@ use yii\helpers\Html;
 <?php
 
 if ($report) {
-    echo \app\widgets\comments\CommentsWidget::widget(
+    echo \frontend\components\widgets\comments\CommentsWidget::widget(
         [
             'comments' => $comments,
             'self' => $self,

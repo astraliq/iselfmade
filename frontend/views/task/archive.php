@@ -9,12 +9,12 @@ use yii\helpers\Html;
     <h1 class="welcome__title">Прошлые отчёты</h1>
 </section>
 
-<?= \app\widgets\tasks\ArchiveTasksListWidget::widget([
+<?= \frontend\components\widgets\tasks\ArchiveTasksListWidget::widget([
     'reports' => $reports,
     'tasksCountReports' => $tasksCountReports,
 ]); ?>
 
-<?= \app\widgets\reports\ArchiveReportWidget::widget([
+<?= \frontend\components\widgets\reports\ArchiveReportWidget::widget([
         'title' => $title,
         'report' => $yesterdayReport,
         'date' => $yesterdayDate,

@@ -45,7 +45,7 @@
                 </tr>
             </thead>
             <tbody>
-            <?= \app\widgets\user\UsersListWidget::widget([
+            <?= \frontend\components\widgets\user\UsersListWidget::widget([
                 'users' => $allUsersList,
             ]); ?>
             </tbody>

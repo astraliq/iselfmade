@@ -6,7 +6,7 @@ namespace frontend\controllers\actions\site;
 
 use frontend\components\ReportCommentsComponent;
 use frontend\models\ReportComments;
-use frontend\models\User;
+use common\models\User;
 use yii\base\Action;
 use yii\base\InvalidConfigException;
 use yii\web\HttpException;

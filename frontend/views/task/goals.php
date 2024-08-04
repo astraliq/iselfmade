@@ -21,7 +21,7 @@ $month = \Yii::$app->params['monthsImenit'][\Yii::$app->formatter->asDate(date('
     <div class="goals">
         <div class="tasks-form ">
             <div class="tasks-all">
-                <?= \app\widgets\tasks\TasksViewWidget::widget([
+                <?= \frontend\components\widgets\tasks\TasksViewWidget::widget([
                     'title' => 'Цели на год',
                     'tasks' => $goals,
                     'del' => false,
@@ -32,7 +32,7 @@ $month = \Yii::$app->params['monthsImenit'][\Yii::$app->formatter->asDate(date('
                     'block_id' => 4,
                     'disabled' => false,
                 ]); ?>
-                <?= \app\widgets\tasks\TasksViewWidget::widget([
+                <?= \frontend\components\widgets\tasks\TasksViewWidget::widget([
                     'title' => 'Задачи на '. $month ,
                     'tasks' => $aims,
                     'del' => false,

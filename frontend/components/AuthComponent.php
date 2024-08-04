@@ -1,19 +1,16 @@
 <?php
 
-
 namespace frontend\components;
 
-
-use frontend\models\User;
-use phpDocumentor\Reflection\DocBlock\Tags\Return_;
-use Yii;
+use common\models\User;
 use yii\base\Component;
 use yii\db\Exception;
 
-class AuthComponent extends Component {
+class AuthComponent extends Component
+{
 
-    public function signIn(User $model) :bool {
-
+    public function signIn(User $model) :bool
+    {
         if (!$model->validate()){
             return false;
         }
@@ -30,7 +27,6 @@ class AuthComponent extends Component {
             $model->addError('password', 'Неверная электронная почта или пароль.');
             return false;
         };
-
         return \Yii::$app->user->login($user,0);
     }
 

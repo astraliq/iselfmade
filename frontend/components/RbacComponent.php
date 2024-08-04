@@ -7,7 +7,7 @@ namespace frontend\components;
 use common\base\BaseComponent;
 use frontend\models\ReportComments;
 use frontend\models\Tasks;
-use frontend\models\User;
+use common\models\User;
 use frontend\models\UsersReports;
 use frontend\rules\AddReportCommentRule;
 use frontend\rules\OwnerTaskRule;

@@ -4,6 +4,8 @@
 namespace frontend\models;
 
 
+use common\models\User;
+
 class ReportComments extends ReportCommentsBase {
 
     public $uploadFiles;

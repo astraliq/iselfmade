@@ -8,7 +8,7 @@ use frontend\components\ReportsComponent;
 use frontend\components\TasksComponent;
 use frontend\components\UserComponent;
 use frontend\models\Tasks;
-use frontend\models\User;
+use common\models\User;
 use frontend\models\UsersReports;
 use yii\base\Action;
 use yii\web\HttpException;

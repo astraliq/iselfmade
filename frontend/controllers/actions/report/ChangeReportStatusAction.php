@@ -10,7 +10,7 @@ use frontend\components\TasksComponent;
 use frontend\components\UserComponent;
 use frontend\models\ReportComments;
 use frontend\models\Tasks;
-use frontend\models\User;
+use common\models\User;
 use frontend\models\UsersReports;
 use frontend\widgets\comments\CommentsWidget;
 use frontend\widgets\tasks\CheckReportsWidget;

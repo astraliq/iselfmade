@@ -22,7 +22,7 @@ use yii\helpers\Html;
             <?php
             if ($repeatedTasks) {
                 foreach ($repeatedTasks as $task) {
-                    echo \app\widgets\tasks\OneTaskViewWidget::widget(
+                    echo \frontend\components\widgets\tasks\OneTaskViewWidget::widget(
                         [
                             'task' => $task,
                             'type_id' => $task->type_id,
@@ -34,14 +34,14 @@ use yii\helpers\Html;
             } else {
                 echo '<p style="font-style: italic; font-size: 14px">Список пуст</p>';
             }
-            echo \app\widgets\tasks\OneTaskViewWidget::widget(
+            echo \frontend\components\widgets\tasks\OneTaskViewWidget::widget(
                 [
-                    'task' => '',
+                    'task' => null,
                     'type_id' => 1,
-                    'nextPeriod' => $nextPeriod,
+                    'nextPeriod' => $nextPeriod ?? null,
                     'newTask' => 1,
                     'repeatedTask' => false,
-                    'disabled' => $disabled,
+                    'disabled' => $disabled ?? null,
                     'repeat_created' => 1,
                 ]
             );
@@ -50,7 +50,7 @@ use yii\helpers\Html;
     </div>
 </div>
 <!--<div class="tasks-all">-->
-<!--    <?//= \app\widgets\tasks\TasksViewWidget::widget([
+<!--    <?//= \frontend\widgets\tasks\TasksViewWidget::widget([
 //        'title' => 'Повторяющиеся задачи',
 //        'tasks' => $repeatedTasks,
 //        'del' => false,

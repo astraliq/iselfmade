@@ -4,6 +4,7 @@
 
 $month = \Yii::$app->params['monthsImenit'][\Yii::$app->formatter->asDate(date('Y-m-d'), 'M')];
 
+use frontend\components\widgets\comments\CommentsWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -53,7 +54,7 @@ if ($userReport) {
 
 <div class="tasks-form">
     <div class="tasks-all">
-        <?= \app\widgets\tasks\TasksViewWidget::widget([
+        <?= \frontend\components\widgets\tasks\TasksViewWidget::widget([
             'title' => 'Цели на год',
             'tasks' => $goals,
             'del' => false,
@@ -64,7 +65,7 @@ if ($userReport) {
             'block_id' => 4,
             'disabled' => false,
         ]); ?>
-        <?= \app\widgets\tasks\TasksViewWidget::widget([
+        <?= \frontend\components\widgets\tasks\TasksViewWidget::widget([
             'title' => 'Задачи на '. $month ,
             'tasks' => $aims,
             'del' => false,
@@ -75,7 +76,7 @@ if ($userReport) {
             'block_id' => 3,
             'disabled' => false,
         ]); ?>
-        <?= \app\widgets\tasks\TasksViewWidget::widget([
+        <?= \frontend\components\widgets\tasks\TasksViewWidget::widget([
             'title' => 'Что я сделал сегодня',
             'tasks' => $tasks,
             'del' => false,
@@ -86,7 +87,7 @@ if ($userReport) {
             'block_id' => 2,
             'disabled' => $disableTasks,
         ]); ?>
-        <?= \app\widgets\tasks\TasksViewWidget::widget([
+        <?= \frontend\components\widgets\tasks\TasksViewWidget::widget([
             'title' => 'Что я сделаю завтра',
             'tasks' => $tasksTomorrow,
             'del' => false,
@@ -114,23 +115,24 @@ if ($userReport) {
         </section>
         <section class="impress">
             <p class="title <?=$disabled_text?>">Общее впечатление дня</p>
-            <textarea name="text" type="text" class="impress__text" id="impress__text" placeholder="<?=$placeHolder?>" id="user_comment" <?=$disabled?>><?=$comment?></textarea>
+            <textarea name="text" type="text" class="impress__text" id="impress__text" placeholder="<?=$placeHolder?>" id="user_comment"
+                <?=$disabled?>><?= $comment ?? '' ?></textarea>
         </section>
         <section class="day-rating" id="allstars">
             <p class="title <?=$disabled_text?>">Личная оценка дня</p>
             <div class="estimation">
                 <select name="grade" class="estimation__items"  id="day_rating" <?=$disabled?>>
-                    <option class="estimation__item" value="0" <?=$repeatTypeSelect[0]?>>Каким был этот день?</option>
-                    <option class="estimation__item" value="1" <?=$repeatTypeSelect[1]?>>1&nbsp;&#151;&nbsp;Никаким</option>
-                    <option class="estimation__item" value="2" <?=$repeatTypeSelect[2]?>>2&nbsp;&#151;&nbsp;Ужасным</option>
-                    <option class="estimation__item" value="3" <?=$repeatTypeSelect[3]?>>3&nbsp;&#151;&nbsp;Сложным</option>
-                    <option class="estimation__item" value="4" <?=$repeatTypeSelect[4]?>>4&nbsp;&#151;&nbsp;Малоэффективным</option>
-                    <option class="estimation__item" value="5" <?=$repeatTypeSelect[5]?>>5&nbsp;&#151;&nbsp;Простым</option>
-                    <option class="estimation__item" value="6" <?=$repeatTypeSelect[6]?>>6&nbsp;&#151;&nbsp;Так себе</option>
-                    <option class="estimation__item" value="7" <?=$repeatTypeSelect[7]?>>7&nbsp;&#151;&nbsp;Нормальным</option>
-                    <option class="estimation__item" value="8" <?=$repeatTypeSelect[8]?>>8&nbsp;&#151;&nbsp;С хорошим результатом</option>
-                    <option class="estimation__item" value="9" <?=$repeatTypeSelect[9]?>>9&nbsp;&#151;&nbsp;Эффективным</option>
-                    <option class="estimation__item" value="10" <?=$repeatTypeSelect[10]?>>10&nbsp;&#151;&nbsp;Супер продуктивным</option>
+                    <option class="estimation__item" value="0" <?= $repeatTypeSelect[0] ?? null ?>>Каким был этот день?</option>
+                    <option class="estimation__item" value="1" <?= $repeatTypeSelect[1] ?? null ?>>1&nbsp;&#151;&nbsp;Никаким</option>
+                    <option class="estimation__item" value="2" <?= $repeatTypeSelect[2] ?? null ?>>2&nbsp;&#151;&nbsp;Ужасным</option>
+                    <option class="estimation__item" value="3" <?= $repeatTypeSelect[3] ?? null ?>>3&nbsp;&#151;&nbsp;Сложным</option>
+                    <option class="estimation__item" value="4" <?= $repeatTypeSelect[4] ?? null ?>>4&nbsp;&#151;&nbsp;Малоэффективным</option>
+                    <option class="estimation__item" value="5" <?= $repeatTypeSelect[5] ?? null ?>>5&nbsp;&#151;&nbsp;Простым</option>
+                    <option class="estimation__item" value="6" <?= $repeatTypeSelect[6] ?? null ?>>6&nbsp;&#151;&nbsp;Так себе</option>
+                    <option class="estimation__item" value="7" <?= $repeatTypeSelect[7] ?? null ?>>7&nbsp;&#151;&nbsp;Нормальным</option>
+                    <option class="estimation__item" value="8" <?= $repeatTypeSelect[8] ?? null ?>>8&nbsp;&#151;&nbsp;С хорошим результатом</option>
+                    <option class="estimation__item" value="9" <?= $repeatTypeSelect[9] ?? null ?>>9&nbsp;&#151;&nbsp;Эффективным</option>
+                    <option class="estimation__item" value="10" <?= $repeatTypeSelect[10] ?? null ?>>10&nbsp;&#151;&nbsp;Супер продуктивным</option>
                 </select>
             </div>
         </section>
@@ -139,7 +141,7 @@ if ($userReport) {
 
     <?php
     if ($comments) {
-        echo \app\widgets\comments\CommentsWidget::widget(
+        echo CommentsWidget::widget(
             [
                 'comments' => $comments,
                 'self' => $self,

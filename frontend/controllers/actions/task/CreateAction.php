@@ -1,18 +1,16 @@
 <?php
 
-
 namespace frontend\controllers\actions\task;
 
-
 use frontend\components\TasksComponent;
+use frontend\components\widgets\tasks\OneTaskViewWidget;
 use frontend\models\Tasks;
-use frontend\models\User;
 use yii\base\Action;
-use yii\bootstrap\ActiveForm;
 use yii\web\HttpException;
 use yii\web\Response;
 
-class CreateAction extends Action {
+class CreateAction extends Action
+{
     public $view;
 
     public function run() {
@@ -55,7 +53,7 @@ class CreateAction extends Action {
                 if ($task->repeat_created == 1) {
                     $newTask->nextRepeatDate = $comp->getNextRepeatDate($newTask);
                 }
-                return ['result' => true, 'task' => \frontend\widgets\tasks\OneTaskViewWidget::widget([
+                return ['result' => true, 'task' => OneTaskViewWidget::widget([
                     'task' => $newTask,
                     'repeatedTask' => $task->repeat_created == 1 ? true : false,
                     'nextPeriod' => $task->nextPeriod,

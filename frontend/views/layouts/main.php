@@ -87,7 +87,7 @@ http://iselfmade.ru
         <a class="header-logo-link" href="<?= Yii::$app->params['homeUrl_http'] ?>">
             <div class="header__logo">
                 <img src="img/logo.png" width="150" height="auto" alt="НОСОРОГ">
-                <p class="header-logo-text">i<span class="header-logo-text-self">self</span>made.ru</p>
+                <p class="header-logo-text">i<span class="header-logo-text-self">self</span>made.<span class="header-logo-text-self">online</span></p>
             </div>
         </a>
         <div class="header__button">

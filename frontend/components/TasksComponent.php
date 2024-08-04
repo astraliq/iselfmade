@@ -6,7 +6,7 @@ namespace frontend\components;
 use yii;
 use common\base\BaseComponent;
 use frontend\models\Tasks;
-use frontend\models\User;
+use common\models\User;
 use frontend\models\UsersReports;
 
 class TasksComponent extends BaseComponent {

@@ -4,7 +4,7 @@
 namespace frontend\controllers\actions\site;
 
 
-use frontend\models\User;
+use common\models\User;
 use yii\base\Action;
 
 class GradeResultAction extends Action {

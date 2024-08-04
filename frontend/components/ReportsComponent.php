@@ -163,14 +163,13 @@ class ReportsComponent extends BaseComponent {
 
     public function getUserReportsByDatesArr($dates) {
         $userId = \Yii::$app->user->getId();
-        $reports = UsersReports::find()
+        return UsersReports::find()
             ->where([
                 'date' => $dates,
                 'user_id' => $userId,
             ])
 //            ->select(['id', 'date', 'status'])
             ->all();
-        return $reports;
     }
 
     public function getLastReports($count) {

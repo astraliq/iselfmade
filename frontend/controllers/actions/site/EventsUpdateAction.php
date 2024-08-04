@@ -49,7 +49,6 @@ class EventsUpdateAction extends Action {
         echo "retry:15000\n\n"; // указывает серверу через какое кол-во миллисекунд выполнять переподключение в случае разрыва соединения
 
         while ($limitCounter < $limitEvents) {
-
             $newComments = $compComments->getNewComments();
             $sendData = [];
             $sendData['count'] = $newComments ? count($newComments) : 0;
@@ -67,8 +66,7 @@ class EventsUpdateAction extends Action {
             echo "data: {$sendData}\n";
             echo "id: {$idCounter}\n\n";
 
-//                echo ": keep connection\n\n";
-
+//            echo ": keep connection\n\n";
             // Прерывание цикла, если клиент прервал соединение
             if (connection_aborted()) break;
 

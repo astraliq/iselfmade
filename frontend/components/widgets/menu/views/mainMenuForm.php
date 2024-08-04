@@ -1,11 +1,7 @@
 <?php
 
-use frontend\components\widgets\Alert;
+use yii\bootstrap5\Nav;
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
-use frontend\assets\AppAsset;
 
 /* @var $this \yii\web\View */
 /* @var $user  */
@@ -15,16 +11,16 @@ use frontend\assets\AppAsset;
 echo Nav::widget([
     'options' => ['class' => 'user_menu__items'],
     'items' => [
-        (['label' => 'Профиль',
+        ['label' => 'Профиль',
             'url' => ['/profile'],
             'options' => ['class' => 'user_menu__option'],
             'linkOptions' => ['class' => 'user_menu__item'],
-        ]),
-        (['label' => 'Помощь',
+        ],
+        ['label' => 'Помощь',
             'url' => ['/help'],
             'options' => ['class' => 'user_menu__option'],
             'linkOptions' => ['class' => 'user_menu__item'],
-        ]),
+        ],
         (
             '<li class="user_menu__option">'
             . Html::beginForm(['/site/logout'], 'post')
@@ -37,4 +33,3 @@ echo Nav::widget([
         ),
     ],
 ]);
-?>

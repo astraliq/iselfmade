@@ -10,6 +10,7 @@ if ($disabled) {
 } else {
     $disabled_text = '';
 }
+
 ?>
 
 <div class="tasks__list" id="tasks__list-<?=$block_id?>" data-type="<?=$type_id?>" data-next_period="<?=$nextPeriod?>">
@@ -61,16 +62,14 @@ if ($disabled) {
             }
         }
         if (!$disabled) {
-            echo \frontend\components\widgets\tasks\OneTaskViewWidget::widget(
-                [
-                    'task' => '',
-                    'type_id' => $type_id,
-                    'nextPeriod' => $nextPeriod,
-                    'newTask' => 1,
-                    'repeatedTask' => false,
-                    'disabled' => $disabled,
-                ]
-            );
+            echo \frontend\components\widgets\tasks\OneTaskViewWidget::widget([
+                'task' => null,
+                'type_id' => $type_id,
+                'nextPeriod' => $nextPeriod,
+                'newTask' => 1,
+                'repeatedTask' => false,
+                'disabled' => $disabled,
+            ]);
         }
         ?>
     </ol>

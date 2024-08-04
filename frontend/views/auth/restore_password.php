@@ -3,7 +3,7 @@
 $this->title = 'Авторизация';
 $this->params['breadcrumbs'][] = $this->title;
 /* @var $this \yii\web\View */
-/* @var $model \app\models\Users */
+/* @var $model \common\models\User */
 ?>
 
 <div class="restore-block">

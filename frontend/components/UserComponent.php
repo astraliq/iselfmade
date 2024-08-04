@@ -5,7 +5,7 @@ namespace frontend\components;
 
 
 use common\base\BaseComponent;
-use frontend\models\User;
+use common\models\User;
 use yii\web\Cookie;
 use yii\web\UploadedFile;
 
