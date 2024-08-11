@@ -16,6 +16,7 @@ use yii\helpers\Html;
 if ($grade) {
     $gradeText = 'Оценка наставника: ';
 } else {
+    $gradeText = '';
     $grade ='';
 }
 

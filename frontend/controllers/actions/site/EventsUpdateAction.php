@@ -41,8 +41,8 @@ class EventsUpdateAction extends Action {
 //        @ini_set('output_handler', '');
 //        @ini_set('implicit_flush','On');
 
-        $updateInterval = 2; // интервал обновления в секундах
-        $limitEvents = 3600 / $updateInterval * 3; // лимит соединения, часов
+        $updateInterval = 5; // интервал обновления в секундах
+        $limitEvents = 60 * (60 / $updateInterval); // лимит соединения, час
         $limitCounter = 1;
         $compComments = \Yii::createObject(['class' => ReportCommentsComponent::class,'modelClass' => ReportComments::class]);
         $idCounter = 0;

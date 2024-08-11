@@ -134,7 +134,7 @@ $typeId = $newTask == 1 ? $type_id : $task->type_id;
             echo '<button class="check_btn icon-' . $check . '"></button>';
         }
         if ($newTask == 0 && !$disabled) {
-            echo '<button class="delete_btn" data-id="' . $task->id . '">+</button>';
+            echo '<button class="delete_btn" data-id="' . $task->id . '" title="Удалить задачу">+</button>';
         }
         if ($repeatedTask) {
             echo '<p class="next_repeat_date_row">Следующий повтор: <span class="next_repeat_date" id="repeated-' . $task->id . '" data-id="' . $task->id . '">' . $task->nextRepeatDate . '</span></p>';

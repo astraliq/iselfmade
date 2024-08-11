@@ -28,7 +28,7 @@ $month = \Yii::$app->params['monthsImenit'][\Yii::$app->formatter->asDate(date('
                     'type_id' => 3,
                     'model' => $model,
                     'nextPeriod' => 0,
-                    'renewLast' => $renewGoals,
+                    'renewLast' => $renewGoals ?? null,
                     'block_id' => 4,
                     'disabled' => false,
                 ]); ?>
@@ -39,7 +39,7 @@ $month = \Yii::$app->params['monthsImenit'][\Yii::$app->formatter->asDate(date('
                     'type_id' => 2,
                     'model' => $model,
                     'nextPeriod' => 0,
-                    'renewLast' => $renewAims,
+                    'renewLast' => $renewAims ?? null,
                     'block_id' => 3,
                     'disabled' => false,
                 ]); ?>

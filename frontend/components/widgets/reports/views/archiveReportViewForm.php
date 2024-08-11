@@ -7,7 +7,7 @@
 /* @var $grade  */
 $files = '';
 
-if ($report->files) {
+if ($report && $report->files) {
     $uploadedFiles = explode('/', $report->files);
     foreach ($uploadedFiles as $file) {
         $files .= '<img class="input_img" src="/users/report_files/' . $self->id . '/' . $file . '" alt="' . $file . '" title="' . $file . '" data-name="' . $file . '" data-user_id="' . $userId . '">';

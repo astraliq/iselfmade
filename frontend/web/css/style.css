@@ -1788,16 +1788,29 @@ section .show-end {
 }
 
 .user_profile {
-  width: 300px;
+  width: 100%;
 }
 .user_profile option {
-  font-size: 13px;
+  font-size: 16px;
+}
+.user_profile button {
+  font-size: 16px;
 }
 
 .user_profile-curator {
   margin: 10px 0 0 0;
   padding: 10px 0 0 0;
   position: relative;
+  width: 40%;
+}
+.user_profile-curator label {
+  font-size: 18px;
+}
+.user_profile-curator input {
+  font-size: 18px;
+}
+.user_profile-curator .form-control {
+  font-size: 18px;
 }
 
 .user_profile-psw {
@@ -2421,4 +2434,8 @@ button:active {
 .disabled_repeat {
   color: #c2ddff !important;
   border-color: #c2ddff !important;
+}
+
+.row {
+  width: 100%;
 }

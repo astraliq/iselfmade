@@ -40,11 +40,11 @@ if (!$user->mentor_email) {
         <div class="user_profile-curator">
             <?=$form->field($user,'mentor_email')->input('text',['class' => 'form-control curators_emails']);?>
             <span class="<?=$confirmCuratorClass?>" id="curators_emails_confirm"></span>
-            <button class="<?=$confirmCuratorBtnClass?>" id="curators_emails_btn_conf" <?=$confirmCuratorBtnActive?>>Подтвердить</button>
+            <button class="<?=$confirmCuratorBtnClass?>" id="curators_emails_btn_conf" <?=$confirmCuratorBtnActive ?? null?>>Подтвердить</button>
             <?=$form->field($user,'mentor_email_repeat')->dropDownList($user::REPEAT_CURATOR, ['options' => [ '1' => ['Selected' => true]], 'autocomplete' => 'sex']);?>
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <button type="submit" class="btn btn-primary btn-lg">Сохранить</button>
         </div>
         <?php \kartik\form\ActiveForm::end(); ?>
     </div>

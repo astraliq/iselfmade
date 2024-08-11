@@ -2031,9 +2031,12 @@ section {
 }
 
 .user_profile {
-    width: 300px;
+    width: 100%;
     & option {
-        font-size: 13px;
+        font-size: 16px;
+    }
+    button {
+        font-size: 16px;
     }
 }
 
@@ -2041,6 +2044,16 @@ section {
     margin: 10px 0 0 0;
     padding: 10px 0 0 0;
     position: relative;
+    width: 40%;
+    label {
+        font-size: 18px;
+    }
+    input {
+        font-size: 18px;
+    }
+    .form-control {
+        font-size: 18px;
+    }
 }
 
 .user_profile-psw {
@@ -2729,5 +2742,8 @@ button {
     border-color: $color-blue-disabled !important;
 }
 
+.row {
+    width: 100%;
+}
 
 
