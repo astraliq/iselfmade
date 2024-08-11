@@ -39,5 +39,8 @@ phpunit.phar
 /backend/web/index-test.php
 /backend/web/robots.txt
 
+# ignore generated files
+/frontend/web/.htaccess
+
 public_html
 .env
