@@ -32,7 +32,7 @@ class GetMonthsArchiveDataAction extends Action {
         $today = date('d.m.Y');
         $unixToday = strtotime($today);
         $date = \Yii::$app->request->post()['date'] ?? null;
-        $unixDate = strtotime($date);
+        $unixDate = $date ? strtotime($date) : null;
 
         $month++;
 
