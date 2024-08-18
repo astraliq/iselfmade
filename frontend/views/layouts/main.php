@@ -112,16 +112,24 @@ http://iselfmade.ru
                 'validateOnBlur' => false,
                 'validateOnChange' => true,
                 'enableAjaxValidation' => true,
-//                    'enableClientValidation' => true,
-//                    'validationUrl' => '/auth/validate-sign-in',
+                'enableClientValidation' => true,
+                'validationUrl' => '/auth/validate-sign-in',
                 'action' => '/auth/sign-in',
                 'options' => [
                     'id' => 'form-login',
                     'class' => 'modal__form'
                 ]
             ]); ?>
-            <?=$form->field($this->params['signIn'],'email',['validateOnChange' => false])->textInput(['class' => 'modal__input', 'id' => 'login-user-email', 'type' => 'email', 'autocomplete' => 'username'])->error(false)?>
-            <?=$form->field($this->params['signIn'],'password')->passwordInput(['class' => 'modal__input', 'id' => 'login-user-password', 'type' => 'password', 'autocomplete' => 'current-password'])?>
+            <?=$form->field($this->params['signIn'],'email',['validateOnChange' => false])->textInput([
+                'class' => 'modal__input',
+                'type' => 'email',
+                'autocomplete' => 'username'
+            ])->error(false)?>
+            <?=$form->field($this->params['signIn'],'password')->passwordInput([
+                'class' => 'modal__input',
+                'type' => 'password',
+                'autocomplete' => 'current-password'
+            ])?>
             <div class="modal__sub">
                 <button type="submit" class="modal__btn">Войти</button>
                 <a class="modal__link" id="remind">Напомнить пароль</a>
