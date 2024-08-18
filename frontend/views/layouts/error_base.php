@@ -39,7 +39,7 @@ AppAsset::register($this);
   ¶¶¶  ¶¶¶¶         ¶¶¶   ¶¶¶
  1¶¶¶1  111         ¶¶¶1  ¶¶¶¶¶
                     ¶¶¶¶¶ 1¶¶¶¶
-http://iselfmade.ru
+http://iselfmade.online
 -->
 <html lang="<?= Yii::$app->language ?>">
 <head>
@@ -91,7 +91,7 @@ http://iselfmade.ru
             <a class="header-logo-link" href="<?= Yii::$app->params['homeUrl_http'] ?>">
                 <div class="header__logo">
                     <img src="/img/logo.png" width="150" height="auto" alt="НОСОРОГ">
-                    <p class="header-logo-text">i<span class="header-logo-text-self">self</span>made.ru</p>
+                    <p class="header-logo-text">i<span class="header-logo-text-self">self</span>made.<span class="header-logo-text-self">online</span></p>
                 </div>
             </a>
             <h1 class="header__title2">&laquo;НОСОРОГ&raquo; &#151; система достижения целей, помогающая дойти&nbspдо&nbspконца</h1>

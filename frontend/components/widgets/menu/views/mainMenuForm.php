@@ -25,7 +25,7 @@ echo Nav::widget([
             '<li class="user_menu__option">'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
-                'Выход (' . $user->email . ')',
+                'Выход',
                 ['class' => 'btn btn-link logout']
             )
             . Html::endForm()

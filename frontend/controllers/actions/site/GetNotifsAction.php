@@ -5,9 +5,7 @@ namespace frontend\controllers\actions\site;
 
 
 use frontend\components\NotificationsComponent;
-use frontend\components\ReportCommentsComponent;
-use frontend\models\ReportComments;
-use frontend\widgets\notification\NotificationsWidget;
+use frontend\components\widgets\notification\NotificationsWidget;
 use yii\base\Action;
 use yii\base\InvalidConfigException;
 use yii\web\HttpException;

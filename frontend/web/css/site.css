@@ -90,6 +90,15 @@ a.desc:after {
     margin: 0 0 15px 0;
 }
 
+.user_menu .nav {
+    flex-direction: column;
+    text-align: right;
+}
+
+.user_menu .nav .user_menu__option:hover {
+    background-color: whitesmoke;
+}
+
 /* align the logout "link" (button in form) of the navbar */
 .nav li > form > button.logout {
     padding: 15px;

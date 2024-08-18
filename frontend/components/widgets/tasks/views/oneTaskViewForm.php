@@ -147,8 +147,8 @@ $typeId = $newTask == 1 ? $type_id : $task->type_id;
                         <label for="private_id"><?=$privateSet?>:</label>
                     </div>
                     <select name="private_id" class="private_id">
-                        <option value="1" <?=$privateSelect[1]?>>Нет</option>
-                        <option value="2" <?=$privateSelect[2]??null?>>Да</option>
+                        <option value="1" <?=$privateSelect[1] ?? null?>>Нет</option>
+                        <option value="2" <?=$privateSelect[2] ?? null?>>Да</option>
                     </select>
                 </div>
 

@@ -365,10 +365,9 @@ input[type=checkbox]:focus {
 }
 .user_menu button:hover {
   text-decoration: none;
-  background-color: #eeeeee;
 }
 .user_menu__block {
-  width: 230px;
+  width: 200px;
   max-height: 550px;
   position: absolute;
   height: auto;
@@ -1037,9 +1036,9 @@ input[type=checkbox]:focus {
 
 .impress__text {
   width: 500px;
-  min-height: 70px;
+  min-height: 90px;
   border: 1px solid #609df8;
-  border-radius: 10px;
+  border-radius: 10px 0 0 10px;
   outline: none;
   -moz-appearance: none;
   padding: 10px;
@@ -1681,10 +1680,11 @@ section .show-end {
   margin: 0 20px 0 15px;
 }
 
+.profile_form select,
+.profile_form input,
 .profile_form label {
   font-family: "Barlow", sans-serif;
-  font-size: 12px;
-  font-weight: 200;
+  font-size: 16px;
 }
 
 .email_confirmation {
@@ -1788,7 +1788,7 @@ section .show-end {
 }
 
 .user_profile {
-  width: 100%;
+  width: 30%;
 }
 .user_profile option {
   font-size: 16px;

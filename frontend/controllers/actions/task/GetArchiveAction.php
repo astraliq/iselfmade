@@ -3,16 +3,13 @@
 
 namespace frontend\controllers\actions\task;
 
-
 use frontend\components\ReportCommentsComponent;
 use frontend\components\ReportsComponent;
 use frontend\components\TasksComponent;
-use frontend\components\UserComponent;
+use frontend\components\widgets\reports\ArchiveReportWidget;
 use frontend\models\ReportComments;
 use frontend\models\Tasks;
 use frontend\models\UsersReports;
-use frontend\widgets\reports\ArchiveReportWidget;
-use frontend\widgets\tasks\ArchiveTasksWidget;
 use yii\base\Action;
 use yii\web\HttpException;
 use yii\web\Response;
@@ -56,11 +53,11 @@ class GetArchiveAction extends Action {
 
         $dateUTC = (new \DateTime(date($date)))->format('Y-m-d');
         $archiveTasks = $comp->getArchiveTasksByDate($date, 1);
-        $reportsModel = new UsersReports();
-        $mentorGrade = $reportsModel->findOne(['user_id' => \Yii::$app->user->getId(), 'date' => $dateUTC])->mentor_grade;
+        $reportsModel = (new UsersReports())->findOne(['user_id' => \Yii::$app->user->getId(), 'date' => $dateUTC]);
+        $mentorGrade = $reportsModel?->mentor_grade;
 
-        $report = $compReports->getUserReportsByDatesArr($dateUTC)[0];
-        $comments = $compComments->getReportCommentsByReportID($report->id);
+        $report = $compReports->getUserReportsByDatesArr($dateUTC)[0] ?? null;
+        $comments = $compComments->getReportCommentsByReportID($report?->id);
         $compComments->updateViews($comments);
 
         if ($archiveTasks) {

@@ -9,11 +9,11 @@ use common\base\BaseComponent;
 class EncryptComponent extends BaseComponent {
 
     public function encryptData($data, $key1, $key2, $randomKey, $key3) {
-        return utf8_encode(\Yii::$app->security->encryptByKey( $data, $this->genSecret($key1, $key2, $dateKey, $key3)));
+        return utf8_encode(\Yii::$app->security->encryptByKey( $data, $this->genSecret($key1, $key2, $randomKey, $key3)));
     }
 
     public function expandData($data, $key1, $key2, $randomKey, $key3) {
-        return \Yii::$app->security->decryptByKey(utf8_decode($data), $this->genSecret($key1, $key2, $dateKey, $key3));
+        return \Yii::$app->security->decryptByKey(utf8_decode($data), $this->genSecret($key1, $key2, $randomKey, $key3));
     }
 
     private function genSecret($key1, $key2, $randomKey, $key3) {

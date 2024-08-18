@@ -12,7 +12,7 @@ return [
             'cookieValidationKey' => 'test',
         ],
         'mailer' => [
-            'messageClass' => \yii\symfonymailer\Message::class
+            'class' => 'yii\swiftmailer\Mailer',
         ]
     ],
 ];

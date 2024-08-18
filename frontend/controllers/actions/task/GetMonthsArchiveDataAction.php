@@ -3,11 +3,8 @@
 
 namespace frontend\controllers\actions\task;
 
-
 use frontend\components\TasksComponent;
 use frontend\models\Tasks;
-use frontend\models\UsersReports;
-use frontend\widgets\tasks\ArchiveTasksWidget;
 use yii\base\Action;
 use yii\web\HttpException;
 use yii\web\Response;

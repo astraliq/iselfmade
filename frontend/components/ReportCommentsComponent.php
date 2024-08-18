@@ -24,7 +24,7 @@ class ReportCommentsComponent extends BaseComponent {
      * @param $reportId
      * @return UsersReports|array|\yii\db\ActiveRecord|null
      */
-    public function getReportCommentsByReportID($reportId) {
+    public function getReportCommentsByReportID(?int $reportId) {
 //        $todayUTC = date('Y-m-d');
         $comments = ReportComments::find()
             ->where([

@@ -40,7 +40,7 @@ $userRole = current(\Yii::$app->authManager->getRolesByUser(\Yii::$app->user->ge
   ¶¶¶  ¶¶¶¶         ¶¶¶   ¶¶¶
  1¶¶¶1  111         ¶¶¶1  ¶¶¶¶¶
                     ¶¶¶¶¶ 1¶¶¶¶
-http://iselfmade.ru
+http://iselfmade.online
 -->
 <html lang="<?= Yii::$app->language ?>">
 <head>
@@ -104,8 +104,9 @@ http://iselfmade.ru
                 ])?>
             </div>
         </span>
-        <div class="user_menu">
+        <div class="user_menu" id="user_menu_block">
             <img class="user__img" id="user__img" src="<?= Html::encode($avatarImage) ?>" width="40" height="40" alt="Моё фото">
+            <span style="font-size: 14px; font-weight: 600; margin: 0 0 0 10px;"><?= Yii::$app->user->identity->email ?></span>
             <div class="user_menu__block invisible d-none" id="user_menu">
                 <?php echo \frontend\components\widgets\menu\MainMenuWidget::widget([
                     'user' => $this->params['user'],

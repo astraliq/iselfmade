@@ -44,3 +44,4 @@ phpunit.phar
 
 public_html
 .env
+/frontend/web/users/

@@ -104,6 +104,7 @@ return [
                 'mentor'=>'user/mentor/',
                 'statistics'=>'user/statistics/',
                 'policy'=>'site/policy/',
+                'php-info'=>'site/php-info',
                 [
                     'class'=>yii\rest\UrlRule::class,
                     'controller'=>'user-rest-api',

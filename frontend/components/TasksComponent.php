@@ -1219,7 +1219,7 @@ class TasksComponent extends BaseComponent {
         if ($month == date('m') && $year == date('Y')) {
             $lastNumb = date('d');
         } else {
-            $lastNumb = date('t', $date1);
+            $lastNumb = date('t', strtotime($date1));
         }
         $date2 = $lastNumb . '.' . $monthNumb . '.' . $year;
 

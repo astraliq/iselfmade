@@ -135,4 +135,11 @@ class SiteController extends BaseController {
         ]);
     }
 
+    public function actionPhpInfo() {
+        echo "<pre>";
+        print_r(phpinfo());
+        echo "</pre>";
+        exit();
+    }
+
 }

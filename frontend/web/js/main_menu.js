@@ -158,11 +158,11 @@ class UserMenu extends Update{
     constructor(props) {
         super(props);
         this.userMenuID = 'user_menu';
-        this.userImgID = 'user__img';
+        this.userMenuBlock = 'user_menu_block';
     }
 
     init() {
-        let ava = document.getElementById(this.userImgID);
+        let ava = document.getElementById(this.userMenuBlock);
         if (ava) {
             ava.addEventListener('click', (e) => {
                 this.getNotifs(this.userMenuID);
